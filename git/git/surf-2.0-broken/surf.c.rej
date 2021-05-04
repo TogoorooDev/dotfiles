@@ -1,0 +1,22 @@
+--- surf.c
++++ surf.c
+@@ -205,10 +205,6 @@ static void decidenewwindow(WebKitPolicyDecision *d, Client *c);
+ static void decideresource(WebKitPolicyDecision *d, Client *c);
+ static void insecurecontent(WebKitWebView *v, WebKitInsecureContentEvent e,
+                             Client *c);
+-static void downloadstarted(WebKitWebContext *wc, WebKitDownload *d,
+-                            Client *c);
+-static void responsereceived(WebKitDownload *d, GParamSpec *ps, Client *c);
+-static void download(Client *c, WebKitURIResponse *r);
+ static void webprocessterminated(WebKitWebView *v,
+                                  WebKitWebProcessTerminationReason r,
+                                  Client *c);
+@@ -351,6 +358,8 @@ setup(void)
+ 	scriptfile = buildfile(scriptfile);
+ 	cachedir   = buildpath(cachedir);
+ 	certdir    = buildpath(certdir);
++	dlstatus   = buildpath(dlstatus);
++	dldir      = buildpath(dldir);
+ 
+ 	gdkkb = gdk_seat_get_keyboard(gdk_display_get_default_seat(gdpy));
+ 

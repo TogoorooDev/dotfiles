@@ -1,0 +1,349 @@
+In file included from /usr/include/webkitgtk-4.0/jsc/jsc.h:25,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCClass.h:37:26: warning: redefinition of typedef ‘JSCClass’ [-Wpedantic]
+   37 | typedef struct _JSCClass JSCClass;
+      |                          ^~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/JSCClass.h:29,
+                 from /usr/include/webkitgtk-4.0/jsc/jsc.h:25,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCValue.h:43:26: note: previous declaration of ‘JSCClass’ was here
+   43 | typedef struct _JSCClass JSCClass;
+      |                          ^~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/jsc.h:25,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCClass.h:40:28: warning: redefinition of typedef ‘JSCContext’ [-Wpedantic]
+   40 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/JSCClass.h:29,
+                 from /usr/include/webkitgtk-4.0/jsc/jsc.h:25,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCValue.h:44:28: note: previous declaration of ‘JSCContext’ was here
+   44 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/JSCContext.h:29,
+                 from /usr/include/webkitgtk-4.0/jsc/jsc.h:26,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCException.h:43:28: warning: redefinition of typedef ‘JSCContext’ [-Wpedantic]
+   43 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/jsc.h:25,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCClass.h:40:28: note: previous declaration of ‘JSCContext’ was here
+   40 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/jsc.h:26,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCContext.h:43:28: warning: redefinition of typedef ‘JSCContext’ [-Wpedantic]
+   43 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/jsc/JSCContext.h:29,
+                 from /usr/include/webkitgtk-4.0/jsc/jsc.h:26,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitJavascriptResult.h:28,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:57,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/jsc/JSCException.h:43:28: note: previous declaration of ‘JSCContext’ was here
+   43 | typedef struct _JSCContext JSCContext;
+      |                            ^~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:82,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/webkit2/WebKitUserContentFilterStore.h:49:53: warning: redefinition of typedef ‘WebKitUserContentFilter’ [-Wpedantic]
+   49 | typedef struct _WebKitUserContentFilter             WebKitUserContentFilter;
+      |                                                     ^~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/webkitgtk-4.0/webkit2/WebKitUserContentManager.h:29,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitWebView.h:52,
+                 from /usr/include/webkitgtk-4.0/webkit2/WebKitPrintOperation.h:30,
+                 from /usr/include/webkitgtk-4.0/webkit2/webkit2.h:71,
+                 from surf.c:26:
+/usr/include/webkitgtk-4.0/webkit2/WebKitUserContent.h:141:41: note: previous declaration of ‘WebKitUserContentFilter’ was here
+  141 | typedef struct _WebKitUserContentFilter WebKitUserContentFilter;
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~
+In file included from surf.c:248:
+config.h:13:1: error: expected expression before ‘static’
+   13 | static Parameter defconfig[ParameterLast] = {
+      | ^~~~~~
+surf.c:149:13: warning: ‘usage’ declared ‘static’ but never defined [-Wunused-function]
+  149 | static void usage(void);
+      |             ^~~~~
+surf.c:150:13: warning: ‘die’ declared ‘static’ but never defined [-Wunused-function]
+  150 | static void die(const char *errstr, ...);
+      |             ^~~
+surf.c:151:13: warning: ‘setup’ declared ‘static’ but never defined [-Wunused-function]
+  151 | static void setup(void);
+      |             ^~~~~
+surf.c:152:13: warning: ‘sigchld’ declared ‘static’ but never defined [-Wunused-function]
+  152 | static void sigchld(int unused);
+      |             ^~~~~~~
+surf.c:153:13: warning: ‘sighup’ declared ‘static’ but never defined [-Wunused-function]
+  153 | static void sighup(int unused);
+      |             ^~~~~~
+surf.c:154:14: warning: ‘buildfile’ declared ‘static’ but never defined [-Wunused-function]
+  154 | static char *buildfile(const char *path);
+      |              ^~~~~~~~~
+surf.c:155:14: warning: ‘buildpath’ declared ‘static’ but never defined [-Wunused-function]
+  155 | static char *buildpath(const char *path);
+      |              ^~~~~~~~~
+surf.c:156:20: warning: ‘getuserhomedir’ declared ‘static’ but never defined [-Wunused-function]
+  156 | static const char *getuserhomedir(const char *user);
+      |                    ^~~~~~~~~~~~~~
+surf.c:157:20: warning: ‘getcurrentuserhomedir’ declared ‘static’ but never defined [-Wunused-function]
+  157 | static const char *getcurrentuserhomedir(void);
+      |                    ^~~~~~~~~~~~~~~~~~~~~
+surf.c:158:16: warning: ‘newclient’ declared ‘static’ but never defined [-Wunused-function]
+  158 | static Client *newclient(Client *c);
+      |                ^~~~~~~~~
+surf.c:159:13: warning: ‘loaduri’ declared ‘static’ but never defined [-Wunused-function]
+  159 | static void loaduri(Client *c, const Arg *a);
+      |             ^~~~~~~
+surf.c:160:20: warning: ‘geturi’ declared ‘static’ but never defined [-Wunused-function]
+  160 | static const char *geturi(Client *c);
+      |                    ^~~~~~
+surf.c:161:13: warning: ‘setatom’ declared ‘static’ but never defined [-Wunused-function]
+  161 | static void setatom(Client *c, int a, const char *v);
+      |             ^~~~~~~
+surf.c:162:20: warning: ‘getatom’ declared ‘static’ but never defined [-Wunused-function]
+  162 | static const char *getatom(Client *c, int a);
+      |                    ^~~~~~~
+surf.c:163:13: warning: ‘updatetitle’ declared ‘static’ but never defined [-Wunused-function]
+  163 | static void updatetitle(Client *c);
+      |             ^~~~~~~~~~~
+surf.c:164:13: warning: ‘gettogglestats’ declared ‘static’ but never defined [-Wunused-function]
+  164 | static void gettogglestats(Client *c);
+      |             ^~~~~~~~~~~~~~
+surf.c:165:13: warning: ‘getpagestats’ declared ‘static’ but never defined [-Wunused-function]
+  165 | static void getpagestats(Client *c);
+      |             ^~~~~~~~~~~~
+surf.c:166:33: warning: ‘cookiepolicy_get’ declared ‘static’ but never defined [-Wunused-function]
+  166 | static WebKitCookieAcceptPolicy cookiepolicy_get(void);
+      |                                 ^~~~~~~~~~~~~~~~
+surf.c:167:13: warning: ‘cookiepolicy_set’ declared ‘static’ but never defined [-Wunused-function]
+  167 | static char cookiepolicy_set(const WebKitCookieAcceptPolicy p);
+      |             ^~~~~~~~~~~~~~~~
+surf.c:168:13: warning: ‘seturiparameters’ declared ‘static’ but never defined [-Wunused-function]
+  168 | static void seturiparameters(Client *c, const char *uri);
+      |             ^~~~~~~~~~~~~~~~
+surf.c:169:13: warning: ‘setparameter’ declared ‘static’ but never defined [-Wunused-function]
+  169 | static void setparameter(Client *c, int refresh, ParamName p, const Arg *a);
+      |             ^~~~~~~~~~~~
+surf.c:170:20: warning: ‘getstyle’ declared ‘static’ but never defined [-Wunused-function]
+  170 | static const char *getstyle(const char *uri);
+      |                    ^~~~~~~~
+surf.c:171:13: warning: ‘setstyle’ declared ‘static’ but never defined [-Wunused-function]
+  171 | static void setstyle(Client *c, const char *stylefile);
+      |             ^~~~~~~~
+surf.c:172:13: warning: ‘runscript’ declared ‘static’ but never defined [-Wunused-function]
+  172 | static void runscript(Client *c);
+      |             ^~~~~~~~~
+surf.c:173:13: warning: ‘evalscript’ declared ‘static’ but never defined [-Wunused-function]
+  173 | static void evalscript(Client *c, const char *jsstr, ...);
+      |             ^~~~~~~~~~
+surf.c:174:13: warning: ‘updatewinid’ declared ‘static’ but never defined [-Wunused-function]
+  174 | static void updatewinid(Client *c);
+      |             ^~~~~~~~~~~
+surf.c:175:13: warning: ‘handleplumb’ declared ‘static’ but never defined [-Wunused-function]
+  175 | static void handleplumb(Client *c, const char *uri);
+      |             ^~~~~~~~~~~
+surf.c:176:13: warning: ‘newwindow’ declared ‘static’ but never defined [-Wunused-function]
+  176 | static void newwindow(Client *c, const Arg *a, int noembed);
+      |             ^~~~~~~~~
+surf.c:177:13: warning: ‘spawn’ declared ‘static’ but never defined [-Wunused-function]
+  177 | static void spawn(Client *c, const Arg *a);
+      |             ^~~~~
+surf.c:178:13: warning: ‘destroyclient’ declared ‘static’ but never defined [-Wunused-function]
+  178 | static void destroyclient(Client *c);
+      |             ^~~~~~~~~~~~~
+surf.c:179:13: warning: ‘cleanup’ declared ‘static’ but never defined [-Wunused-function]
+  179 | static void cleanup(void);
+      |             ^~~~~~~
+surf.c:182:23: warning: ‘newview’ declared ‘static’ but never defined [-Wunused-function]
+  182 | static WebKitWebView *newview(Client *c, WebKitWebView *rv);
+      |                       ^~~~~~~
+surf.c:183:13: warning: ‘initwebextensions’ declared ‘static’ but never defined [-Wunused-function]
+  183 | static void initwebextensions(WebKitWebContext *wc, Client *c);
+      |             ^~~~~~~~~~~~~~~~~
+surf.c:184:19: warning: ‘createview’ declared ‘static’ but never defined [-Wunused-function]
+  184 | static GtkWidget *createview(WebKitWebView *v, WebKitNavigationAction *a,
+      |                   ^~~~~~~~~~
+surf.c:186:17: warning: ‘buttonreleased’ declared ‘static’ but never defined [-Wunused-function]
+  186 | static gboolean buttonreleased(GtkWidget *w, GdkEvent *e, Client *c);
+      |                 ^~~~~~~~~~~~~~
+surf.c:187:24: warning: ‘processx’ declared ‘static’ but never defined [-Wunused-function]
+  187 | static GdkFilterReturn processx(GdkXEvent *xevent, GdkEvent *event,
+      |                        ^~~~~~~~
+surf.c:189:17: warning: ‘winevent’ declared ‘static’ but never defined [-Wunused-function]
+  189 | static gboolean winevent(GtkWidget *w, GdkEvent *e, Client *c);
+      |                 ^~~~~~~~
+surf.c:190:13: warning: ‘showview’ declared ‘static’ but never defined [-Wunused-function]
+  190 | static void showview(WebKitWebView *v, Client *c);
+      |             ^~~~~~~~
+surf.c:191:19: warning: ‘createwindow’ declared ‘static’ but never defined [-Wunused-function]
+  191 | static GtkWidget *createwindow(Client *c);
+      |                   ^~~~~~~~~~~~
+surf.c:192:13: warning: ‘loadchanged’ declared ‘static’ but never defined [-Wunused-function]
+  192 | static void loadchanged(WebKitWebView *v, WebKitLoadEvent e, Client *c);
+      |             ^~~~~~~~~~~
+surf.c:193:13: warning: ‘progresschanged’ declared ‘static’ but never defined [-Wunused-function]
+  193 | static void progresschanged(WebKitWebView *v, GParamSpec *ps, Client *c);
+      |             ^~~~~~~~~~~~~~~
+surf.c:194:13: warning: ‘titlechanged’ declared ‘static’ but never defined [-Wunused-function]
+  194 | static void titlechanged(WebKitWebView *view, GParamSpec *ps, Client *c);
+      |             ^~~~~~~~~~~~
+surf.c:195:13: warning: ‘mousetargetchanged’ declared ‘static’ but never defined [-Wunused-function]
+  195 | static void mousetargetchanged(WebKitWebView *v, WebKitHitTestResult *h,
+      |             ^~~~~~~~~~~~~~~~~~
+surf.c:197:17: warning: ‘permissionrequested’ declared ‘static’ but never defined [-Wunused-function]
+  197 | static gboolean permissionrequested(WebKitWebView *v,
+      |                 ^~~~~~~~~~~~~~~~~~~
+surf.c:199:17: warning: ‘decidepolicy’ declared ‘static’ but never defined [-Wunused-function]
+  199 | static gboolean decidepolicy(WebKitWebView *v, WebKitPolicyDecision *d,
+      |                 ^~~~~~~~~~~~
+surf.c:201:13: warning: ‘decidenavigation’ declared ‘static’ but never defined [-Wunused-function]
+  201 | static void decidenavigation(WebKitPolicyDecision *d, Client *c);
+      |             ^~~~~~~~~~~~~~~~
+surf.c:202:13: warning: ‘decidenewwindow’ declared ‘static’ but never defined [-Wunused-function]
+  202 | static void decidenewwindow(WebKitPolicyDecision *d, Client *c);
+      |             ^~~~~~~~~~~~~~~
+surf.c:203:13: warning: ‘decideresource’ declared ‘static’ but never defined [-Wunused-function]
+  203 | static void decideresource(WebKitPolicyDecision *d, Client *c);
+      |             ^~~~~~~~~~~~~~
+surf.c:204:13: warning: ‘downloadstarted’ declared ‘static’ but never defined [-Wunused-function]
+  204 | static void downloadstarted(WebKitWebContext *wc, WebKitDownload *d,
+      |             ^~~~~~~~~~~~~~~
+surf.c:206:13: warning: ‘responsereceived’ declared ‘static’ but never defined [-Wunused-function]
+  206 | static void responsereceived(WebKitDownload *d, GParamSpec *ps, Client *c);
+      |             ^~~~~~~~~~~~~~~~
+surf.c:207:13: warning: ‘download’ declared ‘static’ but never defined [-Wunused-function]
+  207 | static void download(Client *c, WebKitURIResponse *r);
+      |             ^~~~~~~~
+surf.c:208:13: warning: ‘closeview’ declared ‘static’ but never defined [-Wunused-function]
+  208 | static void closeview(WebKitWebView *v, Client *c);
+      |             ^~~~~~~~~
+surf.c:209:13: warning: ‘destroywin’ declared ‘static’ but never defined [-Wunused-function]
+  209 | static void destroywin(GtkWidget* w, Client *c);
+      |             ^~~~~~~~~~
+surf.c:210:15: warning: ‘parseuri’ declared ‘static’ but never defined [-Wunused-function]
+  210 | static gchar *parseuri(const gchar *uri);
+      |               ^~~~~~~~
+surf.c:213:13: warning: ‘pasteuri’ declared ‘static’ but never defined [-Wunused-function]
+  213 | static void pasteuri(GtkClipboard *clipboard, const char *text, gpointer d);
+      |             ^~~~~~~~
+surf.c:214:13: warning: ‘reload’ declared ‘static’ but never defined [-Wunused-function]
+  214 | static void reload(Client *c, const Arg *a);
+      |             ^~~~~~
+surf.c:215:13: warning: ‘print’ declared ‘static’ but never defined [-Wunused-function]
+  215 | static void print(Client *c, const Arg *a);
+      |             ^~~~~
+surf.c:216:13: warning: ‘clipboard’ declared ‘static’ but never defined [-Wunused-function]
+  216 | static void clipboard(Client *c, const Arg *a);
+      |             ^~~~~~~~~
+surf.c:217:13: warning: ‘zoom’ declared ‘static’ but never defined [-Wunused-function]
+  217 | static void zoom(Client *c, const Arg *a);
+      |             ^~~~
+surf.c:218:13: warning: ‘scroll’ declared ‘static’ but never defined [-Wunused-function]
+  218 | static void scroll(Client *c, const Arg *a);
+      |             ^~~~~~
+surf.c:219:13: warning: ‘navigate’ declared ‘static’ but never defined [-Wunused-function]
+  219 | static void navigate(Client *c, const Arg *a);
+      |             ^~~~~~~~
+surf.c:220:13: warning: ‘stop’ declared ‘static’ but never defined [-Wunused-function]
+  220 | static void stop(Client *c, const Arg *a);
+      |             ^~~~
+surf.c:221:13: warning: ‘toggle’ declared ‘static’ but never defined [-Wunused-function]
+  221 | static void toggle(Client *c, const Arg *a);
+      |             ^~~~~~
+surf.c:222:13: warning: ‘togglefullscreen’ declared ‘static’ but never defined [-Wunused-function]
+  222 | static void togglefullscreen(Client *c, const Arg *a);
+      |             ^~~~~~~~~~~~~~~~
+surf.c:223:13: warning: ‘togglecookiepolicy’ declared ‘static’ but never defined [-Wunused-function]
+  223 | static void togglecookiepolicy(Client *c, const Arg *a);
+      |             ^~~~~~~~~~~~~~~~~~
+surf.c:224:13: warning: ‘toggleinspector’ declared ‘static’ but never defined [-Wunused-function]
+  224 | static void toggleinspector(Client *c, const Arg *a);
+      |             ^~~~~~~~~~~~~~~
+surf.c:225:13: warning: ‘find’ declared ‘static’ but never defined [-Wunused-function]
+  225 | static void find(Client *c, const Arg *a);
+      |             ^~~~
+surf.c:228:13: warning: ‘clicknavigate’ declared ‘static’ but never defined [-Wunused-function]
+  228 | static void clicknavigate(Client *c, const Arg *a, WebKitHitTestResult *h);
+      |             ^~~~~~~~~~~~~
+surf.c:229:13: warning: ‘clicknewwindow’ declared ‘static’ but never defined [-Wunused-function]
+  229 | static void clicknewwindow(Client *c, const Arg *a, WebKitHitTestResult *h);
+      |             ^~~~~~~~~~~~~~
+surf.c:230:13: warning: ‘clickexternplayer’ declared ‘static’ but never defined [-Wunused-function]
+  230 | static void clickexternplayer(Client *c, const Arg *a, WebKitHitTestResult *h);
+      |             ^~~~~~~~~~~~~~~~~
+In file included from surf.c:248:
+config.h:9:21: warning: ‘searchengines’ defined but not used [-Wunused-variable]
+    9 | static SearchEngine searchengines[] = {
+      |                     ^~~~~~~~~~~~~
+config.h:7:14: warning: ‘cookiefile’ defined but not used [-Wunused-variable]
+    7 | static char *cookiefile     = "~/.surf/cookies.txt";
+      |              ^~~~~~~~~~
+config.h:6:14: warning: ‘cachedir’ defined but not used [-Wunused-variable]
+    6 | static char *cachedir       = "~/.surf/cache/";
+      |              ^~~~~~~~
+config.h:5:14: warning: ‘styledir’ defined but not used [-Wunused-variable]
+    5 | static char *styledir       = "~/.surf/styles/";
+      |              ^~~~~~~~
+config.h:4:14: warning: ‘scriptfile’ defined but not used [-Wunused-variable]
+    4 | static char *scriptfile     = "~/.surf/script.js";
+      |              ^~~~~~~~~~
+config.h:3:14: warning: ‘fulluseragent’ defined but not used [-Wunused-variable]
+    3 | static char *fulluseragent  = ""; /* Or override the whole user agent string */
+      |              ^~~~~~~~~~~~~
+config.h:2:12: warning: ‘surfuseragent’ defined but not used [-Wunused-variable]
+    2 | static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
+      |            ^~~~~~~~~~~~~
+surf.c:244:19: warning: ‘curconfig’ defined but not used [-Wunused-variable]
+  244 | static Parameter *curconfig;
+      |                   ^~~~~~~~~
+surf.c:243:20: warning: ‘useragent’ defined but not used [-Wunused-variable]
+  243 | static const char *useragent;
+      |                    ^~~~~~~~~
+surf.c:242:14: warning: ‘stylefile’ defined but not used [-Wunused-variable]
+  242 | static char *stylefile;
+      |              ^~~~~~~~~
+surf.c:241:19: warning: ‘gdkkb’ defined but not used [-Wunused-variable]
+  241 | static GdkDevice *gdkkb;
+      |                   ^~~~~
+surf.c:240:16: warning: ‘clients’ defined but not used [-Wunused-variable]
+  240 | static Client *clients;
+      |                ^~~~~~~
+surf.c:239:17: warning: ‘dpy’ defined but not used [-Wunused-variable]
+  239 | static Display *dpy;
+      |                 ^~~
+surf.c:238:12: warning: ‘cookiepolicy’ defined but not used [-Wunused-variable]
+  238 | static int cookiepolicy;
+      |            ^~~~~~~~~~~~
+surf.c:237:12: warning: ‘showxid’ defined but not used [-Wunused-variable]
+  237 | static int showxid;
+      |            ^~~~~~~
+surf.c:236:15: warning: ‘embed’ defined but not used [-Wunused-variable]
+  236 | static Window embed;
+      |               ^~~~~
+surf.c:235:13: warning: ‘atoms’ defined but not used [-Wunused-variable]
+  235 | static Atom atoms[AtomLast];
+      |             ^~~~~
+surf.c:234:13: warning: ‘pagestats’ defined but not used [-Wunused-variable]
+  234 | static char pagestats[2];
+      |             ^~~~~~~~~
+surf.c:233:13: warning: ‘togglestats’ defined but not used [-Wunused-variable]
+  233 | static char togglestats[10];
+      |             ^~~~~~~~~~~
+surf.c:232:13: warning: ‘winid’ defined but not used [-Wunused-variable]
+  232 | static char winid[64];
+      |             ^~~~~
+make: *** [Makefile:19: surf.o] Error 1
