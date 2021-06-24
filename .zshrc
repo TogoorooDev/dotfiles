@@ -18,11 +18,13 @@ setopt SHARE_HISTORY
 setopt AUTOCD
 setopt CORRECT
 setopt AUTO_MENU
-EDITOR="emacs"
+EDITOR="nvim"
 
 #Plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh-plugins/zsh-autosuggestions.zsh
 
 #Aliases
 alias ls="exa"
@@ -34,9 +36,18 @@ alias esync="~/.emacs.d/bin/doom sync"
 alias conzsh="$EDITOR $HOME/.zshrc"
 alias doom="$HOME/.emacs.d/bin/doom"
 alias rick="$HOME/scripts/rick.sh"
+alias vim="nvim"
+alias rm="srm -P"
+alias cp="rsync -a"
+alias s="sudo"
+alias d="doas"
+##Arch
 alias p="pacman"
 alias sp="sudo pacman"
-alias s="sudo"
+alias dp="doas pacman"
+##Void
+alias xbpi="doas xbps-install"
+alias xbpq="xbps-query"
 
 #Autocomplete
 #The following lines were added by compinstall
