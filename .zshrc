@@ -19,6 +19,8 @@ setopt AUTOCD
 setopt CORRECT
 setopt AUTO_MENU
 EDITOR="nvim"
+#PRIVESC="sudo"
+PRIVESC="doas"
 
 #Plugins
 #source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -41,13 +43,20 @@ alias rm="srm -P"
 alias cp="rsync -a"
 alias s="sudo"
 alias d="doas"
+###e is for escalation, as in prividge escalation
+alias e="$PRIVESC"
 ##Arch
 alias p="pacman"
-alias sp="sudo pacman"
-alias dp="doas pacman"
+###ep is escalated pacman
+alias ep="$PRIVESC pacman"
 ##Void
-alias xbpi="doas xbps-install"
+alias xbpi="$PRIVESC xbps-install"
 alias xbpq="xbps-query"
+alias xbpr="$PRIVESC xbps-remove"
+alias xbpa="xbps-alternatives"
+alias xbprc="xbps-reconfigure"
+alias xbpri="xbps-rindex"
+alias xbpp="xbps-pkgdb"
 
 #Autocomplete
 #The following lines were added by compinstall
