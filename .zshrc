@@ -1,11 +1,14 @@
+#PATH="$PATH:~/.local/bin"
+
 PS1="%F{cyan}[%n@%m]%f %F{red}::%f %F{green}%~%f %F{magenta}%#%f " 
 
-#Functions
+
+# Functions
 function chpwd() {
     exa
 }
 
-#History Settings
+# History Settings
 HISTORY="$HOME/.zsh_history"
 HISTSIZE=5000
 SAVEHIST=1000
@@ -14,63 +17,68 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
-#Misc Options
+# Misc Options
 setopt AUTOCD
 setopt CORRECT
 setopt AUTO_MENU
-EDITOR="nvim"
+EDITOR="micro"
 #PRIVESC="sudo"
 PRIVESC="doas"
 
-#Plugins
+# Plugins
 #source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh-plugins/zsh-autosuggestions.zsh
+source ~/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-#Aliases
+# Aliases
 alias ls="exa"
 alias la="exa -a"
 alias ll="exa -l"
 alias lla="exa -a -l"
 alias emacs="emacsclient -c"
-alias esync="~/.emacs.d/bin/doom sync"
-alias conzsh="$EDITOR $HOME/.zshrc"
-alias doom="$HOME/.emacs.d/bin/doom"
 alias rick="$HOME/scripts/rick.sh"
 alias vim="nvim"
 alias rm="srm -P"
 alias cp="rsync -a"
 alias s="sudo"
 alias d="doas"
-###e is for escalation, as in prividge escalation
 alias e="$PRIVESC"
-##Arch
+alias reboot="$PRIVESC reboot"
+alias poweroff="$PRIVESC poweroff"
+alias ed="$EDITOR"
+
+## Package Management
+
+### Arch
 alias p="pacman"
-###ep is escalated pacman
 alias ep="$PRIVESC pacman"
-##Void
+
+### Void
 alias xbpi="$PRIVESC xbps-install"
-alias xbpq="xbps-query"
 alias xbpr="$PRIVESC xbps-remove"
-alias xbpa="xbps-alternatives"
 alias xbprc="xbps-reconfigure"
+alias xbpq="xbps-query"
+alias xbpa="xbps-alternatives"
 alias xbpri="xbps-rindex"
 alias xbpp="xbps-pkgdb"
 
-#Autocomplete
-#The following lines were added by compinstall
+# Autocomplete
+
+## The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle :compinstall filename '/home/luna/.zshrc'
+zstyle :compinstall filename '/home/hens/.zshrc'
 
 autoload -Uz compinit
 compinit
-#End of lines added by compinstall
+## End of lines added by compinstall
 
-#Variables
-PAGER=most
+
+
+# External Variables
+export PAGER=most
