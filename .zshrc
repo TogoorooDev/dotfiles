@@ -63,6 +63,18 @@ alias xbpa="xbps-alternatives"
 alias xbpri="xbps-rindex"
 alias xbpp="xbps-pkgdb"
 
+### Fedora
+alias yum="dnf"
+alias ednf="$PRIVESC dnf"
+
+### Debian/Ubuntu
+alias a="apt"
+alias ea="$PRIVESC apt"
+
+### OpenSUSE
+alias z="zypper"
+alias ez="$PRIVESC zypper"
+
 # Autocomplete
 
 ## The following lines were added by compinstall
