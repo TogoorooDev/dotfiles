@@ -1,0 +1,9 @@
+Smallest requirements to deploy these dotfiles on your own computer:
+
+bspwm
+sxhkd
+neofetch
+alacritty
+zsh
+xorg
+rsync (for scripts)
