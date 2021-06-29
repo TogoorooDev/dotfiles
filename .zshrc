@@ -90,7 +90,5 @@ autoload -Uz compinit
 compinit
 ## End of lines added by compinstall
 
-
-
 # External Variables
 export PAGER=most
