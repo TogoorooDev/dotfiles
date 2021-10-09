@@ -1,0 +1,583 @@
+diff -up ../dwm-5.8.2-1/config.def.h ./config.def.h
+--- ../dwm-5.8.2-1/config.def.h	2010-06-11 01:10:05.465026000 +0200
++++ ./config.def.h	2010-06-11 01:13:49.211525000 +0200
+@@ -19,6 +19,9 @@ static const char *tags[] = { "1", "2",
+ /* include(s) depending on the tags array */
+ #include "flextile.h"
+ 
++/* include(s) defining functions */
++#include "keymodes.pre.h"
++
+ static const Rule rules[] = {
+ 	/* class      instance    title       tags mask     isfloating   monitor */
+ 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
+@@ -36,9 +39,9 @@ static const int layoutaxis[] = {
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+-	{ "[]=",      tile },    /* first entry is default */
++	{ "[M]",      monocle },    /* first entry is default */
++	{ "[]=",      tile },
+ 	{ "><>",      NULL },    /* no layout function means floating behavior */
+-	{ "[M]",      monocle },
+ };
+ 
+ /* key definitions */
+@@ -55,9 +58,11 @@ static const Layout layouts[] = {
+ /* commands */
+ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+ static const char *termcmd[]  = { "uxterm", NULL };
++static const char *helpcmd[]  = { "uxterm", "-e", "man", "dwm", NULL };
+ 
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
++	{ MODKEY,                       XK_Escape, setkeymode,     {.ui = COMMANDMODE} },
+ 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+ 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+ 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+@@ -68,9 +73,9 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_Return, zoom,           {0} },
+ 	{ MODKEY,                       XK_Tab,    view,           {0} },
+ 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
++	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[0]} },
++	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
++	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+ 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+ 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+ 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+@@ -97,6 +102,54 @@ static Key keys[] = {
+ 	{ MODKEY|ControlMask,           XK_l,      shiftmastersplit, {.i = +1} },   /* increase the number of tiled clients in the master area */
+ };
+ 
++static const int h_master[] = {+1, 2, 2};
++static const int j_master[] = {-2, 1, 1};
++static const int k_master[] = {+2, 1, 1};
++static const int l_master[] = {-1, 2, 2};
++
++static Key cmdkeys[] = {
++	/* modifier                    keys                     function         argument */
++	{ 0,                           XK_Escape,               clearcmd,        {0} },
++	{ ControlMask,                 XK_c,                    clearcmd,        {0} },
++	{ 0,                           XK_i,                    setkeymode,      {.ui = INSERTMODE} },
++};
++static Command commands[] = {
++	/* modifier (4 keys)                          keysyms (4 keys)                                function         argument */
++	{ {0,           0,          0,         0},    {XK_g,      XK_t,     0,         0},            adjacentview,    {.i = +1} },
++	{ {0,           ShiftMask,  0,         0},    {XK_g,      XK_t,     0,         0},            adjacentview,    {.i = -1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_c,     0,         0},            closewindow,     {0} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_h,     0,         0},            focustiled,      {.i = -1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_j,     0,         0},            focustiled,      {.i = +2} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_k,     0,         0},            focustiled,      {.i = -2} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_l,     0,         0},            focustiled,      {.i = +1} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_h,     0,         0},            setmaster,       {.v = h_master} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_j,     0,         0},            setmaster,       {.v = j_master} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_k,     0,         0},            setmaster,       {.v = k_master} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_l,     0,         0},            setmaster,       {.v = l_master} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_o,     0,         0},            setlayout,       {.v = &layouts[0]} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_o,     0,         0},            onlyclient,      {0} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_s,     0,         0},            split,           {.ui = 2} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_t,     0,         0},            adjacenttag,     {.i = +1} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_t,     0,         0},            adjacenttag,     {.i = -1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_v,     0,         0},            split,           {.ui = 1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_x,     0,         0},            exchangewindow,  {.i = +1} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_x,     0,         0},            exchangewindow,  {.i = -1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_w,     0,         0},            focuswindow,     {.i = +1} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_w,     0,         0},            focuswindow,     {.i = -1} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_less,  0,         0},            resizemaster,    {.f = -10.05} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_less,  0,         0},            resizemaster,    {.f = +10.05} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_minus, 0,         0},            resizemaster,    {.f = -20.05} },
++	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_plus,  0,         0},            resizemaster,    {.f = +20.05} },
++	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_0,     0,         0},            setmfact,        {.f = +1.50} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_e,     0,         0},            spawn,           {.v = dmenucmd} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_o,     0,         0},            spawn,           {.v = dmenucmd} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_h,     XK_Return, 0},            spawn,           {.v = helpcmd} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_q,     XK_Return, 0},            quit,            {0} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_b,     XK_d,      XK_Return},    killclient,      {0} },
++	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_b,     XK_n,      XK_Return},    focusstack,      {.i = +1} },
++	{ {ShiftMask,   0,          ShiftMask, 0},    {XK_period, XK_b,     XK_n,      XK_Return},    focusstack,      {.i = -1} },
++};
++
+ /* button definitions */
+ /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+ static Button buttons[] = {
+@@ -114,3 +167,5 @@ static Button buttons[] = {
+ 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+ };
+ 
++/* include(s) depending on the configuration variables */
++#include "keymodes.post.h"
+diff -up ../dwm-5.8.2-1/dwm.c ./dwm.c
+--- ../dwm-5.8.2-1/dwm.c	2010-06-11 01:10:05.473958000 +0200
++++ ./dwm.c	2010-06-11 01:13:49.226865000 +0200
+@@ -954,7 +954,7 @@ grabbuttons(Client *c, Bool focused) {
+ }
+ 
+ void
+-grabkeys(void) {
++grabdefkeys(void) {
+ 	updatenumlockmask();
+ 	{
+ 		unsigned int i, j;
+@@ -1036,7 +1036,7 @@ isuniquegeom(XineramaScreenInfo *unique,
+ #endif /* XINERAMA */
+ 
+ void
+-keypress(XEvent *e) {
++defkeypress(XEvent *e) {
+ 	unsigned int i;
+ 	KeySym keysym;
+ 	XKeyEvent *ev;
+diff -up ../dwm-5.8.2-1/keymodes.post.h ./keymodes.post.h
+--- ../dwm-5.8.2-1/keymodes.post.h	2010-06-11 01:12:53.000000000 +0200
++++ ./keymodes.post.h	2010-06-11 01:13:49.287434000 +0200
+@@ -0,0 +1,409 @@
++/* See LICENSE file for copyright and license details. */
++/* © 2010 joten <joten@freenet.de> */
++
++/* function implementations */
++void
++adjacenttag(const Arg *arg) {
++	int nexttag = selmon->curtag + arg->i;
++	Arg a;
++
++	if(nexttag > LENGTH(tags))
++		nexttag = 1;
++	else if(nexttag < 1)
++		nexttag = LENGTH(tags);
++	a.ui = 1 << (nexttag - 1);
++	tag(&a);
++}
++
++void
++adjacentview(const Arg *arg) {
++	int nexttag = selmon->curtag + arg->i;
++	Arg a;
++
++	if(nexttag > LENGTH(tags))
++		nexttag = 1;
++	else if(nexttag < 1)
++		nexttag = LENGTH(tags);
++	a.ui = 1 << (nexttag - 1);
++	view(&a);
++}
++
++void
++clearcmd(const Arg *arg) {
++	unsigned int i;
++
++	for(i = 0; i < LENGTH(cmdkeysym); i++) {
++		cmdkeysym[i] = 0;
++		cmdmod[i] = 0;
++	}
++}
++
++void
++closewindow(const Arg *arg) {
++	unsigned int j, n;
++	Client *i;
++
++	if(!selmon->sel || selmon->sel->isfloating || selmon->lt[selmon->sellt]->arrange != tile)
++		return;
++	for(n = 0, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), n++)
++		if(i == selmon->sel)
++			j = n + 1;
++	if(j == 0 || n < 2)
++		return;
++	if(j <= selmon->msplit) {
++		if(selmon->ltaxis[1] == 3 || selmon->msplit == 1) {
++			selmon->msplits[selmon->curtag] = selmon->msplit = n;
++			selmon->ltaxes[selmon->curtag][1] = selmon->ltaxis[1] = selmon->ltaxis[2];
++			selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = 3;
++		} else if(j == selmon->msplit && (selmon->ltaxis[2] == 3 || selmon->msplit == n - 1)) {
++			selmon->msplits[selmon->curtag] = selmon->msplit -= 1;
++			selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = 3;
++		} else
++			selmon->ltaxes[selmon->curtag][1] = selmon->ltaxis[1] = 3;
++	} else {
++		if(selmon->ltaxis[2] == 3 || selmon->msplit == n - 1)
++			selmon->msplits[selmon->curtag] = selmon->msplit = n;
++		else if(j == selmon->msplit + 1 && (selmon->ltaxis[1] == 3 || selmon->msplit == 1)) {
++			selmon->msplits[selmon->curtag] = selmon->msplit += 1;
++			selmon->ltaxes[selmon->curtag][1] = selmon->ltaxis[1] = 3;
++		} else
++			selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = 3;
++	}
++	arrange(selmon);
++}
++
++void
++exchangewindow(const Arg *arg) {
++	int j = 0, n;
++	Client *c, *i, *sel = selmon->sel;
++
++	if(!sel || sel->isfloating || selmon->lt[selmon->sellt]->arrange != tile)
++		return;
++	for(n = 0, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), n++)
++		if(i == selmon->sel)
++			j = n + 1;
++	if(j == 0 || n < 2 
++	|| (j <= selmon->msplit && selmon->ltaxis[1] == 3 && selmon->msplit > 1 && !(j == 1 && arg->i < 0) && !(j == selmon->msplit && arg->i > 0))
++	|| (j > selmon->msplit && selmon->ltaxis[2] == 3 && n - selmon->msplit > 1 && !(j == selmon->msplit + 1 && arg->i < 0) && !(j == n && arg->i > 0)))
++		return;
++	if(arg->i < 0) {
++		if((c = prevtiled(sel))) {
++			/* attach before c */
++			detach(sel);
++			sel->next = c;
++			if(selmon->clients == c)
++				selmon->clients = sel;
++			else {
++				for(c = selmon->clients; c->next != sel->next; c = c->next);
++				c->next = sel;
++			}
++		} else {
++			/* move to the end */
++			for(c = sel; c->next; c = c->next);
++			detach(sel);
++			sel->next = NULL;
++			c->next = sel;
++		}
++	} else {
++		if((c = nexttiled(sel->next))) {
++			/* attach after c */
++			detach(sel);
++			sel->next = c->next;
++			c->next = sel;
++		} else {
++			/* move to the front */
++			detach(sel);
++			attach(sel);
++		}
++	}
++	focus(sel);
++	arrange(selmon);
++}
++
++void
++focustiled(const Arg *arg) {
++	float f;
++	unsigned int j = 0, k, n;
++	Client *c = NULL, *i;
++	
++	if(!selmon->sel || selmon->sel->isfloating || (selmon->lt[selmon->sellt]->arrange != monocle && selmon->lt[selmon->sellt]->arrange != tile))
++		return;
++	for(n = 0, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), n++)
++		if(i == selmon->sel)
++			j = n + 1;
++	if(n < 2)
++		return;
++	if(arg->i < 0
++	&& ((j > 1 && j <= selmon->msplit && selmon->ltaxis[1] == -(arg->i)) || (j > (selmon->msplit + 1) && j <= n && selmon->ltaxis[2] == -(arg->i)))) {
++		c = prevtiled(selmon->sel);
++	} else if(arg->i > 0
++	&& ((j > 0 && j < selmon->msplit && selmon->ltaxis[1] == arg->i) || (j > selmon->msplit && j < n && selmon->ltaxis[2] == arg->i))) {
++		c = nexttiled(selmon->sel->next);
++	} else if(arg->i < 0 
++	&& n > selmon->msplit 
++	&& j > selmon->msplit && j <= n 
++	&& (selmon->ltaxis[2] - arg->i) == 3)
++		f = (float)(j - selmon->msplit) / (n - selmon->msplit) * selmon->msplit;
++	else if(arg->i > 0 
++	&& n > selmon->msplit 
++	&& j > 0 && j <= selmon->msplit 
++	&& (selmon->ltaxis[1] + arg->i) == 3)
++		f = selmon->msplit + (float)j / selmon->msplit * (n - selmon->msplit);
++	if(f > 0) {
++		k = (unsigned int)f;
++		if(f - k > 0)
++			k++;
++		for(j = 1, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), j++)
++			if(j == k)
++				c = i;
++	}
++	if(c) {
++		focus(c);
++		restack(selmon);
++	}
++}
++
++void
++focuswindow(const Arg *arg) {
++	unsigned int j = 0, k = 0, n;
++	Client *c = NULL, *i;
++
++	if(!selmon->sel || selmon->sel->isfloating || selmon->lt[selmon->sellt]->arrange != tile)
++		return;
++	for(n = 0, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), n++)
++		if(i == selmon->sel)
++			j = n + 1;
++	if(j == 0 || n < 2 || (selmon->msplit == n && selmon->ltaxis[1] == 3))
++		return;
++	if(arg->i < 0) {
++		if((j > 1 && j <= selmon->msplit && selmon->ltaxis[1] == 3) || j == 1) {
++			k = n;
++		} else if(j > selmon->msplit + 1 && j <= n && selmon->ltaxis[2] == 3) {
++			k = selmon->msplit;
++		} else
++			c = prevtiled(selmon->sel);
++	} else {
++		if(j < selmon->msplit && selmon->ltaxis[1] == 3) {
++			k = selmon->msplit + 1;
++		} else if((j > selmon->msplit && j < n && selmon->ltaxis[2] == 3) || j == n) {
++			k = 1;
++		} else
++			c = nexttiled(selmon->sel->next);
++	}
++	if(!c && k)
++		for(j = 1, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), j++)
++			if(j == k)
++				c = i;
++	if(c) {
++		focus(c);
++		restack(selmon);
++	}
++}
++
++void
++grabkeys(void) {
++	if(keymode == INSERTMODE) {
++		grabdefkeys();
++	} else if(keymode == COMMANDMODE) {
++		XUngrabKey(dpy, AnyKey, AnyModifier, root);
++		XGrabKey(dpy, AnyKey, AnyModifier, root,
++			 True, GrabModeAsync, GrabModeAsync);
++	}
++}
++
++void
++keypress(XEvent *e) {
++	unsigned int i, j;
++	Arg a = {0};
++	Bool ismatch = False, maybematch = False;
++	KeySym keysym;
++	XKeyEvent *ev;
++
++	if(keymode == INSERTMODE)
++		defkeypress(e);
++	else if(keymode == COMMANDMODE) {
++		ev = &e->xkey;
++		keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
++		if(keysym < XK_Shift_L || keysym > XK_Hyper_R) {
++			for(i = 0; i < LENGTH(cmdkeys); i++)
++				if(keysym == cmdkeys[i].keysym
++				&& CLEANMASK(cmdkeys[i].mod) == CLEANMASK(ev->state)
++				&& cmdkeys[i].func) {
++					cmdkeys[i].func(&(cmdkeys[i].arg));
++					ismatch = True;
++					break;
++				}
++			if(!ismatch) {
++				for(j = 0; j < LENGTH(cmdkeysym); j++)
++					if(cmdkeysym[j] == 0) {
++						cmdkeysym[j] = keysym;
++						cmdmod[j] = ev->state;
++						break;
++					}
++				for(i = 0; i < LENGTH(commands); i++) {
++					for(j = 0; j < LENGTH(cmdkeysym); j++) {
++						if(cmdkeysym[j] == commands[i].keysym[j] 
++						&& CLEANMASK(cmdmod[j]) == CLEANMASK(commands[i].mod[j]))
++							ismatch = True;
++						else if(cmdkeysym[j] == 0 
++						&& cmdmod[j] == 0) {
++							ismatch = False;
++							maybematch = True;
++							break;
++						} else {
++							ismatch = False;
++							break;
++						}
++					}
++					if(ismatch) {
++						if(commands[i].func)
++							commands[i].func(&(commands[i].arg));
++						clearcmd(&a);
++						break;
++					}
++
++				}
++				if(!maybematch)
++					clearcmd(&a);
++			}
++		}
++	}
++}
++
++void
++onlyclient(const Arg *arg) {
++	Client *c;
++	XEvent ev;
++	
++	if(!selmon->sel)
++		return;
++	for(c = selmon->clients; c; c = c->next)
++		if(c != selmon->sel && ISVISIBLE(c)) {
++			if(isprotodel(c)) {
++				ev.type = ClientMessage;
++				ev.xclient.window = c->win;
++				ev.xclient.message_type = wmatom[WMProtocols];
++				ev.xclient.format = 32;
++				ev.xclient.data.l[0] = wmatom[WMDelete];
++				ev.xclient.data.l[1] = CurrentTime;
++				XSendEvent(dpy, c->win, False, NoEventMask, &ev);
++			}
++			else {
++				XGrabServer(dpy);
++				XSetErrorHandler(xerrordummy);
++				XSetCloseDownMode(dpy, DestroyAll);
++				XKillClient(dpy, c->win);
++				XSync(dpy, False);
++				XSetErrorHandler(xerror);
++				XUngrabServer(dpy);
++			}
++		}
++}
++
++Client *
++prevtiled(Client *c) {
++	Client *i, *p;
++
++	for(i = selmon->clients, p = NULL; i && i != c; i = i->next)
++		if(!i->isfloating && ISVISIBLE(i))
++			p = i;
++	return p;
++}
++
++void
++resizemaster(const Arg *arg) {
++	float f;
++	Arg a;
++	
++	if(!arg || selmon->lt[selmon->sellt]->arrange != tile)
++		return;
++	f = (arg->f < 0 ? -arg->f : arg->f) - selmon->ltaxis[0] * 10;
++	if(f < 0 || f > 1.9)
++		return;
++	a.f = arg->f / abs(arg->f) * f;
++	setmfact(&a);
++}
++
++void
++setkeymode(const Arg *arg) {
++	Arg a = {0};
++
++	if(!arg)
++		return;
++	keymode = arg->ui;
++	clearcmd(&a);
++	grabkeys();
++}
++
++void
++setmaster(const Arg *arg) {
++	unsigned int i;
++	Arg a;
++	
++	if(!arg || (selmon->lt[selmon->sellt]->arrange != monocle && selmon->lt[selmon->sellt]->arrange != tile))
++		return;
++	for(i = 0; i < 3; i++)
++		selmon->ltaxes[selmon->curtag][i] = selmon->ltaxis[i] = ((int *)arg->i)[i];
++	selmon->msplits[selmon->curtag] = selmon->msplit = 1;
++	if(selmon->sel && !selmon->sel->isfloating && selmon->sel != nexttiled(selmon->clients)) {
++		detach(selmon->sel);
++		attach(selmon->sel);
++		focus(selmon->sel);
++	}
++	if(selmon->lt[selmon->sellt]->arrange == monocle) {
++		for(i = 0; i < LENGTH(layouts) && (&layouts[i])->arrange != tile; i++);
++		a.v = &layouts[i];
++		setlayout(&a);
++		if(!selmon->sel)
++			arrange(selmon);
++	} else
++		arrange(selmon);
++}
++
++void
++split(const Arg *arg) {
++	unsigned int j = 0, k, n;
++	Arg a;
++	Client *i;
++	
++	if(!arg || !selmon->sel || selmon->sel->isfloating || (selmon->lt[selmon->sellt]->arrange != monocle && selmon->lt[selmon->sellt]->arrange != tile))
++		return;
++	for(n = 0, i = nexttiled(selmon->clients); i; i = nexttiled(i->next), n++)
++		if(i == selmon->sel)
++			j = n + 1;
++	if(j == 0 || n < 2)
++		return;
++	if(selmon->lt[selmon->sellt]->arrange == monocle) {
++		selmon->ltaxes[selmon->curtag][0] = selmon->ltaxis[0] = arg->i;
++		selmon->ltaxes[selmon->curtag][1] = selmon->ltaxis[1] = 3;
++		selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = 3;
++		for(k = 0; k < LENGTH(layouts) && (&layouts[k])->arrange != tile; k++);
++		a.v = &layouts[k];
++		setlayout(&a);
++	} else if(j <= selmon->msplit) {
++	        if(selmon->ltaxis[1] == 3 || selmon->msplit == 1) {
++			selmon->ltaxes[selmon->curtag][1] = selmon->ltaxis[1] = arg->i;
++			if(selmon->ltaxis[2] == 3 || selmon->msplit == 1)
++				selmon->msplits[selmon->curtag] = selmon->msplit = 2;
++			arrange(selmon);
++		} else if(selmon->ltaxis[1] == arg->i && selmon->msplit < n) {
++			selmon->msplits[selmon->curtag] = selmon->msplit += 1;
++			arrange(selmon);
++		} else if(selmon->ltaxis[1] + arg->i == 3 && selmon->msplit == n) {
++			selmon->ltaxes[selmon->curtag][0] = selmon->ltaxis[0] = arg->i;
++			selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = 3;
++			selmon->msplits[selmon->curtag] = selmon->msplit = n - 1;
++			arrange(selmon);
++		}
++	} else if(n > 2) {
++		if(selmon->ltaxis[2] == 3 || selmon->msplit == n - 1) {
++			selmon->ltaxes[selmon->curtag][2] = selmon->ltaxis[2] = arg->i;
++			if(selmon->ltaxis[1] == 3 || selmon->msplit == n - 1)
++				selmon->msplits[selmon->curtag] = selmon->msplit = n - 2;
++			arrange(selmon);
++		} else if(selmon->ltaxis[2] == arg->i && selmon->msplit > 1) {
++			selmon->msplits[selmon->curtag] = selmon->msplit -= 1;
++			arrange(selmon);
++		}
++	}
++}
+diff -up ../dwm-5.8.2-1/keymodes.pre.h ./keymodes.pre.h
+--- ../dwm-5.8.2-1/keymodes.pre.h	2010-06-11 01:12:49.000000000 +0200
++++ ./keymodes.pre.h	2010-06-11 01:13:50.660576000 +0200
+@@ -0,0 +1,34 @@
++/* See LICENSE file for copyright and license details. */
++/* © 2010 joten <joten@freenet.de> */
++
++#define COMMANDMODE             1
++#define INSERTMODE              2
++
++typedef struct {
++	unsigned int mod[4];
++	KeySym keysym[4];
++	void (*func)(const Arg *);
++	const Arg arg;
++} Command;
++
++/* function declarations */
++static void adjacenttag(const Arg *arg);
++static void adjacentview(const Arg *arg);
++static void clearcmd(const Arg *arg);
++static void closewindow(const Arg *arg);
++static void defkeypress(XEvent *e);
++static void exchangewindow(const Arg *arg);
++static void focustiled(const Arg *arg);
++static void focuswindow(const Arg *arg);
++static void grabdefkeys(void);
++static void onlyclient(const Arg *arg);
++static Client *prevtiled(Client *c);
++static void resizemaster(const Arg *arg);
++static void setkeymode(const Arg *arg);
++static void setmaster(const Arg *arg);
++static void split(const Arg *arg);
++
++/* variables */
++static unsigned int cmdmod[4];
++static unsigned int keymode = COMMANDMODE;
++static KeySym cmdkeysym[4];

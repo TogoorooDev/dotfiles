@@ -1,0 +1,3 @@
+groovy
+\.(groovy|gy|gvy|gsh|gradle)$
+^#!.*/(env +)?groovy *$

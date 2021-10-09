@@ -1,0 +1,657 @@
+Author: Eric Pruitt, https://github.com/ericpruitt/
+Description: Xft with fallback font support built on top of the Xft patch
+written by Quentin (http://lists.suckless.org/dev/1311/18279.html). The utf8*
+functions were written by Damian Okrasa for the MIT/X licensed
+(http://opensource.org/licenses/MIT) terminal emulator st
+(http://st.suckless.org/).
+
+With this patch, the "font" variable in config.h is superseded by the "fonts"
+variable which is a priority-ordered list of fonts that should be used to
+render text. Here's an example "fonts" definition:
+
+    static const char *fonts[] = {
+        "Sans:size=10.5",
+        "VL Gothic:size=10.5",
+        "WenQuanYi Micro Hei:size=10.5",
+    };
+
+At least one font must be specified, and a maximum of DRW_FONT_CACHE_SIZE fonts
+can be used.
+
+diff --git a/config.def.h b/config.def.h
+index 875885b..eaae8f3 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,7 +1,12 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+-static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
++static const char *fonts[] = {
++    "Sans:size=10.5",
++    "VL Gothic:size=10.5",
++    "WenQuanYi Micro Hei:size=10.5",
++};
++static const char dmenufont[] = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
+ static const char normbordercolor[] = "#444444";
+ static const char normbgcolor[]     = "#222222";
+ static const char normfgcolor[]     = "#bbbbbb";
+@@ -51,7 +56,7 @@ static const Layout layouts[] = {
+ 
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
++static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+ static const char *termcmd[]  = { "st", NULL };
+ 
+ static Key keys[] = {
+diff --git a/config.mk b/config.mk
+index bc3d80e..50b2175 100644
+--- a/config.mk
++++ b/config.mk
+@@ -11,12 +11,12 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
+ 
+ # Xinerama, comment if you don't want it
+-XINERAMALIBS  = -lXinerama
+-XINERAMAFLAGS = -DXINERAMA
++#XINERAMALIBS  = -lXinerama
++#XINERAMAFLAGS = -DXINERAMA
+ 
+ # includes and libs
+-INCS = -I${X11INC}
+-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS}
++INCS = -I${X11INC} -I/usr/include/freetype2
++LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} -lfontconfig -lXft
+ 
+ # flags
+ CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff --git a/drw.c b/drw.c
+index b130405..36cf992 100644
+--- a/drw.c
++++ b/drw.c
+@@ -3,10 +3,59 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <X11/Xlib.h>
++#include <X11/Xft/Xft.h>
+ 
+ #include "drw.h"
+ #include "util.h"
+ 
++#define UTF_INVALID 0xFFFD
++#define UTF_SIZ 4
++
++static const unsigned char utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
++static const unsigned char utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
++static const long utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
++static const long utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
++
++static long
++utf8decodebyte(const char c, size_t *i) {
++	for(*i = 0; *i < (UTF_SIZ + 1); ++(*i))
++		if(((unsigned char)c & utfmask[*i]) == utfbyte[*i])
++			return (unsigned char)c & ~utfmask[*i];
++	return 0;
++}
++
++static size_t
++utf8validate(long *u, size_t i) {
++	if(!BETWEEN(*u, utfmin[i], utfmax[i]) || BETWEEN(*u, 0xD800, 0xDFFF))
++		*u = UTF_INVALID;
++	for(i = 1; *u > utfmax[i]; ++i)
++		;
++	return i;
++}
++
++static size_t
++utf8decode(const char *c, long *u, size_t clen) {
++	size_t i, j, len, type;
++	long udecoded;
++
++	*u = UTF_INVALID;
++	if(!clen)
++		return 0;
++	udecoded = utf8decodebyte(c[0], &len);
++	if(!BETWEEN(len, 1, UTF_SIZ))
++		return 1;
++	for(i = 1, j = 1; i < clen && j < len; ++i, ++j) {
++		udecoded = (udecoded << 6) | utf8decodebyte(c[i], &type);
++		if(type != 0)
++			return j;
++	}
++	if(j < len)
++		return 0;
++	*u = udecoded;
++	utf8validate(u, len);
++	return len;
++}
++
+ Drw *
+ drw_create(Display *dpy, int screen, Window root, unsigned int w, unsigned int h) {
+ 	Drw *drw = (Drw *)calloc(1, sizeof(Drw));
+@@ -19,6 +68,7 @@ drw_create(Display *dpy, int screen, Window root, unsigned int w, unsigned int h
+ 	drw->h = h;
+ 	drw->drawable = XCreatePixmap(dpy, root, w, h, DefaultDepth(dpy, screen));
+ 	drw->gc = XCreateGC(dpy, root, 0, NULL);
++	drw->fontcount = 0;
+ 	XSetLineAttributes(dpy, drw->gc, 1, LineSolid, CapButt, JoinMiter);
+ 	return drw;
+ }
+@@ -36,56 +86,79 @@ drw_resize(Drw *drw, unsigned int w, unsigned int h) {
+ 
+ void
+ drw_free(Drw *drw) {
++	size_t i;
++	for (i = 0; i < drw->fontcount; i++) {
++		drw_font_free(drw->fonts[i]);
++	}
+ 	XFreePixmap(drw->dpy, drw->drawable);
+ 	XFreeGC(drw->dpy, drw->gc);
+ 	free(drw);
+ }
+ 
+ Fnt *
+-drw_font_create(Display *dpy, const char *fontname) {
++drw_font_create(Drw *drw, const char *fontname, FcPattern *fontpattern) {
+ 	Fnt *font;
+-	char *def, **missing;
+-	int n;
+ 
+-	font = (Fnt *)calloc(1, sizeof(Fnt));
+-	if(!font)
++	if (!(fontname || fontpattern))
++		die("No font specified.\n");
++
++	if (!(font = (Fnt *)calloc(1, sizeof(Fnt))))
+ 		return NULL;
+-	font->set = XCreateFontSet(dpy, fontname, &missing, &n, &def);
+-	if(missing) {
+-		while(n--)
+-			fprintf(stderr, "drw: missing fontset: %s\n", missing[n]);
+-		XFreeStringList(missing);
+-	}
+-	if(font->set) {
+-		XFontStruct **xfonts;
+-		char **font_names;
+-		XExtentsOfFontSet(font->set);
+-		n = XFontsOfFontSet(font->set, &xfonts, &font_names);
+-		while(n--) {
+-			font->ascent = MAX(font->ascent, (*xfonts)->ascent);
+-			font->descent = MAX(font->descent,(*xfonts)->descent);
+-			xfonts++;
++
++	if (fontname) {
++		// Using the pattern found at font->xfont->pattern does not yield same
++		// the same substitution results as using the pattern returned by
++		// FcNameParse; using the latter results in the desired fallback
++		// behaviour whereas the former just results in
++		// missing-character-rectangles being drawn, at least with some fonts.
++		if (!(font->xfont = XftFontOpenName(drw->dpy, drw->screen, fontname)) ||
++		    !(font->pattern = FcNameParse((FcChar8 *) fontname))) {
++			if (font->xfont)
++				XftFontClose(font->dpy, font->xfont);
++			fprintf(stderr, "error, cannot load font: '%s'\n", fontname);
++		}
++	} else if (fontpattern) {
++		if (!(font->xfont = XftFontOpenPattern(drw->dpy, fontpattern))) {
++			fprintf(stderr, "error, cannot load font pattern.\n");
++		} else {
++			font->pattern = NULL;
+ 		}
+ 	}
+-	else {
+-		if(!(font->xfont = XLoadQueryFont(dpy, fontname))
+-		&& !(font->xfont = XLoadQueryFont(dpy, "fixed")))
+-			die("error, cannot load font: '%s'\n", fontname);
+-		font->ascent = font->xfont->ascent;
+-		font->descent = font->xfont->descent;
++
++	if (!font->xfont) {
++		free(font);
++		return NULL;
+ 	}
++
++	font->ascent = font->xfont->ascent;
++	font->descent = font->xfont->descent;
+ 	font->h = font->ascent + font->descent;
++	font->dpy = drw->dpy;
+ 	return font;
+ }
+ 
+ void
+-drw_font_free(Display *dpy, Fnt *font) {
++drw_load_fonts(Drw* drw, const char *fonts[], size_t fontcount) {
++	size_t i;
++	Fnt *font;
++	for (i = 0; i < fontcount && drw->fontcount < DRW_FONT_CACHE_SIZE; i++) {
++		if ((font = drw_font_create(drw, fonts[i], NULL))) {
++			drw->fonts[drw->fontcount++] = font;
++		}
++	}
++
++	if (i != fontcount) {
++		die("Font cache exhausted.\n");
++	}
++}
++
++void
++drw_font_free(Fnt *font) {
+ 	if(!font)
+ 		return;
+-	if(font->set)
+-		XFreeFontSet(dpy, font->set);
+-	else
+-		XFreeFont(dpy, font->xfont);
++	if(font->pattern)
++		FcPatternDestroy(font->pattern);
++	XftFontClose(font->dpy, font->xfont);
+ 	free(font);
+ }
+ 
+@@ -93,7 +166,7 @@ Clr *
+ drw_clr_create(Drw *drw, const char *clrname) {
+ 	Clr *clr;
+ 	Colormap cmap;
+-	XColor color;
++	Visual *vis;
+ 
+ 	if(!drw)
+ 		return NULL;
+@@ -101,9 +174,10 @@ drw_clr_create(Drw *drw, const char *clrname) {
+ 	if(!clr)
+ 		return NULL;
+ 	cmap = DefaultColormap(drw->dpy, drw->screen);
+-	if(!XAllocNamedColor(drw->dpy, cmap, clrname, &color, &color))
++	vis = DefaultVisual(drw->dpy, drw->screen);
++	if(!XftColorAllocName(drw->dpy, vis, cmap, clrname, &clr->rgb))
+ 		die("error, cannot allocate color '%s'\n", clrname);
+-	clr->rgb = color.pixel;
++	clr->pix = clr->rgb.pixel;
+ 	return clr;
+ }
+ 
+@@ -114,14 +188,8 @@ drw_clr_free(Clr *clr) {
+ }
+ 
+ void
+-drw_setfont(Drw *drw, Fnt *font) {
+-	if(drw)
+-		drw->font = font;
+-}
+-
+-void
+ drw_setscheme(Drw *drw, ClrScheme *scheme) {
+-	if(drw && scheme) 
++	if(drw && scheme)
+ 		drw->scheme = scheme;
+ }
+ 
+@@ -129,46 +197,158 @@ void
+ drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int empty, int invert) {
+ 	int dx;
+ 
+-	if(!drw || !drw->font || !drw->scheme)
++	if(!drw || !drw->fontcount || !drw->scheme)
+ 		return;
+-	XSetForeground(drw->dpy, drw->gc, invert ? drw->scheme->bg->rgb : drw->scheme->fg->rgb);
+-	dx = (drw->font->ascent + drw->font->descent + 2) / 4;
++	XSetForeground(drw->dpy, drw->gc, invert ? drw->scheme->bg->pix : drw->scheme->fg->pix);
++	dx = (drw->fonts[0]->ascent + drw->fonts[0]->descent + 2) / 4;
+ 	if(filled)
+ 		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x+1, y+1, dx+1, dx+1);
+ 	else if(empty)
+ 		XDrawRectangle(drw->dpy, drw->drawable, drw->gc, x+1, y+1, dx, dx);
+ }
+ 
+-void
++int
+ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, const char *text, int invert) {
+-	char buf[256];
+-	int i, tx, ty, th, len, olen;
++	char buf[1024];
++	int tx, ty, th;
+ 	Extnts tex;
++	Colormap cmap;
++	Visual *vis;
++	XftDraw *d;
++	Fnt *curfont, *nextfont;
++	size_t i, len;
++	int utf8strlen, utf8charlen, render;
++	long utf8codepoint = 0;
++	const char *utf8str;
++	FcCharSet *fccharset;
++	FcPattern *fcpattern;
++	FcPattern *match;
++	XftResult result;
++	int charexists = 0;
+ 
+-	if(!drw || !drw->scheme)
+-		return;
+-	XSetForeground(drw->dpy, drw->gc, invert ? drw->scheme->fg->rgb : drw->scheme->bg->rgb);
+-	XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
+-	if(!text || !drw->font)
+-		return;
+-	olen = strlen(text);
+-	drw_font_getexts(drw->font, text, olen, &tex);
+-	th = drw->font->ascent + drw->font->descent;
+-	ty = y + (h / 2) - (th / 2) + drw->font->ascent;
+-	tx = x + (h / 2);
+-	/* shorten text if necessary */
+-	for(len = MIN(olen, sizeof buf); len && (tex.w > w - tex.h || w < tex.h); len--)
+-		drw_font_getexts(drw->font, text, len, &tex);
+-	if(!len)
+-		return;
+-	memcpy(buf, text, len);
+-	if(len < olen)
+-		for(i = len; i && i > len - 3; buf[--i] = '.');
+-	XSetForeground(drw->dpy, drw->gc, invert ? drw->scheme->bg->rgb : drw->scheme->fg->rgb);
+-	if(drw->font->set)
+-		XmbDrawString(drw->dpy, drw->drawable, drw->font->set, drw->gc, tx, ty, buf, len);
+-	else
+-		XDrawString(drw->dpy, drw->drawable, drw->gc, tx, ty, buf, len);
++	if (!(render = x || y || w || h)) {
++		w = ~w;
++	}
++
++	if (!drw || !drw->scheme) {
++		return 0;
++	} else if (render) {
++		XSetForeground(drw->dpy, drw->gc, invert ? drw->scheme->fg->pix : drw->scheme->bg->pix);
++		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
++	}
++
++	if (!text || !drw->fontcount) {
++		return 0;
++	} else if (render) {
++		cmap = DefaultColormap(drw->dpy, drw->screen);
++		vis = DefaultVisual(drw->dpy, drw->screen);
++		d = XftDrawCreate(drw->dpy, drw->drawable, vis, cmap);
++	}
++
++	curfont = drw->fonts[0];
++	while (1) {
++		utf8strlen = 0;
++		utf8str = text;
++		nextfont = NULL;
++		while (*text) {
++			utf8charlen = utf8decode(text, &utf8codepoint, UTF_SIZ);
++			for (i = 0; i < drw->fontcount; i++) {
++				charexists = charexists || XftCharExists(drw->dpy, drw->fonts[i]->xfont, utf8codepoint);
++				if (charexists) {
++					if (drw->fonts[i] == curfont) {
++						utf8strlen += utf8charlen;
++						text += utf8charlen;
++					} else {
++						nextfont = drw->fonts[i];
++					}
++					break;
++				}
++			}
++
++			if (!charexists || (nextfont && nextfont != curfont)) {
++				break;
++			} else {
++				charexists = 0;
++			}
++		}
++
++		if (utf8strlen) {
++			drw_font_getexts(curfont, utf8str, utf8strlen, &tex);
++			/* shorten text if necessary */
++			for(len = MIN(utf8strlen, (sizeof buf) - 1); len && (tex.w > w - drw->fonts[0]->h || w < drw->fonts[0]->h); len--)
++				drw_font_getexts(curfont, utf8str, len, &tex);
++
++			if (len) {
++				memcpy(buf, utf8str, len);
++				buf[len] = '\0';
++				if(len < utf8strlen)
++					for(i = len; i && i > len - 3; buf[--i] = '.');
++
++				if (render) {
++					th = curfont->ascent + curfont->descent;
++					ty = y + (h / 2) - (th / 2) + curfont->ascent;
++					tx = x + (h / 2);
++					XftDrawStringUtf8(d, invert ? &drw->scheme->bg->rgb : &drw->scheme->fg->rgb, curfont->xfont, tx, ty, (XftChar8 *)buf, len);
++				}
++
++				x += tex.w;
++				w -= tex.w;
++			}
++		}
++
++		if (!*text) {
++			break;
++		} else if (nextfont) {
++			charexists = 0;
++			curfont = nextfont;
++		} else {
++			// Regardless of whether or not a fallback font is found, the
++			// character must be drawn.
++			charexists = 1;
++
++			if (drw->fontcount >= DRW_FONT_CACHE_SIZE) {
++				continue;
++			}
++
++			fccharset = FcCharSetCreate();
++			FcCharSetAddChar(fccharset, utf8codepoint);
++
++			if (!drw->fonts[0]->pattern) {
++				// Refer to the comment in drw_font_create for more
++				// information.
++				die("The first font in the cache must be loaded from a font string.\n");
++			}
++
++			fcpattern = FcPatternDuplicate(drw->fonts[0]->pattern);
++			FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
++			FcPatternAddBool(fcpattern, FC_SCALABLE, FcTrue);
++
++			FcConfigSubstitute(NULL, fcpattern, FcMatchPattern);
++			FcDefaultSubstitute(fcpattern);
++			match = XftFontMatch(drw->dpy, drw->screen, fcpattern, &result);
++
++			FcCharSetDestroy(fccharset);
++			FcPatternDestroy(fcpattern);
++
++			if (match) {
++				curfont = drw_font_create(drw, NULL, match);
++				if (curfont && XftCharExists(drw->dpy, curfont->xfont, utf8codepoint)) {
++					drw->fonts[drw->fontcount++] = curfont;
++				} else {
++					if (curfont) {
++						drw_font_free(curfont);
++					}
++					curfont = drw->fonts[0];
++				}
++			}
++		}
++	}
++
++	if (render) {
++		XftDrawDestroy(d);
++	}
++
++	return x;
+ }
+ 
+ void
+@@ -182,19 +362,13 @@ drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h) {
+ 
+ void
+ drw_font_getexts(Fnt *font, const char *text, unsigned int len, Extnts *tex) {
+-	XRectangle r;
++	XGlyphInfo ext;
+ 
+ 	if(!font || !text)
+ 		return;
+-	if(font->set) {
+-		XmbTextExtents(font->set, text, len, NULL, &r);
+-		tex->w = r.width;
+-		tex->h = r.height;
+-	}
+-	else {
+-		tex->h = font->ascent + font->descent;
+-		tex->w = XTextWidth(font->xfont, text, len);
+-	}
++	XftTextExtentsUtf8(font->dpy, font->xfont, (XftChar8 *)text, len, &ext);
++	tex->h = font->h;
++	tex->w = ext.xOff;
+ }
+ 
+ unsigned int
+diff --git a/drw.h b/drw.h
+index a5f34e0..02bfefc 100644
+--- a/drw.h
++++ b/drw.h
+@@ -1,7 +1,9 @@
+ /* See LICENSE file for copyright and license details. */
++#define DRW_FONT_CACHE_SIZE 32
+ 
+ typedef struct {
+-	unsigned long rgb;
++	unsigned long pix;
++	XftColor rgb;
+ } Clr;
+ 
+ typedef struct {
+@@ -9,11 +11,12 @@ typedef struct {
+ } Cur;
+ 
+ typedef struct {
++	Display *dpy;
+ 	int ascent;
+ 	int descent;
+ 	unsigned int h;
+-	XFontSet set;
+-	XFontStruct *xfont;
++	XftFont *xfont;
++	FcPattern *pattern;
+ } Fnt;
+ 
+ typedef struct {
+@@ -30,7 +33,8 @@ typedef struct {
+ 	Drawable drawable;
+ 	GC gc;
+ 	ClrScheme *scheme;
+-	Fnt *font;
++	size_t fontcount;
++	Fnt *fonts[DRW_FONT_CACHE_SIZE];
+ } Drw;
+ 
+ typedef struct {
+@@ -44,8 +48,9 @@ void drw_resize(Drw *drw, unsigned int w, unsigned int h);
+ void drw_free(Drw *drw);
+ 
+ /* Fnt abstraction */
+-Fnt *drw_font_create(Display *dpy, const char *fontname);
+-void drw_font_free(Display *dpy, Fnt *font);
++Fnt *drw_font_create(Drw *drw, const char *fontname, FcPattern *fontpattern);
++void drw_load_fonts(Drw* drw, const char *fonts[], size_t fontcount);
++void drw_font_free(Fnt *font);
+ void drw_font_getexts(Fnt *font, const char *text, unsigned int len, Extnts *extnts);
+ unsigned int drw_font_getexts_width(Fnt *font, const char *text, unsigned int len);
+ 
+@@ -63,7 +68,7 @@ void drw_setscheme(Drw *drw, ClrScheme *scheme);
+ 
+ /* Drawing functions */
+ void drw_rect(Drw *drw, int x, int y, unsigned int w, unsigned int h, int filled, int empty, int invert);
+-void drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, const char *text, int invert);
++int drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, const char *text, int invert);
+ 
+ /* Map functions */
+ void drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h);
+diff --git a/dwm.c b/dwm.c
+index f896170..169adcb 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -39,6 +39,7 @@
+ #ifdef XINERAMA
+ #include <X11/extensions/Xinerama.h>
+ #endif /* XINERAMA */
++#include <X11/Xft/Xft.h>
+ 
+ #include "drw.h"
+ #include "util.h"
+@@ -54,7 +55,7 @@
+ #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
+ #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
+ #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+-#define TEXTW(X)                (drw_font_getexts_width(drw->font, X, strlen(X)) + drw->font->h)
++#define TEXTW(X)                (drw_text(drw, 0, 0, 0, 0, (X), 0) + drw->fonts[0]->h)
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+@@ -263,7 +264,6 @@ static Cur *cursor[CurLast];
+ static ClrScheme scheme[SchemeLast];
+ static Display *dpy;
+ static Drw *drw;
+-static Fnt *fnt;
+ static Monitor *mons, *selmon;
+ static Window root;
+ 
+@@ -474,7 +474,6 @@ cleanup(void) {
+ 	drw_cur_free(drw, cursor[CurNormal]);
+ 	drw_cur_free(drw, cursor[CurResize]);
+ 	drw_cur_free(drw, cursor[CurMove]);
+-	drw_font_free(dpy, fnt);
+ 	drw_clr_free(scheme[SchemeNorm].border);
+ 	drw_clr_free(scheme[SchemeNorm].bg);
+ 	drw_clr_free(scheme[SchemeNorm].fg);
+@@ -792,7 +791,7 @@ focus(Client *c) {
+ 		detachstack(c);
+ 		attachstack(c);
+ 		grabbuttons(c, True);
+-		XSetWindowBorder(dpy, c->win, scheme[SchemeSel].border->rgb);
++		XSetWindowBorder(dpy, c->win, scheme[SchemeSel].border->pix);
+ 		setfocus(c);
+ 	}
+ 	else {
+@@ -1040,7 +1039,7 @@ manage(Window w, XWindowAttributes *wa) {
+ 
+ 	wc.border_width = c->bw;
+ 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
+-	XSetWindowBorder(dpy, w, scheme[SchemeNorm].border->rgb);
++	XSetWindowBorder(dpy, w, scheme[SchemeNorm].border->pix);
+ 	configure(c); /* propagates border_width, if size doesn't change */
+ 	updatewindowtype(c);
+ 	updatesizehints(c);
+@@ -1505,13 +1504,14 @@ setup(void) {
+ 
+ 	/* init screen */
+ 	screen = DefaultScreen(dpy);
+-	root = RootWindow(dpy, screen);
+-	fnt = drw_font_create(dpy, font);
+ 	sw = DisplayWidth(dpy, screen);
+ 	sh = DisplayHeight(dpy, screen);
+-	bh = fnt->h + 2;
++	root = RootWindow(dpy, screen);
+ 	drw = drw_create(dpy, screen, root, sw, sh);
+-	drw_setfont(drw, fnt);
++	drw_load_fonts(drw, fonts, LENGTH(fonts));
++	if (!drw->fontcount)
++		die("No fonts could be loaded.\n");
++	bh = drw->fonts[0]->h + 2;
+ 	updategeom();
+ 	/* init atoms */
+ 	wmatom[WMProtocols] = XInternAtom(dpy, "WM_PROTOCOLS", False);
+@@ -1685,7 +1685,7 @@ unfocus(Client *c, Bool setfocus) {
+ 	if(!c)
+ 		return;
+ 	grabbuttons(c, False);
+-	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm].border->rgb);
++	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm].border->pix);
+ 	if(setfocus) {
+ 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
+ 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
+diff --git a/util.h b/util.h
+index 033700c..f7ce721 100644
+--- a/util.h
++++ b/util.h
+@@ -2,5 +2,6 @@
+ 
+ #define MAX(A, B)               ((A) > (B) ? (A) : (B))
+ #define MIN(A, B)               ((A) < (B) ? (A) : (B))
++#define BETWEEN(X, A, B)        ((A) <= (X) && (X) <= (B))
+ 
+ void die(const char *errstr, ...);

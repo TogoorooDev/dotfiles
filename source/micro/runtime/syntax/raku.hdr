@@ -1,0 +1,3 @@
+raku
+(\.p6$|\.pl6$|\.pm6$|\.raku$|\.rakumod$|\.rakudoc$)
+

@@ -1,0 +1,13 @@
+diff --git a/sic.c b/sic.c
+index ecefaf2..f99f1a7 100644
+--- a/sic.c
++++ b/sic.c
+@@ -38,6 +38,8 @@ pout(char *channel, char *fmt, ...) {
+ 	t = time(NULL);
+ 	strftime(timestr, sizeof timestr, TIMESTAMP_FORMAT, localtime(&t));
+ 	fprintf(stdout, "%-12s: %s %s\n", channel, timestr, bufout);
++	if (strstr(channel, nick) || strstr(bufout, nick))
++		fprintf(stdout, "\a");
+ }
+ 
+ static void

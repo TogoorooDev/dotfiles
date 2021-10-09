@@ -1,0 +1,77 @@
+diff -up dwm-6.2.orig/config.def.h dwm-6.2/config.def.h
+--- dwm-6.2.orig/config.def.h	2021-04-17 17:58:27.803010601 +0200
++++ dwm-6.2/config.def.h	2021-04-19 09:04:26.224804870 +0200
+@@ -26,9 +26,9 @@ static const Rule rules[] = {
+ 	 *	WM_CLASS(STRING) = instance, class
+ 	 *	WM_NAME(STRING) = title
+ 	 */
+-	/* class      instance    title       tags mask     isfloating   monitor */
+-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++	/* class      instance    title       tags mask     isfloating   monitor     notallowed */
++	{ "Gimp",     NULL,       NULL,       0,            1,           -1,         0 },
++	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,         0 },
+ };
+ 
+ /* layout(s) */
+diff -up dwm-6.2.orig/dwm.c dwm-6.2/dwm.c
+--- dwm-6.2.orig/dwm.c	2021-04-17 17:58:27.803010601 +0200
++++ dwm-6.2/dwm.c	2021-04-19 09:03:42.571206643 +0200
+@@ -92,7 +92,7 @@ struct Client {
+ 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+ 	int bw, oldbw;
+ 	unsigned int tags;
+-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, notallowed;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -139,6 +139,7 @@ typedef struct {
+ 	unsigned int tags;
+ 	int isfloating;
+ 	int monitor;
++	int notallowed;
+ } Rule;
+ 
+ /* function declarations */
+@@ -297,6 +298,10 @@ applyrules(Client *c)
+ 		&& (!r->class || strstr(class, r->class))
+ 		&& (!r->instance || strstr(instance, r->instance)))
+ 		{
++			if (r->notallowed) {
++				c->notallowed = r->notallowed;
++				break;
++			}
+ 			c->isfloating = r->isfloating;
+ 			c->tags |= r->tags;
+ 			for (m = mons; m && m->num != r->monitor; m = m->next);
+@@ -1029,6 +1034,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	c->w = c->oldw = wa->width;
+ 	c->h = c->oldh = wa->height;
+ 	c->oldbw = wa->border_width;
++	c->notallowed = 0;
+ 
+ 	updatetitle(c);
+ 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
+@@ -1037,6 +1043,21 @@ manage(Window w, XWindowAttributes *wa)
+ 	} else {
+ 		c->mon = selmon;
+ 		applyrules(c);
++		if (c->notallowed) {
++
++			XMapWindow(dpy, c->win);
++			if (!sendevent(c, wmatom[WMDelete])) {
++				XGrabServer(dpy);
++				XSetErrorHandler(xerrordummy);
++				XSetCloseDownMode(dpy, DestroyAll);
++				XKillClient(dpy, c->win);
++				XSync(dpy, False);
++				XSetErrorHandler(xerror);
++				XUngrabServer(dpy);
++			}
++
++			return;
++		}
+ 	}
+ 
+ 	if (c->x + WIDTH(c) > c->mon->mx + c->mon->mw)

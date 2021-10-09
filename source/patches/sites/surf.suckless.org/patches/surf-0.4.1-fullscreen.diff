@@ -1,0 +1,30 @@
+diff -r 2533f186089d surf.c
+--- a/surf.c	Thu Mar 31 12:52:35 2011 +0200
++++ b/surf.c	Thu Oct 20 17:03:08 2011 -0700
+@@ -60,6 +60,7 @@
+ static Client *clients = NULL;
+ static GdkNativeWindow embed = 0;
+ static gboolean showxid = FALSE;
++static gboolean fullscreen = FALSE;
+ static char winid[64];
+ static char *progname;
+ static gboolean loadimage = 1, plugin = 1, script = 1;
+@@ -433,6 +434,8 @@
+ 		 * window class (WM_CLASS) is capped, while the resource is in
+ 		 * lowercase.   Both these values come as a pair.
+ 		 */
++		if(fullscreen)
++			gtk_window_fullscreen(c->win);
+ 		gtk_window_set_wmclass(GTK_WINDOW(c->win), "surf", "surf");
+ 
+ 		/* TA:  20091214:  And set the role here as well -- so that
+@@ -828,6 +831,9 @@
+ 		case 'x':
+ 			showxid = TRUE;
+ 			break;
++		case 'f':
++			fullscreen = TRUE;
++			break;
+ 		case 'v':
+ 			die("surf-"VERSION", © 2009 surf engineers, see LICENSE for details\n");
+ 		default:

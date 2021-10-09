@@ -1,0 +1,3 @@
+sed
+\.sed$
+^#!.*bin/(env +)?sed( |$)

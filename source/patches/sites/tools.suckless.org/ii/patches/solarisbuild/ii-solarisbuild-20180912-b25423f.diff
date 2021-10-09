@@ -1,0 +1,63 @@
+From d5b8f78857f62247f6efbccfb9382549d56ccf3e Mon Sep 17 00:00:00 2001
+From: drowl <mail@catsnest.co.uk>
+Date: Wed, 12 Sep 2018 16:56:16 +0100
+Subject: [PATCH] Compiling on solaris
+
+---
+ config.mk |  6 +++++-
+ ii.c      | 10 +++++-----
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/config.mk b/config.mk
+index 957bae0..206a08c 100644
+--- a/config.mk
++++ b/config.mk
+@@ -6,9 +6,13 @@ PREFIX    = /usr/local
+ MANPREFIX = ${PREFIX}/share/man
+ DOCPREFIX = ${PREFIX}/share/doc
+ 
++#  On Solaris systems we still need to include some extra librarys namely "sockets"
++#  Uncomment the next line if compiling on Solaris
++# SOL_LIBS = -lsocket
++
+ # on systems which provide strlcpy(3),
+ # remove NEED_STRLCPY from CFLAGS and
+ # remove strlcpy.o from LIBS
+ CFLAGS   = -DNEED_STRLCPY -Os
+ LDFLAGS  = -s
+-LIBS     = strlcpy.o
++LIBS     = strlcpy.o ${SOL_LIBS}
+diff --git a/ii.c b/ii.c
+index 6c87314..b174088 100644
+--- a/ii.c
++++ b/ii.c
+@@ -338,7 +338,7 @@ loginuser(int ircfd, const char *host, const char *fullname)
+ static int
+ udsopen(const char *uds)
+ {
+-	struct sockaddr_un sun;
++	struct sockaddr_un sunn;
+ 	size_t len;
+ 	int fd;
+ 
+@@ -347,13 +347,13 @@ udsopen(const char *uds)
+ 		exit(1);
+ 	}
+ 
+-	sun.sun_family = AF_UNIX;
+-	if (strlcpy(sun.sun_path, uds, sizeof(sun.sun_path)) >= sizeof(sun.sun_path)) {
++	sunn.sun_family = AF_UNIX;
++	if (strlcpy(sunn.sun_path, uds, sizeof(sunn.sun_path)) >= sizeof(sunn.sun_path)) {
+ 		fprintf(stderr, "%s: UNIX domain socket path truncation\n", argv0);
+ 		exit(1);
+ 	}
+-	len = strlen(sun.sun_path) + 1 + sizeof(sun.sun_family);
+-	if (connect(fd, (struct sockaddr *)&sun, len) == -1) {
++	len = strlen(sunn.sun_path) + 1 + sizeof(sunn.sun_family);
++	if (connect(fd, (struct sockaddr *)&sunn, len) == -1) {
+ 		fprintf(stderr, "%s: connect: %s\n", argv0, strerror(errno));
+ 		exit(1);
+ 	}
+-- 
+2.15.0
+

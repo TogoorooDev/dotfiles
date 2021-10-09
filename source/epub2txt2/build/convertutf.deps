@@ -1,0 +1,7 @@
+build/convertutf.o: src/convertutf.c src/convertutf.h \
+ /usr/local/lib/gcc10/gcc/x86_64-portbld-freebsd13.0/10.3.0/include/stdint.h \
+ /usr/include/stdint.h /usr/include/sys/cdefs.h /usr/include/sys/_types.h \
+ /usr/include/machine/_types.h /usr/include/x86/_types.h \
+ /usr/include/machine/_limits.h /usr/include/x86/_limits.h \
+ /usr/include/machine/_stdint.h /usr/include/x86/_stdint.h \
+ /usr/include/sys/_stdint.h

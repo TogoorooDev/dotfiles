@@ -1,0 +1,37 @@
+;; Object semanticdb-project-database-file-203d76074
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file-203d76074"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table-203d76034"
+      :major-mode c-mode
+      :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1 19])
+            ("string.h" include (:system-flag t) nil [20 39])
+            ("curses.h" include (:system-flag t) nil [41 60])
+            ("unistd.h" include (:system-flag t) nil [61 80])
+            ("setup" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [93 98]))                  
+                :type "void")
+                nil [82 392])
+            ("main" function (:type "int") nil [394 433]))          
+      :file "main.c"
+      :pointmax 434
+      :fsize 433
+      :lastmodtime '(24886 48750 508847 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table-203d76054"
+      :major-mode makefile-bsdmake-mode
+      :tags 
+        '( ("cc" variable (:default-value ("$(cc)")) nil [1 12])
+            ("curse" function (:arguments ("main.o")) nil [13 27])
+            ("main.o" function (:arguments ("main.c")) nil [28 51]))          
+      :file "Makefile"
+      :pointmax 51
+      :fsize 108
+      :lastmodtime '(24886 47187 493433 0)
+      :unmatched-syntax '((shell-command 44 . 50) (bol 43 . 43))))
+  :file "!usr!home!hens!projects!curses-example!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,223 @@
+Author: Chris Noxz <chris@noxz.tech>
+
+diff -up ../dwm-6.2/config.def.h ./config.def.h
+--- ../dwm-6.2/config.def.h	2019-02-02 13:55:28.000000000 +0100
++++ ./config.def.h	2020-02-02 10:56:38.865583817 +0100
+@@ -12,10 +12,27 @@ static const char col_gray2[]       = "#
+ static const char col_gray3[]       = "#bbbbbb";
+ static const char col_gray4[]       = "#eeeeee";
+ static const char col_cyan[]        = "#005577";
+-static const char *colors[][3]      = {
+-	/*               fg         bg         border   */
+-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
++static const char title_bg_dark[]   = "#303030";
++static const char title_bg_light[]  = "#fdfdfd";
++static const int color_ptrs[][3]    = {
++	/*                              fg         bg         border    */
++	[SchemeNorm]                = { -1,        -1,        5 },
++	[SchemeSel]                 = { -1,        -1,        11 },
++	[SchemeTagsNorm]            = { 2,         0,         0 },
++	[SchemeTagsSel]             = { 6,         5,         5 },
++	[SchemeTitleNorm]           = { 6,         -1,        -1 },
++	[SchemeTitleSel]            = { 6,         -1,        -1 },
++	[SchemeStatus]              = { 2,         0,         0 },
++};
++static char colors[][3][8]          = {
++	/*                              fg         bg         border    */
++	[SchemeNorm]                = { "#000000", "#000000", "#000000" },
++	[SchemeSel]                 = { "#000000", "#000000", "#000000" },
++	[SchemeTagsNorm]            = { "#000000", "#000000", "#000000" },
++	[SchemeTagsSel]             = { "#000000", "#000000", "#000000" },
++	[SchemeTitleNorm]           = { "#000000", "#000000", "#000000" },
++	[SchemeTitleSel]            = { "#000000", "#000000", "#000000" },
++	[SchemeStatus]              = { "#000000", "#000000", "#000000" },
+ };
+ 
+ /* tagging */
+diff -up ../dwm-6.2/drw.c ./drw.c
+--- ../dwm-6.2/drw.c	2019-02-02 13:55:28.000000000 +0100
++++ ./drw.c	2020-02-02 10:37:08.885745829 +0100
+@@ -193,7 +193,7 @@ drw_fontset_free(Fnt *font)
+ }
+ 
+ void
+-drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
++drw_clr_create(Drw *drw, Clr *dest, const char clrname[])
+ {
+ 	if (!drw || !dest || !clrname)
+ 		return;
+@@ -207,7 +207,7 @@ drw_clr_create(Drw *drw, Clr *dest, cons
+ /* Wrapper to create color schemes. The caller has to call free(3) on the
+  * returned color scheme when done using it. */
+ Clr *
+-drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
++drw_scm_create(Drw *drw, char clrnames[][8], size_t clrcount)
+ {
+ 	size_t i;
+ 	Clr *ret;
+diff -up ../dwm-6.2/drw.h ./drw.h
+--- ../dwm-6.2/drw.h	2019-02-02 13:55:28.000000000 +0100
++++ ./drw.h	2020-02-02 10:37:00.558746075 +0100
+@@ -38,8 +38,8 @@ unsigned int drw_fontset_getwidth(Drw *d
+ void drw_font_getexts(Fnt *font, const char *text, unsigned int len, unsigned int *w, unsigned int *h);
+ 
+ /* Colorscheme abstraction */
+-void drw_clr_create(Drw *drw, Clr *dest, const char *clrname);
+-Clr *drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount);
++void drw_clr_create(Drw *drw, Clr *dest, const char clrname[]);
++Clr *drw_scm_create(Drw *drw, char clrnames[][8], size_t clrcount);
+ 
+ /* Cursor abstraction */
+ Cur *drw_cur_create(Drw *drw, int shape);
+diff -up ../dwm-6.2/dwm.c ./dwm.c
+--- ../dwm-6.2/dwm.c	2019-02-02 13:55:28.000000000 +0100
++++ ./dwm.c	2020-02-02 10:57:40.659581991 +0100
+@@ -59,7 +59,7 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeTagsNorm, SchemeTagsSel, SchemeTitleNorm, SchemeTitleSel, SchemeStatus }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -201,6 +201,8 @@ static void setfocus(Client *c);
+ static void setfullscreen(Client *c, int fullscreen);
+ static void setlayout(const Arg *arg);
+ static void setmfact(const Arg *arg);
++static void get_vt_colors(void);
++static int get_luminance(char *rgb);
+ static void setup(void);
+ static void seturgent(Client *c, int urg);
+ static void showhide(Client *c);
+@@ -703,7 +705,7 @@ drawbar(Monitor *m)
+ 
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+-		drw_setscheme(drw, scheme[SchemeNorm]);
++		drw_setscheme(drw, scheme[SchemeStatus]);
+ 		sw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+ 		drw_text(drw, m->ww - sw, 0, sw, bh, 0, stext, 0);
+ 	}
+@@ -716,7 +718,7 @@ drawbar(Monitor *m)
+ 	x = 0;
+ 	for (i = 0; i < LENGTH(tags); i++) {
+ 		w = TEXTW(tags[i]);
+-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
++		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : SchemeTagsNorm]);
+ 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+ 		if (occ & 1 << i)
+ 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+@@ -725,17 +727,17 @@ drawbar(Monitor *m)
+ 		x += w;
+ 	}
+ 	w = blw = TEXTW(m->ltsymbol);
+-	drw_setscheme(drw, scheme[SchemeNorm]);
++	drw_setscheme(drw, scheme[SchemeTagsNorm]);
+ 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+ 
+ 	if ((w = m->ww - sw - x) > bh) {
+ 		if (m->sel) {
+-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
++			drw_setscheme(drw, scheme[m == selmon ? SchemeTitleSel : SchemeTitleNorm]);
+ 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+ 			if (m->sel->isfloating)
+ 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+-			drw_setscheme(drw, scheme[SchemeNorm]);
++			drw_setscheme(drw, scheme[SchemeTitleNorm]);
+ 			drw_rect(drw, x, 0, w, bh, 1, 1);
+ 		}
+ 	}
+@@ -1527,6 +1529,72 @@ setmfact(const Arg *arg)
+ }
+ 
+ void
++get_vt_colors(void)
++{
++	char *cfs[3] = {
++		"/sys/module/vt/parameters/default_red",
++		"/sys/module/vt/parameters/default_grn",
++		"/sys/module/vt/parameters/default_blu",
++	};
++	char vtcs[16][8];
++	char tk[] = ",";
++	char cl[64];
++	char *tp = NULL;
++	FILE *fp;
++	size_t r;
++	int i, c, n;
++
++	for (i = 0; i < 16; i++)
++		strcpy(vtcs[i], "#000000");
++
++	for (i = 0, r = 0; i < 3; i++) {
++		if ((fp = fopen(cfs[i], "r")) == NULL)
++			continue;
++		while ((cl[r] = fgetc(fp)) != EOF && cl[r] != '\n')
++			r++;
++		cl[r] = '\0';
++		for (c = 0, tp = cl, n = 0; c < 16; c++, tp++) {
++			if ((r = strcspn(tp, tk)) == -1)
++				break;
++			for (n = 0; r && *tp >= 48 && *tp < 58; r--, tp++)
++				n = n * 10 - 48 + *tp;
++			vtcs[c][i * 2 + 1] = n / 16 < 10 ? n / 16 + 48 : n / 16 + 87;
++			vtcs[c][i * 2 + 2] = n % 16 < 10 ? n % 16 + 48 : n % 16 + 87;
++		}
++		fclose(fp);
++	}
++	for (i = 0; i < LENGTH(colors); i++) {
++		for (c = 0; c < 3; c++) {
++			n = color_ptrs[i][c];
++			if (n > -1 && strlen(colors[i][c]) >= strlen(vtcs[n]))
++				memcpy(colors[i][c], vtcs[n], 7);
++		}
++	}
++}
++
++int get_luminance(char *r)
++{
++	char *c = r;
++	int n[3] = {0};
++	int i = 0;
++
++	while (*c) {
++		if (*c >= 48 && *c < 58)
++			n[i / 2] = n[i / 2] * 16 - 48 + *c;
++		else if (*c >= 65 && *c < 71)
++			n[i / 2] = n[i / 2] * 16 - 55 + *c;
++		else if (*c >= 97 && *c < 103)
++			n[i / 2] = n[i / 2] * 16 - 87 + *c;
++		else
++			i--;
++		i++;
++		c++;
++	}
++
++	return (0.299 * n[0] + 0.587 * n[1] + 0.114 * n[2]) / 2.55;
++}
++
++void
+ setup(void)
+ {
+ 	int i;
+@@ -1567,6 +1635,14 @@ setup(void)
+ 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
+ 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
+ 	/* init appearance */
++	get_vt_colors();
++	if (get_luminance(colors[SchemeTagsNorm][ColBg]) > 50) {
++		strcpy(colors[SchemeTitleNorm][ColBg], title_bg_light);
++		strcpy(colors[SchemeTitleSel][ColBg], title_bg_light);
++	} else {
++		strcpy(colors[SchemeTitleNorm][ColBg], title_bg_dark);
++		strcpy(colors[SchemeTitleSel][ColBg], title_bg_dark);
++	}
+ 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
+ 	for (i = 0; i < LENGTH(colors); i++)
+ 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+Only in ./: dwm-vtcolors-6.2.diff
+Only in ./: .git
+Only in ./: .gitignore

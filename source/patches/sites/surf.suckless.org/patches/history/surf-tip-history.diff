@@ -1,0 +1,30 @@
+--- surf.c      2009-10-17 03:00:22.000000000 -0400                                                 
++++ surf.c      2009-10-19 15:03:16.000000000 -0400                                                 
+@@ -160,6 +160,7 @@ cleanup(void) {                                                                 
+        while(clients)                                                                              
+                destroyclient(clients);                                                             
+        g_free(cookiefile);                                                                         
++       g_free(historyfile);                                                                        
+        g_free(dldir);                                                                              
+        g_free(scriptfile);                                                                         
+        g_free(stylefile);                                                                          
+@@ -420,6 +421,10 @@ loaduri(Client *c, const Arg *arg) {                                           
+        u = g_strrstr(uri, "://") ? g_strdup(uri)                                                   
+                : g_strdup_printf("http://%s", uri);                                                
+        webkit_web_view_load_uri(c->view, u);                                                       
++        FILE *f;                                                                                   
++        f = fopen(historyfile, "a+");                                                              
++        fprintf(f, u);                                                                             
++        fclose(f);                                                                                 
+        c->progress = 0;                                                                            
+        c->title = copystr(&c->title, u);                                                           
+        g_free(u);                                                                                  
+@@ -674,6 +679,7 @@ setup(void) {                                                                   
+                                                                                                    
+        /* create dirs and files */                                                                 
+        cookiefile = buildpath(cookiefile);                                                         
++        historyfile = buildpath(historyfile);                                                      
+        dldir = buildpath(dldir);                                                                   
+        scriptfile = buildpath(scriptfile);                                                         
+        stylefile =                                                                                 
+buildpath(stylefile); 

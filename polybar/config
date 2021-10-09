@@ -4,7 +4,7 @@
 ;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
 ;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
 ;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔═██║██╔══██╗
 ;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
@@ -58,7 +58,7 @@ font-1 = unifont:fontformat=truetype:size=12:antialias=false;0
 modules-left = bspwm 
 ;wintitle
 modules-center =
-modules-right = pulseaudio xkeyboard memory cpu wlan battery temperature date powermenu
+modules-right = pulseaudio xkeyboard bsdmemory cpubsd wlan battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -79,7 +79,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/laptopbar]
-monitor = eDP
+monitor = eDP-1
 width = 100%
 height = 38
 ;offset-x = 1%
@@ -109,7 +109,7 @@ font-1 = unifont:fontformat=truetype:size=12:antialias=false;0
 modules-left = bspwm 
 ;wintitle
 modules-center =
-modules-right = pulseaudio xkeyboard memory cpu wlan battery temperature date powermenu
+modules-right = pulseaudio xkeyboard bsdmemory bsdcpu wlan bsdbattery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -471,5 +471,6 @@ interval = 0.5
 [global/wm]
 margin-top = 5
 margin-bottom = 5
+include-file=~/.config/polybar/bsd.polybar
 
 ; vim:ft=dosini

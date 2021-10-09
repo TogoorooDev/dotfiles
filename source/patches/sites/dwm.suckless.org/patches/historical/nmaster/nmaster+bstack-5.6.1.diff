@@ -1,0 +1,195 @@
+diff -r e47a47bd3ed4 config.def.h
+--- a/config.def.h	Tue Jul 21 10:57:54 2009 +0100
++++ b/config.def.h	Mon Aug 24 17:14:00 2009 +0200
+@@ -24,11 +24,13 @@
+ 
+ /* layout(s) */
+ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
++static const int nmaster      = 1;    /* default number of master windows */
+ static const Bool resizehints = True; /* False means respect size hints in tiled resizals */
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+ 	{ "[]=",      tile },    /* first entry is default */
++	{ "TTT",      bstack },
+ 	{ "><>",      NULL },    /* no layout function means floating behavior */
+ 	{ "[M]",      monocle },
+ };
+@@ -57,12 +59,15 @@
+ 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+ 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+ 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
++	{ MODKEY|ShiftMask,             XK_h,      incnmaster,     {.i = +1 } },
++	{ MODKEY|ShiftMask,             XK_l,      incnmaster,     {.i = -1 } },
+ 	{ MODKEY,                       XK_Return, zoom,           {0} },
+ 	{ MODKEY,                       XK_Tab,    view,           {0} },
+ 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+ 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
++	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[1]} },
++	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
++	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} },
+ 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+ 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+ 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+diff -r e47a47bd3ed4 dwm.c
+--- a/dwm.c	Tue Jul 21 10:57:54 2009 +0100
++++ b/dwm.c	Mon Aug 24 17:14:00 2009 +0200
+@@ -122,6 +122,7 @@
+ 
+ struct Monitor {
+ 	float mfact;
++	int nmaster;
+ 	int num;
+ 	int by;               /* bar geometry */
+ 	int mx, my, mw, mh;   /* screen size */
+@@ -205,6 +206,8 @@
+ static void setclientstate(Client *c, long state);
+ static void setlayout(const Arg *arg);
+ static void setmfact(const Arg *arg);
++static void incnmaster(const Arg *arg);
++static void setnmaster(const Arg *arg);
+ static void setup(void);
+ static void showhide(Client *c);
+ static void sigchld(int signal);
+@@ -213,6 +216,7 @@
+ static void tagmon(const Arg *arg);
+ static int textnw(const char *text, unsigned int len);
+ static void tile(Monitor *);
++static void bstack(Monitor *);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+@@ -1423,6 +1427,24 @@
+ }
+ 
+ void
++incnmaster(const Arg *arg) {
++	if(!arg || !selmon->lt[selmon->sellt]->arrange)
++		return;
++	selmon->nmaster += arg->i;
++	if(selmon->nmaster < 0) selmon->nmaster = 0;
++	arrange();
++}
++
++void
++setnmaster(const Arg *arg) {
++	if(!arg || !selmon->lt[selmon->sellt]->arrange)
++		return;
++	selmon->nmaster = arg->i;
++	if(selmon->nmaster < 0) selmon->nmaster = 0;
++	arrange();
++}
++
++void
+ setup(void) {
+ 	unsigned int i;
+ 	int w;
+@@ -1542,7 +1564,7 @@
+ 
+ void
+ tile(Monitor *m) {
+-	int x, y, h, w, mw;
++	int x, y, h, w, mw, nm;
+ 	unsigned int i, n;
+ 	Client *c;
+ 
+@@ -1550,23 +1572,81 @@
+ 	if(n == 0)
+ 		return;
+ 	/* master */
+-	c = nexttiled(m->clients);
+-	mw = m->mfact * m->ww;
+-	resize(c, m->wx, m->wy, (n == 1 ? m->ww : mw) - 2 * c->bw, m->wh - 2 * c->bw, False);
+-	if(--n == 0)
+-		return;
++	if(m->nmaster > 0) {
++		nm = n < m->nmaster ? n : m->nmaster;
++		c = nexttiled(m->clients);
++		mw = m->mfact * m->ww;
++		h = m->wh / nm;
++		y = m->wy;
++		for(i=0; i<nm; i++, c = nexttiled(c->next)) {
++			resize(c, m->wx, y, (n == nm ? m->ww : mw) - 2 * c->bw,
++					((i + 1 == nm) ? m->wy + m->wh - y : h) - 2 * c->bw, False);
++			if(h != m->wh)
++				y = c->y + HEIGHT(c);
++		}
++		n -= nm;
++		if(n == 0) return;
++	} else {
++		mw = 0;
++		c = nexttiled(m->clients);
++	}
+ 	/* tile stack */
+-	x = (m->wx + mw > c->x + c->w) ? c->x + c->w + 2 * c->bw : m->wx + mw;
++	x = m->wx + mw;
+ 	y = m->wy;
+-	w = (m->wx + mw > c->x + c->w) ? m->wx + m->ww - x : m->ww - mw;
++	w = m->ww - mw;
+ 	h = m->wh / n;
+ 	if(h < bh)
+ 		h = m->wh;
+-	for(i = 0, c = nexttiled(c->next); c; c = nexttiled(c->next), i++) {
++	for(i = 0; c; c = nexttiled(c->next), i++) {
+ 		resize(c, x, y, w - 2 * c->bw, /* remainder */ ((i + 1 == n)
+ 		       ? m->wy + m->wh - y - 2 * c->bw : h - 2 * c->bw), False);
+ 		if(h != m->wh)
+ 			y = c->y + HEIGHT(c);
++	}
++}
++
++void
++bstack(Monitor *m) {
++	int x, y, h, w, mh, nm;
++	unsigned int i, n;
++	Client *c;
++
++	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
++	if(n == 0)
++		return;
++
++	if(m->nmaster > 0) {
++		nm = n < m->nmaster ? n : m->nmaster;
++		c = nexttiled(m->clients);
++		mh = m->mfact * m->wh;
++		x = m->wx;
++		h = m->wh;
++		w = m->ww / nm;
++		for(i=0; i<nm; i++, c = nexttiled(c->next)) {
++			resize(c, x, m->wy, ((i + 1 == nm) ? m->wx + m->ww - x : w) - 2 * c->bw,
++					(n == nm ? m->wh : mh) - 2 * c->bw, False);
++			if(w != m->ww)
++				x = c->x + WIDTH(c);
++		}
++		n -= nm;
++		if(n == 0) return;
++	} else {
++		mh = 0;
++		c = nexttiled(m->clients);
++	}
++
++	x = m->wx;
++	y = m->wy + mh;
++	w = m->ww / n;
++	h = m->wh - mh;
++	if(h < bh)
++		h = m->wh;
++
++	for(i = 0; c; c = nexttiled(c->next), i++) {
++		resize(c, x, y, ((i + 1 == n) ? m->wx + m->ww - x : w) - 2 * c->bw,
++		       h - 2 * c->bw, False);
++		if(w != m->ww)
++			x = c->x + WIDTH(c);	
+ 	}
+ }
+ 
+@@ -1734,6 +1814,7 @@
+ 		m->sellt = 0;
+ 		m->tagset[0] = m->tagset[1] = 1;
+ 		m->mfact = mfact;
++		m->nmaster = nmaster;
+ 		m->showbar = showbar;
+ 		m->topbar = topbar;
+ 		m->lt[0] = &layouts[0];

@@ -1,0 +1,3 @@
+makefile
+([Mm]akefile|\.ma?k)$
+^#!.*/(env +)?[bg]?make( |$)

@@ -1,0 +1,3 @@
+javascript
+(\.js$|\.es[5678]?$|\.mjs$)
+^#!.*/(env +)?node( |$)

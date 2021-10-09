@@ -1,0 +1,37 @@
+[module/bsdcpu]
+type="custom/script"
+interval = 1
+format-prefix="cpu "
+format-prefix-foreground=${colors.foreground-alt}
+format-underline = #f90000
+exec=~/.config/polybar/cpu_load_calculator.sh
+label="%output:2%%"
+
+[module/bsdbacklight]
+type="custom/script"
+interval = 1
+format-prefix="backlight "
+format-prefix-foreground=${colors.foreground-alt}
+format-underline = #f90000
+exec="sysctl hw.acpi.video.lcd0.brightness | cut -d" " -f 2"
+label=%output:2%%
+
+[module/bsdmemory]
+type = custom/script
+interval = 2
+format-prefix = "mem "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+exec = ~/.config/polybar/mem_calculator.sh percentage
+label = %output%%
+
+[module/bsdbattery]
+type = custom/script
+interval = 2
+format-prefix = "bat "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+exec = "sysctl hw.acpi.battery.life | cut -d" " -f 2"
+label = %output%%
+
+; vim:ft=dosini

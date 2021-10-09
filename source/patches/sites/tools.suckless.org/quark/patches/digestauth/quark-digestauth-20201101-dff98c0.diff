@@ -1,0 +1,959 @@
+From 2d855b934bf0ba2bdcaf7c818a4a9b1a836b2c59 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jos=C3=A9=20Miguel=20S=C3=A1nchez=20Garc=C3=ADa?=
+ <soy.jmi2k@gmail.com>
+Date: Sun, 1 Nov 2020 00:57:31 +0000
+Subject: [PATCH] Add Digest auth support
+
+This follows RFC 7616, but only MD5 algorithm and auth qop are supported.
+---
+ Makefile     |   3 +-
+ config.def.h |   2 +-
+ http.c       | 291 +++++++++++++++++++++++++++++++++++++++++++++++++--
+ http.h       |  28 ++++-
+ main.c       |  79 ++++++++++++--
+ md5.c        | 148 ++++++++++++++++++++++++++
+ md5.h        |  18 ++++
+ quark.1      |  26 +++++
+ util.h       |  14 +++
+ 9 files changed, 586 insertions(+), 23 deletions(-)
+ create mode 100644 md5.c
+ create mode 100644 md5.h
+
+diff --git a/Makefile b/Makefile
+index da0e458..52fc3db 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,13 +4,14 @@
+ 
+ include config.mk
+ 
+-COMPONENTS = data http queue sock util
++COMPONENTS = data http md5 queue sock util
+ 
+ all: quark
+ 
+ data.o: data.c data.h http.h util.h config.mk
+ http.o: http.c config.h http.h util.h config.mk
+ main.o: main.c arg.h data.h http.h queue.h sock.h util.h config.mk
++md5.o: md5.c md5.h config.mk
+ sock.o: sock.c sock.h util.h config.mk
+ util.o: util.c util.h config.mk
+ 
+diff --git a/config.def.h b/config.def.h
+index 56f62aa..a322e7a 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -2,7 +2,7 @@
+ #define CONFIG_H
+ 
+ #define BUFFER_SIZE 4096
+-#define FIELD_MAX   200
++#define FIELD_MAX   500
+ 
+ /* mime-types */
+ static const struct {
+diff --git a/http.c b/http.c
+index dc32290..1f99722 100644
+--- a/http.c
++++ b/http.c
+@@ -17,13 +17,16 @@
+ #include <unistd.h>
+ 
+ #include "config.h"
++#include "data.h"
+ #include "http.h"
++#include "md5.h"
+ #include "util.h"
+ 
+ const char *req_field_str[] = {
+ 	[REQ_HOST]              = "Host",
+ 	[REQ_RANGE]             = "Range",
+ 	[REQ_IF_MODIFIED_SINCE] = "If-Modified-Since",
++	[REQ_AUTHORIZATION]     = "Authorization",
+ };
+ 
+ const char *req_method_str[] = {
+@@ -37,6 +40,7 @@ const char *status_str[] = {
+ 	[S_MOVED_PERMANENTLY]     = "Moved Permanently",
+ 	[S_NOT_MODIFIED]          = "Not Modified",
+ 	[S_BAD_REQUEST]           = "Bad Request",
++	[S_UNAUTHORIZED]          = "Unauthorized",
+ 	[S_FORBIDDEN]             = "Forbidden",
+ 	[S_NOT_FOUND]             = "Not Found",
+ 	[S_METHOD_NOT_ALLOWED]    = "Method Not Allowed",
+@@ -55,6 +59,7 @@ const char *res_field_str[] = {
+ 	[RES_CONTENT_LENGTH] = "Content-Length",
+ 	[RES_CONTENT_RANGE]  = "Content-Range",
+ 	[RES_CONTENT_TYPE]   = "Content-Type",
++	[RES_AUTHENTICATE]   = "WWW-Authenticate",
+ };
+ 
+ enum status
+@@ -75,8 +80,9 @@ http_prepare_header_buf(const struct response *res, struct buffer *buf)
+ 	if (buffer_appendf(buf,
+ 	                   "HTTP/1.1 %d %s\r\n"
+ 	                   "Date: %s\r\n"
+-	                   "Connection: close\r\n",
+-	                   res->status, status_str[res->status], tstmp)) {
++	                   "Connection: %s\r\n",
++	                   res->status, status_str[res->status], tstmp,
++			   res->keep_alive ? "keep-alive" : "close")) {
+ 		goto err;
+ 	}
+ 
+@@ -549,21 +555,197 @@ parse_range(const char *str, size_t size, size_t *lower, size_t *upper)
+ 	return 0;
+ }
+ 
++static enum status
++parse_auth(const char *str, struct auth *auth)
++{
++	const char *p;
++	char *q;
++
++	/* done if no range-string is given */
++	if (str == NULL || *str == '\0') {
++		return 0;
++	}
++
++	/* skip method authentication statement */
++	if (strncmp(str, "Digest", sizeof("Digest") - 1)) {
++		return S_BAD_REQUEST;
++	}
++
++	p = str + (sizeof("Digest") - 1);
++
++	/*
++	 * Almost all the fields are quoted-string with no restrictions.
++	 *
++	 * However, some of them require special parsing, which is done inline
++	 * and continue the loop early, before reaching the quoted-string
++	 * parser.
++	 */
++	while (*p) {
++		/* skip leading whitespace */
++		for (++p; *p == ' ' || *p == '\t'; p++)
++			;
++
++		if (!strncmp("qop=", p,
++		             sizeof("qop=") - 1)) {
++			p += sizeof("qop=") - 1;
++			q = auth->qop;
++			/* "qop" is handled differently */
++			while (*p && *p != ',') {
++				if (*p == '\\') {
++					++p;
++				}
++				*q++ = *p++;
++			}
++			*q = '\0';
++
++			continue;
++		} else if (!strncmp("algorithm=", p,
++		                    sizeof("algorithm=") - 1)) {
++			p += sizeof("algorithm=") - 1;
++			q = auth->algorithm;
++			/* "algorithm" is handled differently */
++			while (*p && *p != ',') {
++				if (*p == '\\') {
++					++p;
++				}
++				*q++ = *p++;
++			}
++			*q = '\0';
++
++			continue;
++		} else if (!strncmp("nc=", p,
++		                    sizeof("nc=") - 1)) {
++			p += sizeof("nc=") - 1;
++			q = auth->nc;
++			/* "nc" is handled differently */
++			while (*p && *p != ',') {
++				if (*p < '0' || *p > '9') {
++					return S_BAD_REQUEST;
++				}
++				*q++ = *p++;
++			}
++			*q = '\0';
++
++			continue;
++		/* these all are quoted-string */
++		} else if (!strncmp("response=\"", p,
++		                    sizeof("response=\"") - 1)) {
++			p += sizeof("response=\"") - 1;
++			q = auth->response;
++		} else if (!strncmp("username=\"", p,
++		                    sizeof("username=\"") - 1)) {
++			p += sizeof("username=\"") - 1;
++			q = auth->username;
++		} else if (!strncmp("realm=\"", p,
++		                    sizeof("realm=\"") - 1)) {
++			p += sizeof("realm=\"") - 1;
++			q = auth->realm;
++		} else if (!strncmp("uri=\"", p,
++		                    sizeof("uri=\"") - 1)) {
++			p += sizeof("uri=\"") - 1;
++			q = auth->uri;
++		} else if (!strncmp("cnonce=\"", p,
++		                    sizeof("cnonce=\"") - 1)) {
++			p += sizeof("cnonce=\"") - 1;
++			q = auth->cnonce;
++		} else if (!strncmp("nonce=\"", p,
++		                    sizeof("nonce=\"") - 1)) {
++			p += sizeof("nonce=\"") - 1;
++			q = auth->nonce;
++		} else {
++			return S_BAD_REQUEST;
++		}
++
++		/* parse quoted-string */
++		while (*p != '"') {
++			if (*p == '\\') {
++				++p;
++			}
++			if (!*p) {
++				return S_BAD_REQUEST;
++			}
++			*q++ = *p++;
++		}
++		*q = '\0';
++		++p;
++	}
++
++	/* skip trailing whitespace */
++	for (++p; *p == ' ' || *p == '\t'; p++)
++		;
++
++	if (*p) {
++		return S_BAD_REQUEST;
++	}
++
++	return 0;
++}
++
++static enum status
++prepare_digest(char response[MD5_DIGEST_LENGTH * 2 + 1],
++               enum req_method method, const char *uri, const uint8_t *a1,
++               const char *nonce, const char *nc, const char *cnonce,
++               const char *qop)
++{
++	uint8_t a2[MD5_DIGEST_LENGTH], kdr[MD5_DIGEST_LENGTH];
++	char scratch[FIELD_MAX];
++	struct md5 md5;
++	unsigned int i;
++	char *p;
++
++	/* calculate H(A2) */
++	if (esnprintf(scratch, sizeof(scratch), "%s:%s",
++	              req_method_str[method], uri)) {
++		return S_INTERNAL_SERVER_ERROR;
++	}
++
++	md5_init(&md5);
++	md5_update(&md5, scratch, strlen(scratch));
++	md5_sum(&md5, a2);
++
++	/* calculate response */
++	if (esnprintf(scratch, sizeof(scratch), "%s:%s:%s:%s:%s:%-*x",
++	              a1, nonce, nc, cnonce, qop,
++	              MD5_DIGEST_LENGTH * 2 + 1, 0)) {
++		return S_INTERNAL_SERVER_ERROR;
++	}
++
++	/* replace trailing string of '-' inside scratch with actual H(A2) */
++	p = &scratch[strlen(scratch) - (MD5_DIGEST_LENGTH * 2 + 1)];
++	for (i = 0; i < sizeof(a2); i++) {
++		sprintf(&p[i << 1], "%02x", a2[i]);
++	}
++
++	md5_init(&md5);
++	md5_update(&md5, scratch, strlen(scratch));
++	md5_sum(&md5, kdr);
++
++	for (i = 0; i < sizeof(kdr); i++) {
++		sprintf(&response[i << 1], "%02x", kdr[i]);
++	}
++
++	return 0;
++}
++
+ #undef RELPATH
+ #define RELPATH(x) ((!*(x) || !strcmp(x, "/")) ? "." : ((x) + 1))
+ 
+ void
+-http_prepare_response(const struct request *req, struct response *res,
+-                      const struct server *srv)
++http_prepare_response(struct request *req, struct response *res,
++                      char nonce[FIELD_MAX], const struct server *srv)
+ {
+ 	enum status s;
+ 	struct in6_addr addr;
+ 	struct stat st;
+ 	struct tm tm = { 0 };
++	struct auth auth = { 0 };
+ 	struct vhost *vhost;
++	struct realm *realm;
++	struct account *account;
+ 	size_t len, i;
+ 	int hasport, ipv6host;
+ 	static char realuri[PATH_MAX], tmpuri[PATH_MAX];
++	char response[MD5_DIGEST_LENGTH * 2 + 1];
+ 	char *p, *mime;
+ 	const char *targethost;
+ 
+@@ -809,14 +991,63 @@ http_prepare_response(const struct request *req, struct response *res,
+ 		}
+ 	}
+ 
+-	/* fill response struct */
+-	res->type = RESTYPE_FILE;
+-
+ 	/* check if file is readable */
+ 	res->status = (access(res->path, R_OK)) ? S_FORBIDDEN :
+ 	              (req->field[REQ_RANGE][0] != '\0') ?
+ 	              S_PARTIAL_CONTENT : S_OK;
+ 
++	/* check if the client is authorized */
++	realm = NULL;
++	if (srv->realm) {
++		for (i = 0; i < srv->realm_len; i++) {
++			if (srv->realm[i].gid == st.st_gid) {
++				realm = &(srv->realm[i]);
++				break;
++			}
++		}
++		req->realm = realm;
++		/* if the file belongs to a realm */
++		if (i < srv->realm_len) {
++			if (req->field[REQ_AUTHORIZATION][0] == '\0') {
++				s = S_UNAUTHORIZED;
++				goto err;
++			}
++			if ((s = parse_auth(req->field[REQ_AUTHORIZATION],
++			                    &auth))) {
++				goto err;
++			}
++			/* look for the requested user */
++			for (i = 0; i < realm->account_len; i++) {
++				if (!strcmp(auth.username,
++					    realm->account[i].username)) {
++					account = &(realm->account[i]);
++					break;
++				}
++			}
++			if (i == realm->account_len) {
++				s = S_UNAUTHORIZED;
++				goto err;
++			}
++			if ((s = prepare_digest(response, req->method,
++			                        auth.uri,
++			                        (uint8_t *)account->crypt,
++			                        nonce, auth.nc,
++			                        auth.cnonce, auth.qop))) {
++				goto err;
++			}
++			if (strcmp(auth.nonce, nonce)) {
++				req->stale = 1;
++			}
++			if (strncmp(response, auth.response, sizeof(response))) {
++				s = S_UNAUTHORIZED;
++				goto err;
++			}
++		}
++	}
++
++	/* fill response struct */
++	res->type = RESTYPE_FILE;
++
+ 	if (esnprintf(res->field[RES_ACCEPT_RANGES],
+ 	              sizeof(res->field[RES_ACCEPT_RANGES]),
+ 		      "%s", "bytes")) {
+@@ -854,17 +1085,22 @@ http_prepare_response(const struct request *req, struct response *res,
+ 
+ 	return;
+ err:
+-	http_prepare_error_response(req, res, s);
++	http_prepare_error_response(req, res, nonce, s);
+ }
+ 
+ void
+ http_prepare_error_response(const struct request *req,
+-                            struct response *res, enum status s)
++                            struct response *res, char nonce[FIELD_MAX],
++                            enum status s)
+ {
++	struct timespec ts;
++	struct buffer buf;
++	size_t progress;
++
+ 	/* used later */
+ 	(void)req;
+ 
+-	/* empty all response fields */
++	/* empty all fields */
+ 	memset(res, 0, sizeof(*res));
+ 
+ 	res->type = RESTYPE_ERROR;
+@@ -883,4 +1119,39 @@ http_prepare_error_response(const struct request *req,
+ 			res->status = S_INTERNAL_SERVER_ERROR;
+ 		}
+ 	}
++
++	if (res->status == S_UNAUTHORIZED) {
++		clock_gettime(CLOCK_MONOTONIC, &ts);
++		if (esnprintf(nonce, FIELD_MAX,
++		              "%lus, %luns, %s",
++		              ts.tv_sec, ts.tv_nsec,
++		              req->realm->name)) {
++			res->status = S_INTERNAL_SERVER_ERROR;
++		}
++		if (esnprintf(res->field[RES_AUTHENTICATE],
++			      sizeof(res->field[RES_AUTHENTICATE]),
++			      "Digest "
++			      "realm=\"%s\", "
++			      "qop=\"auth\", "
++			      "algorithm=MD5, "
++			      "stale=%s, "
++			      "nonce=\"%s\"",
++			      req->realm->name,
++			      req->stale ? "true" : "false",
++			      nonce)) {
++			res->status = S_INTERNAL_SERVER_ERROR;
++		} else {
++			res->keep_alive = 1;
++		}
++	}
++
++	progress = 0;
++	if (data_prepare_error_buf(res, &buf, &progress)
++	    || esnprintf(res->field[RES_CONTENT_LENGTH],
++	              sizeof(res->field[RES_CONTENT_LENGTH]),
++	              "%zu", buf.len)) {
++		res->field[RES_CONTENT_LENGTH][0] = '\0';
++		res->keep_alive = 0;
++		s = S_INTERNAL_SERVER_ERROR;
++	}
+ }
+diff --git a/http.h b/http.h
+index bfaa807..215bb8f 100644
+--- a/http.h
++++ b/http.h
+@@ -12,6 +12,7 @@ enum req_field {
+ 	REQ_HOST,
+ 	REQ_RANGE,
+ 	REQ_IF_MODIFIED_SINCE,
++	REQ_AUTHORIZATION,
+ 	NUM_REQ_FIELDS,
+ };
+ 
+@@ -28,6 +29,8 @@ extern const char *req_method_str[];
+ struct request {
+ 	enum req_method method;
+ 	char uri[PATH_MAX];
++	struct realm *realm;
++	int stale;
+ 	char field[NUM_REQ_FIELDS][FIELD_MAX];
+ };
+ 
+@@ -37,6 +40,7 @@ enum status {
+ 	S_MOVED_PERMANENTLY     = 301,
+ 	S_NOT_MODIFIED          = 304,
+ 	S_BAD_REQUEST           = 400,
++	S_UNAUTHORIZED          = 401,
+ 	S_FORBIDDEN             = 403,
+ 	S_NOT_FOUND             = 404,
+ 	S_METHOD_NOT_ALLOWED    = 405,
+@@ -57,6 +61,7 @@ enum res_field {
+ 	RES_CONTENT_LENGTH,
+ 	RES_CONTENT_RANGE,
+ 	RES_CONTENT_TYPE,
++	RES_AUTHENTICATE,
+ 	NUM_RES_FIELDS,
+ };
+ 
+@@ -72,6 +77,7 @@ enum res_type {
+ struct response {
+ 	enum res_type type;
+ 	enum status status;
++	int keep_alive;
+ 	char field[NUM_RES_FIELDS][FIELD_MAX];
+ 	char uri[PATH_MAX];
+ 	char path[PATH_MAX];
+@@ -83,6 +89,7 @@ struct response {
+ 
+ enum conn_state {
+ 	C_VACANT,
++	C_START,
+ 	C_RECV_HEADER,
+ 	C_SEND_HEADER,
+ 	C_SEND_BODY,
+@@ -91,6 +98,7 @@ enum conn_state {
+ 
+ struct connection {
+ 	enum conn_state state;
++	char nonce[FIELD_MAX];
+ 	int fd;
+ 	struct sockaddr_storage ia;
+ 	struct request req;
+@@ -99,13 +107,25 @@ struct connection {
+ 	size_t progress;
+ };
+ 
++struct auth {
++	char response[FIELD_MAX];
++	char username[FIELD_MAX];
++	char realm[FIELD_MAX];
++	char uri[FIELD_MAX];
++	char qop[FIELD_MAX];
++	char cnonce[FIELD_MAX];
++	char nonce[FIELD_MAX];
++	char algorithm[FIELD_MAX];
++	char nc[FIELD_MAX];
++};
++
+ enum status http_prepare_header_buf(const struct response *, struct buffer *);
+ enum status http_send_buf(int, struct buffer *);
+ enum status http_recv_header(int, struct buffer *, int *);
+ enum status http_parse_header(const char *, struct request *);
+-void http_prepare_response(const struct request *, struct response *,
+-                           const struct server *);
+-void http_prepare_error_response(const struct request *,
+-                                 struct response *, enum status);
++void http_prepare_response(struct request *, struct response *,
++                           char nonce[FIELD_MAX], const struct server *);
++void http_prepare_error_response(const struct request *, struct response *,
++                                 char nonce[FIELD_MAX], enum status);
+ 
+ #endif /* HTTP_H */
+diff --git a/main.c b/main.c
+index e26cc77..65dacf4 100644
+--- a/main.c
++++ b/main.c
+@@ -66,11 +66,17 @@ serve_connection(struct connection *c, const struct server *srv)
+ 
+ 	switch (c->state) {
+ 	case C_VACANT:
++		/* we were passed a "fresh" connection, reset all state */
++
++		c->state = C_START;
++		/* fallthrough */
++	case C_START:
+ 		/*
+-		 * we were passed a "fresh" connection which should now
+-		 * try to receive the header, reset buf beforehand
++		 * we start handling a request, so we first must try to
++		 * receive the header, reset buf beforehand
+ 		 */
+ 		memset(&c->buf, 0, sizeof(c->buf));
++		c->progress = 0;
+ 
+ 		c->state = C_RECV_HEADER;
+ 		/* fallthrough */
+@@ -78,7 +84,7 @@ serve_connection(struct connection *c, const struct server *srv)
+ 		/* receive header */
+ 		done = 0;
+ 		if ((s = http_recv_header(c->fd, &c->buf, &done))) {
+-			http_prepare_error_response(&c->req, &c->res, s);
++			http_prepare_error_response(&c->req, &c->res, c->nonce, s);
+ 			goto response;
+ 		}
+ 		if (!done) {
+@@ -88,16 +94,16 @@ serve_connection(struct connection *c, const struct server *srv)
+ 
+ 		/* parse header */
+ 		if ((s = http_parse_header(c->buf.data, &c->req))) {
+-			http_prepare_error_response(&c->req, &c->res, s);
++			http_prepare_error_response(&c->req, &c->res, c->nonce, s);
+ 			goto response;
+ 		}
+ 
+ 		/* prepare response struct */
+-		http_prepare_response(&c->req, &c->res, srv);
++		http_prepare_response(&c->req, &c->res, c->nonce, srv);
+ response:
+ 		/* generate response header */
+ 		if ((s = http_prepare_header_buf(&c->res, &c->buf))) {
+-			http_prepare_error_response(&c->req, &c->res, s);
++			http_prepare_error_response(&c->req, &c->res, c->nonce, s);
+ 			if ((s = http_prepare_header_buf(&c->res, &c->buf))) {
+ 				/* couldn't generate the header, we failed for good */
+ 				c->res.status = s;
+@@ -151,6 +157,21 @@ response:
+ 	}
+ err:
+ 	logmsg(c);
++
++	/* don't cleanup if we keep the connection alive */
++	if (c->res.keep_alive) {
++		/*
++		 * if the length is unspecified, a keep-alive connection will
++		 * wait timeout: kill the connection to avoid it
++		 */
++		if (c->res.field[RES_CONTENT_LENGTH][0] == '\0') {
++			c->res.status = S_INTERNAL_SERVER_ERROR;
++		} else {
++			c->state = C_START;
++			return;
++		}
++	}
++
+ 	close_connection(c);
+ }
+ 
+@@ -296,6 +317,7 @@ thread_method(void *data)
+ 				 * we are "stuck" at
+ 				 */
+ 				switch(c->state) {
++				case C_START:
+ 				case C_RECV_HEADER:
+ 					if (queue_mod_fd(qfd, c->fd,
+ 					                 QUEUE_EVENT_IN,
+@@ -463,7 +485,8 @@ static void
+ usage(void)
+ {
+ 	const char *opts = "[-u user] [-g group] [-n num] [-d dir] [-l] "
+-	                   "[-i file] [-v vhost] ... [-m map] ...";
++	                   "[-i file] [-v vhost] ... [-m map] ... "
++			   "[-r realm] ... [-a account] ...";
+ 
+ 	die("usage: %s -p port [-h host] %s\n"
+ 	    "       %s -U file [-p port] %s", argv0,
+@@ -479,6 +502,7 @@ main(int argc, char *argv[])
+ 	struct server srv = {
+ 		.docindex = "index.html",
+ 	};
++	struct realm *realm;
+ 	size_t i;
+ 	int *insock = NULL, status = 0;
+ 	const char *err;
+@@ -492,6 +516,29 @@ main(int argc, char *argv[])
+ 	char *group = "nogroup";
+ 
+ 	ARGBEGIN {
++	case 'a':
++		if (spacetok(EARGF(usage()), tok, 3) || !tok[0] || !tok[1] ||
++		    !tok[2]) {
++			usage();
++		}
++		realm = NULL;
++		for (i = 0; i < srv.realm_len; i++) {
++			if (!strcmp(srv.realm[i].name, tok[0])) {
++				realm = &(srv.realm[i]);
++				break;
++			}
++		}
++		if (!realm) {
++			die("Realm '%s' not found", tok[0]);
++		}
++		if (!(realm->account = reallocarray(realm->account,
++		                                 ++realm->account_len,
++		                                 sizeof(struct account)))) {
++				die("reallocarray:");
++		}
++		realm->account[realm->account_len - 1].username = tok[1];
++		realm->account[realm->account_len - 1].crypt    = tok[2];
++		break;
+ 	case 'd':
+ 		servedir = EARGF(usage());
+ 		break;
+@@ -539,6 +586,24 @@ main(int argc, char *argv[])
+ 	case 'p':
+ 		srv.port = EARGF(usage());
+ 		break;
++	case 'r':
++		if (spacetok(EARGF(usage()), tok, 2) || !tok[0] || !tok[1]) {
++			usage();
++		}
++		errno = 0;
++		if (!(grp = getgrnam(tok[0]))) {
++			die("getgrnam '%s': %s", tok[0] ? tok[0] : "null",
++			    errno ? strerror(errno) : "Entry not found");
++		}
++		if (!(srv.realm = reallocarray(srv.realm, ++srv.realm_len,
++		                           sizeof(struct realm)))) {
++			die("reallocarray:");
++		}
++		srv.realm[srv.realm_len - 1].gid         = grp->gr_gid;
++		srv.realm[srv.realm_len - 1].name        = tok[1];
++		srv.realm[srv.realm_len - 1].account     = NULL;
++		srv.realm[srv.realm_len - 1].account_len = 0;
++		break;
+ 	case 'U':
+ 		udsname = EARGF(usage());
+ 		break;
+diff --git a/md5.c b/md5.c
+new file mode 100644
+index 0000000..f56a501
+--- /dev/null
++++ b/md5.c
+@@ -0,0 +1,148 @@
++/* public domain md5 implementation based on rfc1321 and libtomcrypt */
++#include <stdint.h>
++#include <string.h>
++
++#include "md5.h"
++
++static uint32_t rol(uint32_t n, int k) { return (n << k) | (n >> (32-k)); }
++#define F(x,y,z) (z ^ (x & (y ^ z)))
++#define G(x,y,z) (y ^ (z & (y ^ x)))
++#define H(x,y,z) (x ^ y ^ z)
++#define I(x,y,z) (y ^ (x | ~z))
++#define FF(a,b,c,d,w,s,t) a += F(b,c,d) + w + t; a = rol(a,s) + b
++#define GG(a,b,c,d,w,s,t) a += G(b,c,d) + w + t; a = rol(a,s) + b
++#define HH(a,b,c,d,w,s,t) a += H(b,c,d) + w + t; a = rol(a,s) + b
++#define II(a,b,c,d,w,s,t) a += I(b,c,d) + w + t; a = rol(a,s) + b
++
++static const uint32_t tab[64] = {
++	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
++	0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be, 0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821,
++	0xf61e2562, 0xc040b340, 0x265e5a51, 0xe9b6c7aa, 0xd62f105d, 0x02441453, 0xd8a1e681, 0xe7d3fbc8,
++	0x21e1cde6, 0xc33707d6, 0xf4d50d87, 0x455a14ed, 0xa9e3e905, 0xfcefa3f8, 0x676f02d9, 0x8d2a4c8a,
++	0xfffa3942, 0x8771f681, 0x6d9d6122, 0xfde5380c, 0xa4beea44, 0x4bdecfa9, 0xf6bb4b60, 0xbebfbc70,
++	0x289b7ec6, 0xeaa127fa, 0xd4ef3085, 0x04881d05, 0xd9d4d039, 0xe6db99e5, 0x1fa27cf8, 0xc4ac5665,
++	0xf4292244, 0x432aff97, 0xab9423a7, 0xfc93a039, 0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
++	0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
++};
++
++static void
++processblock(struct md5 *s, const uint8_t *buf)
++{
++	uint32_t i, W[16], a, b, c, d;
++
++	for (i = 0; i < 16; i++) {
++		W[i] = buf[4*i];
++		W[i] |= (uint32_t)buf[4*i+1]<<8;
++		W[i] |= (uint32_t)buf[4*i+2]<<16;
++		W[i] |= (uint32_t)buf[4*i+3]<<24;
++	}
++
++	a = s->h[0];
++	b = s->h[1];
++	c = s->h[2];
++	d = s->h[3];
++
++	i = 0;
++	while (i < 16) {
++		FF(a,b,c,d, W[i],  7, tab[i]); i++;
++		FF(d,a,b,c, W[i], 12, tab[i]); i++;
++		FF(c,d,a,b, W[i], 17, tab[i]); i++;
++		FF(b,c,d,a, W[i], 22, tab[i]); i++;
++	}
++	while (i < 32) {
++		GG(a,b,c,d, W[(5*i+1)%16],  5, tab[i]); i++;
++		GG(d,a,b,c, W[(5*i+1)%16],  9, tab[i]); i++;
++		GG(c,d,a,b, W[(5*i+1)%16], 14, tab[i]); i++;
++		GG(b,c,d,a, W[(5*i+1)%16], 20, tab[i]); i++;
++	}
++	while (i < 48) {
++		HH(a,b,c,d, W[(3*i+5)%16],  4, tab[i]); i++;
++		HH(d,a,b,c, W[(3*i+5)%16], 11, tab[i]); i++;
++		HH(c,d,a,b, W[(3*i+5)%16], 16, tab[i]); i++;
++		HH(b,c,d,a, W[(3*i+5)%16], 23, tab[i]); i++;
++	}
++	while (i < 64) {
++		II(a,b,c,d, W[7*i%16],  6, tab[i]); i++;
++		II(d,a,b,c, W[7*i%16], 10, tab[i]); i++;
++		II(c,d,a,b, W[7*i%16], 15, tab[i]); i++;
++		II(b,c,d,a, W[7*i%16], 21, tab[i]); i++;
++	}
++
++	s->h[0] += a;
++	s->h[1] += b;
++	s->h[2] += c;
++	s->h[3] += d;
++}
++
++static void
++pad(struct md5 *s)
++{
++	unsigned r = s->len % 64;
++
++	s->buf[r++] = 0x80;
++	if (r > 56) {
++		memset(s->buf + r, 0, 64 - r);
++		r = 0;
++		processblock(s, s->buf);
++	}
++	memset(s->buf + r, 0, 56 - r);
++	s->len *= 8;
++	s->buf[56] = s->len;
++	s->buf[57] = s->len >> 8;
++	s->buf[58] = s->len >> 16;
++	s->buf[59] = s->len >> 24;
++	s->buf[60] = s->len >> 32;
++	s->buf[61] = s->len >> 40;
++	s->buf[62] = s->len >> 48;
++	s->buf[63] = s->len >> 56;
++	processblock(s, s->buf);
++}
++
++void
++md5_init(void *ctx)
++{
++	struct md5 *s = ctx;
++	s->len = 0;
++	s->h[0] = 0x67452301;
++	s->h[1] = 0xefcdab89;
++	s->h[2] = 0x98badcfe;
++	s->h[3] = 0x10325476;
++}
++
++void
++md5_sum(void *ctx, uint8_t md[MD5_DIGEST_LENGTH])
++{
++	struct md5 *s = ctx;
++	int i;
++
++	pad(s);
++	for (i = 0; i < 4; i++) {
++		md[4*i] = s->h[i];
++		md[4*i+1] = s->h[i] >> 8;
++		md[4*i+2] = s->h[i] >> 16;
++		md[4*i+3] = s->h[i] >> 24;
++	}
++}
++
++void
++md5_update(void *ctx, const void *m, unsigned long len)
++{
++	struct md5 *s = ctx;
++	const uint8_t *p = m;
++	unsigned r = s->len % 64;
++
++	s->len += len;
++	if (r) {
++		if (len < 64 - r) {
++			memcpy(s->buf + r, p, len);
++			return;
++		}
++		memcpy(s->buf + r, p, 64 - r);
++		len -= 64 - r;
++		p += 64 - r;
++		processblock(s, s->buf);
++	}
++	for (; len >= 64; len -= 64, p += 64)
++		processblock(s, p);
++	memcpy(s->buf, p, len);
++}
+diff --git a/md5.h b/md5.h
+new file mode 100644
+index 0000000..0b5005e
+--- /dev/null
++++ b/md5.h
+@@ -0,0 +1,18 @@
++/* public domain md5 implementation based on rfc1321 and libtomcrypt */
++
++struct md5 {
++	uint64_t len;    /* processed message length */
++	uint32_t h[4];   /* hash state */
++	uint8_t buf[64]; /* message block buffer */
++};
++
++enum { MD5_DIGEST_LENGTH = 16 };
++
++/* reset state */
++void md5_init(void *ctx);
++/* process message */
++void md5_update(void *ctx, const void *m, unsigned long len);
++/* get message digest */
++/* state is ruined after sum, keep a copy if multiple sum is needed */
++/* part of the message might be left in s, zero it if secrecy is needed */
++void md5_sum(void *ctx, uint8_t md[MD5_DIGEST_LENGTH]);
+diff --git a/quark.1 b/quark.1
+index d752cc7..2e79661 100644
+--- a/quark.1
++++ b/quark.1
+@@ -17,6 +17,8 @@
+ .Op Fl i Ar file
+ .Oo Fl v Ar vhost Oc ...
+ .Oo Fl m Ar map Oc ...
++.Oo Fl r Ar realm Oc ...
++.Oo Fl a Ar account Oc ...
+ .Nm
+ .Fl U Ar file
+ .Op Fl p Ar port
+@@ -29,6 +31,8 @@
+ .Op Fl i Ar file
+ .Oo Fl v Ar vhost Oc ...
+ .Oo Fl m Ar map Oc ...
++.Oo Fl r Ar realm Oc ...
++.Oo Fl a Ar account Oc ...
+ .Sh DESCRIPTION
+ .Nm
+ is a simple HTTP GET/HEAD-only web server for static content.
+@@ -38,11 +42,26 @@ explicit redirects (see
+ .Fl m ) ,
+ directory listings (see
+ .Fl l ) ,
++Digest authentication (RFC 7616, see
++.Fl r
++and
++.Fl a ) ,
+ conditional "If-Modified-Since"-requests (RFC 7232), range requests
+ (RFC 7233) and well-known URIs (RFC 8615), while refusing to serve
+ hidden files and directories.
+ .Sh OPTIONS
+ .Bl -tag -width Ds
++.It Fl a Ar account
++Add the account specified by
++.Ar account ,
++which has the form
++.Qq Pa realm username crypt ,
++where each element is separated with spaces (0x20) that can be
++escaped with '\\'. The
++.Pa crypt
++parameter can be generated as follows:
++.Pp
++echo -n 'username:realm:password' | md5sum | awk '{ print $1 }'
+ .It Fl d Ar dir
+ Serve
+ .Ar dir
+@@ -90,6 +109,13 @@ In socket mode, use
+ .Ar port
+ for constructing proper virtual host
+ redirects on non-standard ports.
++.It Fl r Ar realm
++Add mapping from group to realm as specified by
++.Ar realm ,
++which has the form
++.Qq Pa group name ,
++where each element is separated with spaces (0x20) that can be
++escaped with '\\'.
+ .It Fl U Ar file
+ Create the UNIX-domain socket
+ .Ar file ,
+diff --git a/util.h b/util.h
+index 983abd2..0307a34 100644
+--- a/util.h
++++ b/util.h
+@@ -23,6 +23,18 @@ struct map {
+ 	char *to;
+ };
+ 
++struct account {
++	char *username;
++	char *crypt;
++};
++
++struct realm {
++	gid_t gid;
++	char *name;
++	struct account *account;
++	size_t account_len;
++};
++
+ struct server {
+ 	char *host;
+ 	char *port;
+@@ -32,6 +44,8 @@ struct server {
+ 	size_t vhost_len;
+ 	struct map *map;
+ 	size_t map_len;
++	struct realm *realm;
++	size_t realm_len;
+ };
+ 
+ /* general purpose buffer */
+-- 
+2.29.2
+

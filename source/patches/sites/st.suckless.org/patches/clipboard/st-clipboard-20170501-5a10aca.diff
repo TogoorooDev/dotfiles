@@ -1,0 +1,14 @@
+diff --git a/x.c b/x.c
+index fbfd350..c122cad 100644
+--- a/x.c
++++ b/x.c
+@@ -507,6 +507,9 @@ xsetsel(char *str, Time t)
+ 	XSetSelectionOwner(xw.dpy, XA_PRIMARY, xw.win, t);
+ 	if (XGetSelectionOwner(xw.dpy, XA_PRIMARY) != xw.win)
+ 		selclear_(NULL);
++
++
++	xclipcopy();
+ }
+ 
+ void

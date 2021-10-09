@@ -1,0 +1,28 @@
+diff -up st/config.def.h st-gradient/config.def.h
+--- st/config.def.h	2021-01-12 03:24:27.313995808 +0530
++++ st-gradient/config.def.h	2021-01-12 03:03:37.837696991 +0530
+@@ -95,6 +95,8 @@ unsigned int tabspaces = 8;
+
+ /* bg opacity */
+ float alpha = 0.8;
++float grad_alpha = 0.54; //alpha value that'll change
++float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
+
+ /* Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+Common subdirectories: st/.git and st-gradient/.git
+diff -up st/x.c st-gradient/x.c
+--- st/x.c	2021-01-12 03:24:27.313995808 +0530
++++ st-gradient/x.c	2021-01-12 03:08:40.850694072 +0530
+@@ -1448,6 +1448,11 @@ xdrawglyphfontspecs(const XftGlyphFontSp
+
+ 	if (base.mode & ATTR_INVISIBLE)
+ 		fg = bg;
++
++	// gradient
++	bg->color.alpha = grad_alpha * 0xffff * (win.h - y*win.ch) / win.h + stat_alpha * 0xffff;
++	// uncomment to invert the gradient
++	// bg->color.alpha = grad_alpha * 0xffff * (y*win.ch) / win.h + stat_alpha * 0xffff;
+
+ 	/* Intelligent cleaning up of the borders. */
+ 	if (x == 0) {

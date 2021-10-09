@@ -1,0 +1,116 @@
+stages:
+- build
+- package
+
+default:
+  before_script:
+  - mkdir -p .cache
+  - export GOPATH="$CI_PROJECT_DIR/.cache"
+
+cache:
+  paths:
+  - .cache
+
+.build-linux: &build-linux
+  stage: build
+  script:
+  - go build -ldflags "-linkmode external -extldflags -static" -o gomuks
+  artifacts:
+    paths:
+    - gomuks
+
+linux/amd64:
+  <<: *build-linux
+  image: dock.mau.dev/tulir/gomuks-build-docker:linux-amd64
+
+linux/arm:
+  <<: *build-linux
+  image: dock.mau.dev/tulir/gomuks-build-docker:linux-arm
+
+linux/arm64:
+  <<: *build-linux
+  image: dock.mau.dev/tulir/gomuks-build-docker:linux-arm64
+
+windows/amd64:
+  image: dock.mau.dev/tulir/gomuks-build-docker:windows-amd64
+  stage: build
+  script:
+  - go build -ldflags "-linkmode external -extldflags -static" -o gomuks.exe
+  artifacts:
+    paths:
+    - gomuks.exe
+
+macos/amd64:
+  stage: build
+  tags:
+  - macos
+  - amd64
+  before_script: []
+  script:
+  - mkdir gomuks-macos-amd64
+  - go build -o gomuks-macos-amd64/gomuks
+  - install_name_tool -change /usr/local/opt/libolm/lib/libolm.3.dylib @rpath/libolm.3.dylib gomuks-macos-amd64/gomuks
+  - install_name_tool -add_rpath @executable_path gomuks-macos-amd64/gomuks
+  - install_name_tool -add_rpath /usr/local/opt/libolm/lib gomuks-macos-amd64/gomuks
+  - cp /usr/local/opt/libolm/lib/libolm.3.dylib gomuks-macos-amd64/
+  artifacts:
+    paths:
+    - gomuks-macos-amd64
+
+macos/arm64:
+  stage: build
+  tags:
+  - macos
+  - arm64
+  before_script:
+  - export LIBRARY_PATH=/opt/homebrew/lib
+  - export CPATH=/opt/homebrew/include
+  - export PATH=/opt/homebrew/bin:$PATH
+  script:
+  - mkdir gomuks-macos-arm64
+  - go build -o gomuks-macos-arm64/gomuks
+  - install_name_tool -change /opt/homebrew/opt/libolm/lib/libolm.3.dylib @rpath/libolm.3.dylib gomuks-macos-arm64/gomuks
+  - install_name_tool -add_rpath @executable_path gomuks-macos-arm64/gomuks
+  - install_name_tool -add_rpath /opt/homebrew/opt/libolm/lib gomuks-macos-arm64/gomuks
+  - install_name_tool -add_rpath /usr/local/opt/libolm/lib gomuks-macos-arm64/gomuks
+  - cp /opt/homebrew/opt/libolm/lib/libolm.3.dylib gomuks-macos-arm64/
+  artifacts:
+    paths:
+    - gomuks-macos-arm64
+
+macos/universal:
+  stage: package
+  tags:
+  - macos
+  dependencies:
+  - macos/amd64
+  - macos/arm64
+  needs:
+  - macos/amd64
+  - macos/arm64
+  variables:
+    GIT_STRATEGY: none
+  script:
+  - lipo -create -output libolm.3.dylib gomuks-macos-arm64/libolm.3.dylib gomuks-macos-amd64/libolm.3.dylib
+  - lipo -create -output gomuks gomuks-macos-arm64/gomuks gomuks-macos-amd64/gomuks
+  artifacts:
+    name: gomuks-macos-universal
+    paths:
+    - libolm.3.dylib
+    - gomuks
+
+debian:
+  image: debian
+  stage: package
+  dependencies:
+  - linux/amd64
+  only:
+  - tags
+  script:
+  - mkdir -p deb/usr/bin
+  - cp gomuks deb/usr/bin/gomuks
+  - chmod -R -s deb/DEBIAN && chmod -R 0755 deb/DEBIAN
+  - dpkg-deb --build deb gomuks.deb
+  artifacts:
+    paths:
+    - gomuks.deb

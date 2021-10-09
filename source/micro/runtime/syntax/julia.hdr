@@ -1,0 +1,3 @@
+julia
+\.jl$
+^#!.*/(env +)?julia( |$)

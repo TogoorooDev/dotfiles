@@ -1,0 +1,3 @@
+glsl
+\.(frag|vert|fp|vp|glsl)$
+

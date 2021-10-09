@@ -1,0 +1,40 @@
+From b469a9fa4c142fd6f0d639cecd871f09c4684d62 Mon Sep 17 00:00:00 2001
+From: c0dev0id <sh+github@codevoid.de>
+Date: Mon, 2 Aug 2021 20:35:56 +0200
+Subject: [PATCH] Update patch to current version
+
+---
+ Makefile     | 3 ++-
+ config.def.h | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 470ac86..e61dfe5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -47,7 +47,8 @@ install: st
+ 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
+ 	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1
+ 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
+-	tic -sx st.info
++	sed 's/st\([^t].*\)/st-git\1/g' st.info > st-git.info
++	tic -sx st-git.info
+ 	@echo Please see the README file regarding the terminfo entry of st.
+
+ uninstall:
+diff --git a/config.def.h b/config.def.h
+index 6f05dce..b98451c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -74,7 +74,7 @@ static unsigned int cursorthickness = 2;
+ static int bellvolume = 0;
+
+ /* default TERM value */
+-char *termname = "st-256color";
++char *termname = "st-git-256color";
+
+ /*
+  * spaces per tab
+-- 
+2.32.0
+

@@ -1,0 +1,61 @@
+diff -up surf-0.3/config.def.h surf-0.3-modified/config.def.h
+--- surf-0.3/config.def.h	2009-10-30 08:41:02.000000000 -0400
++++ surf-0.3-modified/config.def.h	2009-12-04 10:44:48.000000000 -0500
+@@ -45,3 +45,7 @@ static Item items[] = {
+     { "Copy URI",       clipboard, { .b = FALSE } },
+     { "Download",       download,  { 0 } },
+ };
++
++static SearchEngine searchengines[] = {
++    { NULL, NULL },
++};
+diff -up surf-0.3/surf.c surf-0.3-modified/surf.c
+--- surf-0.3/surf.c	2009-10-30 08:41:02.000000000 -0400
++++ surf-0.3-modified/surf.c	2009-12-04 10:46:18.000000000 -0500
+@@ -54,6 +54,11 @@ typedef struct {
+ 	const Arg arg;
+ } Key;
+ 
++typedef struct {
++	char *token;
++	char *uri;
++} SearchEngine;
++
+ static Display *dpy;
+ static Atom uriprop, findprop;
+ static SoupCookieJar *cookies;
+@@ -90,6 +95,7 @@ static gboolean keypress(GtkWidget *w, G
+ static void linkhover(WebKitWebView *v, const char* t, const char* l, Client *c);
+ static void loadcommit(WebKitWebView *v, WebKitWebFrame *f, Client *c);
+ static void loadstart(WebKitWebView *v, WebKitWebFrame *f, Client *c);
++static gchar *parseuri(const gchar *uri);
+ static void loaduri(Client *c, const Arg *arg);
+ static void navigate(Client *c, const Arg *arg);
+ static Client *newclient(void);
+@@ -431,13 +437,24 @@ loadstart(WebKitWebView *view, WebKitWeb
+ 	reloadcookies();
+ }
+ 
++gchar *
++parseuri(const gchar *uri) {
++	guint i;
++	for (i = 0; i < LENGTH(searchengines); i++) {
++		if (searchengines[i].token == NULL || searchengines[i].uri == NULL || *(uri + strlen(searchengines[i].token)) != ' ')
++			continue;
++		if (g_str_has_prefix(uri, searchengines[i].token))
++			return g_strdup_printf(searchengines[i].uri, uri + strlen(searchengines[i].token) + 1);
++	}
++	return g_strrstr(uri, "://") ? g_strdup(uri) : g_strdup_printf("http://%s", uri);
++}
++
+ void
+ loaduri(Client *c, const Arg *arg) {
+ 	char *u;
+ 	const char *uri = (char *)arg->v;
+ 
+-	u = g_strrstr(uri, "://") ? g_strdup(uri)
+-		: g_strdup_printf("http://%s", uri);
++	u = parseuri(uri);
+ 	webkit_web_view_load_uri(c->view, u);
+ 	c->progress = 0;
+ 	c->title = copystr(&c->title, u);

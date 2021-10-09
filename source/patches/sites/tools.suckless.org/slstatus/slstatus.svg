@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- Copyright 2017, Laslo Hunhold <dev@frign.de> CC BY 4.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="40">
+<path fill="#222" d="M 24 0 L 24 16 L 8 16 L 8 32 L 0 32 L 0 40 L 16 40 L 16 24 L 24 24 L 24 40 L 48 40 L 48 24 L 64 24 L 64 40 L 72 40 L 72 24 L 80 24 L 80 40 L 88 40 L 88 36 L 96 36 L 96 40 L 104 40 L 104 24 L 112 24 L 112 40 L 120 40 L 120 24 L 128 24 L 128 40 L 168 40 L 168 24 L 176 24 L 176 16 L 160 16 L 160 32 L 152 32 L 152 16 L 144 16 L 144 32 L 136 32 L 136 16 L 40 16 L 40 32 L 32 32 L 32 0 L 24 0 z M 88 24 L 96 24 L 96 28 L 88 28 L 88 24 z" />
+</svg>

@@ -1,0 +1,50 @@
+diff -Naur a/config.def.h b/config.def.h
+--- a/config.def.h	Sun Jan  6 22:18:53 2019
++++ b/config.def.h	Sun Jan  6 22:20:36 2019
+@@ -5,6 +5,7 @@
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
++static const unsigned int gappx     = 1;        /* gap pixel between windows */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+ static const char col_gray1[]       = "#222222";
+diff -Naur a/dwm.c b/dwm.c
+--- a/dwm.c	Sun Jan  6 22:18:53 2019
++++ b/dwm.c	Sun Jan  6 22:25:03 2019
+@@ -1673,7 +1673,7 @@
+ void
+ tile(Monitor *m)
+ {
+-	unsigned int i, n, h, mw, my, ty;
++	unsigned int i, n, h, r, g = 0, mw, my, ty;
+ 	Client *c;
+ 
+ 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+@@ -1681,18 +1681,20 @@
+ 		return;
+ 
+ 	if (n > m->nmaster)
+-		mw = m->nmaster ? m->ww * m->mfact : 0;
++		mw = m->nmaster ? (m->ww - (g = gappx)) * m->mfact : 0;
+ 	else
+ 		mw = m->ww;
+ 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+ 		if (i < m->nmaster) {
+-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
++			r = MIN(n, m->nmaster) - i;
++			h = (m->wh - my - gappx * (r - 1)) / r;
+ 			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+-			my += HEIGHT(c);
++			my += HEIGHT(c) + gappx;
+ 		} else {
+-			h = (m->wh - ty) / (n - i);
+-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+-			ty += HEIGHT(c);
++			r = n - i;
++			h = (m->wh - ty - gappx * (r - 1)) / r;
++			resize(c, m->wx + mw + g, m->wy + ty, m->ww - mw - g - (2*c->bw), h - (2*c->bw), False);
++			ty += HEIGHT(c) + gappx;
+ 		}
+ }
+ 

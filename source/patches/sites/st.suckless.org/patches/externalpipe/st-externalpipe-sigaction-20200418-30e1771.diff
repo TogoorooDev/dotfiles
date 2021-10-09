@@ -1,0 +1,51 @@
+From 103531d8ecaf98322a45d956bc13f9da5cd68853 Mon Sep 17 00:00:00 2001
+From: Christian Tenllado <ctenllado@gmail.com>
+Date: Sat, 18 Apr 2020 20:45:40 +0200
+Subject: [PATCH] externalpipe sigaction
+
+This patch should be applied on top of the externalpipe patch. It
+prevents the reset of the signal handler set on SIGCHILD, when the
+forked process that executes the external process exits. I opted for
+switching from signal to sigaction instead of rearming the signal in the
+sigchld function, just because it is the recommended function (although I
+tried both ways and both worked).
+---
+ st.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/st.c b/st.c
+index ab291ac..0824894 100644
+--- a/st.c
++++ b/st.c
+@@ -712,7 +712,7 @@ sigchld(int a)
+ 	int stat;
+ 	pid_t p;
+ 
+-	if ((p = waitpid(pid, &stat, WNOHANG)) < 0)
++	if ((p = waitpid(-1, &stat, WNOHANG)) < 0)
+ 		die("waiting for pid %hd failed: %s\n", pid, strerror(errno));
+ 
+ 	if (pid != p)
+@@ -753,6 +753,7 @@ int
+ ttynew(char *line, char *cmd, char *out, char **args)
+ {
+ 	int m, s;
++	struct sigaction sa;
+ 
+ 	if (out) {
+ 		term.mode |= MODE_PRINT;
+@@ -804,7 +805,10 @@ ttynew(char *line, char *cmd, char *out, char **args)
+ #endif
+ 		close(s);
+ 		cmdfd = m;
+-		signal(SIGCHLD, sigchld);
++		memset(&sa, 0, sizeof(sa));
++		sigemptyset(&sa.sa_mask);
++		sa.sa_handler = sigchld;
++		sigaction(SIGCHLD, &sa, NULL);
+ 		break;
+ 	}
+ 	return cmdfd;
+-- 
+2.20.1
+

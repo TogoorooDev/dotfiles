@@ -1,0 +1,213 @@
+From d91f68b56a4fd673786e9e4df0088642f3b186ff Mon Sep 17 00:00:00 2001
+From: codesoap <codesoap@mailbox.org>
+Date: Thu, 3 Oct 2019 17:00:49 +0200
+Subject: [PATCH] patch: noroot
+
+Don't require or allow root to run quark.
+---
+ main.c  | 50 ++------------------------------------------------
+ quark.1 | 13 +------------
+ sock.c  |  7 +------
+ sock.h  |  2 +-
+ 4 files changed, 5 insertions(+), 67 deletions(-)
+
+diff --git a/main.c b/main.c
+index c1ff489..583e343 100644
+--- a/main.c
++++ b/main.c
+@@ -1,9 +1,7 @@
+ /* See LICENSE file for copyright and license details. */
+ #include <errno.h>
+-#include <grp.h>
+ #include <limits.h>
+ #include <netinet/in.h>
+-#include <pwd.h>
+ #include <regex.h>
+ #include <signal.h>
+ #include <sys/resource.h>
+@@ -163,7 +161,7 @@ err:
+ static void
+ usage(void)
+ {
+-	const char *opts = "[-u user] [-g group] [-n num] [-d dir] [-l] "
++	const char *opts = "[-n num] [-d dir] [-l] "
+ 	                   "[-i file] [-v vhost] ... [-m map] ...";
+ 
+ 	die("usage: %s -h host -p port %s\n"
+@@ -174,8 +172,6 @@ usage(void)
+ int
+ main(int argc, char *argv[])
+ {
+-	struct group *grp = NULL;
+-	struct passwd *pwd = NULL;
+ 	struct rlimit rlim;
+ 	struct sockaddr_storage in_sa;
+ 	pid_t cpid, wpid, spid;
+@@ -188,8 +184,6 @@ main(int argc, char *argv[])
+ 	/* defaults */
+ 	int maxnprocs = 512;
+ 	char *servedir = ".";
+-	char *user = "nobody";
+-	char *group = "nogroup";
+ 
+ 	s.host = s.port = NULL;
+ 	s.vhost = NULL;
+@@ -202,9 +196,6 @@ main(int argc, char *argv[])
+ 	case 'd':
+ 		servedir = EARGF(usage());
+ 		break;
+-	case 'g':
+-		group = EARGF(usage());
+-		break;
+ 	case 'h':
+ 		s.host = EARGF(usage());
+ 		break;
+@@ -241,9 +232,6 @@ main(int argc, char *argv[])
+ 	case 'U':
+ 		udsname = EARGF(usage());
+ 		break;
+-	case 'u':
+-		user = EARGF(usage());
+-		break;
+ 	case 'v':
+ 		if (spacetok(EARGF(usage()), tok, 4) || !tok[0] || !tok[1] ||
+ 		    !tok[2]) {
+@@ -291,25 +279,13 @@ main(int argc, char *argv[])
+ 		die("setrlimit RLIMIT_NPROC:");
+ 	}
+ 
+-	/* validate user and group */
+-	errno = 0;
+-	if (user && !(pwd = getpwnam(user))) {
+-		die("getpwnam '%s': %s", user, errno ? strerror(errno) :
+-		    "Entry not found");
+-	}
+-	errno = 0;
+-	if (group && !(grp = getgrnam(group))) {
+-		die("getgrnam '%s': %s", group, errno ? strerror(errno) :
+-		    "Entry not found");
+-	}
+-
+ 	/* Open a new process group */
+ 	setpgid(0,0);
+ 
+ 	handlesignals(sigcleanup);
+ 
+ 	/* bind socket */
+-	insock = udsname ? sock_get_uds(udsname, pwd->pw_uid, grp->gr_gid) :
++	insock = udsname ? sock_get_uds(udsname) :
+ 	                   sock_get_ips(s.host, s.port);
+ 
+ 	switch (cpid = fork()) {
+@@ -329,24 +305,9 @@ main(int argc, char *argv[])
+ 		eunveil(servedir, "r");
+ 		eunveil(NULL, NULL);
+ 
+-		/* chroot */
+ 		if (chdir(servedir) < 0) {
+ 			die("chdir '%s':", servedir);
+ 		}
+-		if (chroot(".") < 0) {
+-			die("chroot .:");
+-		}
+-
+-		/* drop root */
+-		if (grp && setgroups(1, &(grp->gr_gid)) < 0) {
+-			die("setgroups:");
+-		}
+-		if (grp && setgid(grp->gr_gid) < 0) {
+-			die("setgid:");
+-		}
+-		if (pwd && setuid(pwd->pw_uid) < 0) {
+-			die("setuid:");
+-		}
+ 
+ 		if (udsname) {
+ 			epledge("stdio rpath proc unix", NULL);
+@@ -354,13 +315,6 @@ main(int argc, char *argv[])
+ 			epledge("stdio rpath proc inet", NULL);
+ 		}
+ 
+-		if (getuid() == 0) {
+-			die("Won't run as root user", argv0);
+-		}
+-		if (getgid() == 0) {
+-			die("Won't run as root group", argv0);
+-		}
+-
+ 		/* accept incoming connections */
+ 		while (1) {
+ 			in_sa_len = sizeof(in_sa);
+diff --git a/quark.1 b/quark.1
+index ce315b5..e45140c 100644
+--- a/quark.1
++++ b/quark.1
+@@ -35,13 +35,8 @@ is a simple HTTP GET/HEAD-only web server for static content.
+ .It Fl d Ar dir
+ Serve
+ .Ar dir
+-after chrooting into it.
++after changing into it.
+ The default is ".".
+-.It Fl g Ar group
+-Set group ID when dropping privileges, and in socket mode the group of the
+-socket file, to the ID of
+-.Ar group .
+-The default is "nogroup".
+ .It Fl h Ar host
+ Use
+ .Ar host
+@@ -86,12 +81,6 @@ redirects on non-standard ports.
+ Create the UNIX-domain socket
+ .Ar file ,
+ listen on it for incoming connections and remove it on exit.
+-.It Fl u Ar user
+-Set user ID when dropping privileges,
+-and in socket mode the user of the socket file,
+-to the ID of
+-.Ar user .
+-The default is "nobody".
+ .It Fl v Ar vhost
+ Add the virtual host specified by
+ .Ar vhost ,
+diff --git a/sock.c b/sock.c
+index 7000738..31960c5 100644
+--- a/sock.c
++++ b/sock.c
+@@ -68,7 +68,7 @@ sock_rem_uds(const char *udsname)
+ }
+ 
+ int
+-sock_get_uds(const char *udsname, uid_t uid, gid_t gid)
++sock_get_uds(const char *udsname)
+ {
+ 	struct sockaddr_un addr = {
+ 		.sun_family = AF_UNIX,
+@@ -99,11 +99,6 @@ sock_get_uds(const char *udsname, uid_t uid, gid_t gid)
+ 		die("chmod:");
+ 	}
+ 
+-	if (chown(udsname, uid, gid) < 0) {
+-		sock_rem_uds(udsname);
+-		die("chown:");
+-	}
+-
+ 	return insock;
+ }
+ 
+diff --git a/sock.h b/sock.h
+index a39aec9..4f790f6 100644
+--- a/sock.h
++++ b/sock.h
+@@ -8,7 +8,7 @@
+ 
+ int sock_get_ips(const char *, const char *);
+ void sock_rem_uds(const char *);
+-int sock_get_uds(const char *, uid_t, gid_t);
++int sock_get_uds(const char *);
+ int sock_set_timeout(int, int);
+ int sock_get_inaddr_str(struct sockaddr_storage *, char *, size_t);
+ 
+-- 
+2.21.0
+

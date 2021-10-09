@@ -1,0 +1,3 @@
+clojure
+\.(clj[sc]?|edn)$
+

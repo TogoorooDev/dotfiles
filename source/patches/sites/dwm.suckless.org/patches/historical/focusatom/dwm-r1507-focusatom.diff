@@ -1,0 +1,70 @@
+diff -r 72e52c5333ef dwm.c
+--- a/dwm.c	Wed Nov 25 13:56:17 2009 +0000
++++ b/dwm.c	Thu Feb 25 23:41:45 2010 +0100
+@@ -177,6 +177,7 @@
+ static void enternotify(XEvent *e);
+ static void expose(XEvent *e);
+ static void focus(Client *c);
++static void focusatomchange(void);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
+@@ -262,6 +263,7 @@
+ 	[UnmapNotify] = unmapnotify
+ };
+ static Atom wmatom[WMLast], netatom[NetLast];
++static Atom focusatom;
+ static Bool otherwm;
+ static Bool running = True;
+ static Cursor cursor[CurLast];
+@@ -834,6 +836,33 @@
+ }
+ 
+ void
++focusatomchange() {
++	int format, status;
++	unsigned long n, extra;
++	unsigned char *p = NULL;
++	Atom real;
++	Client *c;
++	Monitor *m;
++	Window *w;
++
++	status = XGetWindowProperty(dpy, root, focusatom, 0L, 32L, True, XA_CARDINAL, &real, &format, &n, &extra, &p);
++	if(status!=Success || n==0) return;
++	if((w = (Window*)p) && (m = wintomon(*w)) && m != selmon) {
++		unfocus(selmon->sel);
++		selmon = m;
++	}
++	if((c = wintoclient(*w))) {
++		if (!ISVISIBLE(c)) {
++			c->mon->seltags ^= 1; /* toggle sel tagset */
++			c->mon->tagset[c->mon->seltags] = c->tags & TAGMASK;
++		}
++		focus(c);
++		arrange(c->mon);
++	}
++	XFree(p);
++}
++
++void
+ focusin(XEvent *e) { /* there are some broken focus acquiring clients */
+ 	XFocusChangeEvent *ev = &e->xfocus;
+ 
+@@ -1264,6 +1293,8 @@
+ 
+ 	if((ev->window == root) && (ev->atom == XA_WM_NAME))
+ 		updatestatus();
++	else if((ev->window == root) && (ev->atom == focusatom))
++		focusatomchange();
+ 	else if(ev->state == PropertyDelete)
+ 		return; /* ignore */
+ 	else if((c = wintoclient(ev->window))) {
+@@ -1493,6 +1524,7 @@
+ 	wmatom[WMState] = XInternAtom(dpy, "WM_STATE", False);
+ 	netatom[NetSupported] = XInternAtom(dpy, "_NET_SUPPORTED", False);
+ 	netatom[NetWMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
++	focusatom = XInternAtom(dpy, "_DWM_FOCUS", False);
+ 	/* init cursors */
+ 	cursor[CurNormal] = XCreateFontCursor(dpy, XC_left_ptr);
+ 	cursor[CurResize] = XCreateFontCursor(dpy, XC_sizing);

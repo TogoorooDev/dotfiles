@@ -1,0 +1,190 @@
+diff --git a/config.def.h b/config.def.h
+index 5996854..0b55189 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -83,51 +83,51 @@ static SiteStyle styles[] = {
+  * edit the CLEANMASK() macro.
+  */
+ static Key keys[] = {
+-	/* modifier             keyval      function    arg             Focus */
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_r,      reload,     { .b = TRUE } },
+-	{ MODKEY,               GDK_r,      reload,     { .b = FALSE } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_p,      print,      { 0 } },
+-
+-	{ MODKEY,               GDK_p,      clipboard,  { .b = TRUE } },
+-	{ MODKEY,               GDK_y,      clipboard,  { .b = FALSE } },
+-
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_j,      zoom,       { .i = -1 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_k,      zoom,       { .i = +1 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_q,      zoom,       { .i = 0  } },
+-	{ MODKEY,               GDK_minus,  zoom,       { .i = -1 } },
+-	{ MODKEY,               GDK_plus,   zoom,       { .i = +1 } },
+-
+-	{ MODKEY,               GDK_l,      navigate,   { .i = +1 } },
+-	{ MODKEY,               GDK_h,      navigate,   { .i = -1 } },
+-
+-	{ MODKEY,               GDK_j,      scroll_v,   { .i = +1 } },
+-	{ MODKEY,               GDK_k,      scroll_v,   { .i = -1 } },
+-	{ MODKEY,               GDK_b,      scroll_v,   { .i = -10000 } },
+-	{ MODKEY,               GDK_space,  scroll_v,   { .i = +10000 } },
+-	{ MODKEY,               GDK_i,      scroll_h,   { .i = +1 } },
+-	{ MODKEY,               GDK_u,      scroll_h,   { .i = -1 } },
+-
+-	{ 0,                    GDK_F11,    fullscreen, { 0 } },
+-	{ 0,                    GDK_Escape, stop,       { 0 } },
+-	{ MODKEY,               GDK_o,      source,     { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_o,      inspector,  { 0 } },
+-
+-	{ MODKEY,               GDK_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
+-	{ MODKEY,               GDK_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+-	{ MODKEY,               GDK_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+-
+-	{ MODKEY,               GDK_n,      find,       { .b = TRUE } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_n,      find,       { .b = FALSE } },
+-
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_c,      toggle,     { .v = "enable-caret-browsing" } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_i,      toggle,     { .v = "auto-load-images" } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_s,      toggle,     { .v = "enable-scripts" } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_v,      toggle,     { .v = "enable-plugins" } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_a,      togglecookiepolicy, { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_m,      togglestyle, { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_b,      togglescrollbars, { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_g,      togglegeolocation, { 0 } },
+-	{ MODKEY|GDK_SHIFT_MASK,GDK_y,      toggleproxy, { 0 } },
++	/* modifier              keyval   function    arg           Focus */
++	{ MODKEY|GDK_SHIFT_MASK, 27,      reload,     { .b = TRUE } },
++	{ MODKEY,                27,      reload,     { .b = FALSE } },
++	{ MODKEY|GDK_SHIFT_MASK, 33,      print,      { 0 } },
++
++	{ MODKEY,                33,      clipboard,  { .b = TRUE } },
++	{ MODKEY,                29,      clipboard,  { .b = FALSE } },
++
++	{ MODKEY|GDK_SHIFT_MASK, 44,      zoom,       { .i = -1 } },
++	{ MODKEY|GDK_SHIFT_MASK, 45,      zoom,       { .i = +1 } },
++	{ MODKEY|GDK_SHIFT_MASK, 24,      zoom,       { .i = 0  } },
++	{ MODKEY,                20,      zoom,       { .i = -1 } },
++	{ MODKEY,                21,      zoom,       { .i = +1 } },
++
++	{ MODKEY,                46,      navigate,   { .i = +1 } },
++	{ MODKEY,                43,      navigate,   { .i = -1 } },
++
++	{ MODKEY,                44,      scroll_v,   { .i = +1 } },
++	{ MODKEY,                45,      scroll_v,   { .i = -1 } },
++	{ MODKEY,                56,      scroll_v,   { .i = -10000 } },
++	{ MODKEY,                65,      scroll_v,   { .i = +10000 } },
++	{ MODKEY,                31,      scroll_h,   { .i = +1 } },
++	{ MODKEY,                30,      scroll_h,   { .i = -1 } },
++
++	{ 0,                     95,      fullscreen, { 0 } },
++	{ 0,                     9,       stop,       { 0 } },
++	{ MODKEY,                32,      source,     { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, 32,      inspector,  { 0 } },
++
++	{ MODKEY,                42,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
++	{ MODKEY,                41,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
++	{ MODKEY,                61,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
++
++	{ MODKEY,                57,      find,       { .b = TRUE } },
++	{ MODKEY|GDK_SHIFT_MASK, 57,      find,       { .b = FALSE } },
++
++	{ MODKEY|GDK_SHIFT_MASK, 54,      toggle,     { .v = "enable-caret-browsing" } },
++	{ MODKEY|GDK_SHIFT_MASK, 31,      toggle,     { .v = "auto-load-images" } },
++	{ MODKEY|GDK_SHIFT_MASK, 39,      toggle,     { .v = "enable-scripts" } },
++	{ MODKEY|GDK_SHIFT_MASK, 55,      toggle,     { .v = "enable-plugins" } },
++	{ MODKEY|GDK_SHIFT_MASK, 38,      togglecookiepolicy, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, 58,      togglestyle, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, 56,      togglescrollbars, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, 42,      togglegeolocation, { 0 } },
++	{ MODKEY|GDK_SHIFT_MASK, 29,      toggleproxy, { 0 } },
+ };
+ 
+ /* button definitions */
+diff --git a/surf.c b/surf.c
+index d75e589..8c0ad10 100644
+--- a/surf.c
++++ b/surf.c
+@@ -67,7 +67,7 @@ typedef struct Client {
+ 
+ typedef struct {
+ 	guint mod;
+-	guint keyval;
++	guint16 keycode;
+ 	void (*func)(Client *c, const Arg *arg);
+ 	const Arg arg;
+ } Key;
+@@ -111,7 +111,6 @@ static int policysel = 0;
+ static char *stylefile = NULL;
+ static SoupCache *diskcache = NULL;
+ 
+-static void addaccelgroup(Client *c);
+ static void beforerequest(WebKitWebView *w, WebKitWebFrame *f,
+                           WebKitWebResource *r, WebKitNetworkRequest *req,
+                           WebKitNetworkResponse *resp, Client *c);
+@@ -171,8 +170,7 @@ static gboolean inspector_show(WebKitWebInspector *i, Client *c);
+ static gboolean inspector_close(WebKitWebInspector *i, Client *c);
+ static void inspector_finished(WebKitWebInspector *i, Client *c);
+ 
+-static gboolean keypress(GtkAccelGroup *group, GObject *obj, guint key,
+-                         GdkModifierType mods, Client *c);
++static gboolean keypress(GtkWidget *w, GdkEventKey *e, Client *c);
+ static void linkhover(WebKitWebView *v, const char* t, const char* l,
+                       Client *c);
+ static void loadstatuschange(WebKitWebView *view, GParamSpec *pspec,
+@@ -222,21 +220,6 @@ static void zoom(Client *c, const Arg *arg);
+ #include "config.h"
+ 
+ void
+-addaccelgroup(Client *c)
+-{
+-	int i;
+-	GtkAccelGroup *group = gtk_accel_group_new();
+-	GClosure *closure;
+-
+-	for (i = 0; i < LENGTH(keys); i++) {
+-		closure = g_cclosure_new(G_CALLBACK(keypress), c, NULL);
+-		gtk_accel_group_connect(group, keys[i].keyval, keys[i].mod, 0,
+-		                        closure);
+-	}
+-	gtk_window_add_accel_group(GTK_WINDOW(c->win), group);
+-}
+-
+-void
+ beforerequest(WebKitWebView *w, WebKitWebFrame *f, WebKitWebResource *r,
+               WebKitNetworkRequest *req, WebKitNetworkResponse *resp,
+               Client *c)
+@@ -785,18 +768,15 @@ inspector_finished(WebKitWebInspector *i, Client *c)
+ }
+ 
+ gboolean
+-keypress(GtkAccelGroup *group, GObject *obj, guint key, GdkModifierType mods,
+-         Client *c)
++keypress(GtkWidget *w, GdkEventKey *e, Client *c)
+ {
+ 	guint i;
+ 	gboolean processed = FALSE;
+ 
+-	mods = CLEANMASK(mods);
+-	key = gdk_keyval_to_lower(key);
+ 	updatewinid(c);
+ 	for (i = 0; i < LENGTH(keys); i++) {
+-		if (key == keys[i].keyval
+-		    && mods == keys[i].mod
++		if(e->hardware_keycode == keys[i].keycode
++		    && CLEANMASK(e->state) == keys[i].mod
+ 		    && keys[i].func) {
+ 			keys[i].func(c, &(keys[i].arg));
+ 			processed = TRUE;
+@@ -944,8 +924,11 @@ newclient(void)
+ 	                 "leave_notify_event",
+ 	                 G_CALLBACK(titlechangeleave), c);
+ 
+-	if (!kioskmode)
+-		addaccelgroup(c);
++	if (!kioskmode) {
++		g_signal_connect(G_OBJECT(c->win),
++		                 "key-press-event",
++		                 G_CALLBACK(keypress), c);
++	}
+ 
+ 	/* Pane */
+ 	c->pane = gtk_vpaned_new();

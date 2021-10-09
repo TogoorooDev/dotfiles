@@ -1,0 +1,50 @@
+diff -up ../tabbed-0.4.1/tabbed.c ./tabbed.c
+--- ../tabbed-0.4.1/tabbed.c	2012-08-20 09:15:07.000000000 +0200
++++ ./tabbed.c	2012-11-08 20:02:21.048334570 +0100
+@@ -142,7 +142,7 @@ static void (*handler[LASTEvent]) (const
+ 	[MapRequest] = maprequest,
+ 	[PropertyNotify] = propertynotify,
+ };
+-static int bh, wx, wy, ww, wh;
++static int vbh, bh, wx, wy, ww, wh;
+ static unsigned int numlockmask = 0;
+ static Bool running = True, nextfocus, doinitspawn = True;
+ static Display *dpy;
+@@ -283,7 +283,7 @@ die(const char *errstr, ...) {
+ void
+ drawbar() {
+ 	unsigned long *col;
+-	int n, width;
++	int n, width, nbh;
+ 	Client *c, *fc;
+ 	char *name = NULL;
+ 
+@@ -292,10 +292,18 @@ drawbar() {
+ 		dc.w = ww;
+ 		XFetchName(dpy, win, &name);
+ 		drawtext(name ? name : "", dc.norm);
+-		XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, bh, 0, 0);
++		XCopyArea(dpy, dc.drawable, win, dc.gc, 0, 0, ww, vbh, 0, 0);
+ 		XSync(dpy, False);
+ 		return;
+ 	}
++		nbh = clients->next ? vbh : 0;
++	if (nbh != bh) {
++		bh = nbh;
++		for (c = clients; c; c = c->next)
++			XMoveResizeWindow(dpy, c->win, 0, bh, ww, wh - bh);
++	}
++	if (bh == 0)
++		return;
+ 	width = ww;
+ 	for(c = clients; c; c = c->next)
+ 		c->tabx = -1;
+@@ -736,7 +744,7 @@ setup(void) {
+ 	screen = DefaultScreen(dpy);
+ 	root = RootWindow(dpy, screen);
+ 	initfont(font);
+-	bh = dc.h = dc.font.height + 2;
++	vbh = dc.h = dc.font.height + 2;
+ 	/* init atoms */
+ 	wmatom[WMProtocols] = XInternAtom(dpy, "WM_PROTOCOLS", False);
+ 	wmatom[WMDelete] = XInternAtom(dpy, "WM_DELETE_WINDOW", False);

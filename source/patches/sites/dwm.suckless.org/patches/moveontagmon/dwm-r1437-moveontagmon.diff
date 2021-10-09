@@ -1,0 +1,14 @@
+diff -r bb00510a176a dwm.c
+--- a/dwm.c	Wed Jul 01 19:15:20 2009 +0100
++++ b/dwm.c	Sat Jul 04 00:54:19 2009 +0200
+@@ -1530,6 +1530,10 @@
+ 
+ 	if(!selmon->sel || !(m = idxtomon(arg->ui)))
+ 		return;
++	if(selmon->sel->isfloating) {
++	  selmon->sel->x += m->mx - selmon->mx;
++	  selmon->sel->y += m->my - selmon->my;
++	}
+ 	sendmon(selmon->sel, m);
+ }
+ 

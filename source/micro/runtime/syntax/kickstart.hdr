@@ -1,0 +1,3 @@
+kickstart
+\.ks$|\.kickstart$
+

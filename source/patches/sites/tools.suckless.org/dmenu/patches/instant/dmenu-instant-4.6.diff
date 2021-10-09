@@ -1,0 +1,74 @@
+From e95c945f9a6afe486782962dfe2dd81c00c05781 Mon Sep 17 00:00:00 2001
+From: Hiltjo Posthuma <hiltjo@codemadness.org>
+Date: Fri, 17 Jun 2016 13:24:21 +0200
+Subject: [PATCH] dmenu instant match: end dmenu immediately if there is one
+ match left.
+
+---
+ config.def.h | 1 +
+ dmenu.1      | 4 ++++
+ dmenu.c      | 7 +++++++
+ 3 files changed, 12 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index dcffd38..b06f1d5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -2,6 +2,7 @@
+ /* Default settings; can be overriden by command line. */
+ 
+ static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
++static int instant = 0;                     /* -n  option; if 1, dmenu ends immediately on a distinct match */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
+ static const char *fonts[] = {
+ 	"monospace:size=10"
+diff --git a/dmenu.1 b/dmenu.1
+index d3ab805..f0aa123 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -10,6 +10,7 @@ dmenu \- dynamic menu
+ .RB [ \-m
+ .IR monitor ]
+ .IR lines ]
++.RB [ \-n ]
+ .RB [ \-p
+ .IR prompt ]
+ .RB [ \-fn
+@@ -55,6 +56,9 @@ dmenu lists items vertically, with the given number of lines.
+ dmenu is displayed on the monitor number supplied. Monitor numbers are starting
+ from 0.
+ .TP
++.BI \-n
++instant match, end dmenu if there is only one match left.
++.TP
+ .BI \-p " prompt"
+ defines the prompt to be displayed to the left of the input field.
+ .TP
+diff --git a/dmenu.c b/dmenu.c
+index e0c2f80..0c41d46 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -250,6 +250,11 @@ match(void)
+ 		matchend = substrend;
+ 	}
+ 	curr = sel = matches;
++	if (instant && matches && matches == matchend && !lsubstr) {
++		puts(matches->text);
++		cleanup();
++		exit(0);
++	}
+ 	calcoffsets();
+ }
+ 
+@@ -632,6 +637,8 @@ main(int argc, char *argv[])
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
+ 			fstrstr = cistrstr;
++		} else if (!strcmp(argv[i], "-n")) { /* instant match */
++			instant = !instant;
+ 		} else if (i + 1 == argc)
+ 			usage();
+ 		/* these options take one argument */
+-- 
+2.8.3
+

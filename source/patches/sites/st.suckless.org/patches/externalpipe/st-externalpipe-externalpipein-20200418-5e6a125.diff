@@ -1,0 +1,130 @@
+From 5e6a125f14d050945be6add49bf5940277b4278f Mon Sep 17 00:00:00 2001
+From: Christian Tenllado <ctenllado@gmail.com>
+Date: Sat, 18 Apr 2020 20:45:40 +0200
+Subject: [PATCH] externalpipe and externalpipein
+
+This patch must be applied on the externalpipe patch. It adds the
+function externalpipein to redirect the standard output of the external
+command to the slave size of the pty, that is, as if the external
+program had been manually executed on the terminal. It can be used to
+send desired escape sequences to the terminal with a shortcut.
+
+I created the patch to make use of the dynamic-colors program
+(https://github.com/sos4nt/dynamic-colors) that uses the OSC escape
+sequences to change the colors of the terminal. The program keeps the
+last colorscheme selected in a file, so you can use it to select the
+colorscheme for all newly opened terminals from that moment on. If you
+want to change the color of the background and foreground independently
+from the palette, you have to merge in the patch for the OSC escape
+sequences 10, 11, and 12.
+
+This patch includes the changes of the externalpipe sigaction patch to
+prevent reseting the signal handler for SIGCHLD when the proces of the
+external command exits.
+---
+ st.c | 28 ++++++++++++++++++++++++----
+ st.h |  1 +
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/st.c b/st.c
+index ab291ac..ac19ebf 100644
+--- a/st.c
++++ b/st.c
+@@ -225,6 +225,7 @@ static CSIEscape csiescseq;
+ static STREscape strescseq;
+ static int iofd = 1;
+ static int cmdfd;
++static int csdfd;
+ static pid_t pid;
+ 
+ static uchar utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
+@@ -712,12 +713,14 @@ sigchld(int a)
+ 	int stat;
+ 	pid_t p;
+ 
+-	if ((p = waitpid(pid, &stat, WNOHANG)) < 0)
++	if ((p = waitpid(-1, &stat, WNOHANG)) < 0)
+ 		die("waiting for pid %hd failed: %s\n", pid, strerror(errno));
+ 
+ 	if (pid != p)
+ 		return;
+ 
++	close(csdfd);
++
+ 	if (WIFEXITED(stat) && WEXITSTATUS(stat))
+ 		die("child exited with status %d\n", WEXITSTATUS(stat));
+ 	else if (WIFSIGNALED(stat))
+@@ -753,6 +756,7 @@ int
+ ttynew(char *line, char *cmd, char *out, char **args)
+ {
+ 	int m, s;
++	struct sigaction sa;
+ 
+ 	if (out) {
+ 		term.mode |= MODE_PRINT;
+@@ -802,9 +806,12 @@ ttynew(char *line, char *cmd, char *out, char **args)
+ 		if (pledge("stdio rpath tty proc", NULL) == -1)
+ 			die("pledge\n");
+ #endif
+-		close(s);
++		csdfd = s;
+ 		cmdfd = m;
+-		signal(SIGCHLD, sigchld);
++		memset(&sa, 0, sizeof(sa));
++		sigemptyset(&sa.sa_mask);
++		sa.sa_handler = sigchld;
++		sigaction(SIGCHLD, &sa, NULL);
+ 		break;
+ 	}
+ 	return cmdfd;
+@@ -1920,7 +1927,7 @@ strparse(void)
+ }
+ 
+ void
+-externalpipe(const Arg *arg)
++extpipe(const Arg *arg, int in)
+ {
+ 	int to[2];
+ 	char buf[UTF_SIZ];
+@@ -1940,6 +1947,9 @@ externalpipe(const Arg *arg)
+ 		dup2(to[0], STDIN_FILENO);
+ 		close(to[0]);
+ 		close(to[1]);
++		if (in)
++			dup2(csdfd, STDOUT_FILENO);
++		close(csdfd);
+ 		execvp(((char **)arg->v)[0], (char **)arg->v);
+ 		fprintf(stderr, "st: execvp %s\n", ((char **)arg->v)[0]);
+ 		perror("failed");
+@@ -1972,6 +1982,16 @@ externalpipe(const Arg *arg)
+ 	signal(SIGPIPE, oldsigpipe);
+ }
+ 
++void
++externalpipe(const Arg *arg) {
++	extpipe(arg, 0);
++}
++
++void
++externalpipein(const Arg *arg) {
++	extpipe(arg, 1);
++}
++
+ void
+ strdump(void)
+ {
+diff --git a/st.h b/st.h
+index fe84fda..bbf38fa 100644
+--- a/st.h
++++ b/st.h
+@@ -82,6 +82,7 @@ void redraw(void);
+ void draw(void);
+ 
+ void externalpipe(const Arg *);
++void externalpipein(const Arg *);
+ void printscreen(const Arg *);
+ void printsel(const Arg *);
+ void sendbreak(const Arg *);
+-- 
+2.20.1
+

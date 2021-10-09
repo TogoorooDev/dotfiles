@@ -1,0 +1,39 @@
+diff -up ../st-0.8.3/config.def.h ./config.def.h
+--- ../st-0.8.3/config.def.h	2020-04-27 13:58:27.000000000 +0200
++++ ./config.def.h	2020-05-24 18:27:19.179361165 +0200
+@@ -4,9 +4,11 @@
+  * appearance
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
++ * borderperc: percentage of cell width to use as a border
++ *		0 = no border, 100 = border width is same as cell width
+  */
+ static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+-static int borderpx = 2;
++static int borderperc = 20;
+
+ /*
+  * What program is execed by st depends of these precedence rules:
+diff -up ../st-0.8.3/st.h ./st.h
+--- ../st-0.8.3/st.h	2020-04-27 13:58:27.000000000 +0200
++++ ./st.h	2020-05-24 18:27:20.255369735 +0200
+@@ -52,6 +52,7 @@ enum selection_snap {
+ 	SNAP_LINE = 2
+ };
+
++int borderpx;
+ typedef unsigned char uchar;
+ typedef unsigned int uint;
+ typedef unsigned long ulong;
+diff -up ../st-0.8.3/x.c ./x.c
+--- ../st-0.8.3/x.c	2020-04-27 13:58:27.000000000 +0200
++++ ./x.c	2020-05-24 18:27:17.551348200 +0200
+@@ -1001,6 +1001,8 @@ xloadfonts(char *fontstr, double fontsiz
+ 	win.cw = ceilf(dc.font.width * cwscale);
+ 	win.ch = ceilf(dc.font.height * chscale);
+
++	borderpx = ceilf(((float)borderperc / 100) * win.cw);
++
+ 	FcPatternDel(pattern, FC_SLANT);
+ 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
+ 	if (xloadfont(&dc.ifont, pattern))

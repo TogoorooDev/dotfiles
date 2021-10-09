@@ -1,0 +1,114 @@
+diff -r 795c26a59016 config.default.h
+--- a/config.default.h	Sun Aug 26 12:54:20 2007 +0200
++++ b/config.default.h	Sun Aug 26 15:06:20 2007 +0200
+@@ -33,6 +33,7 @@ static Layout layouts[] = { \
+ 	{ "><>",		floating }, \
+ };
+ #define MWFACT			0.6	/* master width factor [0.1 .. 0.9] */
++#define NMASTER			1	/* clients in master area */
+ #define SNAP			32	/* snap pixel */
+ 
+ /* key definitions */
+@@ -48,6 +49,8 @@ Key keys[] = { \
+ 	{ MODKEY,			XK_k,		focusprev,	NULL }, \
+ 	{ MODKEY,			XK_h,		setmwfact,	"-0.05" }, \
+ 	{ MODKEY,			XK_l,		setmwfact,	"+0.05" }, \
++	{ MODKEY|ShiftMask,		XK_h,		incnmaster,	"-1" }, \
++	{ MODKEY|ShiftMask,		XK_l,		incnmaster,	"1" }, \
+ 	{ MODKEY,			XK_m,		togglemax,	NULL }, \
+ 	{ MODKEY,			XK_Return,	zoom,		NULL }, \
+ 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	NULL }, \
+diff -r 795c26a59016 tile.c
+--- a/tile.c	Sun Aug 26 12:54:20 2007 +0200
++++ b/tile.c	Sun Aug 26 15:06:20 2007 +0200
+@@ -5,8 +5,29 @@
+ /* static */
+ 
+ static double mwfact = MWFACT;
++static unsigned int nmaster = NMASTER;
+ 
+ /* extern */
++
++void
++incnmaster(const char *arg) {
++	int i;
++
++	if(!isarrange(tile))
++		return;
++	if(!arg)
++		nmaster = NMASTER;
++	else {
++		i = atoi(arg);
++		if((nmaster + i) < 1 || wah / (nmaster + i) <= 2 * BORDERPX)
++			return;
++		nmaster += i;
++	}
++	if(sel)
++		arrange();
++	else
++		drawstatus();
++}
+ 
+ void
+ setmwfact(const char *arg) {
+@@ -32,28 +53,33 @@ setmwfact(const char *arg) {
+ 
+ void
+ tile(void) {
+-	unsigned int i, n, nx, ny, nw, nh, mw, th;
++	unsigned int i, n, nx, ny, nw, nh, mw, mh, th;
+ 	Client *c;
+ 
+ 	for(n = 0, c = nexttiled(clients); c; c = nexttiled(c->next))
+ 		n++;
+ 
+ 	/* window geoms */
+-	mw = (n == 1) ? waw : mwfact * waw;
+-	th = (n > 1) ? wah / (n - 1) : 0;
+-	if(n > 1 && th < bh)
++	mh = (n <= nmaster) ? wah / (n > 0 ? n : 1) : wah / nmaster;
++	mw = (n <= nmaster) ? waw : mwfact * waw;
++	th = (n > nmaster) ? wah / (n - nmaster) : 0;
++	if(n > nmaster && th < bh)
+ 		th = wah;
+ 
+ 	nx = wax;
+ 	ny = way;
+ 	for(i = 0, c = nexttiled(clients); c; c = nexttiled(c->next), i++) {
+ 		c->ismax = False;
+-		if(i == 0) { /* master */
++		if(i < nmaster) { /* master */
++			ny = way + i * mh;
+ 			nw = mw - 2 * c->border;
+-			nh = wah - 2 * c->border;
++			nh = mh;
++			if(i + 1 == (n < nmaster ? n : nmaster)) /* remainder */
++				nh = wah - mh * i;
++			nh -= 2 * c->border;
+ 		}
+ 		else {  /* tile window */
+-			if(i == 1) {
++			if(i == nmaster) {
+ 				ny = way;
+ 				nx += mw;
+ 			}
+@@ -64,7 +90,7 @@ tile(void) {
+ 				nh = th - 2 * c->border;
+ 		}
+ 		resize(c, nx, ny, nw, nh, False);
+-		if(n > 1 && th != wah)
++		if(n > nmaster && th != wah)
+ 			ny += nh + 2 * c->border;
+ 	}
+ }
+diff -r 795c26a59016 tile.h
+--- a/tile.h	Sun Aug 26 12:54:20 2007 +0200
++++ b/tile.h	Sun Aug 26 15:06:20 2007 +0200
+@@ -1,6 +1,7 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* tile.c */
++void incnmaster(const char *arg);	/* increments nmaster value */
+ void setmwfact(const char *arg);	/* sets master width factor */
+ void tile(void);			/* arranges all windows tiled */
+ void zoom(const char *arg);		/* zooms the focused client to master area, arg is ignored */

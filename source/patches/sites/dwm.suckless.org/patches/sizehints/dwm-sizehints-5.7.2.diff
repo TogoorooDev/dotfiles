@@ -1,0 +1,24 @@
+diff -r 46109f7eeb14 dwm.c
+--- a/dwm.c	Mon Dec 21 01:14:28 2009 -0500
++++ b/dwm.c	Mon Dec 21 01:16:38 2009 -0500
+@@ -1841,7 +1841,7 @@
+ 
+ 	if(!XGetWMNormalHints(dpy, c->win, &size, &msize))
+ 		/* size is uninitialized, ensure that size.flags aren't used */
+-		size.flags = PSize;
++		size.flags = 0;
+ 	if(size.flags & PBaseSize) {
+ 		c->basew = size.base_width;
+ 		c->baseh = size.base_height;
+@@ -1880,6 +1880,11 @@
+ 	}
+ 	else
+ 		c->maxa = c->mina = 0.0;
++	if(size.flags & PSize) {
++		c->basew = size.base_width;
++		c->baseh = size.base_height;
++		c->isfloating = True;
++	}
+ 	c->isfixed = (c->maxw && c->minw && c->maxh && c->minh
+ 	             && c->maxw == c->minw && c->maxh == c->minh);
+ }

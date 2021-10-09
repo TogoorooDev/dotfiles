@@ -1,0 +1,62 @@
+--- ii.c.orig	2007-07-22 11:54:29.061710701 +0100
++++ ii.c	2007-07-22 14:08:42.833057387 +0100
+@@ -153,25 +153,45 @@
+ 
+ static int tcpopen(unsigned short port) {
+ 	int fd;
+-	struct sockaddr_in sin;
+-	struct hostent *hp = gethostbyname(host);
+-
+-	memset(&sin, 0, sizeof(struct sockaddr_in));
+-	if(!hp) {
+-		perror("ii: cannot retrieve host information");
++	struct addrinfo req, *res, *orig_res;
++	char service[6];
++	char errmsg[512];
++
++	snprintf(service, 6, "%u", port);
++	memset(&req, 0, sizeof(req));
++	req.ai_flags = AI_NUMERICSERV;
++	req.ai_socktype = SOCK_STREAM;
++	int e = getaddrinfo(host, service, &req, &res);
++	if(e) {
++		fprintf(stderr, "ii: getaddrinfo() failed : %s\n", gai_strerror(e));
+ 		exit(EXIT_FAILURE);
+ 	}
+-	sin.sin_family = AF_INET;
+-	memcpy(&sin.sin_addr, hp->h_addr, hp->h_length);
+-	sin.sin_port = htons(port);
+-	if((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+-		perror("ii: cannot create socket");
+-		exit(EXIT_FAILURE);
++
++	orig_res = res;
++	for (; res; res = res->ai_next ) {
++		fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
++
++		if(fd < 0) {
++			snprintf(errmsg, sizeof(errmsg), "ii: socket() failed : %s", strerror(fd));
++			continue;
++		}
++
++		if(connect(fd, res->ai_addr, res->ai_addrlen) != 0) {
++			snprintf(errmsg, sizeof(errmsg), "ii: connect() failed : %s", strerror(errno));
++			fd = -1;
++			continue;
++		}
++
++		/* sucessful connection */
++		break;
+ 	}
+-	if(connect(fd, (const struct sockaddr *) &sin, sizeof(sin)) < 0) {
+-		perror("ii: cannot connect to host");
++	freeaddrinfo(orig_res);
++
++	if(fd < 0) {
++		fprintf(stderr, "%s\n", errmsg);
+ 		exit(EXIT_FAILURE);
+ 	}
++
+ 	return fd;
+ }
+ 

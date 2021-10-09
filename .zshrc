@@ -1,7 +1,6 @@
-#PATH="$PATH:~/.local/bin"
+PATH="$PATH:/home/hens/.local/bin"
 
 PS1="%F{cyan}[%n@%m]%f %F{red}::%f %F{green}%~%f %F{magenta}%#%f " 
-
 
 # Functions
 function chpwd() {
@@ -39,20 +38,26 @@ alias lla="exa -a -l"
 alias emacs="emacsclient -c"
 alias rick="$HOME/scripts/rick.sh"
 alias vim="nvim"
-alias rm="srm -P"
+alias srm="srm -P"
 alias cp="rsync -a"
 alias s="sudo"
 alias d="doas"
 alias e="$PRIVESC"
 alias reboot="$PRIVESC reboot"
 alias poweroff="$PRIVESC poweroff"
-alias ed="$EDITOR"
+#alias ed="$EDITOR"
+alias sudo="$PRIVECS"
+alias doas="$PRIVESC"
 
 ## Package Management
 
+### FreeBSD
+alias p="pkg"
+alias ep="$PRIVESC pkg"
+
 ### Arch
-alias p="pacman"
-alias ep="$PRIVESC pacman"
+alias pm="pacman"
+alias epm="$PRIVESC pacman"
 
 ### Void
 alias xbpi="$PRIVESC xbps-install"

@@ -1,0 +1,81 @@
+diff -r 71388899ac09 config.def.h
+--- a/config.def.h	Tue Jun 08 09:06:10 2010 +0200
++++ b/config.def.h	Mon Sep 26 22:28:36 2011 +0100
+@@ -1,11 +1,14 @@
+ /* modifier 0 means no modifier */
+ static char *useragent      = "Surf/"VERSION" (X11; U; Unix; en-US) AppleWebKit/531.2+ Compatible (Safari)";
+-static char *progress       = "#FF0000";
++static char *progress       = "#0066FF";
++static char *progress_untrust = "#FF0000";
+ static char *progress_trust = "#00FF00";
+ static char *stylefile      = ".surf/style.css";
+ static char *scriptfile     = ".surf/script.js";
+ static char *cookiefile     = ".surf/cookies.txt";
+ static time_t sessiontime   = 3600;
++static char *cafile         = "/etc/ssl/certs/ca-certificates.crt";
++static char *strictssl      = FALSE;
+ #define NOBACKGROUND 0
+ 
+ #define SETPROP(p, q)     { .v = (char *[]){ "/bin/sh", "-c", \
+diff -r 71388899ac09 surf.c
+--- a/surf.c	Tue Jun 08 09:06:10 2010 +0200
++++ b/surf.c	Mon Sep 26 22:28:36 2011 +0100
+@@ -38,6 +38,7 @@
+ 	char *title, *linkhover;
+ 	const char *uri, *needle;
+ 	gint progress;
++	gboolean sslfailed;
+ 	struct Client *next;
+ 	gboolean zoomed;
+ } Client;
+@@ -250,8 +251,11 @@
+ 	w = c->indicator;
+ 	width = c->progress * w->allocation.width / 100;
+ 	gc = gdk_gc_new(w->window);
+-	gdk_color_parse(strstr(uri, "https://") == uri ?
+-			progress_trust : progress, &fg);
++	if(strstr(uri, "https://") == uri)
++		gdk_color_parse(c->sslfailed ?
++		                progress_untrust : progress_trust, &fg);
++	else
++		gdk_color_parse(progress, &fg);
+ 	gdk_gc_set_rgb_fg_color(gc, &fg);
+ 	gdk_draw_rectangle(w->window,
+ 			w->style->bg_gc[GTK_WIDGET_STATE(w)],
+@@ -367,9 +371,24 @@
+ 
+ void
+ loadstatuschange(WebKitWebView *view, GParamSpec *pspec, Client *c) {
++	WebKitWebFrame *frame;
++	WebKitWebDataSource *src;
++	WebKitNetworkRequest *request;
++	SoupMessage *msg;
++	char *uri;
++
+ 	switch(webkit_web_view_get_load_status (c->view)) {
+ 	case WEBKIT_LOAD_COMMITTED:
+-		setatom(c, AtomUri, geturi(c));
++		uri = geturi(c);
++		if(strstr(uri, "https://") == uri) {
++			frame = webkit_web_view_get_main_frame(c->view);
++			src = webkit_web_frame_get_data_source(frame);
++			request = webkit_web_data_source_get_request(src);
++			msg = webkit_network_request_get_message(request);
++			c->sslfailed = soup_message_get_flags(msg)
++			               ^ SOUP_MESSAGE_CERTIFICATE_TRUSTED;
++		}
++		setatom(c, AtomUri, uri);
+ 		break;
+ 	case WEBKIT_LOAD_FINISHED:
+ 		c->progress = 0;
+@@ -698,6 +717,10 @@
+ 	soup_session_remove_feature_by_type(s, soup_cookie_jar_get_type());
+ 	g_signal_connect_after(G_OBJECT(s), "request-started", G_CALLBACK(newrequest), NULL);
+ 
++	/* ssl */
++	g_object_set(G_OBJECT(s), "ssl-ca-file", cafile, NULL);
++	g_object_set(G_OBJECT(s), "ssl-strict", strictssl, NULL);
++
+ 	/* proxy */
+ 	if((proxy = getenv("http_proxy")) && strcmp(proxy, "")) {
+ 		new_proxy = g_strrstr(proxy, "http://") ? g_strdup(proxy) :

@@ -1,0 +1,134 @@
+This backports pre-dwm-5.3 behaviour where the status bar content was read from
+stdin instead of the root window title. I did this, because I had several
+problems with the "new" method, on different machines, with different
+configurations, including vanilla, where the statusbar froze.
+It adds some LOC, but is not broken for me.
+
+diff -r ba7d976f74d3 config.def.h
+--- a/config.def.h	Fri Mar 25 14:06:46 2011 +0000
++++ b/config.def.h	Sun Apr 10 19:07:26 2011 +0200
+@@ -12,6 +12,7 @@
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const Bool showbar           = True;     /* False means no bar */
+ static const Bool topbar            = True;     /* False means bottom bar */
++static Bool readin                  = True;     /* False means do not read stdin */
+ 
+ /* tagging */
+ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+diff -r ba7d976f74d3 dwm.c
+--- a/dwm.c	Fri Mar 25 14:06:46 2011 +0000
++++ b/dwm.c	Sun Apr 10 19:07:26 2011 +0200
+@@ -28,6 +28,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <sys/select.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <X11/cursorfont.h>
+@@ -232,7 +233,6 @@
+ static void updatebars(void);
+ static void updatenumlockmask(void);
+ static void updatesizehints(Client *c);
+-static void updatestatus(void);
+ static void updatetitle(Client *c);
+ static void updatewmhints(Client *c);
+ static void view(const Arg *arg);
+@@ -1251,9 +1251,7 @@
+ 	Window trans;
+ 	XPropertyEvent *ev = &e->xproperty;
+ 
+-	if((ev->window == root) && (ev->atom == XA_WM_NAME))
+-		updatestatus();
+-	else if(ev->state == PropertyDelete)
++	if(ev->state == PropertyDelete)
+ 		return; /* ignore */
+ 	else if((c = wintoclient(ev->window))) {
+ 		switch (ev->atom) {
+@@ -1413,12 +1411,60 @@
+ 
+ void
+ run(void) {
++	char *p;
++	char sbuf[sizeof stext];
++	fd_set rd;
++	int r, xfd;
++	unsigned int len, offset;
+ 	XEvent ev;
+-	/* main event loop */
++
++	/* main event loop, also reads status text from stdin */
+ 	XSync(dpy, False);
+-	while(running && !XNextEvent(dpy, &ev)) {
+-		if(handler[ev.type])
+-			handler[ev.type](&ev); /* call handler */
++	xfd = ConnectionNumber(dpy);
++	offset = 0;
++	len = sizeof stext - 1;
++	sbuf[len] = stext[len] = '\0'; /* 0-terminator is never touched */
++	while(running) {
++		FD_ZERO(&rd);
++		if(readin)
++			FD_SET(STDIN_FILENO, &rd);
++		FD_SET(xfd, &rd);
++		if(select(xfd + 1, &rd, NULL, NULL, NULL) == -1) {
++			if(errno == EINTR)
++				continue;
++			die("select failed\n");
++		}
++		if(FD_ISSET(STDIN_FILENO, &rd)) {
++			switch((r = read(STDIN_FILENO, sbuf + offset, len - offset))) {
++			case -1:
++				strncpy(stext, strerror(errno), len);
++				readin = False;
++				break;
++			case 0:
++				strncpy(stext, "EOF", 4);
++				readin = False;
++				break;
++			default:
++				for(p = sbuf + offset; r > 0; p++, r--, offset++)
++					if(*p == '\n' || *p == '\0') {
++						*p = '\0';
++						strncpy(stext, sbuf, len);
++						p += r - 1; /* p is sbuf + offset + r - 1 */
++						for(r = 0; *(p - r) && *(p - r) != '\n'; r++);
++						offset = r;
++						if(r)
++							memmove(sbuf, p - r + 1, r);
++						break;
++					}
++				break;
++			}
++			drawbars();
++		}
++		while(XPending(dpy)) {
++			XNextEvent(dpy, &ev);
++			if(handler[ev.type])
++				(handler[ev.type])(&ev); /* call handler */
++		}
+ 	}
+ }
+ 
+@@ -1539,7 +1585,6 @@
+ 		XSetFont(dpy, dc.gc, dc.font.xfont->fid);
+ 	/* init bars */
+ 	updatebars();
+-	updatestatus();
+ 	/* EWMH support per view */
+ 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
+ 			PropModeReplace, (unsigned char *) netatom, NetLast);
+@@ -1916,13 +1961,6 @@
+ }
+ 
+ void
+-updatestatus(void) {
+-	if(!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
+-		strcpy(stext, "dwm-"VERSION);
+-	drawbar(selmon);
+-}
+-
+-void
+ updatewmhints(Client *c) {
+ 	XWMHints *wmh;
+ 

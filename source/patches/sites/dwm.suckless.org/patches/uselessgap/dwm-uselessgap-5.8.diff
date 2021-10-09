@@ -1,0 +1,49 @@
+diff -r 72e52c5333ef config.def.h
+--- a/config.def.h	Wed Nov 25 13:56:17 2009 +0000
++++ b/config.def.h	Thu Mar 11 16:32:24 2010 +0100
+@@ -9,6 +9,7 @@
+ static const char selbgcolor[]      = "#0066ff";
+ static const char selfgcolor[]      = "#ffffff";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
++static const unsigned int gappx     = 6;        /* gap pixel between windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const Bool showbar           = True;     /* False means no bar */
+ static const Bool topbar            = True;     /* False means bottom bar */
+diff -r 72e52c5333ef dwm.c
+--- a/dwm.c	Wed Nov 25 13:56:17 2009 +0000
++++ b/dwm.c	Thu Mar 11 16:32:24 2010 +0100
+@@ -269,6 +269,7 @@
+ static DC dc;
+ static Monitor *mons = NULL, *selmon = NULL;
+ static Window root;
++static int globalborder ;
+ 
+ /* configuration, allows nested code to access above variables */
+ #include "config.h"
+@@ -1299,16 +1300,21 @@
+ resize(Client *c, int x, int y, int w, int h, Bool interact) {
+ 	XWindowChanges wc;
+ 
++	if(c->isfloating || selmon->lt[selmon->sellt]->arrange == NULL) { globalborder = 0 ; }
++	else {
++		if (selmon->lt[selmon->sellt]->arrange == monocle) { globalborder = 0 - borderpx ; }
++		else { globalborder =  gappx ; }
++	}
+ 	if(applysizehints(c, &x, &y, &w, &h, interact)) {
+-		c->x = wc.x = x;
+-		c->y = wc.y = y;
+-		c->w = wc.width = w;
+-		c->h = wc.height = h;
++		c->x = wc.x = x + globalborder;
++		c->y = wc.y = y + globalborder;
++		c->w = wc.width = w - 2 * globalborder ;
++		c->h = wc.height = h - 2 * globalborder ;
+ 		wc.border_width = c->bw;
+ 		XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
+ 		configure(c);
+ 		XSync(dpy, False);
+-	}
++		}
+ }
+ 
+ void

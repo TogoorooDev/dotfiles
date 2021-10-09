@@ -1,0 +1,60 @@
+From f675414e350d9c4face743a1bfc4af8a2cd445cd Mon Sep 17 00:00:00 2001
+From: 0x1bi <ben@0x1bi.net>
+Date: Sat, 15 Aug 2020 12:05:11 -0400
+Subject: [PATCH] fix for middle click to plumb
+
+---
+ config.def.h |  2 +-
+ surf.c       | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 34265f6..01d040a 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -186,7 +186,7 @@ static Key keys[] = {
+ /* target can be OnDoc, OnLink, OnImg, OnMedia, OnEdit, OnBar, OnSel, OnAny */
+ static Button buttons[] = {
+ 	/* target       event mask      button  function        argument        stop event */
+-	{ OnLink,       0,              2,      clicknewwindow, { .i = 0 },     1 },
++	{ OnAny,        0,              2,      clickplumb,     { .i = 0 },     1 },
+ 	{ OnLink,       MODKEY,         2,      clicknewwindow, { .i = 1 },     1 },
+ 	{ OnLink,       MODKEY,         1,      clicknewwindow, { .i = 1 },     1 },
+ 	{ OnAny,        0,              8,      clicknavigate,  { .i = -1 },    1 },
+diff --git a/surf.c b/surf.c
+index 2b54e3c..46e6934 100644
+--- a/surf.c
++++ b/surf.c
+@@ -236,6 +236,7 @@ static void find(Client *c, const Arg *a);
+ static void clicknavigate(Client *c, const Arg *a, WebKitHitTestResult *h);
+ static void clicknewwindow(Client *c, const Arg *a, WebKitHitTestResult *h);
+ static void clickexternplayer(Client *c, const Arg *a, WebKitHitTestResult *h);
++static void clickplumb(Client *c, const Arg *a, WebKitHitTestResult *h);
+ 
+ static char winid[64];
+ static char togglestats[12];
+@@ -1971,6 +1972,21 @@ clickexternplayer(Client *c, const Arg *a, WebKitHitTestResult *h)
+ 	spawn(c, &arg);
+ }
+ 
++void
++clickplumb(Client *c, const Arg *a, WebKitHitTestResult *h)
++{
++	Arg arg;
++
++	char *s;
++	WebKitHitTestResultContext e = webkit_hit_test_result_get_context(h);
++	if (OnSel & e)
++		s = gtk_clipboard_wait_for_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY));
++	else if ((OnLink|OnMedia|OnImg) & e)
++		s = webkit_hit_test_result_get_link_uri(h);
++	arg = (Arg)PLUMB(s);
++	spawn(c, &arg);
++}
++
+ int
+ main(int argc, char *argv[])
+ {
+-- 
+2.26.2
+

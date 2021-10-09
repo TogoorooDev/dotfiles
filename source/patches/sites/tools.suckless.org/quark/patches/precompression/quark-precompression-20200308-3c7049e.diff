@@ -1,0 +1,117 @@
+From 668df28967b8abd2893383e4d20b16cfe99dfdeb Mon Sep 17 00:00:00 2001
+From: guysv <sviryguy@gmail.com>
+Date: Sun, 8 Mar 2020 18:40:07 +0200
+Subject: [PATCH] Add support for precomputed compression
+
+If a client indicates that it supports gzip, then look for a `.gz`
+variation of requested file. If such gzipped file exists, send it
+instead and set the appropriate headers.
+
+Range requests and dirlist requests are not supported.
+---
+ http.c | 24 ++++++++++++++++++++++--
+ http.h |  1 +
+ resp.c |  5 +++--
+ resp.h |  2 +-
+ 4 files changed, 27 insertions(+), 5 deletions(-)
+
+diff --git a/http.c b/http.c
+index efc4136..a654514 100644
+--- a/http.c
++++ b/http.c
+@@ -25,6 +25,7 @@ const char *req_field_str[] = {
+ 	[REQ_HOST]    = "Host",
+ 	[REQ_RANGE]   = "Range",
+ 	[REQ_MOD]     = "If-Modified-Since",
++	[REQ_ENCODE]  = "Accept-Encoding",
+ };
+ 
+ const char *req_method_str[] = {
+@@ -349,7 +350,7 @@ enum status
+ http_send_response(int fd, struct request *r)
+ {
+ 	struct in6_addr res;
+-	struct stat st;
++	struct stat st, gzst;
+ 	struct tm tm;
+ 	size_t len, i;
+ 	off_t lower, upper;
+@@ -604,5 +605,24 @@ http_send_response(int fd, struct request *r)
+ 		}
+ 	}
+ 
+-	return resp_file(fd, RELPATH(realtarget), r, &st, mime, lower, upper);
++	/* encoding-compression */
++	if (r->field[REQ_ENCODE][0] && !r->field[REQ_RANGE][0]) {
++		for (p = r->field[REQ_ENCODE]; p; p = strchr(p, ','), p ? p++ : p) {
++			/* skip whitespace */
++			for (; *p == ' ' || *p == '\t'; p++)
++			;
++			if (!strncasecmp(p, "gzip", sizeof("gzip")-1) &&
++					!esnprintf(tmptarget, sizeof(tmptarget), "%s%s", realtarget,
++							".gz") &&
++					!stat(RELPATH(tmptarget), &gzst) &&
++					S_ISREG(gzst.st_mode)) {
++				lower = 0;
++				upper = gzst.st_size-1;
++				return resp_file(fd, RELPATH(tmptarget), r, &gzst, mime,
++								"Content-Encoding: gzip\r\n", lower, upper);
++			}
++		}
++	}
++
++	return resp_file(fd, RELPATH(realtarget), r, &st, mime, "", lower, upper);
+ }
+diff --git a/http.h b/http.h
+index cd1ba22..26ced90 100644
+--- a/http.h
++++ b/http.h
+@@ -11,6 +11,7 @@ enum req_field {
+ 	REQ_HOST,
+ 	REQ_RANGE,
+ 	REQ_MOD,
++	REQ_ENCODE,
+ 	NUM_REQ_FIELDS,
+ };
+ 
+diff --git a/resp.c b/resp.c
+index 3075c28..bf35ac8 100644
+--- a/resp.c
++++ b/resp.c
+@@ -111,7 +111,7 @@ cleanup:
+ 
+ enum status
+ resp_file(int fd, char *name, struct request *r, struct stat *st, char *mime,
+-          off_t lower, off_t upper)
++          char *encoding, off_t lower, off_t upper)
+ {
+ 	FILE *fp;
+ 	enum status s;
+@@ -142,10 +142,11 @@ resp_file(int fd, char *name, struct request *r, struct stat *st, char *mime,
+ 	            "Connection: close\r\n"
+ 	            "Last-Modified: %s\r\n"
+ 	            "Content-Type: %s\r\n"
++				"%s"
+ 	            "Content-Length: %zu\r\n",
+ 	            s, status_str[s], timestamp(time(NULL), t1),
+ 	            timestamp(st->st_mtim.tv_sec, t2), mime,
+-	            upper - lower + 1) < 0) {
++	            encoding, upper - lower + 1) < 0) {
+ 		s = S_REQUEST_TIMEOUT;
+ 		goto cleanup;
+ 	}
+diff --git a/resp.h b/resp.h
+index d5928ef..ccfaaad 100644
+--- a/resp.h
++++ b/resp.h
+@@ -9,6 +9,6 @@
+ 
+ enum status resp_dir(int, char *, struct request *);
+ enum status resp_file(int, char *, struct request *, struct stat *, char *,
+-                      off_t, off_t);
++                      char *, off_t, off_t);
+ 
+ #endif /* RESP_H */
+-- 
+2.25.1
+

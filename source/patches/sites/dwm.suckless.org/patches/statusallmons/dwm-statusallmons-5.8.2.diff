@@ -1,0 +1,39 @@
+--- ../dwm-5.8.2/dwm.c	2011-03-18 09:51:10.000000000 +0100
++++ ./dwm.c	2011-03-18 09:52:15.000000000 +0100
+@@ -700,17 +700,13 @@ drawbar(Monitor *m) {
+ 	drawtext(m->ltsymbol, dc.norm, False);
+ 	dc.x += dc.w;
+ 	x = dc.x;
+-	if(m == selmon) { /* status is only drawn on selected monitor */
+-		dc.w = TEXTW(stext);
+-		dc.x = m->ww - dc.w;
+-		if(dc.x < x) {
+-			dc.x = x;
+-			dc.w = m->ww - x;
+-		}
+-		drawtext(stext, dc.norm, False);
++	dc.w = TEXTW(stext);
++	dc.x = m->ww - dc.w;
++	if(dc.x < x) {
++		dc.x = x;
++		dc.w = m->ww - x;
+ 	}
+-	else
+-		dc.x = m->ww;
++	drawtext(stext, dc.norm, False);
+ 	if((dc.w = dc.x - x) > bh) {
+ 		dc.x = x;
+ 		if(m->sel) {
+@@ -1917,9 +1913,11 @@ updatetitle(Client *c) {
+ 
+ void
+ updatestatus(void) {
++	Monitor* m;
+ 	if(!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
+ 		strcpy(stext, "dwm-"VERSION);
+-	drawbar(selmon);
++	for(m = mons; m; m = m->next)
++		drawbar(m);
+ }
+ 
+ void

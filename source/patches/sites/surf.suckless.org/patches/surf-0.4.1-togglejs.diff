@@ -1,0 +1,53 @@
+diff -r 71388899ac09 config.def.h
+--- a/config.def.h	Tue Jun 08 09:06:10 2010 +0200
++++ b/config.def.h	Mon Sep 26 23:23:29 2011 +0100
+@@ -33,6 +33,7 @@
+     { MODKEY,               GDK_k,      scroll,     { .i = -1 } },
+     { 0,                    GDK_Escape, stop,       { 0 } },
+     { MODKEY,               GDK_o,      source,     { 0 } },
++    { MODKEY,               GDK_s,      togglescript, { .b = FALSE } },
+     { MODKEY,               GDK_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
+     { MODKEY,               GDK_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
+     { MODKEY,               GDK_n,      find,       { .b = TRUE } },
+diff -r 71388899ac09 surf.1
+--- a/surf.1	Tue Jun 08 09:06:10 2010 +0200
++++ b/surf.1	Mon Sep 26 23:23:29 2011 +0100
+@@ -87,6 +87,9 @@
+ .B Ctrl\-y
+ Copies current URI to primary selection.
+ .TP
++.B Ctrl\-s
++Toggles javascript.
++.TP
+ .B Ctrl\-o
+ show the sourcecode of the current page.
+ .SH SEE ALSO
+diff -r 71388899ac09 surf.c
+--- a/surf.c	Tue Jun 08 09:06:10 2010 +0200
++++ b/surf.c	Mon Sep 26 23:23:29 2011 +0100
+@@ -104,6 +104,7 @@
+ static void source(Client *c, const Arg *arg);
+ static void spawn(Client *c, const Arg *arg);
+ static void stop(Client *c, const Arg *arg);
++static void togglescript(Client *c, const Arg *arg);
+ static void titlechange(WebKitWebView *v, WebKitWebFrame* frame, const char* title, Client *c);
+ static void update(Client *c);
+ static void updatewinid(Client *c);
+@@ -158,6 +159,17 @@
+ }
+ 
+ void
++togglescript(Client *c, const Arg *arg) {
++	WebKitWebSettings *settings;
++	gboolean script;
++
++	settings = webkit_web_view_get_settings(c->view);
++	g_object_get(G_OBJECT(settings), "enable-scripts", &script, NULL);
++	g_object_set(G_OBJECT(settings), "enable-scripts", !script, NULL);
++	reload(c, arg);
++}
++
++void
+ clipboard(Client *c, const Arg *arg) {
+ 	gboolean paste = *(gboolean *)arg;
+ 

@@ -1,0 +1,20 @@
+build/xhtml.o: src/xhtml.c /usr/include/stdio.h /usr/include/sys/cdefs.h \
+ /usr/include/sys/_null.h /usr/include/sys/_types.h \
+ /usr/include/machine/_types.h /usr/include/x86/_types.h \
+ /usr/include/machine/_limits.h /usr/include/x86/_limits.h \
+ /usr/include/stdlib.h /usr/include/string.h /usr/include/strings.h \
+ /usr/include/xlocale/_strings.h /usr/include/xlocale/_string.h \
+ /usr/include/unistd.h /usr/include/sys/types.h \
+ /usr/include/machine/endian.h /usr/include/x86/endian.h \
+ /usr/include/sys/_pthreadtypes.h /usr/include/sys/_stdint.h \
+ /usr/include/sys/select.h /usr/include/sys/_sigset.h \
+ /usr/include/sys/_timeval.h /usr/include/sys/timespec.h \
+ /usr/include/sys/_timespec.h /usr/include/sys/unistd.h \
+ /usr/include/limits.h /usr/include/sys/limits.h \
+ /usr/include/sys/syslimits.h /usr/include/sys/stat.h \
+ /usr/include/sys/time.h /usr/include/time.h /usr/include/xlocale/_time.h \
+ /usr/include/malloc.h /usr/include/malloc_np.h src/epub2txt.h src/defs.h \
+ src/log.h src/string.h \
+ /usr/local/lib/gcc10/gcc/x86_64-portbld-freebsd13.0/10.3.0/include/stdint.h \
+ /usr/include/stdint.h /usr/include/machine/_stdint.h \
+ /usr/include/x86/_stdint.h src/wstring.h src/wrap.h src/xhtml.h

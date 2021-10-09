@@ -1,0 +1,43 @@
+diff -up dwm-b/config.def.h dwm-a/config.def.h
+--- dwm-b/config.def.h	2015-11-08 23:39:37.000000000 +0100
++++ dwm-a/config.def.h	2018-12-31 00:51:15.215522689 +0100
+@@ -11,6 +11,8 @@ static const char normfgcolor[]     = "#
+ static const char selbordercolor[]  = "#005577";
+ static const char selbgcolor[]      = "#005577";
+ static const char selfgcolor[]      = "#eeeeee";
++static const char titlebgcolor[]    = "#222222";
++static const char titlefgcolor[]    = "#005577";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+diff -up dwm-b/dwm.c dwm-a/dwm.c
+--- dwm-b/dwm.c	2015-11-08 23:39:37.000000000 +0100
++++ dwm-a/dwm.c	2018-12-31 01:02:44.315267927 +0100
+@@ -59,7 +59,7 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel, SchemeLast }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeTitle, SchemeLast }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -742,7 +742,7 @@ drawbar(Monitor *m)
+ 	if ((w = x - xx) > bh) {
+ 		x = xx;
+ 		if (m->sel) {
+-			drw_setscheme(drw, m == selmon ? &scheme[SchemeSel] : &scheme[SchemeNorm]);
++			drw_setscheme(drw, m == selmon ? &scheme[SchemeTitle] : &scheme[SchemeNorm]);
+ 			drw_text(drw, x, 0, w, bh, m->sel->name, 0);
+ 			drw_rect(drw, x + 1, 1, dx, dx, m->sel->isfixed, m->sel->isfloating, 0);
+ 		} else {
+@@ -1586,6 +1586,9 @@ setup(void)
+ 	scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor);
+ 	scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor);
+ 	scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor);
++	scheme[SchemeTitle].border = drw_clr_create(drw, normbordercolor);
++	scheme[SchemeTitle].bg = drw_clr_create(drw, titlebgcolor);
++	scheme[SchemeTitle].fg = drw_clr_create(drw, titlefgcolor);
+ 	/* init bars */
+ 	updatebars();
+ 	updatestatus();

@@ -1,0 +1,3 @@
+lisp
+(emacs|zile)$|\.(el|li?sp|scm|ss|rkt)$
+

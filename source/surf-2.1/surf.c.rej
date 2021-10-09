@@ -1,0 +1,18 @@
+diff a/surf.c b/surf.c	(rejected hunks)
+@@ -202,6 +207,7 @@ static void responsereceived(WebKitDownload *d, GParamSpec *ps, Client *c);
+ static void download(Client *c, WebKitURIResponse *r);
+ static void closeview(WebKitWebView *v, Client *c);
+ static void destroywin(GtkWidget* w, Client *c);
++static gchar *parseuri(const gchar *uri);
+ 
+ /* Hotkeys */
+ static void pasteuri(GtkClipboard *clipboard, const char *text, gpointer d);
+@@ -477,7 +483,7 @@ loaduri(Client *c, const Arg *a)
+ 		url = g_strdup_printf("file://%s", path);
+ 		free(path);
+ 	} else {
+-		url = g_strdup_printf("http://%s", uri);
++		url = parseuri(uri);
+ 	}
+ 
+ 	setatom(c, AtomUri, url);

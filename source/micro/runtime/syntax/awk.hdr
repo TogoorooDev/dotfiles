@@ -1,0 +1,3 @@
+awk
+\.awk$
+^#!.*bin/(env +)?awk( |$)

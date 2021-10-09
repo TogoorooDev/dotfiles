@@ -1,0 +1,58 @@
+diff --git a/st.c b/st.c
+index 7c7ddff..a3dffe5 100644
+--- a/st.c
++++ b/st.c
+@@ -218,6 +218,7 @@ char *opt_line  = NULL;
+ char *opt_name  = NULL;
+ char *opt_title = NULL;
+ int oldbutton   = 3; /* button event on startup: 3 = release */
++int bellon      = 0;
+ 
+ static CSIEscape csiescseq;
+ static STREscape strescseq;
+diff --git a/st.h b/st.h
+index 44d4938..24a6eb6 100644
+--- a/st.h
++++ b/st.h
+@@ -231,6 +231,7 @@ extern char *opt_line;
+ extern char *opt_name;
+ extern char *opt_title;
+ extern int oldbutton;
++extern int bellon;
+ 
+ extern char *usedfont;
+ extern double usedfontsize;
+diff --git a/x.c b/x.c
+index 191e5dc..7be81ea 100644
+--- a/x.c
++++ b/x.c
+@@ -1483,6 +1483,15 @@ void
+ xbell(int vol)
+ {
+ 	XkbBell(xw.dpy, xw.win, vol, (Atom)NULL);
++
++	/* visual bell*/
++	if (!bellon) {
++		bellon = 1;
++		MODBIT(term.mode, !IS_SET(MODE_REVERSE), MODE_REVERSE);
++		redraw();
++		XFlush(xw.dpy);
++		MODBIT(term.mode, !IS_SET(MODE_REVERSE), MODE_REVERSE);
++	}
+ }
+ 
+ unsigned long
+@@ -1674,7 +1683,12 @@ run(void)
+ 					(handler[ev.type])(&ev);
+ 			}
+ 
+-			draw();
++			if (bellon) {
++				bellon = 0;
++				redraw();
++			}
++			else draw();
++
+ 			XFlush(xw.dpy);
+ 
+ 			if (xev && !FD_ISSET(xfd, &rfd))

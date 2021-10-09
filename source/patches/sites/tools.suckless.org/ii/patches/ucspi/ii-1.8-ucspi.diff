@@ -1,0 +1,335 @@
+diff -up ii-1.8/ii.c ii-1.8-mod/ii.c
+--- ii-1.8/ii.c	Sun Feb  4 14:36:09 2018
++++ ii-1.8-mod/ii.c	Mon Feb 26 22:24:36 2018
+@@ -1,16 +1,13 @@
+ /* See LICENSE file for license details. */
+ #include <sys/select.h>
+-#include <sys/socket.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+-#include <sys/un.h>
+ 
+ #include <ctype.h>
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <limits.h>
+ #include <netdb.h>
+-#include <netinet/in.h>
+ #include <pwd.h>
+ #include <signal.h>
+ #include <stdarg.h>
+@@ -20,6 +17,9 @@
+ #include <time.h>
+ #include <unistd.h>
+ 
++#define READ_FD 6
++#define WRITE_FD 7
++
+ char *argv0;
+ 
+ #include "arg.h"
+@@ -56,16 +56,16 @@ static void      channel_rm(Channel *);
+ static void      create_dirtree(const char *);
+ static void      create_filepath(char *, size_t, const char *, const char *, const char *);
+ static void      ewritestr(int, const char *);
+-static void      handle_channels_input(int, Channel *);
+-static void      handle_server_output(int);
++static void      handle_channels_input(Channel *);
++static void      handle_server_output(void);
+ static int       isnumeric(const char *);
+-static void      loginkey(int, const char *);
+-static void      loginuser(int, const char *, const char *);
+-static void      proc_channels_input(int, Channel *, char *);
+-static void      proc_channels_privmsg(int, Channel *, char *);
+-static void      proc_server_cmd(int, char *);
++static void      loginkey(const char *);
++static void      loginuser(const char *, const char *);
++static void      proc_channels_input(Channel *, char *);
++static void      proc_channels_privmsg(Channel *, char *);
++static void      proc_server_cmd(char *);
+ static int       read_line(int, char *, size_t);
+-static void      run(int, const char *);
++static void      run(const char *);
+ static void      setup(void);
+ static void      sighandler(int);
+ static int       tcpopen(const char *, const char *);
+@@ -319,84 +319,22 @@ channel_leave(Channel *c)
+ }
+ 
+ static void
+-loginkey(int ircfd, const char *key)
++loginkey(const char *key)
+ {
+ 	snprintf(msg, sizeof(msg), "PASS %s\r\n", key);
+-	ewritestr(ircfd, msg);
++	ewritestr(WRITE_FD, msg);
+ }
+ 
+ static void
+-loginuser(int ircfd, const char *host, const char *fullname)
++loginuser(const char *host, const char *fullname)
+ {
+ 	snprintf(msg, sizeof(msg), "NICK %s\r\nUSER %s localhost %s :%s\r\n",
+ 	         nick, nick, host, fullname);
+ 	puts(msg);
+-	ewritestr(ircfd, msg);
++	ewritestr(WRITE_FD, msg);
+ }
+ 
+ static int
+-udsopen(const char *uds)
+-{
+-	struct sockaddr_un sun;
+-	size_t len;
+-	int fd;
+-
+-	if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+-		fprintf(stderr, "%s: socket: %s\n", argv0, strerror(errno));
+-		exit(1);
+-	}
+-
+-	sun.sun_family = AF_UNIX;
+-	if (strlcpy(sun.sun_path, uds, sizeof(sun.sun_path)) >= sizeof(sun.sun_path)) {
+-		fprintf(stderr, "%s: UNIX domain socket path truncation\n", argv0);
+-		exit(1);
+-	}
+-	len = strlen(sun.sun_path) + 1 + sizeof(sun.sun_family);
+-	if (connect(fd, (struct sockaddr *)&sun, len) == -1) {
+-		fprintf(stderr, "%s: connect: %s\n", argv0, strerror(errno));
+-		exit(1);
+-	}
+-	return fd;
+-}
+-
+-static int
+-tcpopen(const char *host, const char *service)
+-{
+-	struct addrinfo hints, *res = NULL, *rp;
+-	int fd = -1, e;
+-
+-	memset(&hints, 0, sizeof(hints));
+-	hints.ai_family = AF_UNSPEC; /* allow IPv4 or IPv6 */
+-	hints.ai_flags = AI_NUMERICSERV; /* avoid name lookup for port */
+-	hints.ai_socktype = SOCK_STREAM;
+-
+-	if ((e = getaddrinfo(host, service, &hints, &res))) {
+-		fprintf(stderr, "%s: getaddrinfo: %s\n", argv0, gai_strerror(e));
+-		exit(1);
+-	}
+-
+-	for (rp = res; rp; rp = rp->ai_next) {
+-		fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+-		if (fd == -1)
+-			continue;
+-		if (connect(fd, res->ai_addr, res->ai_addrlen) == -1) {
+-			close(fd);
+-			fd = -1;
+-			continue;
+-		}
+-		break; /* success */
+-	}
+-	if (fd == -1) {
+-		fprintf(stderr, "%s: could not connect to %s:%s: %s\n",
+-			argv0, host, service, strerror(errno));
+-		exit(1);
+-	}
+-
+-	freeaddrinfo(res);
+-	return fd;
+-}
+-
+-static int
+ isnumeric(const char *s)
+ {
+ 	errno = 0;
+@@ -445,22 +383,22 @@ channel_print(Channel *c, const char *buf)
+ }
+ 
+ static void
+-proc_channels_privmsg(int ircfd, Channel *c, char *buf)
++proc_channels_privmsg(Channel *c, char *buf)
+ {
+ 	snprintf(msg, sizeof(msg), "<%s> %s", nick, buf);
+ 	channel_print(c, msg);
+ 	snprintf(msg, sizeof(msg), "PRIVMSG %s :%s\r\n", c->name, buf);
+-	ewritestr(ircfd, msg);
++	ewritestr(WRITE_FD, msg);
+ }
+ 
+ static void
+-proc_channels_input(int ircfd, Channel *c, char *buf)
++proc_channels_input(Channel *c, char *buf)
+ {
+ 	char *p = NULL;
+ 	size_t buflen;
+ 
+ 	if (buf[0] != '/' && buf[0] != '\0') {
+-		proc_channels_privmsg(ircfd, c, buf);
++		proc_channels_privmsg(c, buf);
+ 		return;
+ 	}
+ 	msg[0] = '\0';
+@@ -481,7 +419,7 @@ proc_channels_input(int ircfd, Channel *c, char *buf)
+ 				channel_join(&buf[3]);
+ 			} else if (p) {
+ 				if ((c = channel_join(&buf[3])))
+-					proc_channels_privmsg(ircfd, c, p + 1);
++					proc_channels_privmsg(c, p + 1);
+ 				return;
+ 			}
+ 			break;
+@@ -513,7 +451,7 @@ proc_channels_input(int ircfd, Channel *c, char *buf)
+ 			else
+ 				snprintf(msg, sizeof(msg),
+ 				         "PART %s :leaving\r\n", c->name);
+-			ewritestr(ircfd, msg);
++			ewritestr(WRITE_FD, msg);
+ 			channel_leave(c);
+ 			return;
+ 			break;
+@@ -523,7 +461,7 @@ proc_channels_input(int ircfd, Channel *c, char *buf)
+ 			else
+ 				snprintf(msg, sizeof(msg),
+ 				         "QUIT %s\r\n", "bye");
+-			ewritestr(ircfd, msg);
++			ewritestr(WRITE_FD, msg);
+ 			isrunning = 0;
+ 			return;
+ 			break;
+@@ -536,11 +474,11 @@ proc_channels_input(int ircfd, Channel *c, char *buf)
+ 		snprintf(msg, sizeof(msg), "%s\r\n", &buf[1]);
+ 	}
+ 	if (msg[0] != '\0')
+-		ewritestr(ircfd, msg);
++		ewritestr(WRITE_FD, msg);
+ }
+ 
+ static void
+-proc_server_cmd(int fd, char *buf)
++proc_server_cmd(char *buf)
+ {
+ 	Channel *c;
+ 	const char *channel;
+@@ -588,7 +526,7 @@ proc_server_cmd(int fd, char *buf)
+ 		return;
+ 	} else if (!strcmp("PING", argv[TOK_CMD])) {
+ 		snprintf(msg, sizeof(msg), "PONG %s\r\n", argv[TOK_TEXT]);
+-		ewritestr(fd, msg);
++		ewritestr(WRITE_FD, msg);
+ 		return;
+ 	} else if (!argv[TOK_NICKSRV] || !argv[TOK_USER]) {
+ 		/* server command */
+@@ -675,7 +613,7 @@ read_line(int fd, char *buf, size_t bufsiz)
+ }
+ 
+ static void
+-handle_channels_input(int ircfd, Channel *c)
++handle_channels_input(Channel *c)
+ {
+ 	char buf[IRC_MSG_MAX];
+ 
+@@ -684,22 +622,22 @@ handle_channels_input(int ircfd, Channel *c)
+ 			channel_rm(c);
+ 		return;
+ 	}
+-	proc_channels_input(ircfd, c, buf);
++	proc_channels_input(c, buf);
+ }
+ 
+ static void
+-handle_server_output(int ircfd)
++handle_server_output(void)
+ {
+ 	char buf[IRC_MSG_MAX];
+ 
+-	if (read_line(ircfd, buf, sizeof(buf)) == -1) {
++	if (read_line(READ_FD, buf, sizeof(buf)) == -1) {
+ 		fprintf(stderr, "%s: remote host closed connection: %s\n",
+ 		        argv0, strerror(errno));
+ 		exit(1);
+ 	}
+ 	fprintf(stdout, "%lu %s\n", (unsigned long)time(NULL), buf);
+ 	fflush(stdout);
+-	proc_server_cmd(ircfd, buf);
++	proc_server_cmd(buf);
+ }
+ 
+ static void
+@@ -721,7 +659,7 @@ setup(void)
+ }
+ 
+ static void
+-run(int ircfd, const char *host)
++run(const char *host)
+ {
+ 	Channel *c, *tmp;
+ 	fd_set rdset;
+@@ -731,9 +669,9 @@ run(int ircfd, const char *host)
+ 
+ 	snprintf(ping_msg, sizeof(ping_msg), "PING %s\r\n", host);
+ 	while (isrunning) {
+-		maxfd = ircfd;
++		maxfd = READ_FD;
+ 		FD_ZERO(&rdset);
+-		FD_SET(ircfd, &rdset);
++		FD_SET(READ_FD, &rdset);
+ 		for (c = channels; c; c = c->next) {
+ 			if (c->fdin > maxfd)
+ 				maxfd = c->fdin;
+@@ -752,17 +690,17 @@ run(int ircfd, const char *host)
+ 				channel_print(channelmaster, "-!- ii shutting down: ping timeout");
+ 				exit(2); /* status code 2 for timeout */
+ 			}
+-			ewritestr(ircfd, ping_msg);
++			ewritestr(WRITE_FD, ping_msg);
+ 			continue;
+ 		}
+-		if (FD_ISSET(ircfd, &rdset)) {
+-			handle_server_output(ircfd);
++		if (FD_ISSET(READ_FD, &rdset)) {
++			handle_server_output();
+ 			last_response = time(NULL);
+ 		}
+ 		for (c = channels; c; c = tmp) {
+ 			tmp = c->next;
+ 			if (FD_ISSET(c->fdin, &rdset))
+-				handle_channels_input(ircfd, c);
++				handle_channels_input(c);
+ 		}
+ 	}
+ }
+@@ -775,7 +713,7 @@ main(int argc, char *argv[])
+ 	const char *key = NULL, *fullname = NULL, *host = "";
+ 	const char *uds = NULL, *service = "6667";
+ 	char prefix[PATH_MAX];
+-	int ircfd, r;
++	int r;
+ 
+ 	/* use nickname and home dir of user by default */
+ 	if (!(spw = getpwuid(getuid()))) {
+@@ -815,11 +753,6 @@ main(int argc, char *argv[])
+ 	if (!*host)
+ 		usage();
+ 
+-	if (uds)
+-		ircfd = udsopen(uds);
+-	else
+-		ircfd = tcpopen(host, service);
+-
+ #ifdef __OpenBSD__
+ 	/* OpenBSD pledge(2) support */
+ 	if (pledge("stdio rpath wpath cpath dpath", NULL) == -1) {
+@@ -837,10 +770,10 @@ main(int argc, char *argv[])
+ 
+ 	channelmaster = channel_add(""); /* master channel */
+ 	if (key)
+-		loginkey(ircfd, key);
+-	loginuser(ircfd, host, fullname && *fullname ? fullname : nick);
++		loginkey(key);
++	loginuser(host, fullname && *fullname ? fullname : nick);
+ 	setup();
+-	run(ircfd, host);
++	run(host);
+ 	if (channelmaster)
+ 		channel_leave(channelmaster);
+ 

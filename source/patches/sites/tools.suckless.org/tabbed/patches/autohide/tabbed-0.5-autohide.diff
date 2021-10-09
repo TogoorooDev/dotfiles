@@ -1,0 +1,16 @@
+diff -up ./tabbed.c ../tabbed-0.5/tabbed.c
+--- ./tabbed.c	2013-06-24 14:34:47.208245039 +0200
++++ ../tabbed-0.5/tabbed.c	2013-06-24 14:36:58.423921877 +0200
+@@ -311,6 +311,12 @@ drawbar(void) {
+ 		return;
+ 	}
+ 
++	if (nclients == 1) {
++		XMoveResizeWindow(dpy, clients[0]->win, 0, 0, ww, wh - 0);
++		return;
++	} else if (nclients == 2)
++		XMoveResizeWindow(dpy, clients[1]->win, 0, bh, ww, wh - bh);
++
+ 	width = ww;
+ 	clients[nclients-1]->tabx = -1;
+ 	fc = getfirsttab();

@@ -1,0 +1,2188 @@
+diff -ruN st-default/config.def.h st1/config.def.h
+--- st-default/config.def.h	2020-06-04 11:15:55.164135902 +0200
++++ st1/config.def.h	2020-06-04 11:15:28.476134951 +0200
+@@ -56,6 +56,10 @@
+ static double minlatency = 8;
+ static double maxlatency = 33;
+ 
++/* frames per second st should at maximum draw to the screen */
++static unsigned int xfps = 120;
++static unsigned int actionfps = 30;
++
+ /*
+  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+  * attribute.
+@@ -160,6 +164,14 @@
+  * doesn't match the ones requested.
+  */
+ static unsigned int defaultattr = 11;
++/// Colors for the entities that are 'highlighted' in normal mode (search
++/// results currently on screen) [Vim Browse].
++static unsigned int highlightBg = 160;
++static unsigned int highlightFg = 15;
++/// Colors for highlighting the current cursor position (row + col) in normal
++/// mode [Vim Browse].
++static unsigned int currentBg = 8;
++static unsigned int currentFg = 15;
+ 
+ /*
+  * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
+@@ -175,18 +187,18 @@
+ static MouseShortcut mshortcuts[] = {
+ 	/* mask                 button   function        argument       release */
+ 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+-	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
+ 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+-	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
+ 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+ };
+ 
+ /* Internal keyboard shortcuts. */
+ #define MODKEY Mod1Mask
++#define AltMask Mod1Mask
+ #define TERMMOD (ControlMask|ShiftMask)
+ 
+ static Shortcut shortcuts[] = {
+ 	/* mask                 keysym          function        argument */
++	{ AltMask,              XK_c,           normalMode,     {.i =  0} },
+ 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
+ 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
+ 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
+@@ -199,6 +211,8 @@
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
++	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+ };
+ 
+ /*
+@@ -470,3 +484,45 @@
+ 	" !\"#$%&'()*+,-./0123456789:;<=>?"
+ 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+ 	"`abcdefghijklmnopqrstuvwxyz{|}~";
++
++
++/// word sepearors normal mode
++/// [Vim Browse].
++char wordDelimSmall[] = " \t!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
++char wordDelimLarge[] = " \t"; /// <Word sepearors normal mode (capital W)
++
++/// Shortcusts executed in normal mode (which should not already be in use)
++/// [Vim Browse].
++struct NormalModeShortcuts normalModeShortcuts [] = {
++	{ 'R', "?Building\n" },
++	{ 'r', "/Building\n" },
++	{ 'F', "?: error:\n" },
++	{ 'f', "/: error:\n" },
++	{ 'Q', "?[Leaving vim, starting execution]\n" },
++	{ 'S', "Qf" },
++	{ 'X', "?juli@machine\n" },
++	{ 'x', "/juli@machine\n" },
++};
++
++size_t const amountNormalModeShortcuts = sizeof(normalModeShortcuts) / sizeof(*normalModeShortcuts);
++
++/// Style of the command string visualized in normal mode in the right corner
++/// [Vim Browse].
++Glyph const styleCommand = {' ', ATTR_ITALIC | ATTR_FAINT, 7, 16};
++/// Style of the search string visualized in normal mode in the right corner.
++/// [Vim Browse].
++Glyph const styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
++
++/// Colors used in normal mode in order to highlight different operations and
++/// empathise the current position on screen  in  the status area [Vim Browse].
++unsigned int bgCommandYank = 11;
++unsigned int bgCommandVisual = 4;
++unsigned int bgCommandVisualLine = 12;
++
++unsigned int fgCommandYank = 232;
++unsigned int fgCommandVisual = 232;
++unsigned int fgCommandVisualLine = 232;
++
++unsigned int bgPos = 15;
++unsigned int fgPos = 16;
++
+diff -ruN st-default/dynamicArray.h st1/dynamicArray.h
+--- st-default/dynamicArray.h	1970-01-01 01:00:00.000000000 +0100
++++ st1/dynamicArray.h	2020-06-04 11:04:30.227111509 +0200
+@@ -0,0 +1,175 @@
++#ifndef DYNAMIC_ARRAY_H
++#define DYNAMIC_ARRAY_H
++
++#include "error.h"
++
++#include <stdint.h>
++#include <stdlib.h>
++#include <string.h>
++#include <stdbool.h>
++
++/// Struct for which this file offers functionality in order to expand the array
++/// and set / get its content.
++typedef struct DynamicArray {
++	/// Size of the datatype contained in the array.
++	uint8_t itemSize;
++	/// Amount of bytes currently initialized
++	uint32_t index;
++	/// Amount of bytes currently reserved (not necessarily initialized)
++	uint32_t allocated;
++	/// Actual content.
++	char* content;
++} DynamicArray;
++
++#define EXPAND_STEP 15
++
++/// Default initializers for the dynamic array.
++#define CHAR_ARRAY  {1, 0, 0, NULL}
++#define WORD_ARRAY  {2, 0, 0, NULL}
++#define DWORD_ARRAY {4, 0, 0, NULL}
++#define QWORD_ARRAY {8, 0, 0, NULL}
++/// (Wasteful) utf-8 array, that always used 4 bytes in order to display a
++/// character, even if the space is not required.
++#define UTF8_ARRAY  DWORD_ARRAY
++
++/// Check that at least \p bytes are allocated, if true implying that
++/// \p s->content[\bytes - 1] is allocated.
++static inline bool
++isAllocated(DynamicArray const *s, uint32_t bytes) {
++	return s != NULL && s->allocated >= bytes;
++}
++
++/// @see #isAllocated
++static inline bool
++isInitialized(DynamicArray const *s, uint32_t bytes) {
++	return s != NULL && s->index >= bytes;
++}
++
++/// Return the next element in \p s and increment index without checking bounds.
++static inline char*
++gnext(DynamicArray *s) {
++	ENSURE(s!=NULL, return NULL);
++	ENSURE(s->index % s->itemSize == 0 && "(index not aligned)",
++			s->index += s->itemSize - (s->index % s->itemSize));
++	ENSURE(isAllocated(s, s->index + 2 * s->itemSize), return NULL);
++	return s->content + (s->index += s->itemSize);
++}
++
++/// View element \p i in \p s.
++static inline char*
++view(DynamicArray const * s, uint32_t i) {
++	ENSURE((s != NULL) && isAllocated(s, (i+1) * s->itemSize), return NULL);
++	return s->content + i*s->itemSize;
++}
++
++/// Inspect element content[size() - 1 - i].
++static inline char *
++viewEnd(DynamicArray const *s, uint32_t i) {
++	ENSURE((s != NULL) && isInitialized(s, i * s->itemSize), return NULL);
++	ENSURE(s->index%s->itemSize == 0 && "(index not aligned)", return NULL);
++	return s->content + s->index - (i + 1) * s->itemSize;
++}
++
++/// Set conent without applying
++static inline bool
++setValues(DynamicArray* s, char const *vals, uint32_t amount) {
++	ENSURE(vals != NULL, return false);
++	ENSURE((s != NULL) && isAllocated(s, s->index + amount), return false);
++	memcpy(s->content + s->index, vals, amount);
++	return true;
++}
++
++static inline bool
++snext(DynamicArray* s, char const *vals, uint32_t amount) {
++	bool const success = setValues(s, vals, amount);
++	ENSURE(success, return false);
++	uint8_t const rest = amount % s->itemSize;
++	uint32_t const newSize = s->index + amount + (rest ? s->itemSize : 0);
++	ENSURE(isAllocated(s, newSize), return false);
++	s->index = newSize;
++	return true;
++}
++
++/// Empty \p s.
++static inline void
++empty(DynamicArray* s) {
++	ENSURE((s != NULL), return);
++	s->index = 0;
++}
++
++/// Check if \p s has initialized content (which can be the case even if memory
++/// is allocated).
++static inline bool
++isEmpty(DynamicArray const * s) {
++	ENSURE((s != NULL), return true);
++	return s->index == 0;
++}
++
++static inline int
++size(DynamicArray const * s) {
++	ENSURE(s != NULL, return 0);
++	ENSURE(s->itemSize != 0, return 0);
++	return s->index / s->itemSize;
++}
++
++static inline void
++pop(DynamicArray* s) {
++	ENSURE((s != NULL), return);
++	ENSURE(s->index % s->itemSize == 0 && "(index not aligned)",
++			s->index += s->itemSize - (s->index % s->itemSize));
++	ENSURE(isInitialized(s, s->itemSize), return);
++	s->index -= s->itemSize;
++}
++
++static inline bool
++checkSetNext(DynamicArray *s, char const *c, uint32_t amount) {
++	ENSURE(s != NULL && c != NULL, return false);
++	if (s->allocated < s->index + s->itemSize * amount) {
++		uint32_t const diff = s->index+s->itemSize*amount-s->allocated;
++		uint32_t const newAlloSize = s->allocated + (diff > EXPAND_STEP
++				? diff : EXPAND_STEP) * s->itemSize;
++		char* tmp = realloc(s->content, newAlloSize);
++		if (tmp == NULL) { return false; }
++		s->allocated = newAlloSize;
++		s->content = tmp;
++		assert(s->allocated >= s->index + s->itemSize * amount);
++	}
++	if (amount) { snext(s, c, amount); }
++	return true;
++}
++
++static inline bool
++checkSetNextV(DynamicArray *s, char const c) {
++	return checkSetNext(s, &c, 1);
++}
++
++static inline bool
++checkSetNextP(DynamicArray *s, char const *c) {
++	ENSURE(c != NULL, return false);
++	return checkSetNext(s, c, strlen(c));
++}
++
++/// Expand the currently initialized content in \p s and the allocated chunk of
++/// memory if required.
++static char *
++expand(DynamicArray *s) {
++	ENSURE(s != NULL, return NULL);
++	if (s->allocated < s->index + s->itemSize) {
++		uint32_t const diff = s->index + s->itemSize - s->allocated;
++		uint32_t const newAlloSize = s->allocated + (diff > EXPAND_STEP
++				? diff : EXPAND_STEP) * s->itemSize;
++		char* tmp = realloc(s->content, newAlloSize);
++		if (tmp == NULL) { return NULL; }
++		s->allocated = newAlloSize;
++		s->content = tmp;
++		assert(s->allocated >= s->index + s->itemSize);
++	}
++	s->index+=s->itemSize;
++	return viewEnd(s, 0);
++}
++
++#define append(s, c) checkSetNext((s), (char const *) (c), (s)->itemSize)
++#define appendPartial(s, c, i) checkSetNext((s), (char const *) (c), (i))
++
++
++#endif // DYNAMIC_ARRAY_H
+diff -ruN st-default/error.h st1/error.h
+--- st-default/error.h	1970-01-01 01:00:00.000000000 +0100
++++ st1/error.h	2020-06-04 11:04:30.227111509 +0200
+@@ -0,0 +1,47 @@
++#ifndef ERROR_H
++#define ERROR_H
++
++#include <assert.h>
++
++// Flag which determines whether to fail if a required condition is not met, or
++// to adapt the condition in order to work properly.
++// Attention: Be sure to perform a clean build after you alter preprocessor
++//            directives / definitions.
++//#define FAIL_ON_ERROR
++
++#include <stdio.h>
++
++///
++/// Function used in case the fail-on-error mode is disabled (via definition)
++/// to report errors. In debug production mode, alias st to st 2> error.log.
++static void reportError(char const * cond, char const * stt, char const * file,
++		unsigned int line ) {
++	unsigned int const maxErrorCount = 100;
++	static unsigned int errorCount = 0;
++	if (++errorCount == 1) {
++		printf("Report the following bug to "
++				"https://github.com/juliusHuelsmann/st.\n");
++	}
++	if (errorCount < maxErrorCount) {
++		printf("Bug:\tCondition '%s' evaluates to false.\n\tPerforming"
++				" '%s' to counteract.\n\tFile:%s:%u\n",
++				cond, stt, file, line);
++	} else if (errorCount == maxErrorCount) {
++		printf("Max amount of reported errors %u is reached. From here"
++				"on, no additional errors will be reported.\n",
++				maxErrorCount);
++	}
++}
++
++/// Note that everyting condition checked / endforced with #ENSURE is
++/// considered an error, and behaves like an error depending on the flag.
++#ifdef FAIL_ON_ERROR
++#define ENSURE(cond, stt) assert(cond);
++#else // FAIL_ON_ERROR
++#define ENSURE(cond, stt) if (!(cond)) {                                       \
++                          	reportError(#cond, #stt, __FILE__, __LINE__);  \
++                          	stt;                                           \
++                          }
++#endif // FAIL_ON_ERROR
++
++#endif // ERROR_H
+diff -ruN st-default/glyph.h st1/glyph.h
+--- st-default/glyph.h	1970-01-01 01:00:00.000000000 +0100
++++ st1/glyph.h	2020-06-04 11:04:30.228111510 +0200
+@@ -0,0 +1,30 @@
++#ifndef LINE_H
++#define LINE_H
++
++//
++// Contains the representation of the entities in the buffer (Line, Gylph), that
++// is used by every part of the software implmeneting terminal logic.
++//
++
++#include <stdint.h>
++
++enum selection_type {
++	SEL_REGULAR = 1,
++	SEL_RECTANGULAR = 2
++};
++
++typedef uint_least32_t Rune;
++
++#define Glyph Glyph_
++
++typedef struct {
++	Rune u;           /* character code */
++	unsigned short mode;      /* attribute flags */
++	uint32_t fg;      /* foreground  */
++	uint32_t bg;      /* background  */
++} Glyph;
++
++
++typedef Glyph *Line;
++
++#endif // LINE_H
+diff -ruN st-default/Makefile st1/Makefile
+--- st-default/Makefile	2020-06-04 11:15:55.164135902 +0200
++++ st1/Makefile	2020-06-04 11:04:30.228111510 +0200
+@@ -4,7 +4,7 @@
+ 
+ include config.mk
+ 
+-SRC = st.c x.c
++SRC = st.c x.c normalMode.c
+ OBJ = $(SRC:.c=.o)
+ 
+ all: options st
+@@ -21,8 +21,8 @@
+ .c.o:
+ 	$(CC) $(STCFLAGS) -c $<
+ 
+-st.o: config.h st.h win.h
+-x.o: arg.h config.h st.h win.h
++st.o: config.h st.h win.h dynamicArray.h normalMode.h term.h glyph.h error.h
++x.o: arg.h config.h st.h win.h dynamicArray.h normalMode.h term.h glyph.h error.h
+ 
+ $(OBJ): config.h config.mk
+ 
+@@ -35,7 +35,8 @@
+ dist: clean
+ 	mkdir -p st-$(VERSION)
+ 	cp -R FAQ LEGACY TODO LICENSE Makefile README config.mk\
+-		config.def.h st.info st.1 arg.h st.h win.h $(SRC)\
++		config.def.h st.info st.1 arg.h st.h win.h dynamicArray.h\
++		normalMode.h term.h error.h $(SRC)\
+ 		st-$(VERSION)
+ 	tar -cf - st-$(VERSION) | gzip > st-$(VERSION).tar.gz
+ 	rm -rf st-$(VERSION)
+diff -ruN st-default/normalMode.c st1/normalMode.c
+--- st-default/normalMode.c	1970-01-01 01:00:00.000000000 +0100
++++ st1/normalMode.c	2020-06-04 11:04:30.229111510 +0200
+@@ -0,0 +1,752 @@
++/* See LICENSE for license details. */
++#include "normalMode.h"
++#include "dynamicArray.h"
++#include "term.h"
++#include "win.h"
++#include "error.h"
++
++#include <X11/keysym.h>
++#include <X11/XKBlib.h>
++
++#include <ctype.h>
++#include <stdio.h>
++#include <limits.h>
++#include <math.h>
++
++#define LEN(a)                 (sizeof(a) / sizeof(a)[0])
++#define BETWEEN(x, a, b)       ((a) <= (x) && (x) <= (b))
++//#define FALLTHROUGH            __attribute__((fallthrough));
++#define FALLTHROUGH
++#define SEC(var,ini,h,r)       var = ini; if (!var) { h; return r; }
++#define EXPAND(v1,v2,r)        char *SEC(v1, expand(v2), empty(v2), true)
++#define currentCommand         (toggle ? &commandHist0 : &commandHist1)
++#define lastCommand            (toggle ? &commandHist1 : &commandHist0)
++
++//
++// Interface to the terminal
++extern Glyph const styleCommand, styleSearch;
++extern NormalModeShortcuts normalModeShortcuts[];
++extern size_t const amountNormalModeShortcuts;
++extern char wordDelimSmall[];
++extern char wordDelimLarge[];
++extern unsigned int fgCommandYank, fgCommandVisual, fgCommandVisualLine,
++       bgCommandYank, bgCommandVisual, bgCommandVisualLine, bgPos, fgPos;
++
++extern void selclear(void);
++extern void tsetdirt(int, int);
++extern size_t utf8encode(Rune, char *);
++extern size_t utf8decode(const char *, Rune *, size_t);
++extern size_t utf8decodebyte(char c, size_t *i);
++
++extern void selextend(int, int, int, int, int);
++extern void selstart(int, int, int, int);
++extern char *getsel(void);
++extern void tfulldirt(void);
++
++//
++// `Private` structs
++typedef struct { uint32_t x; uint32_t y; uint32_t yScr; } Position;
++
++/// Entire normal mode state, consisting of an operation and a motion.
++typedef struct {
++	Position initialPosition;
++	struct OperationState {
++		enum Operation {
++			noop = ' ', visual='v', visualLine='V', yank = 'y' } op;
++		Position startPosition;
++		enum Infix { infix_none = 0, infix_i = 1, infix_a = 2, } infix;
++	} command;
++	struct MotionState {
++		uint32_t amount;
++		enum Search {none, forward, backward} search;
++		Position searchPosition;
++		bool finished;
++	} motion;
++} NormalModeState;
++
++/// Default state if no operation is performed.
++NormalModeState defaultNormalMode = {
++	{0,0,0},    {noop, {0, 0, 0}, false},   {0, none, {0, 0, 0}, true}
++};
++NormalModeState stateVB = {
++	{0,0,0},    {noop, {0, 0, 0}, false},   {0, none, {0, 0, 0}, true}
++};
++
++DynamicArray searchString =  UTF8_ARRAY;
++DynamicArray commandHist0 =  UTF8_ARRAY;
++DynamicArray commandHist1 =  UTF8_ARRAY;
++DynamicArray highlights   = DWORD_ARRAY;
++
++/// History command toggle
++static bool toggle = false;
++
++//
++// Utility functions
++static inline int intervalDiff(int v, int a, int b) {
++	return (v < a) ? (v - a) : ((v > b) ? (v - b) : 0);
++}
++static inline void swap(DynamicArray *const a, DynamicArray *const b) {
++	DynamicArray tmp = *a; *a = *b; *b = tmp;
++}
++static inline int max(int a, int b) { return a > b ? a : b; }
++static inline int min(int a, int b) { return a < b ? a : b; }
++static inline int mod(int a, int b) { for (; a < 0; a += b); return a % b; }
++static inline bool contains (char c, char const * values, uint32_t memSize) {
++	ENSURE(values != NULL, return false);
++	for (uint32_t i = 0; i < memSize; ++i) if (c == values[i]) return true;
++	return false;
++}
++static inline void applyPosition(Position const *pos) {
++	ENSURE(pos != NULL, return);
++	term.c.x = pos->x;
++	term.c.y = pos->y;
++	term.scr = pos->yScr;
++}
++static inline int getSearchDirection(void) {
++	return stateVB.motion.search == forward ? 1 : -1;
++}
++
++//  Utilities for working with the current version of the scrollback patch.
++static bool moveLine(int32_t const amount) {
++	int32_t const reqShift = intervalDiff(term.c.y+=amount, 0, term.row-1);
++	term.c.y -= reqShift;
++	int32_t const sDiff = intervalDiff(term.scr-=reqShift, 0, HISTSIZE-1);
++	term.scr -= sDiff;
++	return sDiff == 0;
++}
++
++static void moveLetter(int32_t const amount) {
++	int32_t value = (term.c.x += amount) / term.col;
++	if (value -= (term.c.x < 0)) {
++		term.c.x = moveLine(value) ? mod(term.c.x, term.col)
++			: max(min(term.c.x,term.col - 1), 0);
++	}
++	assert(BETWEEN(term.c.x,0,term.col-1)&&BETWEEN(term.c.y,0,term.row-1));
++}
++
++//
++// `Private` functions:
++
++// Functions: Temporarily display string on screen.
++
++/// Display string at end of a specified line without writing it into the buffer
++/// @param str  string that is to be displayed
++/// @param g    glyph
++/// @param yPos
++static void
++displayString(DynamicArray const *str, Glyph const *g, int yPos, bool prePos) {
++	ENSURE((str != NULL) && (g != NULL) && (term.row > 0), return);
++	ENSURE(yPos >= 0, yPos = 0);
++	ENSURE(yPos < term.row, yPos = term.row - 1);
++	// Arbritary limit to avoid withhelding too much info from user.
++	int const maxFractionOverridden = 3;
++	// Threshold: if there is no space to print, do not print, but transfer
++	//            repsonsibility for printing back to [st].
++	if (term.col < maxFractionOverridden) {                        // (0)
++		term.dirty[yPos] = 1;
++		return;
++	}
++	int32_t const botSz = prePos * 6; //< sz for position indication
++	// Determine the dimensions of used chunk of screen.
++	int32_t const overrideSize = min(size(str) + botSz,
++			term.col / maxFractionOverridden);             // (1)
++	int32_t const overrideEnd = term.col - 2;
++	// Has to follow trivially hence th assert:
++	// overrideSize <(1)= term.col/3  <(0)= term.col = overrideEnd + 1.
++	assert(overrideSize <= overrideEnd + 1);
++	int32_t const overrideStart = 1 + overrideEnd - overrideSize;
++	// display history[history.size() - (overrideSize - botSz)::-1]
++	Glyph *SEC(line, malloc(sizeof(Glyph) * (overrideSize)),,)
++	int32_t offset = (size(str) - overrideSize - 1 + botSz) * str->itemSize;
++	for (uint32_t chr = 0; chr < overrideSize - botSz; ++chr) {
++		line[chr] = *g;
++		line[chr].u = *((Rune*) (str->content+(offset+=str->itemSize)));
++	}
++	if (prePos) {
++		ENSURE(term.scr < HISTSIZE, term.scr = HISTSIZE - 1);
++		int const p=(int)(0.5+(HISTSIZE-1-term.scr)*100./(HISTSIZE-1));
++		int const v = min(max(p, 0), 100);
++		char prc [10];
++		switch (term.scr) {
++			case HISTSIZE - 1: strcpy(prc, " [TOP]"); break;
++			case 0:            strcpy(prc, " [BOT]"); break;
++			default:           sprintf(prc, " % 3d%c  ", v, '%');
++		}
++		for (uint32_t chr = 0; chr < botSz; ++chr) {
++			line[chr + overrideSize - botSz] =*g;
++			line[chr + overrideSize - botSz].fg = fgPos;
++			line[chr + overrideSize - botSz].bg = bgPos;
++			utf8decode(&prc[chr],&line[chr+overrideSize-botSz].u,1);
++		}
++		line[overrideSize - botSz] =*g;
++	}
++	xdrawline(TLINE(yPos), 0, yPos, overrideStart);
++	term.c.y -= term.row; term.c.x -= term.col; // not highlight hack
++	xdrawline(line-overrideStart, overrideStart, yPos, overrideEnd + 1);
++	term.c.y += term.row; term.c.x += term.col;
++	free(line);
++}
++
++static inline void printCommandString(void) {
++	Glyph g = styleCommand;
++	switch(stateVB.command.op) {
++		case yank: g.fg = fgCommandYank; g.bg = bgCommandYank; break;
++		case visual: g.fg=fgCommandVisual; g.bg=bgCommandVisual; break;
++		case visualLine: g.fg=fgCommandVisualLine;
++				 g.bg=bgCommandVisualLine;
++	}
++	displayString(isEmpty(currentCommand) ? lastCommand : currentCommand,
++			&g, term.row - 1, true);
++}
++
++static inline void printSearchString(void) {
++	displayString(&searchString, &styleSearch, term.row - 2, false);
++}
++
++// NormalMode Operation / Motion utilies.
++
++static inline bool isMotionFinished(void) { return stateVB.motion.finished; }
++
++static inline void finishMotion(void) { stateVB.motion.finished = true; }
++
++static inline bool isOperationFinished(void) {
++	return stateVB.command.op==noop && stateVB.command.infix==infix_none;
++}
++
++/// Register that the current comamnd is finished and a new command is lgoged
++static inline  void startNewCommand(bool abort) {
++	if (!abort) { toggle = !toggle; }
++	empty(currentCommand);
++}
++
++static inline void finishOperation(void) {
++	stateVB.command = defaultNormalMode.command;
++	assert(isOperationFinished());
++	// After an operation is finished, the selection has to be released and
++	// no highlights are to be released.
++	selclear();
++	empty(&highlights);
++	// THe command string is reset for a new command.
++	startNewCommand(true);
++}
++
++static inline void enableOperation(enum Operation o) {
++	finishOperation();
++	stateVB.command.op = o;
++	stateVB.command.infix = infix_none;
++	stateVB.command.startPosition.x = term.c.x;
++	stateVB.command.startPosition.y = term.c.y;
++	stateVB.command.startPosition.yScr = term.scr;
++}
++
++/// @param abort: If enabled, the command exits without registering
++/// @return       Whether the the application is ready to yield control back to
++//the normal command flow
++static bool terminateCommand(bool abort) {
++	bool const exitOperation = isMotionFinished();
++	bool exitNormalMode = false;
++	finishMotion();
++
++	if (exitOperation) {
++		exitNormalMode = isOperationFinished();
++		finishOperation();
++	}
++	printCommandString();
++	printSearchString();
++	return exitNormalMode;
++}
++
++static inline void exitCommand(void) { terminateCommand(false); }
++
++static inline void abortCommand(void) { terminateCommand(true); }
++
++/// Go to next occurrence of string relative to the current location
++/// conduct search, starting at start pos
++static bool gotoString(int8_t sign) {
++	moveLetter(sign);
++	uint32_t const searchStrSize = size(&searchString);
++	uint32_t const maxIter = (HISTSIZE+term.row) * term.col + searchStrSize;
++	uint32_t findIdx = 0;
++	for (uint32_t cIteration = 0; findIdx < searchStrSize
++			&& ++cIteration <= maxIter; moveLetter(sign)) {
++		char const * const SEC(next, sign==1
++				? view(&searchString, findIdx)
++				: viewEnd(&searchString, findIdx), , false)
++		uint32_t const searchChar = *((uint32_t*) next);
++
++		if (TLINE(term.c.y)[term.c.x].u == searchChar) { ++findIdx; }
++		else { findIdx = 0; }
++	}
++	bool const found = findIdx == searchStrSize;
++	for (uint32_t i = 0; found && i < searchStrSize; ++i) moveLetter(-sign);
++	return found;
++}
++
++/// Highlight all found strings on the current screen.
++static void highlightStringOnScreen(void) {
++	if (isEmpty(&searchString)) { return; }
++	empty(&highlights);
++	uint32_t const searchStringSize = size(&searchString);
++	uint32_t findIdx = 0;
++	uint32_t xStart, yStart;
++	bool success = true;
++	for (int y = 0; y < term.row && success; y++) {
++		for (int x = 0; x < term.col && success; x++) {
++			char const* const SEC(next,
++					view(&searchString,findIdx),,)
++			if (TLINE(y)[x].u == (Rune) *((uint32_t*)(next))) {
++				if (++findIdx == 1) {
++					xStart = x;
++					yStart = y;
++				}
++				if (findIdx == searchStringSize) {
++					success = success
++						&& append(&highlights, &xStart)
++						&& append(&highlights, &yStart);
++					findIdx = 0; //term.dirty[yStart] = 1;
++				}
++			} else { findIdx = 0; }
++		}
++	}
++	if (!success) { empty(&highlights); }
++}
++
++static bool gotoStringAndHighlight(int8_t sign) {
++      	// Find hte next occurrence of the #searchString in direction #sign
++	bool const found = gotoString(sign);
++	if (!found) {  applyPosition(&stateVB.motion.searchPosition); }
++	highlightStringOnScreen();
++	//tsetdirt(0, term.row-3); //< everything except for the 'status bar'
++	return found;
++}
++
++static bool pressKeys(char const* nullTerminatedString, size_t end) {
++        bool sc = true;
++	for (size_t i = 0; i < end && sc; ++i) {
++		sc = kpressNormalMode(&nullTerminatedString[i], 1, false, NULL);
++	}
++	return sc;
++}
++
++static bool executeCommand(DynamicArray const *command) {
++	size_t end=size(command);
++	char decoded [32];
++	bool succ = true;
++	size_t len;
++	for (size_t i = 0; i < end && succ; ++i) {
++		char const *const SEC(nextRune, view(command, i),,false)
++		len = utf8encode(*((Rune *) nextRune), decoded);
++		succ = kpressNormalMode(decoded, len, false, NULL);
++	}
++	return succ;
++}
++
++struct { char const first; char const second; } const Brackets [] =
++{ {'(', ')'}, {'<', '>'}, {'{', '}'}, {'[', ']'}, };
++
++
++/// Emits Command prefix and suffix when i motion is performed (e.g. yiw).
++///
++/// @param c:             motion character
++/// @param expandMode:    1 for 'i', 2 for 'a'
++/// @param first, second: Dynamic arrays in which the prefix and postfix
++///                       commands will be returned
++/// @return               whether the command could be extracted successfully.
++static bool expandExpression(char const c, enum Infix expandMode,
++		char operation, DynamicArray *cmd) {
++	empty(cmd);
++	bool s = true; //< used in order to detect memory allocation errors.
++	char const lower = tolower(c);
++	// Motions
++	if (lower == 'w') {
++		// translated into wb[command]e resp. WB[command]E, which works
++		// file even when at the fist letter. Does not work for single
++		// letter words though.
++		int const diff = c - lower;
++		s = s && checkSetNextV(cmd, c);
++		s = s && checkSetNextV(cmd, (signed char)(((int)'b') + diff));
++		s = s && checkSetNextV(cmd, operation);
++		s = s && checkSetNextV(cmd, (signed char)(((int)'e')+ diff));
++		return s;
++	}
++	// Symmetrical brackets (quotation marks)
++	if (c == '\'' || c == '"') {
++		// Local ambiguity -> do nothing. It cannot be determined if
++		// the current char is the 1st or last char of the selection.
++		//  <---- search here? -- ['] -- or search here? --->
++		if (TLINE(term.c.y)[term.c.x].u == c) {
++			return false;
++		}
++		// Prefix
++		char res [] = {'?', c, '\n'};
++		s = s && checkSetNextP(cmd, res);
++		// infix
++		bool const iffy = expandMode == infix_i;
++		if (iffy) { s = s && checkSetNextV(cmd, 'l'); }
++		s = s && checkSetNextV(cmd, operation);
++		if (!iffy) { s = s && checkSetNextV(cmd, 'l'); }
++		// suffix
++		res[0] = '/';
++		s = s && checkSetNextP(cmd, res);
++		if (iffy) { s = s && checkSetNextV(cmd, 'h'); }
++		return s;
++	}
++	// Brackets: Does not if in range / if the brackets belong togehter.
++	for (size_t pid = 0; pid < sizeof(Brackets); ++pid) {
++		if(Brackets[pid].first == c || Brackets[pid].second == c) {
++			if (TLINE(term.c.y)[term.c.x].u!=Brackets[pid].first) {
++				s = s && checkSetNextV(cmd, '?');
++				s = s && checkSetNextV(cmd, Brackets[pid].first);
++				s = s && checkSetNextV(cmd, '\n');
++			}
++			bool const iffy = expandMode == infix_i;
++			if (iffy) { s = s && checkSetNextV(cmd, 'l'); }
++			s = s && checkSetNextV(cmd, operation);
++			if (!iffy) { s = s && checkSetNextV(cmd, 'l'); }
++			s = s && checkSetNextV(cmd, '/');
++			s = s && checkSetNextV(cmd, Brackets[pid].second);
++			s = s && checkSetNextV(cmd, '\n');
++			if (iffy) { s = s && checkSetNextV(cmd, 'h'); }
++			return s;
++		}
++	}
++	/**/
++	// search string
++	// complicated search operation: <tag>
++	if (c == 't') {
++		// XXX: (Bug in vim: @vit )
++		// <tag_name attr="hier" a2="\<sch\>"> [current pos] </tag_name>
++
++		// 1. Copy history ( tag := hist[?<\n:/ \n] )
++		// 2. Copy history ( first_find := hist[?<\n: next place in
++		//                   history where count '>' > count '<'
++		//                   (can be behind current pos) )
++		// 3. first := [?first_find][#first_ind]l
++		//    second:= [/tag">"]h
++		//return true; // XXX: not implmented yet.
++	}
++	return false;
++}
++
++//
++// Public API
++//
++
++void onMove(void) {
++	stateVB.initialPosition.x = term.c.x;
++	stateVB.initialPosition.y = term.c.y;
++	stateVB.initialPosition.yScr = term.scr;
++}
++
++int highlighted(int x, int y) {
++	// Compute the legal bounds for a hit:
++	int32_t const stringSize = size(&searchString);
++	int32_t xMin = x - stringSize;
++	int32_t yMin = y;
++	while (xMin < 0 && yMin > 0) {
++		xMin += term.col;
++		--yMin;
++	}
++	if (xMin < 0) { xMin = 0; }
++
++	uint32_t highSize = size(&highlights);
++	ENSURE(highSize % 2 == 0, empty(&highlights); return false;);
++	highSize /= 2;
++	uint32_t *ptr = (uint32_t*) highlights.content;
++	for (uint32_t i = 0; i < highSize; ++i) {
++		int32_t const sx = (int32_t) *(ptr++);
++		int32_t const sy = (int32_t) *(ptr++);
++		if (BETWEEN(sy, yMin, y) && (sy != yMin || sx > xMin)
++				&& (sy != y || sx <= x)) {
++			return true;
++		}
++	}
++	return false;
++}
++
++ExitState kpressNormalMode(char const * cs, int len, bool ctrl, void const *v) {
++	KeySym const * const ksym = (KeySym*) v;
++	bool const esc = ksym &&  *ksym == XK_Escape;
++	bool const enter = (ksym && *ksym==XK_Return) || (len==1 &&cs[0]=='\n');
++	bool const quantifier = len == 1 && (BETWEEN(cs[0], 49, 57)
++			|| (cs[0] == 48 && stateVB.motion.amount));
++	int const previousScroll = term.scr;
++	// [ESC] or [ENTER] abort resp. finish the current level of operation.
++	// Typing 'i' if no operation is currently performed behaves like ESC.
++	if (esc || enter || (len == 1 && cs[0] == 'i' && isMotionFinished()
++				&& isOperationFinished())) {
++		if (terminateCommand(!enter)) {
++			applyPosition(&stateVB.initialPosition);
++			Position const pc = stateVB.initialPosition;
++			stateVB = defaultNormalMode;
++			stateVB.initialPosition = pc;
++			tfulldirt();
++			return finished;
++		}
++		len = 0;
++		goto motionFinish;
++	}
++	// Backspace
++	if (ksym && *ksym == XK_BackSpace) {
++		bool s = stateVB.motion.search!=none&&!stateVB.motion.finished;
++		bool q = stateVB.motion.amount != 0;
++		if (!(s || q)) { return failed; }
++		len = 0;
++
++		if (!isEmpty(currentCommand)) { pop(currentCommand); }
++		if (s) {
++			if (!isEmpty(&searchString)) { pop(&searchString); }
++			else if (isEmpty(&searchString)) {
++				exitCommand();
++				return success;
++			}
++		} else if (q) {
++			stateVB.motion.amount /= 10;
++			goto finishNoAppend;
++		}
++	}
++
++	// Search: append to search string, then search & highlight
++	if (stateVB.motion.search != none && !stateVB.motion.finished) {
++		if (len >= 1) {
++			EXPAND(kSearch, &searchString, true)
++			utf8decode(cs, (Rune*)(kSearch), len);
++		}
++		applyPosition(&stateVB.motion.searchPosition);
++		gotoStringAndHighlight(getSearchDirection());
++		goto finish;
++	}
++	if (len == 0) { return failed; }
++	// Quantifiers
++	if (quantifier) {
++		stateVB.motion.amount = min(SHRT_MAX,
++				stateVB.motion.amount * 10 + cs[0] - 48);
++		goto finish;
++	}
++	// 'i' mode enabled, hence the expression is to be expanded:
++	// [start_expression(cs[0])] [operation] [stop_expression(cs[0])]
++	if (stateVB.command.infix != infix_none && stateVB.command.op != noop) {
++		DynamicArray cmd = CHAR_ARRAY;
++		char const operation = stateVB.command.op;
++		bool succ = expandExpression(cs[0],
++				stateVB.command.infix, visual, &cmd);
++		if (operation == yank) {
++			succ = succ && checkSetNextV(&cmd, operation);
++		}
++		NormalModeState const st = stateVB;
++		TCursor         const tc = term.c;
++		stateVB.command.infix    = infix_none;
++		if (succ) {
++			stateVB.command.op = noop;
++			for (int i = 0; i < size(&cmd) && succ; ++i) {
++				succ = pressKeys(&cmd.content[i], 1);
++			}
++			if (!succ) { // go back to the old position, apply op
++				stateVB = st;
++				term.c = tc;
++			}
++			empty(currentCommand);
++			for (uint32_t i = 0; i < size(&cmd); ++i) {
++				EXPAND(kCommand, currentCommand, true)
++				utf8decode(cmd.content+i, (Rune*)(kCommand),1);
++			}
++		}
++		free(cmd.content);
++		goto finishNoAppend;
++	}
++	// Commands (V / v or y)
++	switch(cs[0]) {
++		case '.':
++		{
++			if (isEmpty(currentCommand)) { toggle = !toggle; }
++			DynamicArray cmd = UTF8_ARRAY;
++			swap(&cmd, currentCommand);
++			executeCommand(&cmd) ? success : failed;
++			swap(&cmd, currentCommand);
++			free(cmd.content);
++			goto finishNoAppend;
++		}
++		case 'i': stateVB.command.infix = infix_i; goto finish;
++		case 'a': stateVB.command.infix = infix_a; goto finish;
++		case 'y':
++			switch(stateVB.command.op) {
++				case noop: //< Start yank mode & set #op
++					enableOperation(yank);
++					selstart(term.c.x, term.c.y,term.scr,0);
++					goto finish;
++				case yank: //< Complete yank [y#amount j]
++					selstart(0, term.c.y, term.scr, 0);
++					int const origY = term.c.y;
++					moveLine(max(stateVB.motion.amount, 1));
++					selextend(term.col-1,term.c.y,term.scr,
++							SEL_RECTANGULAR, 0);
++					term.c.y = origY;
++					FALLTHROUGH
++				case visualLine: // Yank visual selection
++				case visual:
++					xsetsel(getsel());
++					xclipcopy();
++					exitCommand();
++					goto finish;
++				default:
++					return failed;
++			}
++		case visual:
++		case visualLine:
++			if (stateVB.command.op == cs[0]) {
++				finishOperation();
++				return true;
++			} else {
++				enableOperation(cs[0]);
++				selstart(cs[0] == visualLine ? 0 : term.c.x,
++						term.c.y, term.scr, 0);
++				goto finish;
++			}
++	}
++	// CTRL Motions
++	int32_t sign = -1;    //< if command goes 'forward'(1) or 'backward'(-1)
++	if (ctrl) {
++		if (ksym == NULL) { return false; }
++		switch(*ksym) {
++			case XK_f:
++				term.scr = max(term.scr - max(term.row-2,1), 0);
++				term.c.y = 0;
++				goto finish;
++			case XK_b:
++				term.scr = min(term.scr + max(term.row - 2, 1),
++						HISTSIZE - 1);
++				term.c.y = term.bot;
++				goto finish;
++			case XK_u:
++				term.scr = min(term.scr+term.row/2, HISTSIZE-1);
++				goto finish;
++			case XK_d:
++				term.scr = max(term.scr - term.row / 2, 0);
++				goto finish;
++			default: return false;
++		}
++	}
++	// Motions
++	switch(cs[0]) {
++		case 'c': empty(&commandHist0); empty(&commandHist1);
++			  goto finishNoAppend;
++		case 'j': sign = 1; FALLTHROUGH
++		case 'k': moveLine(max(stateVB.motion.amount,1) * sign);
++			  goto motionFinish;
++		case 'H': term.c.y = 0;
++			  goto motionFinish;
++		case 'M': term.c.y = term.bot / 2;
++			  goto motionFinish;
++		case 'L': term.c.y = term.bot;
++			  goto motionFinish;
++		case 'G': applyPosition(&stateVB.initialPosition);
++			  goto motionFinish;
++		case 'l': sign = 1; FALLTHROUGH
++		case 'h': moveLetter(sign * max(stateVB.motion.amount,1));
++			  goto motionFinish;
++		case '0': term.c.x = 0;
++			  goto motionFinish;
++		case '$': term.c.x = term.col-1;
++			  goto motionFinish;
++		case 'w': FALLTHROUGH
++		case 'W': FALLTHROUGH
++		case 'e': FALLTHROUGH
++		case 'E': sign = 1; FALLTHROUGH
++		case 'B': FALLTHROUGH
++		case 'b': {
++			char const * const wDelim =
++				cs[0] <= 90 ? wordDelimLarge : wordDelimSmall;
++			uint32_t const wDelimLen = strlen(wDelim);
++
++			bool const startSpaceIsSeparator =
++				!(cs[0] == 'w' || cs[0] == 'W');
++			// Whether to start & end with offset:
++			bool const performOffset = startSpaceIsSeparator;
++			// Max iteration := One complete hist traversal.
++			uint32_t const maxIter = (HISTSIZE+term.row) * term.col;
++			// Doesn't work exactly as in vim: Linebreak is
++			// counted as 'normal' separator, hence a jump can
++			// span multiple lines here.
++			stateVB.motion.amount = max(stateVB.motion.amount, 1);
++			for (;stateVB.motion.amount>0;--stateVB.motion.amount) {
++				uint8_t state = 0;
++				if (performOffset) { moveLetter(sign); }
++				for (uint32_t cIt = 0; cIt ++ < maxIter; moveLetter(sign)) {
++					if (startSpaceIsSeparator == contains(TLINE(term.c.y)[term.c.x].u, wDelim, wDelimLen)) {
++						if (state == 1) {
++							if (performOffset) {
++								moveLetter(-sign);
++							}
++							break;
++						}
++					} else if (state == 0) { state = 1; }
++				}
++			}
++			goto motionFinish;
++		}
++		case '/': sign = 1; FALLTHROUGH
++		case '?':
++			  empty(&searchString);
++			  stateVB.motion.search = sign == 1 ? forward : backward;
++			  stateVB.motion.searchPosition.x = term.c.x;
++			  stateVB.motion.searchPosition.y = term.c.y;
++			  stateVB.motion.searchPosition.yScr = term.scr;
++			  stateVB.motion.finished = false;
++			  goto finish;
++		case 'n': sign = 1; FALLTHROUGH
++		case 'N': {
++			if (stateVB.motion.search == none) return failed;
++			if (stateVB.motion.search == backward) { sign *= -1; }
++			bool b = true; int ox = term.c.x;
++			int oy = term.c.y ; int scr = term.scr;
++			int32_t i = max(stateVB.motion.amount, 1);
++			for (;i>0 && (b=gotoString(sign)); --i) {
++                          oy = term.c.y; scr = term.scr;
++			}
++			if (!b) { term.c.x = ox; term.c.y = oy; term.scr = scr;}
++			goto motionFinish;
++		}
++		case 't': // Toggle selection mode and set dirt.
++			  sel.type = sel.type == SEL_REGULAR
++				  ? SEL_RECTANGULAR : SEL_REGULAR;
++			  //tsetdirt(sel.nb.y, sel.ne.y);
++			  goto motionFinish;
++	}
++	// Custom commands
++	for (size_t i = 0; i < amountNormalModeShortcuts; ++i) {
++		if (cs[0] == normalModeShortcuts[i].key) {
++			return pressKeys(normalModeShortcuts[i].value,
++					strlen(normalModeShortcuts[i].value))
++					? success : failed;
++		}
++	}
++	return failed;
++motionFinish:
++	stateVB.motion.amount = 0;
++	//if (isMotionFinished() && stateVB.command.op == yank) {
++	if (stateVB.command.op == yank) {
++		selextend(term.c.x, term.c.y, term.scr, sel.type, 0);
++		xsetsel(getsel());
++		xclipcopy();
++		exitCommand();
++	}
++finish:
++	if (len == 1 && !ctrl) { // XXX: for now.
++		EXPAND(kCommand, currentCommand, true)
++		utf8decode(cs, (Rune*)(kCommand), len);
++	}
++finishNoAppend:
++	if (stateVB.command.op == visual) {
++		selextend(term.c.x, term.c.y, term.scr, sel.type, 0);
++	} else if (stateVB.command.op == visualLine) {
++		selextend(term.col-1, term.c.y, term.scr, sel.type, 0);
++	}
++
++	if (previousScroll != term.scr && !isEmpty(&searchString)) {
++		highlightStringOnScreen();
++	}
++	tsetdirt(0, term.row-3); //< Required because of the cursor cross.
++	printCommandString();
++	printSearchString();
++	return success;
++}
+diff -ruN st-default/normalMode.h st1/normalMode.h
+--- st-default/normalMode.h	1970-01-01 01:00:00.000000000 +0100
++++ st1/normalMode.h	2020-06-04 11:04:30.229111510 +0200
+@@ -0,0 +1,36 @@
++/* See LICENSE for license details. */
++#ifndef NORMAL_MODE_H
++#define NORMAL_MODE_H
++
++#include <stdbool.h>
++#include <stddef.h>
++#include <stdint.h>
++
++/// Used in the configuration file to define custom shortcuts.
++typedef struct NormalModeShortcuts {
++	char key;
++	char *value;
++} NormalModeShortcuts;
++
++/// Holds the exit status of the #kpressNormalMode function, which informs the
++/// caller when to exit normal mode.
++typedef enum ExitState {
++	failed = 0,
++	success = 1,
++	finished = 2,
++} ExitState;
++
++/// Called when curr position is altered.
++void onMove(void);
++
++/// Function which returns whether the value at position provided as arguments
++/// is to be highlighted.
++int highlighted(int, int);
++
++/// Handles keys in normal mode.
++ExitState kpressNormalMode(char const * decoded, int len, bool ctrlPressed,
++		void const * ksym);
++		//bool esc, bool enter, bool backspace, void* keysym);
++
++
++#endif // NORMAL_MODE_H
+Binary files st-default/normalMode.o and st1/normalMode.o differ
+Binary files st-default/st and st1/st differ
+diff -ruN st-default/st.c st1/st.c
+--- st-default/st.c	2020-06-04 11:15:55.165135902 +0200
++++ st1/st.c	2020-06-04 11:04:30.231111510 +0200
+@@ -1,8 +1,10 @@
+ /* See LICENSE for license details. */
++#include <assert.h>
+ #include <ctype.h>
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <limits.h>
++#include <math.h>
+ #include <pwd.h>
+ #include <stdarg.h>
+ #include <stdio.h>
+@@ -17,6 +19,8 @@
+ #include <unistd.h>
+ #include <wchar.h>
+ 
++
++#include "term.h"
+ #include "st.h"
+ #include "win.h"
+ 
+@@ -42,6 +46,7 @@
+ #define ISCONTROLC1(c)		(BETWEEN(c, 0x80, 0x9f))
+ #define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
+ #define ISDELIM(u)		(u && wcschr(worddelimiters, u))
++#define INTERVAL(x, a, b)	(x) < (a) ? (a) : (x) > (b) ? (b) : (x)
+ 
+ enum term_mode {
+ 	MODE_WRAP        = 1 << 0,
+@@ -86,17 +91,17 @@
+ 	ESC_DCS        =128,
+ };
+ 
+-typedef struct {
+-	Glyph attr; /* current char attributes */
+-	int x;
+-	int y;
+-	char state;
+-} TCursor;
+-
+-typedef struct {
+-	int mode;
+-	int type;
+-	int snap;
++/*typedef struct {*/
++	/*Glyph attr; [> current char attributes <]*/
++	/*int x;*/
++	/*int y;*/
++	/*char state;*/
++/*} TCursor;*/
++
++/*typedef struct {*/
++	/*int mode;*/
++	/*int type;*/
++	/*int snap;*/
+ 	/*
+ 	 * Selection variables:
+ 	 * nb – normalized coordinates of the beginning of the selection
+@@ -104,33 +109,33 @@
+ 	 * ob – original coordinates of the beginning of the selection
+ 	 * oe – original coordinates of the end of the selection
+ 	 */
+-	struct {
+-		int x, y;
+-	} nb, ne, ob, oe;
+-
+-	int alt;
+-} Selection;
+-
+-/* Internal representation of the screen */
+-typedef struct {
+-	int row;      /* nb row */
+-	int col;      /* nb col */
+-	Line *line;   /* screen */
+-	Line *alt;    /* alternate screen */
+-	int *dirty;   /* dirtyness of lines */
+-	TCursor c;    /* cursor */
+-	int ocx;      /* old cursor col */
+-	int ocy;      /* old cursor row */
+-	int top;      /* top    scroll limit */
+-	int bot;      /* bottom scroll limit */
+-	int mode;     /* terminal mode flags */
+-	int esc;      /* escape state flags */
+-	char trantbl[4]; /* charset table translation */
+-	int charset;  /* current charset */
+-	int icharset; /* selected charset for sequence */
+-	int *tabs;
+-	Rune lastc;   /* last printed char outside of sequence, 0 if control */
+-} Term;
++	/*struct {*/
++		/*int x, y;*/
++	/*} nb, ne, ob, oe;*/
++
++	/*int alt;*/
++/*} Selection;*/
++
++/*[> Internal representation of the screen <]*/
++/*typedef struct {*/
++	/*int row;      [> nb row <]*/
++	/*int col;      [> nb col <]*/
++	/*Line *line;   [> screen <]*/
++	/*Line *alt;    [> alternate screen <]*/
++	/*int *dirty;   [> dirtyness of lines <]*/
++	/*TCursor c;    [> cursor <]*/
++	/*int ocx;      [> old cursor col <]*/
++	/*int ocy;      [> old cursor row <]*/
++	/*int top;      [> top    scroll limit <]*/
++	/*int bot;      [> bottom scroll limit <]*/
++	/*int mode;     [> terminal mode flags <]*/
++	/*int esc;      [> escape state flags <]*/
++	/*char trantbl[4]; [> charset table translation <]*/
++	/*int charset;  [> current charset <]*/
++	/*int icharset; [> selected charset for sequence <]*/
++	/*int *tabs;*/
++	/*Rune lastc;   [> last printed char outside of sequence, 0 if control <]*/
++/*} Term;*/
+ 
+ /* CSI Escape sequence structs */
+ /* ESC '[' [[ [<priv>] <arg> [;]] <mode> [<mode>]] */
+@@ -154,6 +159,8 @@
+ 	int narg;              /* nb of args */
+ } STREscape;
+ 
++void tfulldirt(void);
++
+ static void execsh(char *, char **);
+ static void stty(char **);
+ static void sigchld(int);
+@@ -186,16 +193,14 @@
+ static void tputtab(int);
+ static void tputc(Rune);
+ static void treset(void);
+-static void tscrollup(int, int);
+-static void tscrolldown(int, int);
++static void tscrollup(int, int, int);
++static void tscrolldown(int, int, int);
+ static void tsetattr(int *, int);
+ static void tsetchar(Rune, Glyph *, int, int);
+-static void tsetdirt(int, int);
+ static void tsetscroll(int, int);
+ static void tswapscreen(void);
+ static void tsetmode(int, int, int *, int);
+ static int twrite(const char *, int, int);
+-static void tfulldirt(void);
+ static void tcontrolcode(uchar );
+ static void tdectest(char );
+ static void tdefutf8(char);
+@@ -209,8 +214,6 @@
+ static void selscroll(int, int);
+ static void selsnap(int *, int *, int);
+ 
+-static size_t utf8decode(const char *, Rune *, size_t);
+-static Rune utf8decodebyte(char, size_t *);
+ static char utf8encodebyte(Rune, size_t);
+ static size_t utf8validate(Rune *, size_t);
+ 
+@@ -220,8 +223,8 @@
+ static ssize_t xwrite(int, const char *, size_t);
+ 
+ /* Globals */
+-static Term term;
+-static Selection sel;
++Term term;
++Selection sel;
+ static CSIEscape csiescseq;
+ static STREscape strescseq;
+ static int iofd = 1;
+@@ -416,17 +419,22 @@
+ {
+ 	int i = term.col;
+ 
+-	if (term.line[y][i - 1].mode & ATTR_WRAP)
++	if (TLINE(y)[i - 1].mode & ATTR_WRAP)
+ 		return i;
+ 
+-	while (i > 0 && term.line[y][i - 1].u == ' ')
++	while (i > 0 && TLINE(y)[i - 1].u == ' ')
+ 		--i;
+ 
+ 	return i;
+ }
+ 
+ void
+-selstart(int col, int row, int snap)
++xselstart(int col, int row, int snap) {
++	selstart(col, row, term.scr, snap);
++}
++
++void
++selstart(int col, int row, int scroll, int snap)
+ {
+ 	selclear();
+ 	sel.mode = SEL_EMPTY;
+@@ -435,6 +443,7 @@
+ 	sel.snap = snap;
+ 	sel.oe.x = sel.ob.x = col;
+ 	sel.oe.y = sel.ob.y = row;
++	sel.oe.scroll = sel.ob.scroll = scroll;
+ 	selnormalize();
+ 
+ 	if (sel.snap != 0)
+@@ -443,10 +452,13 @@
+ }
+ 
+ void
+-selextend(int col, int row, int type, int done)
+-{
+-	int oldey, oldex, oldsby, oldsey, oldtype;
++xselextend(int col, int row, int type, int done) {
++	selextend(col, row, term.scr, type, done);
++}
+ 
++void
++selextend(int col, int row, int scroll, int type, int done)
++{
+ 	if (sel.mode == SEL_IDLE)
+ 		return;
+ 	if (done && sel.mode == SEL_EMPTY) {
+@@ -454,18 +466,22 @@
+ 		return;
+ 	}
+ 
+-	oldey = sel.oe.y;
+-	oldex = sel.oe.x;
+-	oldsby = sel.nb.y;
+-	oldsey = sel.ne.y;
+-	oldtype = sel.type;
++	int const oldey = sel.oe.y;
++	int const oldex = sel.oe.x;
++	int const oldscroll = sel.oe.scroll;
++	int const oldsby = sel.nb.y;
++	int const oldsey = sel.ne.y;
++	int const oldtype = sel.type;
+ 
+ 	sel.oe.x = col;
+ 	sel.oe.y = row;
++	sel.oe.scroll = scroll;
++
+ 	selnormalize();
+ 	sel.type = type;
+ 
+-	if (oldey != sel.oe.y || oldex != sel.oe.x || oldtype != sel.type || sel.mode == SEL_EMPTY)
++	if (oldey != sel.oe.y || oldex != sel.oe.x || oldscroll != sel.oe.scroll
++			|| oldtype != sel.type || sel.mode == SEL_EMPTY)
+ 		tsetdirt(MIN(sel.nb.y, oldsby), MAX(sel.ne.y, oldsey));
+ 
+ 	sel.mode = done ? SEL_IDLE : SEL_READY;
+@@ -474,17 +490,21 @@
+ void
+ selnormalize(void)
+ {
+-	int i;
+-
+-	if (sel.type == SEL_REGULAR && sel.ob.y != sel.oe.y) {
+-		sel.nb.x = sel.ob.y < sel.oe.y ? sel.ob.x : sel.oe.x;
+-		sel.ne.x = sel.ob.y < sel.oe.y ? sel.oe.x : sel.ob.x;
++	sel.nb.y = INTERVAL(sel.ob.y + term.scr - sel.ob.scroll, 0, term.bot);
++	sel.ne.y = INTERVAL(sel.oe.y + term.scr - sel.oe.scroll, 0, term.bot);
++	if (sel.type == SEL_REGULAR && sel.nb.y != sel.ne.y) {
++		sel.nb.x = sel.nb.y < sel.ne.y ? sel.ob.x : sel.oe.x;
++		sel.ne.x = sel.nb.y < sel.ne.y ? sel.oe.x : sel.ob.x;
+ 	} else {
+ 		sel.nb.x = MIN(sel.ob.x, sel.oe.x);
+ 		sel.ne.x = MAX(sel.ob.x, sel.oe.x);
+ 	}
+-	sel.nb.y = MIN(sel.ob.y, sel.oe.y);
+-	sel.ne.y = MAX(sel.ob.y, sel.oe.y);
++
++	if (sel.nb.y > sel.ne.y) {
++		int32_t const tmp = sel.nb.y;
++		sel.nb.y = sel.ne.y;
++		sel.ne.y = tmp;
++	}
+ 
+ 	selsnap(&sel.nb.x, &sel.nb.y, -1);
+ 	selsnap(&sel.ne.x, &sel.ne.y, +1);
+@@ -492,7 +512,7 @@
+ 	/* expand selection over line breaks */
+ 	if (sel.type == SEL_RECTANGULAR)
+ 		return;
+-	i = tlinelen(sel.nb.y);
++	int i = tlinelen(sel.nb.y);
+ 	if (i < sel.nb.x)
+ 		sel.nb.x = i;
+ 	if (tlinelen(sel.ne.y) <= sel.ne.x)
+@@ -528,7 +548,7 @@
+ 		 * Snap around if the word wraps around at the end or
+ 		 * beginning of a line.
+ 		 */
+-		prevgp = &term.line[*y][*x];
++		prevgp = &TLINE(*y)[*x];
+ 		prevdelim = ISDELIM(prevgp->u);
+ 		for (;;) {
+ 			newx = *x + direction;
+@@ -543,14 +563,14 @@
+ 					yt = *y, xt = *x;
+ 				else
+ 					yt = newy, xt = newx;
+-				if (!(term.line[yt][xt].mode & ATTR_WRAP))
++				if (!(TLINE(yt)[xt].mode & ATTR_WRAP))
+ 					break;
+ 			}
+ 
+ 			if (newx >= tlinelen(newy))
+ 				break;
+ 
+-			gp = &term.line[newy][newx];
++			gp = &TLINE(newy)[newx];
+ 			delim = ISDELIM(gp->u);
+ 			if (!(gp->mode & ATTR_WDUMMY) && (delim != prevdelim
+ 					|| (delim && gp->u != prevgp->u)))
+@@ -571,14 +591,14 @@
+ 		*x = (direction < 0) ? 0 : term.col - 1;
+ 		if (direction < 0) {
+ 			for (; *y > 0; *y += direction) {
+-				if (!(term.line[*y-1][term.col-1].mode
++				if (!(TLINE(*y-1)[term.col-1].mode
+ 						& ATTR_WRAP)) {
+ 					break;
+ 				}
+ 			}
+ 		} else if (direction > 0) {
+ 			for (; *y < term.row-1; *y += direction) {
+-				if (!(term.line[*y][term.col-1].mode
++				if (!(TLINE(*y)[term.col-1].mode
+ 						& ATTR_WRAP)) {
+ 					break;
+ 				}
+@@ -598,24 +618,32 @@
+ 	if (sel.ob.x == -1)
+ 		return NULL;
+ 
+-	bufsize = (term.col+1) * (sel.ne.y-sel.nb.y+1) * UTF_SIZ;
++	int32_t syb = sel.ob.y - sel.ob.scroll + term.scr;
++	int32_t sye = sel.oe.y - sel.oe.scroll + term.scr;
++	if (syb > sye) {
++		int32_t tmp = sye;
++		sye = syb;
++		syb = tmp;
++	}
++
++	bufsize = (term.col+1) * (sye - syb + 1) * UTF_SIZ;
+ 	ptr = str = xmalloc(bufsize);
+ 
+ 	/* append every set & selected glyph to the selection */
+-	for (y = sel.nb.y; y <= sel.ne.y; y++) {
++	for (y = syb; y <= sye; y++) {
+ 		if ((linelen = tlinelen(y)) == 0) {
+ 			*ptr++ = '\n';
+ 			continue;
+ 		}
+ 
+ 		if (sel.type == SEL_RECTANGULAR) {
+-			gp = &term.line[y][sel.nb.x];
++			gp = &TLINE(y)[sel.nb.x];
+ 			lastx = sel.ne.x;
+ 		} else {
+-			gp = &term.line[y][sel.nb.y == y ? sel.nb.x : 0];
+-			lastx = (sel.ne.y == y) ? sel.ne.x : term.col-1;
++			gp = &TLINE(y)[syb == y ? sel.nb.x : 0];
++			lastx = (sye == y) ? sel.ne.x : term.col-1;
+ 		}
+-		last = &term.line[y][MIN(lastx, linelen-1)];
++		last = &TLINE(y)[MIN(lastx, linelen-1)];
+ 		while (last >= gp && last->u == ' ')
+ 			--last;
+ 
+@@ -850,6 +878,9 @@
+ ttywrite(const char *s, size_t n, int may_echo)
+ {
+ 	const char *next;
++	Arg arg = (Arg) { .i = term.scr };
++
++	kscrolldown(&arg);
+ 
+ 	if (may_echo && IS_SET(MODE_ECHO))
+ 		twrite(s, n, 1);
+@@ -1061,13 +1092,53 @@
+ }
+ 
+ void
+-tscrolldown(int orig, int n)
++kscrolldown(const Arg* a)
++{
++	int n = a->i;
++
++	if (n < 0)
++		n = term.row + n;
++
++	if (n > term.scr)
++		n = term.scr;
++
++	if (term.scr > 0) {
++		term.scr -= n;
++		selscroll(0, -n);
++		tfulldirt();
++	}
++}
++
++void
++kscrollup(const Arg* a)
++{
++	int n = a->i;
++
++	if (n < 0)
++		n = term.row + n;
++
++	if (term.scr <= HISTSIZE-n) {
++		term.scr += n;
++		selscroll(0, n);
++		tfulldirt();
++	}
++}
++
++void
++tscrolldown(int orig, int n, int copyhist)
+ {
+ 	int i;
+ 	Line temp;
+ 
+ 	LIMIT(n, 0, term.bot-orig+1);
+ 
++	if (copyhist) {
++		term.histi = (term.histi - 1 + HISTSIZE) % HISTSIZE;
++		temp = term.hist[term.histi];
++		term.hist[term.histi] = term.line[term.bot];
++		term.line[term.bot] = temp;
++	}
++
+ 	tsetdirt(orig, term.bot-n);
+ 	tclearregion(0, term.bot-n+1, term.col-1, term.bot);
+ 
+@@ -1081,13 +1152,23 @@
+ }
+ 
+ void
+-tscrollup(int orig, int n)
++tscrollup(int orig, int n, int copyhist)
+ {
+ 	int i;
+ 	Line temp;
+ 
+ 	LIMIT(n, 0, term.bot-orig+1);
+ 
++	if (copyhist) {
++		term.histi = (term.histi + 1) % HISTSIZE;
++		temp = term.hist[term.histi];
++		term.hist[term.histi] = term.line[orig];
++		term.line[orig] = temp;
++	}
++
++	if (term.scr > 0 && term.scr < HISTSIZE)
++		term.scr = MIN(term.scr + n, HISTSIZE-1);
++
+ 	tclearregion(0, orig, term.col-1, orig+n-1);
+ 	tsetdirt(orig+n, term.bot);
+ 
+@@ -1109,6 +1190,7 @@
+ 	if (BETWEEN(sel.nb.y, orig, term.bot) != BETWEEN(sel.ne.y, orig, term.bot)) {
+ 		selclear();
+ 	} else if (BETWEEN(sel.nb.y, orig, term.bot)) {
++		sel.oe.scroll = sel.ob.scroll = term.scr;
+ 		sel.ob.y += n;
+ 		sel.oe.y += n;
+ 		if (sel.ob.y < term.top || sel.ob.y > term.bot ||
+@@ -1126,13 +1208,19 @@
+ 	int y = term.c.y;
+ 
+ 	if (y == term.bot) {
+-		tscrollup(term.top, 1);
++		tscrollup(term.top, 1, 1);
+ 	} else {
+ 		y++;
+ 	}
+ 	tmoveto(first_col ? 0 : term.c.x, y);
+ }
+ 
++int
++currentLine(int x, int y)
++{
++	return (x == term.c.x || y == term.c.y);
++}
++
+ void
+ csiparse(void)
+ {
+@@ -1185,6 +1273,8 @@
+ 	term.c.state &= ~CURSOR_WRAPNEXT;
+ 	term.c.x = LIMIT(x, 0, term.col-1);
+ 	term.c.y = LIMIT(y, miny, maxy);
++	// Set the last position in order to restore after normal mode exits.
++	onMove();
+ }
+ 
+ void
+@@ -1291,14 +1381,14 @@
+ tinsertblankline(int n)
+ {
+ 	if (BETWEEN(term.c.y, term.top, term.bot))
+-		tscrolldown(term.c.y, n);
++		tscrolldown(term.c.y, n, 0);
+ }
+ 
+ void
+ tdeleteline(int n)
+ {
+ 	if (BETWEEN(term.c.y, term.top, term.bot))
+-		tscrollup(term.c.y, n);
++		tscrollup(term.c.y, n, 0);
+ }
+ 
+ int32_t
+@@ -1735,11 +1825,11 @@
+ 		break;
+ 	case 'S': /* SU -- Scroll <n> line up */
+ 		DEFAULT(csiescseq.arg[0], 1);
+-		tscrollup(term.top, csiescseq.arg[0]);
++		tscrollup(term.top, csiescseq.arg[0], 0);
+ 		break;
+ 	case 'T': /* SD -- Scroll <n> line down */
+ 		DEFAULT(csiescseq.arg[0], 1);
+-		tscrolldown(term.top, csiescseq.arg[0]);
++		tscrolldown(term.top, csiescseq.arg[0], 0);
+ 		break;
+ 	case 'L': /* IL -- Insert <n> blank lines */
+ 		DEFAULT(csiescseq.arg[0], 1);
+@@ -2246,7 +2336,7 @@
+ 		return 0;
+ 	case 'D': /* IND -- Linefeed */
+ 		if (term.c.y == term.bot) {
+-			tscrollup(term.top, 1);
++			tscrollup(term.top, 1, 1);
+ 		} else {
+ 			tmoveto(term.c.x, term.c.y+1);
+ 		}
+@@ -2259,7 +2349,7 @@
+ 		break;
+ 	case 'M': /* RI -- Reverse index */
+ 		if (term.c.y == term.top) {
+-			tscrolldown(term.top, 1);
++			tscrolldown(term.top, 1, 1);
+ 		} else {
+ 			tmoveto(term.c.x, term.c.y-1);
+ 		}
+@@ -2301,7 +2391,7 @@
+ {
+ 	char c[UTF_SIZ];
+ 	int control;
+-	int width, len;
++	int width = 0, len;
+ 	Glyph *gp;
+ 
+ 	control = ISCONTROL(u);
+@@ -2481,7 +2571,7 @@
+ void
+ tresize(int col, int row)
+ {
+-	int i;
++	int i, j;
+ 	int minrow = MIN(row, term.row);
+ 	int mincol = MIN(col, term.col);
+ 	int *bp;
+@@ -2518,6 +2608,14 @@
+ 	term.dirty = xrealloc(term.dirty, row * sizeof(*term.dirty));
+ 	term.tabs = xrealloc(term.tabs, col * sizeof(*term.tabs));
+ 
++	for (i = 0; i < HISTSIZE; i++) {
++		term.hist[i] = xrealloc(term.hist[i], col * sizeof(Glyph));
++		for (j = mincol; j < col; j++) {
++			term.hist[i][j] = term.c.attr;
++			term.hist[i][j].u = ' ';
++		}
++	}
++
+ 	/* resize each row to new width, zero-pad if needed */
+ 	for (i = 0; i < minrow; i++) {
+ 		term.line[i] = xrealloc(term.line[i], col * sizeof(Glyph));
+@@ -2576,7 +2674,7 @@
+ 			continue;
+ 
+ 		term.dirty[y] = 0;
+-		xdrawline(term.line[y], x1, y, x2);
++		xdrawline(TLINE(y), x1, y, x2);
+ 	}
+ }
+ 
+@@ -2597,8 +2695,8 @@
+ 		cx--;
+ 
+ 	drawregion(0, 0, term.col, term.row);
+-	xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
+-			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
++	xdrawcursor(cx, term.c.y, TLINE(term.c.y)[cx],
++			term.ocx, term.ocy, TLINE(term.ocy)[term.ocx]);
+ 	term.ocx = cx;
+ 	term.ocy = term.c.y;
+ 	xfinishdraw();
+diff -ruN st-default/st.c.rej st1/st.c.rej
+--- st-default/st.c.rej	1970-01-01 01:00:00.000000000 +0100
++++ st1/st.c.rej	2020-06-04 11:04:30.231111510 +0200
+@@ -0,0 +1,73 @@
++--- st.c
+++++ st.c
++@@ -91,51 +96,6 @@ enum escape_state {
++ 	ESC_DCS        =128,
++ };
++ 
++-typedef struct {
++-	Glyph attr; /* current char attributes */
++-	int x;
++-	int y;
++-	char state;
++-} TCursor;
++-
++-typedef struct {
++-	int mode;
++-	int type;
++-	int snap;
++-	/*
++-	 * Selection variables:
++-	 * nb – normalized coordinates of the beginning of the selection
++-	 * ne – normalized coordinates of the end of the selection
++-	 * ob – original coordinates of the beginning of the selection
++-	 * oe – original coordinates of the end of the selection
++-	 */
++-	struct {
++-		int x, y;
++-	} nb, ne, ob, oe;
++-
++-	int alt;
++-} Selection;
++-
++-/* Internal representation of the screen */
++-typedef struct {
++-	int row;      /* nb row */
++-	int col;      /* nb col */
++-	Line *line;   /* screen */
++-	Line *alt;    /* alternate screen */
++-	int *dirty;   /* dirtyness of lines */
++-	TCursor c;    /* cursor */
++-	int ocx;      /* old cursor col */
++-	int ocy;      /* old cursor row */
++-	int top;      /* top    scroll limit */
++-	int bot;      /* bottom scroll limit */
++-	int mode;     /* terminal mode flags */
++-	int esc;      /* escape state flags */
++-	char trantbl[4]; /* charset table translation */
++-	int charset;  /* current charset */
++-	int icharset; /* selected charset for sequence */
++-	int *tabs;
++-} Term;
++-
++ /* CSI Escape sequence structs */
++ /* ESC '[' [[ [<priv>] <arg> [;]] <mode> [<mode>]] */
++ typedef struct {
++@@ -1174,6 +1210,7 @@ selscroll(int orig, int n)
++ 		return;
++ 
++ 	if (BETWEEN(sel.ob.y, orig, term.bot) || BETWEEN(sel.oe.y, orig, term.bot)) {
+++		sel.oe.scroll = sel.ob.scroll = term.scr;
++ 		if ((sel.ob.y += n) > term.bot || (sel.oe.y += n) < term.top) {
++ 			selclear();
++ 			return;
++@@ -2681,8 +2734,8 @@ draw(void)
++ 		cx--;
++ 
++ 	drawregion(0, 0, term.col, term.row);
++-	xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
++-			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+++	xdrawcursor(cx, term.c.y, TLINE(term.c.y)[cx],
+++			term.ocx, term.ocy, TLINE(term.ocy)[term.ocx]);
++ 	term.ocx = cx, term.ocy = term.c.y;
++ 	xfinishdraw();
++ 	xximspot(term.ocx, term.ocy);
+diff -ruN st-default/st.h st1/st.h
+--- st-default/st.h	2020-06-04 11:15:55.165135902 +0200
++++ st1/st.h	2020-06-04 11:04:30.232111510 +0200
+@@ -1,5 +1,8 @@
+ /* See LICENSE for license details. */
+ 
++#include "glyph.h"
++#include "normalMode.h"
++
+ #include <stdint.h>
+ #include <sys/types.h>
+ 
+@@ -33,6 +36,8 @@
+ 	ATTR_WRAP       = 1 << 8,
+ 	ATTR_WIDE       = 1 << 9,
+ 	ATTR_WDUMMY     = 1 << 10,
++	ATTR_HIGHLIGHT  = 1 << 12,
++	ATTR_CURRENT    = 1 << 13,
+ 	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
+ };
+ 
+@@ -42,11 +47,6 @@
+ 	SEL_READY = 2
+ };
+ 
+-enum selection_type {
+-	SEL_REGULAR = 1,
+-	SEL_RECTANGULAR = 2
+-};
+-
+ enum selection_snap {
+ 	SNAP_WORD = 1,
+ 	SNAP_LINE = 2
+@@ -57,18 +57,6 @@
+ typedef unsigned long ulong;
+ typedef unsigned short ushort;
+ 
+-typedef uint_least32_t Rune;
+-
+-#define Glyph Glyph_
+-typedef struct {
+-	Rune u;           /* character code */
+-	ushort mode;      /* attribute flags */
+-	uint32_t fg;      /* foreground  */
+-	uint32_t bg;      /* background  */
+-} Glyph;
+-
+-typedef Glyph *Line;
+-
+ typedef union {
+ 	int i;
+ 	uint ui;
+@@ -81,6 +69,11 @@
+ void redraw(void);
+ void draw(void);
+ 
++int currentLine(int, int);
++void kscrolldown(const Arg *);
++void kscrollup(const Arg *);
++void normalMode(Arg const *);
++
+ void printscreen(const Arg *);
+ void printsel(const Arg *);
+ void sendbreak(const Arg *);
+@@ -90,6 +83,9 @@
+ void tnew(int, int);
+ void tresize(int, int);
+ void tsetdirtattr(int);
++size_t utf8decode(const char *, Rune *, size_t);
++Rune utf8decodebyte(char, size_t *);
++void tsetdirt(int, int);
+ void ttyhangup(void);
+ int ttynew(char *, char *, char *, char **);
+ size_t ttyread(void);
+@@ -100,8 +96,10 @@
+ 
+ void selclear(void);
+ void selinit(void);
+-void selstart(int, int, int);
+-void selextend(int, int, int, int);
++void selstart(int, int, int, int);
++void xselstart(int, int, int);
++void selextend(int, int, int, int, int);
++void xselextend(int, int, int, int);
+ int selected(int, int);
+ char *getsel(void);
+ 
+Binary files st-default/st.o and st1/st.o differ
+diff -ruN st-default/term.h st1/term.h
+--- st-default/term.h	1970-01-01 01:00:00.000000000 +0100
++++ st1/term.h	2020-06-04 11:04:30.232111510 +0200
+@@ -0,0 +1,74 @@
++#ifndef TERM_H
++#define TERM_H
++
++//
++// Internal terminal structs.
++//
++
++#include "glyph.h"
++
++#include <stdint.h>
++
++#define HISTSIZE      2500
++
++typedef struct {
++	Glyph attr; /* current char attributes */
++	int x;
++	int y;
++	char state;
++} TCursor;
++
++typedef struct {
++	int mode;
++	int type;
++	int snap;
++	/// Selection variables:
++	/// ob – original coordinates of the beginning of the selection
++	/// oe – original coordinates of the end of the selection
++	struct {
++		int x, y, scroll;
++	} ob, oe;
++	/// Selection variables; currently displayed chunk.
++	/// nb – normalized coordinates of the beginning of the selection
++	/// ne – normalized coordinates of the end of the selection
++	struct {
++		int x, y;
++	} nb, ne;
++
++	int alt;
++} Selection;
++
++/* Internal representation of the screen */
++typedef struct {
++	int row;      /* nb row */
++	int col;      /* nb col */
++	Line *line;   /* screen */
++	Line *alt;    /* alternate screen */
++	Line hist[HISTSIZE]; /* history buffer */
++	int histi;    /* history index */
++	int scr;      /* scroll back */
++	int *dirty;   /* dirtyness of lines */
++	TCursor c;    /* cursor */
++	int ocx;      /* old cursor col */
++	int ocy;      /* old cursor row */
++	int top;      /* top    scroll limit */
++	int bot;      /* bottom scroll limit */
++	int mode;     /* terminal mode flags */
++	int esc;      /* escape state flags */
++	char trantbl[4]; /* charset table translation */
++	int charset;  /* current charset */
++	int icharset; /* selected charset for sequence */
++	int *tabs;
++	Rune lastc;
++} Term;
++
++extern Term term;
++
++#define TLINE(y) ((y) < term.scr ? term.hist[((y) + term.histi - \
++		 term.scr + HISTSIZE + 1) % HISTSIZE] : \
++		 term.line[(y) - term.scr])
++
++extern Selection sel;
++
++
++#endif // TERM_H
+diff -ruN st-default/win.h st1/win.h
+--- st-default/win.h	2020-06-04 11:15:55.166135902 +0200
++++ st1/win.h	2020-06-04 11:04:30.232111510 +0200
+@@ -19,6 +19,7 @@
+ 	MODE_MOUSEMANY   = 1 << 15,
+ 	MODE_BRCKTPASTE  = 1 << 16,
+ 	MODE_NUMLOCK     = 1 << 17,
++	MODE_NORMAL      = 1 << 18,
+ 	MODE_MOUSE       = MODE_MOUSEBTN|MODE_MOUSEMOTION|MODE_MOUSEX10\
+ 	                  |MODE_MOUSEMANY,
+ };
+@@ -27,6 +28,7 @@
+ void xclipcopy(void);
+ void xdrawcursor(int, int, Glyph, int, int, Glyph);
+ void xdrawline(Line, int, int, int);
++void xdrawglyph(Glyph, int, int);
+ void xfinishdraw(void);
+ void xloadcols(void);
+ int xsetcolorname(int, const char *);
+diff -ruN st-default/x.c st1/x.c
+--- st-default/x.c	2020-06-04 11:15:55.166135902 +0200
++++ st1/x.c	2020-06-04 11:04:30.232111510 +0200
+@@ -143,7 +143,6 @@
+ static inline ushort sixd_to_16bit(int);
+ static int xmakeglyphfontspecs(XftGlyphFontSpec *, const Glyph *, int, int, int);
+ static void xdrawglyphfontspecs(const XftGlyphFontSpec *, Glyph, int, int, int);
+-static void xdrawglyph(Glyph, int, int);
+ static void xclear(int, int, int, int);
+ static int xgeommasktogravity(int);
+ static int ximopen(Display *);
+@@ -356,7 +355,7 @@
+ 			break;
+ 		}
+ 	}
+-	selextend(evcol(e), evrow(e), seltype, done);
++	xselextend(evcol(e), evrow(e), seltype, done);
+ 	if (done)
+ 		setsel(getsel(), e->xbutton.time);
+ }
+@@ -486,7 +485,7 @@
+ 		xsel.tclick2 = xsel.tclick1;
+ 		xsel.tclick1 = now;
+ 
+-		selstart(evcol(e), evrow(e), snap);
++		xselstart(evcol(e), evrow(e), snap);
+ 	}
+ }
+ 
+@@ -773,6 +772,13 @@
+ }
+ 
+ void
++normalMode(Arg const *_) {
++	(void) _;
++	win.mode ^= MODE_NORMAL;
++}
++
++
++void
+ xloadcols(void)
+ {
+ 	int i;
+@@ -1358,6 +1364,14 @@
+ 		base.fg = defaultattr;
+ 	}
+ 
++	if (base.mode & ATTR_HIGHLIGHT) {
++		base.bg = highlightBg;
++		base.fg = highlightFg;
++	} else if ((base.mode & ATTR_CURRENT) && (win.mode & MODE_NORMAL)) {
++		base.bg = currentBg;
++		base.fg = currentFg;
++	}
++
+ 	if (IS_TRUECOL(base.fg)) {
+ 		colfg.alpha = 0xffff;
+ 		colfg.red = TRUERED(base.fg);
+@@ -1447,7 +1461,7 @@
+ 		xclear(winx, winy + win.ch, winx + width, win.h);
+ 
+ 	/* Clean up the region we want to draw to. */
+-	XftDrawRect(xw.draw, bg, winx, winy, width, win.ch);
++ 	XftDrawRect(xw.draw, bg, winx, winy, width, win.ch);
+ 
+ 	/* Set the clip region because Xft is sometimes dirty. */
+ 	r.x = 0;
+@@ -1490,8 +1504,9 @@
+ 	Color drawcol;
+ 
+ 	/* remove the old cursor */
+-	if (selected(ox, oy))
+-		og.mode ^= ATTR_REVERSE;
++	if (selected(ox, oy)) og.mode ^= ATTR_REVERSE;
++	if (highlighted(ox, oy)) { og.mode ^= ATTR_HIGHLIGHT; }
++	if (currentLine(ox, oy)) { og.mode ^= ATTR_CURRENT; }
+ 	xdrawglyph(og, ox, oy);
+ 
+ 	if (IS_SET(MODE_HIDE))
+@@ -1523,6 +1538,11 @@
+ 		drawcol = dc.col[g.bg];
+ 	}
+ 
++	if ((g.mode & ATTR_CURRENT) && (win.mode & MODE_NORMAL)) {
++		g.bg = currentBg;
++		g.fg = currentFg;
++	}
++
+ 	/* draw the new one */
+ 	if (IS_SET(MODE_FOCUSED)) {
+ 		switch (win.cursor) {
+@@ -1607,12 +1627,18 @@
+ 
+ 	numspecs = xmakeglyphfontspecs(specs, &line[x1], x2 - x1, x1, y1);
+ 	i = ox = 0;
+-	for (x = x1; x < x2 && i < numspecs; x++) {
++	for (x = x1; x < x2 && i < numspecs; ++x) {
+ 		new = line[x];
+ 		if (new.mode == ATTR_WDUMMY)
+ 			continue;
+ 		if (selected(x, y1))
+ 			new.mode ^= ATTR_REVERSE;
++		if (highlighted(x, y1)) {
++			new.mode ^= ATTR_HIGHLIGHT;
++		}
++		if (currentLine(x, y1)) {
++			new.mode ^= ATTR_CURRENT;
++		}
+ 		if (i > 0 && ATTRCMP(base, new)) {
+ 			xdrawglyphfontspecs(specs, base, i, ox, y1);
+ 			specs += i;
+@@ -1800,6 +1826,14 @@
+ 		len = XmbLookupString(xw.ime.xic, e, buf, sizeof buf, &ksym, &status);
+ 	else
+ 		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
++
++	if (IS_SET(MODE_NORMAL)) {
++		ExitState const es = kpressNormalMode(buf, len, // strlen(buf),
++ 				match(ControlMask, e->state),
++ 				&ksym);
++ 		if (es == finished) { normalMode(NULL); }
++		return;
++	}
+ 	/* 1. shortcuts */
+ 	for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
+ 		if (ksym == bp->keysym && match(bp->mod, e->state)) {
+Binary files st-default/x.o and st1/x.o differ

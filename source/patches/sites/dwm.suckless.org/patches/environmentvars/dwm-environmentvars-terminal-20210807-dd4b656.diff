@@ -1,0 +1,50 @@
+From dd4b656d4f18872736944b98ef1a5e4387de4905 Mon Sep 17 00:00:00 2001
+From: Aidan Hall <aidan.hall@outlook.com>
+Date: Sat, 7 Aug 2021 17:16:12 +0100
+Subject: [PATCH] load TERMINAL environment variable with getenv(3p)
+
+---
+ config.def.h | 2 +-
+ dwm.c        | 6 ++++++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index a2ac963..5633269 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -58,7 +58,7 @@ static const Layout layouts[] = {
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+-static const char *termcmd[]  = { "st", NULL };
++#define TERMINAL_ENVVAR "TERMINAL"
+ 
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
+diff --git a/dwm.c b/dwm.c
+index 5e4d494..5bfd414 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -262,6 +262,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
+ };
+ static Atom wmatom[WMLast], netatom[NetLast];
+ static int running = 1;
++static char *termcmd[]  = { NULL, NULL };
+ static Cur *cursor[CurLast];
+ static Clr **scheme;
+ static Display *dpy;
+@@ -1537,6 +1538,11 @@ setup(void)
+ 	/* clean up any zombies immediately */
+ 	sigchld(0);
+ 
++	/* load environment variable(s) */
++	termcmd[0] = getenv(TERMINAL_ENVVAR);
++	if (termcmd[0] == NULL) {
++		die("couldn't load " TERMINAL_ENVVAR " environment variable.");
++	}
+ 	/* init screen */
+ 	screen = DefaultScreen(dpy);
+ 	sw = DisplayWidth(dpy, screen);
+-- 
+2.32.0
+

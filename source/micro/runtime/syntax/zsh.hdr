@@ -1,0 +1,3 @@
+zsh
+(\.zsh$|\.?(zshenv|zprofile|zshrc|zlogin|zlogout)$)
+^#!.*/(env +)?zsh( |$)
