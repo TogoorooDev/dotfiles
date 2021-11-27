@@ -1,0 +1,17 @@
+$NetBSD: distinfo,v 1.27 2020/04/24 12:59:00 rhialto Exp $
+
+SHA1 (nethack-366-src.tgz) = d425d447892157c2efa612e31d02a062e72040e2
+RMD160 (nethack-366-src.tgz) = de937e31c2046900ef8c6f2eb0da0da09f8e136f
+SHA512 (nethack-366-src.tgz) = 579fde93a37a1b5df637d5bac2601194beeb455c175fbe3ef89342122c8567bb8221ce60d8a6168e6b45c67ade7d7b09c86bf202c8cbe2d6294d276be3e53055
+Size (nethack-366-src.tgz) = 5577633 bytes
+SHA1 (patch-ai) = 73c5b2ea1227531089474705f2f18bc411366365
+SHA1 (patch-include_config.h) = d3e054a8b30d628513dcb445b10ce586685c7ea6
+SHA1 (patch-include_system.h) = b1b53f513c3f6983e0e56eace74c71875b5df3f2
+SHA1 (patch-include_unixconf.h) = 6846c72526f3bda7fe3eccbce641e5feee14d901
+SHA1 (patch-src_mail.c) = 5b2a67e0b4d0fc9c715573d1bad6bcafa67b469e
+SHA1 (patch-sys_unix_Makefile.doc) = 6219620c50dc7eac6601f87d4a295cb10f02e141
+SHA1 (patch-sys_unix_Makefile.src) = 35eabd1ca5577988e48daf10835dfa335f7e67ac
+SHA1 (patch-sys_unix_Makefile.top) = 0736aafda67dec45657f9f15338ce2f89add9747
+SHA1 (patch-sys_unix_Makefile.utl) = 142f267fdd9a94c212657b7242dea6a3716c738e
+SHA1 (patch-sys_unix_nethack.sh) = eec4b6619584d7e07ac5d9a086af9bc8f7e6285f
+SHA1 (patch-util_recover.c) = 60e5ec35313a97cf788ff1ed4a4772bbcf24bc48

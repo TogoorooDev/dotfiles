@@ -1,0 +1,16 @@
+/BUILDLINK3_DG/1.9/Wed May  1 10:55:13 2019//Tpkgsrc-2021Q3
+/bsd.buildlink3.mk/1.247/Tue Jun  8 10:10:02 2021//Tpkgsrc-2021Q3
+/bsd.builtin.mk/1.15/Sat Oct 10 14:17:03 2020//Tpkgsrc-2021Q3
+/buildcmd-libtool/1.2/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/cleanup-libtool/1.2/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/cmd-sink-libtool/1.5/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/find-files.mk/1.9/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/find-headers.mk/1.4/Sat Jan  2 12:08:03 2021//Tpkgsrc-2021Q3
+/find-libs.mk/1.12/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/find-pkgconfig-files.mk/1.1/Sat Oct 10 14:17:03 2020//Tpkgsrc-2021Q3
+/libtool-fix-la/1.10/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/pkgconfig-builtin.mk/1.6/Fri Mar  2 15:15:10 2018//Tpkgsrc-2021Q3
+/scan-libtool/1.6/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+/show-buildlink3.sh/1.4/Sun Jul 10 07:08:21 2016//Tpkgsrc-2021Q3
+/transform-libtool/1.4/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+D

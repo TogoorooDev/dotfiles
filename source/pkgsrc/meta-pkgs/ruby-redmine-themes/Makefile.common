@@ -1,0 +1,20 @@
+# $NetBSD: Makefile.common,v 1.9 2021/06/03 15:45:56 taca Exp $
+#
+# used by devel/ruby-redmine-flatly-light-theme/Makefile
+# used by devel/ruby-redmine-gitmike-theme/Makefile
+# used by devel/ruby-redmine-minimalflat-theme/Makefile
+# used by devel/ruby-redmine-minimalflat2-theme/Makefile
+# used by devel/ruby-redmine-purplemine2-theme/Makefile
+# used by devel/ruby-redmine-red-andy-theme/Makefile
+# used by devel/ruby-redmine-yh-theme/Makefile
+
+CATEGORIES=	devel
+
+RUBY_VERSIONS_ACCEPTED=	26 27
+
+.include "../../devel/ruby-redmine/redmine.mk"
+
+DEPENDS+=	${REDMINE_DEPENDS}
+
+USE_LANGUAGES=	# none
+NO_BUILD=	yes

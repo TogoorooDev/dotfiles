@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2021/02/28 16:20:55 taca Exp $
+${RM_THEMEDIR}/purplemine2/favicon/favicon.ico
+${RM_THEMEDIR}/purplemine2/fonts/FontAwesome.otf
+${RM_THEMEDIR}/purplemine2/fonts/fontawesome-webfont.eot
+${RM_THEMEDIR}/purplemine2/fonts/fontawesome-webfont.svg
+${RM_THEMEDIR}/purplemine2/fonts/fontawesome-webfont.ttf
+${RM_THEMEDIR}/purplemine2/fonts/fontawesome-webfont.woff
+${RM_THEMEDIR}/purplemine2/fonts/fontawesome-webfont.woff2
+${RM_THEMEDIR}/purplemine2/images/preloader.gif
+${RM_THEMEDIR}/purplemine2/javascripts/theme.js
+${RM_THEMEDIR}/purplemine2/stylesheets/application.css

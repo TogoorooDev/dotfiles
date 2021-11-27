@@ -1,0 +1,16 @@
+$NetBSD: patch-src_Makefile.in,v 1.2 2019/07/07 18:02:44 schwarz Exp $
+
+Let to exactly point to own diff program.
+Fixes PR 39941.
+
+--- src/Makefile.in.orig	2019-01-01 02:37:29.000000000 +0100
++++ src/Makefile.in	2019-07-07 00:38:35.000000000 +0200
+@@ -1325,7 +1325,7 @@
+   system.h
+ 
+ MOSTLYCLEANFILES = paths.h paths.ht
+-gdiff = `echo diff|sed '$(transform)'`
++gdiff = "%DEFAULT_DIFF_PROGRAM%"
+ BUILT_SOURCES = paths.h version.c version.h
+ noinst_LIBRARIES = libver.a
+ nodist_libver_a_SOURCES = version.c version.h

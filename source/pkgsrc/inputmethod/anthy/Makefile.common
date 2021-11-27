@@ -1,0 +1,15 @@
+# $NetBSD: Makefile.common,v 1.11 2021/02/18 17:06:56 ryoon Exp $
+# used by inputmethod/anthy/Makefile
+# used by inputmethod/anthy-elisp/Makefile
+
+ANTHY_VERSION=	9100h
+DISTNAME=	anthy-${ANTHY_VERSION}
+CATEGORIES=	inputmethod
+MASTER_SITES=	${MASTER_SITE_OSDN:=anthy/37536/}
+DISTFILES=	${DISTNAME}.tar.gz
+
+DISTINFO_FILE=	${.CURDIR}/../../inputmethod/anthy/distinfo
+PATCHDIR=	${.CURDIR}/../../inputmethod/anthy/patches
+
+HOMEPAGE=	https://anthy.osdn.jp/
+LICENSE=	gnu-gpl-v2

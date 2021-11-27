@@ -1,0 +1,10 @@
+/patch-CMakeLists.txt/1.5/Mon Sep 14 17:47:14 2020//Tpkgsrc-2021Q3
+/patch-build_cmake_modules_JasOpenGL.cmake/1.1/Mon Sep 14 17:47:14 2020//Tpkgsrc-2021Q3
+/patch-src_appl_jiv.c/1.1/Tue Jul 21 07:31:28 2020//Tpkgsrc-2021Q3
+/patch-src_libjasper_include_jasper_jas__config.h.in/1.1/Tue Jul 21 07:31:28 2020//Tpkgsrc-2021Q3
+/patch-src_libjasper_jp2_jp2__cod.c/1.4/Mon Sep 14 17:47:14 2020//Tpkgsrc-2021Q3
+/patch-src_libjasper_jp2_jp2__dec.c/1.5/Tue Jul 21 07:31:28 2020//Tpkgsrc-2021Q3
+/patch-src_libjasper_jp2_jp2__enc.c/1.3/Sun Mar  5 12:49:52 2017//Tpkgsrc-2021Q3
+/patch-src_libjasper_jpc_jpc__enc.c/1.3/Sun Mar  5 12:49:52 2017//Tpkgsrc-2021Q3
+/patch-src_libjasper_pnm_pnm__enc.c/1.2/Fri Dec 16 09:44:44 2016//Tpkgsrc-2021Q3
+D

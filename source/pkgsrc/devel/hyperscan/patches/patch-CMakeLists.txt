@@ -1,0 +1,217 @@
+$NetBSD: patch-CMakeLists.txt,v 1.4 2020/11/29 20:27:28 nia Exp $
+
+Avoid conflicts with pkgsrc's CMAKE_MODULE_PATH override.
+Disable examples as they require Linux specific headers.
+Do not try to use -march/-mtune.
+
+--- CMakeLists.txt.orig	2018-07-09 16:45:44.000000000 +0000
++++ CMakeLists.txt
+@@ -6,7 +6,6 @@ set (HS_MINOR_VERSION 0)
+ set (HS_PATCH_VERSION 0)
+ set (HS_VERSION ${HS_MAJOR_VERSION}.${HS_MINOR_VERSION}.${HS_PATCH_VERSION})
+ 
+-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+ include(CheckCCompilerFlag)
+ include(CheckCXXCompilerFlag)
+ include(CheckCXXSymbolExists)
+@@ -17,8 +16,8 @@ INCLUDE (CheckLibraryExists)
+ INCLUDE (CheckSymbolExists)
+ include (CMakeDependentOption)
+ include (GNUInstallDirs)
+-include (${CMAKE_MODULE_PATH}/platform.cmake)
+-include (${CMAKE_MODULE_PATH}/ragel.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/platform.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/ragel.cmake)
+ 
+ find_package(PkgConfig QUIET)
+ 
+@@ -68,7 +67,7 @@ include_directories(${PROJECT_SOURCE_DIR
+ include_directories(${PROJECT_BINARY_DIR})
+ include_directories(SYSTEM include)
+ 
+-include (${CMAKE_MODULE_PATH}/boost.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/boost.cmake)
+ 
+ # -- make this work? set(python_ADDITIONAL_VERSIONS 2.7 2.6)
+ find_package(PythonInterp)
+@@ -83,7 +82,7 @@ endif()
+ # allow for reproducible builds - python for portability
+ if (DEFINED ENV{SOURCE_DATE_EPOCH})
+       execute_process(
+-          COMMAND "${PYTHON}" "${CMAKE_MODULE_PATH}/formatdate.py" "$ENV{SOURCE_DATE_EPOCH}"
++          COMMAND "${PYTHON}" "${PROJECT_SOURCE_DIR}/cmake/formatdate.py" "$ENV{SOURCE_DATE_EPOCH}"
+           OUTPUT_VARIABLE BUILD_DATE
+           OUTPUT_STRIP_TRAILING_WHITESPACE)
+ else ()
+@@ -179,35 +178,6 @@ else()
+         string(REGEX REPLACE "-O[^ ]*" "" CMAKE_CXX_FLAGS_${CONFIG} "${CMAKE_CXX_FLAGS_${CONFIG}}")
+     endforeach ()
+ 
+-    if (CMAKE_COMPILER_IS_GNUCC)
+-        message(STATUS "gcc version ${CMAKE_C_COMPILER_VERSION}")
+-        # If gcc doesn't recognise the host cpu, then mtune=native becomes
+-        # generic, which isn't very good in some cases. march=native looks at
+-        # cpuid info and then chooses the best microarch it can (and replaces
+-        # the flag), so use that for tune.
+-
+-        # arg1 might exist if using ccache
+-        string (STRIP "${CMAKE_C_COMPILER_ARG1}" CC_ARG1)
+-        set (EXEC_ARGS ${CC_ARG1} -c -Q --help=target -march=native -mtune=native)
+-        execute_process(COMMAND ${CMAKE_C_COMPILER} ${EXEC_ARGS}
+-            OUTPUT_VARIABLE _GCC_OUTPUT)
+-        string(REGEX REPLACE ".*march=[ \t]*([^ \n]*)[ \n].*" "\\1"
+-            GNUCC_ARCH "${_GCC_OUTPUT}")
+-
+-        # test the parsed flag
+-        set (EXEC_ARGS ${CC_ARG1} -E - -mtune=${GNUCC_ARCH})
+-        execute_process(COMMAND ${CMAKE_C_COMPILER} ${EXEC_ARGS}
+-            OUTPUT_QUIET ERROR_QUIET
+-            INPUT_FILE /dev/null
+-            RESULT_VARIABLE GNUCC_TUNE_TEST)
+-        if (NOT GNUCC_TUNE_TEST EQUAL 0)
+-            message(SEND_ERROR "Something went wrong determining gcc tune: -mtune=${GNUCC_ARCH} not valid")
+-        endif()
+-        set(TUNE_FLAG ${GNUCC_ARCH})
+-    else ()
+-        set(TUNE_FLAG native)
+-    endif()
+-
+     # compiler version checks TODO: test more compilers
+     if (CMAKE_COMPILER_IS_GNUCXX)
+         set(GNUCXX_MINVER "4.8.1")
+@@ -246,14 +216,6 @@ else()
+         set(EXTRA_CXX_FLAGS "${EXTRA_CXX_FLAGS} -DNDEBUG")
+     endif()
+ 
+-    if (NOT CMAKE_C_FLAGS MATCHES .*march.* AND NOT CMAKE_C_FLAGS MATCHES .*mtune.*)
+-        set(ARCH_C_FLAGS "-march=native -mtune=${TUNE_FLAG}")
+-    endif()
+-
+-    if (NOT CMAKE_CXX_FLAGS MATCHES .*march.* AND NOT CMAKE_CXX_FLAGS MATCHES .*mtune.*)
+-        set(ARCH_CXX_FLAGS "-march=native -mtune=${TUNE_FLAG}")
+-    endif()
+-
+     if(CMAKE_COMPILER_IS_GNUCC)
+         # spurious warnings?
+         set(EXTRA_C_FLAGS "${EXTRA_C_FLAGS} -Wno-array-bounds -Wno-maybe-uninitialized")
+@@ -320,7 +282,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+         message (STATUS "Building the fat runtime requires the Unix Makefiles generator, or Ninja with CMake v3.0 or higher")
+         set (FAT_RUNTIME_REQUISITES FALSE)
+     else()
+-        include (${CMAKE_MODULE_PATH}/attrib.cmake)
++        include (${PROJECT_SOURCE_DIR}/cmake/attrib.cmake)
+         if (NOT HAS_C_ATTR_IFUNC)
+             message(STATUS "Compiler does not support ifunc attribute, cannot build fat runtime")
+             set (FAT_RUNTIME_REQUISITES FALSE)
+@@ -331,7 +293,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+     CMAKE_DEPENDENT_OPTION(FAT_RUNTIME "Build a library that supports multiple microarchitecures" ${RELEASE_BUILD} "FAT_RUNTIME_REQUISITES" OFF)
+ endif ()
+ 
+-include (${CMAKE_MODULE_PATH}/arch.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/arch.cmake)
+ 
+ # testing a builtin takes a little more work
+ CHECK_C_SOURCE_COMPILES("void *aa_test(void *x) { return __builtin_assume_aligned(x, 16);}\nint main(void) { return 0; }" HAVE_CC_BUILTIN_ASSUME_ALIGNED)
+@@ -454,7 +416,7 @@ if (NOT WIN32)
+ set(PCRE_REQUIRED_MAJOR_VERSION 8)
+ set(PCRE_REQUIRED_MINOR_VERSION 41)
+ set(PCRE_REQUIRED_VERSION ${PCRE_REQUIRED_MAJOR_VERSION}.${PCRE_REQUIRED_MINOR_VERSION})
+-include (${CMAKE_MODULE_PATH}/pcre.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/pcre.cmake)
+ if (NOT CORRECT_PCRE_VERSION)
+     message(STATUS "PCRE ${PCRE_REQUIRED_VERSION} not found")
+ endif()
+@@ -474,7 +436,7 @@ endif()
+ endif()
+ 
+ # do substitutions
+-configure_file(${CMAKE_MODULE_PATH}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
++configure_file(${PROJECT_SOURCE_DIR}/cmake/config.h.in ${PROJECT_BINARY_DIR}/config.h)
+ configure_file(src/hs_version.h.in ${PROJECT_BINARY_DIR}/hs_version.h)
+ 
+ if (NOT WIN32)
+@@ -506,7 +468,7 @@ if (WIN32)
+ set(PCRE_REQUIRED_MAJOR_VERSION 8)
+ set(PCRE_REQUIRED_MINOR_VERSION 41)
+ set(PCRE_REQUIRED_VERSION ${PCRE_REQUIRED_MAJOR_VERSION}.${PCRE_REQUIRED_MINOR_VERSION})
+-include (${CMAKE_MODULE_PATH}/pcre.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/pcre.cmake)
+ if (NOT CORRECT_PCRE_VERSION)
+     message(STATUS "PCRE ${PCRE_REQUIRED_VERSION} not found")
+ endif()
+@@ -1195,28 +1157,28 @@ else (FAT_RUNTIME)
+        list(APPEND RUNTIME_LIBS $<TARGET_OBJECTS:hs_exec_core2>)
+        set_target_properties(hs_exec_core2 PROPERTIES
+            COMPILE_FLAGS "-march=core2"
+-           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} core2 ${CMAKE_MODULE_PATH}/keep.syms.in"
++           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} core2 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+            )
+ 
+        add_library(hs_exec_corei7 OBJECT ${hs_exec_SRCS})
+        list(APPEND RUNTIME_LIBS $<TARGET_OBJECTS:hs_exec_corei7>)
+        set_target_properties(hs_exec_corei7 PROPERTIES
+            COMPILE_FLAGS "-march=corei7"
+-           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} corei7 ${CMAKE_MODULE_PATH}/keep.syms.in"
++           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} corei7 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+            )
+ 
+        add_library(hs_exec_avx2 OBJECT ${hs_exec_SRCS} ${hs_exec_avx2_SRCS})
+        list(APPEND RUNTIME_LIBS $<TARGET_OBJECTS:hs_exec_avx2>)
+        set_target_properties(hs_exec_avx2 PROPERTIES
+            COMPILE_FLAGS "-march=core-avx2"
+-           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx2 ${CMAKE_MODULE_PATH}/keep.syms.in"
++           RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx2 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+            )
+        if (BUILD_AVX512)
+            add_library(hs_exec_avx512 OBJECT ${hs_exec_SRCS} ${hs_exec_avx2_SRCS})
+            list(APPEND RUNTIME_LIBS $<TARGET_OBJECTS:hs_exec_avx512>)
+            set_target_properties(hs_exec_avx512 PROPERTIES
+                COMPILE_FLAGS "${SKYLAKE_FLAG}"
+-               RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx512 ${CMAKE_MODULE_PATH}/keep.syms.in"
++               RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx512 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+                )
+        endif (BUILD_AVX512)
+ 
+@@ -1251,21 +1213,21 @@ else (FAT_RUNTIME)
+         set_target_properties(hs_exec_shared_core2 PROPERTIES
+             COMPILE_FLAGS "-march=core2"
+             POSITION_INDEPENDENT_CODE TRUE
+-            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} core2 ${CMAKE_MODULE_PATH}/keep.syms.in"
++            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} core2 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+             )
+         add_library(hs_exec_shared_corei7 OBJECT ${hs_exec_SRCS})
+         list(APPEND RUNTIME_SHLIBS $<TARGET_OBJECTS:hs_exec_shared_corei7>)
+         set_target_properties(hs_exec_shared_corei7 PROPERTIES
+             COMPILE_FLAGS "-march=corei7"
+             POSITION_INDEPENDENT_CODE TRUE
+-            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} corei7 ${CMAKE_MODULE_PATH}/keep.syms.in"
++            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} corei7 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+             )
+         add_library(hs_exec_shared_avx2 OBJECT ${hs_exec_SRCS} ${hs_exec_avx2_SRCS})
+         list(APPEND RUNTIME_SHLIBS $<TARGET_OBJECTS:hs_exec_shared_avx2>)
+         set_target_properties(hs_exec_shared_avx2 PROPERTIES
+             COMPILE_FLAGS "-march=core-avx2"
+             POSITION_INDEPENDENT_CODE TRUE
+-            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx2 ${CMAKE_MODULE_PATH}/keep.syms.in"
++            RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx2 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+             )
+ 
+         if (BUILD_AVX512)
+@@ -1274,7 +1236,7 @@ else (FAT_RUNTIME)
+             set_target_properties(hs_exec_shared_avx512 PROPERTIES
+                 COMPILE_FLAGS "${SKYLAKE_FLAG}"
+                 POSITION_INDEPENDENT_CODE TRUE
+-                RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx512 ${CMAKE_MODULE_PATH}/keep.syms.in"
++                RULE_LAUNCH_COMPILE "${BUILD_WRAPPER} avx512 ${PROJECT_SOURCE_DIR}/cmake/keep.syms.in"
+                 )
+         endif (BUILD_AVX512)
+         add_library(hs_exec_common_shared OBJECT
+@@ -1367,8 +1329,3 @@ if (NOT BUILD_STATIC_LIBS)
+     # use shared lib without having to change all the targets
+     add_library(hs ALIAS hs_shared)
+ endif ()
+-
+-
+-if(NOT WIN32)
+-    add_subdirectory(examples)
+-endif()

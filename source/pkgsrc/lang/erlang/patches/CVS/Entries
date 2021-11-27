@@ -1,0 +1,12 @@
+/patch-ab/1.6/Sat Jun  8 06:48:24 2013//Tpkgsrc-2021Q3
+/patch-ay/1.2/Tue Apr 28 14:34:20 2015//Tpkgsrc-2021Q3
+/patch-erts_aclocal.m4/1.1/Thu Aug  8 11:42:23 2019//Tpkgsrc-2021Q3
+/patch-erts_emulator_drivers_common_inet__drv.c/1.4/Fri Nov  9 17:16:01 2018//Tpkgsrc-2021Q3
+/patch-erts_emulator_nifs_common_prim__net__nif.c/1.1/Mon Nov 18 20:46:02 2019//Tpkgsrc-2021Q3
+/patch-erts_emulator_sys_unix_sys__uds.c/1.2/Fri Jan 15 13:40:14 2021//Tpkgsrc-2021Q3
+/patch-erts_etc_unix_run__erl.c/1.2/Thu Jan  3 22:58:36 2019//Tpkgsrc-2021Q3
+/patch-erts_lib__src_common_erl__printf.c/1.4/Thu Aug  1 11:43:00 2019//Tpkgsrc-2021Q3
+/patch-lib_crypto_c__src_Makefile.in/1.1/Wed Oct  4 16:20:51 2017//Tpkgsrc-2021Q3
+/patch-lib_tools_c__src_Makefile.in/1.1/Tue Mar 17 16:02:23 2020//Tpkgsrc-2021Q3
+/patch-make_output.mk.in/1.1/Thu Jul  7 15:07:36 2016//Tpkgsrc-2021Q3
+D

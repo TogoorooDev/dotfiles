@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/06 11:18:26 maya Exp $
+bin/love11
+love11/bin/love
+love11/lib/liblove.la
+love11/man/man1/love.1
+love11/share/applications/love.desktop
+love11/share/icons/hicolor/scalable/mimetypes/application-x-love-game.svg
+love11/share/mime/packages/love.xml
+love11/share/pixmaps/love.svg

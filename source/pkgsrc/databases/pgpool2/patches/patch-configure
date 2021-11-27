@@ -1,0 +1,15 @@
+$NetBSD: patch-configure,v 1.4 2021/04/28 09:18:55 wiz Exp $
+
+Pick a better name for the package.
+
+--- configure.orig	2021-04-24 00:31:03.163784259 +0300
++++ configure	2021-04-24 00:31:38.257972283 +0300
+@@ -4053,7 +4053,7 @@ fi
+ 
+ 
+ # Define the identity of the package.
+- PACKAGE='pgpool-II'
++ PACKAGE='pgpool2'
+  VERSION='4.2.2'
+ 
+ 

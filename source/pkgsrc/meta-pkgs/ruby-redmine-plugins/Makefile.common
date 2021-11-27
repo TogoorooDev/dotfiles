@@ -1,0 +1,19 @@
+# $NetBSD: Makefile.common,v 1.8 2021/06/03 15:45:08 taca Exp $
+#
+# used by devel/ruby-redmine_code_review/Makefile
+# used by devel/ruby-redmine_lightbox2/Makefile
+# used by devel/ruby-redmine_theme_changer/Makefile
+# used by devel/ruby-redmine_work_time/Makefile
+
+CATEGORIES=	devel
+
+RUBY_VERSIONS_ACCEPTED=	26 27
+
+.include "../../devel/ruby-redmine/redmine.mk"
+
+DEPENDS+=	${REDMINE_DEPENDS}
+
+USE_LANGUAGES=	# none
+
+MESSAGE_SRC=	../../meta-pkgs/ruby-redmine-plugins/MESSAGE.common
+MESSAGE_SRC+=	${.CURDIR}/MESSAGE

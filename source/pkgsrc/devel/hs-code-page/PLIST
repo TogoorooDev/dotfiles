@@ -1,0 +1,27 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 15:44:40 pho Exp $
+lib/code-page-${PKGVERSION}/${HS_VERSION}/package-description
+lib/code-page-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage/Internal.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage/Internal.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/IO/CodePage/Internal.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Win32/CodePage.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Win32/CodePage.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Win32/CodePage.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/System-IO-CodePage-Internal.html
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/System-IO-CodePage.html
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/System-Win32-CodePage.html
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/code-page.haddock
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/code-page-${PKGVERSION}/html/synopsis.png

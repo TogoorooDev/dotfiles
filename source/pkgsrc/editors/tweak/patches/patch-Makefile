@@ -1,0 +1,37 @@
+$NetBSD: patch-Makefile,v 1.5 2021/05/14 14:22:04 nia Exp $
+
+DESTDIR and curses support.
+
+--- Makefile.orig	2016-03-22 21:12:51.000000000 +0000
++++ Makefile
+@@ -16,15 +16,15 @@
+ #    number in tweak.h, or else the resulting binary won't match
+ #    the version number on the archive.
+ 
+-CC := gcc
+-CFLAGS := -g -c -Wall $(XFLAGS)
+-LINK := gcc
+-LFLAGS :=
++CFLAGS += -c -Wall $(XFLAGS)
++LINK := $(CC)
++LFLAGS := $(LDFLAGS)
+ LIBS := 
+ 
++DESTDIR=
+ PREFIX=$(DESTDIR)/usr/local
+-BINDIR=$(PREFIX)/bin
+-MANDIR=$(PREFIX)/man/man1
++BINDIR=$(DESTDIR)$(PREFIX)/bin
++MANDIR=$(DESTDIR)$(PREFIX)/${PKGMANDIR}/man1
+ 
+ TWEAK := main.o keytab.o actions.o search.o rcfile.o buffer.o btree.o
+ 
+@@ -34,7 +34,7 @@ ifeq ($(SLANG),yes)
+ LIBS += -lslang
+ TWEAK += slang.o
+ else
+-LIBS += -lncurses
++LIBS += -lcurses
+ TWEAK += curses.o
+ endif
+ 

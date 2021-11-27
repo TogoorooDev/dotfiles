@@ -1,0 +1,90 @@
+# $NetBSD: Makefile.common,v 1.44 2021/09/17 20:08:23 adam Exp $
+# used by lang/nodejs/Makefile
+# used by lang/nodejs8/Makefile
+# used by lang/nodejs10/Makefile
+# used by lang/nodejs12/Makefile
+
+CATEGORIES=	lang
+MASTER_SITES=	https://nodejs.org/dist/${DISTNAME:S/node-//}/
+PKGNAME=	${DISTNAME:S/-v/js-/}
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://nodejs.org/
+COMMENT=	V8 JavaScript for clients and servers
+LICENSE=	mit
+
+HAS_CONFIGURE=	yes
+USE_TOOLS+=	bash gmake pkg-config
+
+PYTHON_FOR_BUILD_ONLY=		yes
+
+GCC_REQD+=		4.9.4
+
+CONFIG_SHELL=		${PYTHONBIN}
+CONFIGURE_ARGS+=	--prefix=${PREFIX}
+# Needs ares_nameser.h which is not installed by libcares
+#CONFIGURE_ARGS+=	--shared-cares
+CONFIGURE_ARGS+=	--shared-libuv
+CONFIGURE_ARGS+=	--shared-zlib
+CONFIGURE_ARGS+=	--without-npm
+PTHREAD_AUTO_VARS=	yes
+
+CONFIGURE_ENV.NetBSD+=	GYP_DEFINES="OS=netbsd"
+MAKE_ENV.NetBSD+=	GYP_DEFINES="OS=netbsd"
+
+.if ${MACHINE_ARCH} == "powerpc"
+CONFIGURE_ARGS+=	--dest-cpu=ppc
+.endif
+
+.if ${OPSYS} == "Linux" && !exists(/usr/bin/gold)
+CONFIGURE_ENV+=		GYP_DEFINES="linux_use_gold_flags=0"
+.endif
+
+REPLACE_PYTHON+=	configure
+REPLACE_PYTHON+=	tools/genv8constants.py
+REPLACE_PYTHON+=	tools/gyp/pylib/gyp/flock_tool.py
+
+.if ${OPSYS} == "NetBSD"
+BUILD_DEPENDS+=		lockf-[0-9]*:../../sysutils/lockf
+BUILDLINK_TRANSFORM+=	rm:-ldl
+.endif
+
+TEST_TARGET=		check
+
+.if defined(TOOLS_PLATFORM.paxctl)
+SUBST_CLASSES+=		mktools
+SUBST_STAGE.mktools=	post-configure
+# nodejs8
+SUBST_FILES.mktools+=	out/deps/v8/src/mksnapshot.target.mk
+# nodejs10
+SUBST_FILES.mktools+=	out/deps/v8/gypfiles/mksnapshot.target.mk
+# nodejs12
+SUBST_FILES.mktools+=	out/mkcodecache.target.mk
+SUBST_FILES.mktools+=	out/tools/v8_gypfiles/mksnapshot.target.mk
+# nodejs13
+SUBST_FILES.mktools+=	out/node_mksnapshot.target.mk
+SUBST_SED.mktools+=	-e 's|call do_cmd,link)|call do_cmd,link)\${.newline}	${TOOLS_PLATFORM.paxctl} +m $$@|'
+SUBST_NOOP_OK.mktools=	yes # because of the different affected files
+.endif
+
+CFLAGS.SunOS+=		-D_FILE_OFFSET_BITS=64
+CXXFLAGS.SunOS+=	-D_FILE_OFFSET_BITS=64
+
+pre-install:
+	${CHMOD} -R g-w ${WRKSRC}
+
+post-install:
+.if defined(TOOLS_PLATFORM.paxctl)
+	${TOOLS_PLATFORM.paxctl} +m ${DESTDIR}${PREFIX}/bin/node
+.endif
+
+.if ${OPSYS} != "Darwin"
+.include "../../devel/libexecinfo/buildlink3.mk"
+.endif
+BUILDLINK_API_DEPENDS.libuv+=	libuv>=1.41
+.include "../../devel/libuv/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../lang/python/application.mk"
+.include "../../lang/python/tool.mk"
+#.include "../../net/libcares/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"

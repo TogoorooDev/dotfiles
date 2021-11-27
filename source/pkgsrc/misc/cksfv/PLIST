@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2020/10/14 16:18:10 wiz Exp $
+bin/cksfv
+man/man1/cksfv.1
+share/doc/cksfv/README.md

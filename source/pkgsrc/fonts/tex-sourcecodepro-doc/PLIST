@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2019/08/04 04:19:52 markd Exp $
+share/texmf-dist/doc/latex/sourcecodepro/LICENSE.txt
+share/texmf-dist/doc/latex/sourcecodepro/README.md
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro-otf-specimen.pdf
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro-otf-specimen.tex
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro-type1-specimen.pdf
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro-type1-specimen.tex
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro.pdf
+share/texmf-dist/doc/latex/sourcecodepro/sourcecodepro.tex

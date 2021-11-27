@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/28 16:14:30 taca Exp $
+${RM_THEMEDIR}/minimalflat/fonts/FontAwesome.otf
+${RM_THEMEDIR}/minimalflat/fonts/fontawesome-webfont.eot
+${RM_THEMEDIR}/minimalflat/fonts/fontawesome-webfont.svg
+${RM_THEMEDIR}/minimalflat/fonts/fontawesome-webfont.ttf
+${RM_THEMEDIR}/minimalflat/fonts/fontawesome-webfont.woff
+${RM_THEMEDIR}/minimalflat/javascripts/theme.js
+${RM_THEMEDIR}/minimalflat/stylesheets/application.css
+${RM_THEMEDIR}/minimalflat/stylesheets/font-awesome.min.css

@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.31 2020/11/19 10:41:26 nia Exp $
+
+SHA1 (faad2-2.10.0.tar.gz) = 7f2666d3aa891cb923d97cec1d73365944338f79
+RMD160 (faad2-2.10.0.tar.gz) = 2666b3d3432840d4ec9ccf597015019725530a5d
+SHA512 (faad2-2.10.0.tar.gz) = 92c8b5e79f85b7a7caac9e7954959c26d74ef148a658dcb37e2c1b303fc2fcc5a0d12f21e7bd476870498109bdd03916a56c13f578186a69d6eceb103222e771
+Size (faad2-2.10.0.tar.gz) = 803225 bytes
+SHA1 (patch-configure.ac) = ed9d4e9d611d27d4add86884996a8e7fc001bc90
+SHA1 (patch-frontend_Makefile.am) = 32c8bede5773b2cb97777951b1a18366b4e10e3d
+SHA1 (patch-frontend_getopt.c) = 3eaf3e8318887eca49e354696cad1bd2c5bf5504
+SHA1 (patch-frontend_mp4read.c) = a72c20b69428809caf328850fd70a13ba5c82d41
+SHA1 (patch-libfaad_Makefile.am) = 4d3b92f54d998bd577641f49e88d0c8bc38f963c
+SHA1 (patch-libfaad_common.h) = 60eccd8aebeb085760d6866f83ff5a613197918f
+SHA1 (patch-plugins_xmms_src_Makefile.am) = 4ba1dfefe1e351830ee990c711af6ac46db42c14
+SHA1 (patch-plugins_xmms_src_libmp4.c) = 7c6cd667999aab36efc9d713cf967c01b01916bf

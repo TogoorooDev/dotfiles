@@ -1,0 +1,15 @@
+$NetBSD: distinfo,v 1.7 2020/08/11 13:38:14 nia Exp $
+
+SHA1 (fuse-ext2-0.0.10.tar.gz) = cb92048bf3aac01b55af8c1362ab903b19669f3a
+RMD160 (fuse-ext2-0.0.10.tar.gz) = 6303f369301eb58c78bb495ee1b1bee3f69ccf4a
+SHA512 (fuse-ext2-0.0.10.tar.gz) = b884c0f92b706ae3f03dd75f489990e7cea31fd68526ade48ab5a11e1c9f78ec02a4dbb82450ce2aca12742a799c334a3ab8f2443a96ad003a76f0a86567fa24
+Size (fuse-ext2-0.0.10.tar.gz) = 122746 bytes
+SHA1 (patch-aa) = d9f8189f4bbed569cc2b4bb8f160dcf231cc76ff
+SHA1 (patch-ab) = 830bc968c55b13125700a6fbeff9808610d065f0
+SHA1 (patch-ac) = 253561f1e6a67b5d66d7409af3bf26477ad57b2c
+SHA1 (patch-af) = d182a026a599ceb73ce2e2ed81c888eed23e58ca
+SHA1 (patch-ag) = 67f70cb05298890c25672e4551092fa25bce3af0
+SHA1 (patch-e2fsprogs-1.41.9_ext2fs_bitops.h) = 61b1e0258e55c7639ee4e8228ce576488b4f40e3
+SHA1 (patch-e2fsprogs-1.41.9_ext2fs_ext2fs.h) = 2377307af7b081d84e4097f88e7aa10086a45781
+SHA1 (patch-e2fsprogs-1.41.9_ext2fs_icount.c) = f00b80bb633e46589a39bc8972e5c136f3f6e0a9
+SHA1 (patch-e2fsprogs-1.41.9_ext2fs_test__io.c) = 49c14b89229cf08789ff91bcdb1ecdd26239d809

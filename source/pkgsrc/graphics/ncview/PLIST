@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2020/08/08 22:18:27 brook Exp $
+bin/ncview
+lib/X11/app-defaults/Ncview
+libdata/ncview/3gauss.ncmap
+libdata/ncview/3saw.ncmap
+libdata/ncview/bw.ncmap
+libdata/ncview/default.ncmap
+libdata/ncview/detail.ncmap
+libdata/ncview/hotres.ncmap
+man/man1/SciPlot.1
+man/man1/ncview.1

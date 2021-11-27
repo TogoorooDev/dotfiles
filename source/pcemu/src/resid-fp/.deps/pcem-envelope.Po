@@ -1,0 +1,5 @@
+resid-fp/pcem-envelope.o: resid-fp/envelope.cc /usr/include/stdc-predef.h \
+ resid-fp/envelope.h resid-fp/siddefs-fp.h
+/usr/include/stdc-predef.h:
+resid-fp/envelope.h:
+resid-fp/siddefs-fp.h:

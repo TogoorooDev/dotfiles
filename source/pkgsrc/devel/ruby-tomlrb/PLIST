@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.2 2020/03/08 15:27:44 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE.txt
+${GEM_LIBDIR}/lib/tomlrb.rb
+${GEM_LIBDIR}/lib/tomlrb/generated_parser.rb
+${GEM_LIBDIR}/lib/tomlrb/handler.rb
+${GEM_LIBDIR}/lib/tomlrb/parser.rb
+${GEM_LIBDIR}/lib/tomlrb/parser.y
+${GEM_LIBDIR}/lib/tomlrb/scanner.rb
+${GEM_LIBDIR}/lib/tomlrb/string_utils.rb
+${GEM_LIBDIR}/lib/tomlrb/version.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

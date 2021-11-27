@@ -4,8 +4,18 @@ PS1="%F{cyan}[%n@%m]%f %F{red}::%f %F{green}%~%f %F{magenta}%#%f "
 
 # Functions
 function chpwd() {
-    exa
+    #exa
+    ls --color
 }
+
+if [[ ! -d /tmp/wayland ]]; then
+    mkdir /tmp/wayland
+fi
+
+# External Variables
+export PAGER=most
+export XDG_RUNTIME_DIR=/tmp/wayland
+export ALTERNATE_EDITOR=emacs
 
 # History Settings
 HISTORY="$HOME/.zsh_history"
@@ -27,11 +37,13 @@ PRIVESC="doas"
 # Plugins
 #source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.config/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.config/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/site-functions/zsh-syntax-highlighting.zsh
 
 # Aliases
-alias ls="exa"
+alias ls="ls --color"
+#alias ls="exa"
 alias la="exa -a"
 alias ll="exa -l"
 alias lla="exa -a -l"
@@ -80,7 +92,14 @@ alias ea="$PRIVESC apt"
 alias z="zypper"
 alias ez="$PRIVESC zypper"
 
+### Gentoo
+alias m="emerge"
+alias em="$PRIVESC emerge"
+alias es="eselect"
+
 # Autocomplete
+
+zstyle ':completion:*' use-cache 1
 
 ## The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -93,7 +112,4 @@ zstyle :compinstall filename '/home/hens/.zshrc'
 
 autoload -Uz compinit
 compinit
-## End of lines added by compinstall
-
-# External Variables
-export PAGER=most
+# End of lines added by compinstall

@@ -1,0 +1,10 @@
+/patch-aa/1.5/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_cassandra.cc/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_cassandra.h/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_cassandra__factory.cc/1.3/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_cassandra__factory.h/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_keyspace__factory.cc/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libcassandra_keyspace__factory.h/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libgenthrift_Cassandra.cpp/1.2/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+/patch-libgenthrift_Cassandra.h/1.3/Thu May 14 19:09:10 2020//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.5 2020/01/01 21:16:12 adam Exp $
+include/epoxy/common.h
+${PLIST.egl}include/epoxy/egl.h
+${PLIST.egl}include/epoxy/egl_generated.h
+include/epoxy/gl.h
+include/epoxy/gl_generated.h
+${PLIST.glx}include/epoxy/glx.h
+${PLIST.glx}include/epoxy/glx_generated.h
+lib/libepoxy.so
+lib/libepoxy.so.0
+lib/libepoxy.so.0.0.0
+lib/pkgconfig/epoxy.pc

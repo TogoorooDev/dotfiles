@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/24 05:45:29 pho Exp $
+lib/Decimal-${PKGVERSION}/${HS_VERSION}/package-description
+lib/Decimal-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Decimal.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Decimal.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Decimal.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/LICENSE.txt
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/Data-Decimal.html
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/Decimal.haddock
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/LICENSE.txt
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/README.md
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/changelog.md
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/Decimal-${PKGVERSION}/html/synopsis.png

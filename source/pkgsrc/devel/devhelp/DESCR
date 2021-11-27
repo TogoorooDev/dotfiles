@@ -1,0 +1,7 @@
+Devhelp is a developer tool for browsing and searching API documentation.
+
+It provides an easy way to navigate through libraries and to search by
+function, struct, or macro.
+
+The documentation must be installed locally, so an internet connection is
+not needed to use Devhelp.

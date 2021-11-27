@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.5 2018/01/01 22:29:24 rillig Exp $
+include/slang.h
+include/slcurses.h
+lib/libslang.la
+share/doc/slang/COPYING
+share/doc/slang/COPYING.ART
+share/doc/slang/COPYING.GPL
+share/doc/slang/COPYRIGHT
+share/doc/slang/changes.txt
+share/doc/slang/cref.txt
+share/doc/slang/cslang.txt
+share/doc/slang/slang.txt
+share/doc/slang/slangdoc.html
+share/doc/slang/slangfun.txt

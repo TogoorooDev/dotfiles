@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2019/01/26 10:08:25 markd Exp $
+share/texmf-dist/fonts/opentype/public/xits/XITS-Bold.otf
+share/texmf-dist/fonts/opentype/public/xits/XITS-BoldItalic.otf
+share/texmf-dist/fonts/opentype/public/xits/XITS-Italic.otf
+share/texmf-dist/fonts/opentype/public/xits/XITS-Regular.otf
+share/texmf-dist/fonts/opentype/public/xits/XITSMath-Bold.otf
+share/texmf-dist/fonts/opentype/public/xits/XITSMath-Regular.otf

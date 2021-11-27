@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2019/08/22 12:17:52 ryoon Exp $
+bin/b2
+bin/bjam

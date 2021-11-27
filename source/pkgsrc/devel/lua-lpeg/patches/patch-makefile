@@ -1,0 +1,15 @@
+$NetBSD: patch-makefile,v 1.2 2019/03/25 22:55:18 wiz Exp $
+
+Honor LDFLAGS for RELRO builds.
+
+--- makefile.orig	2019-03-11 14:08:29.000000000 +0000
++++ makefile
+@@ -36,7 +36,7 @@ macosx:
+ 	$(MAKE) lpeg.so "DLLFLAGS = -bundle -undefined dynamic_lookup"
+ 
+ lpeg.so: $(FILES)
+-	env $(CC) $(DLLFLAGS) $(FILES) -o lpeg.so
++	env $(CC) $(LDFLAGS) $(DLLFLAGS) $(FILES) -o lpeg.so
+ 
+ $(FILES): makefile
+ 

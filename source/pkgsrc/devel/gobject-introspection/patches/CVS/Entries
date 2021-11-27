@@ -1,0 +1,8 @@
+/patch-gir_meson.build/1.2/Wed Mar 11 10:09:36 2020//Tpkgsrc-2021Q3
+/patch-giscanner_ast.py/1.1/Mon Jun  3 10:47:20 2019//Tpkgsrc-2021Q3
+/patch-giscanner_ccompiler.py/1.4/Mon Jan 11 19:15:24 2021//Tpkgsrc-2021Q3
+/patch-tests_scanner_Regress-1.0-expected.gir/1.1/Mon Jun  3 10:47:20 2019//Tpkgsrc-2021Q3
+/patch-tools_compiler.c/1.1/Wed Feb  6 11:15:08 2019//Tpkgsrc-2021Q3
+/patch-tools_generate.c/1.1/Wed Feb  6 11:15:08 2019//Tpkgsrc-2021Q3
+/patch-tools_meson.build/1.2/Wed Mar 11 10:09:36 2020//Tpkgsrc-2021Q3
+D

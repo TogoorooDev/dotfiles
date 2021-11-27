@@ -1,0 +1,12 @@
+$NetBSD: patch-config_Makefile.freebsd,v 1.4 2019/05/29 17:36:43 adam Exp $
+
+Allow linking with CC.
+
+--- config/Makefile.freebsd.orig	2017-07-31 11:25:39.000000000 +0000
++++ config/Makefile.freebsd
+@@ -14,4 +14,4 @@ LIB.SONAME    = lib$(NAME).so.$(SO_MAJOR
+ LIB.DEVLNK    = lib$(NAME).so
+ LIB.SHARED    = lib$(NAME).so.$(SO_VERSION)
+ LIB.STATIC    = lib$(NAME).a
+-LDFLAGS.SO    = -shared -soname $(LIB.SONAME)
++LDFLAGS.SO    = -shared -Wl,-soname=$(LIB.SONAME)

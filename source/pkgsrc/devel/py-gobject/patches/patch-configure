@@ -1,0 +1,20 @@
+$NetBSD: patch-configure,v 1.2 2018/01/23 11:23:13 adam Exp $
+
+Strengthen a configure test so it doesn't depend on -Werror.
+This is not strictly necessary but makes it behave when using the
+wrappers to manipulate warning flags.
+
+--- configure.orig	2017-10-13 10:58:18.000000000 +0000
++++ configure
+@@ -15506,8 +15506,9 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+ int
+ main ()
+ {
+-PySignal_SetWakeupFd(0);
+-  ;
++  int (*func)(int);
++  func = PySignal_SetWakeupFd;
++  func(0);
+   return 0;
+ }
+ _ACEOF

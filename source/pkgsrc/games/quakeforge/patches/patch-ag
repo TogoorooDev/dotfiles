@@ -1,0 +1,29 @@
+$NetBSD: patch-ag,v 1.4 2019/07/06 22:53:24 nia Exp $
+
+Fix test operator portability.
+
+Use a symlink for libGL.
+
+--- configure.orig	2013-01-23 03:11:09.000000000 +0000
++++ configure
+@@ -19708,7 +19708,7 @@ if test "${enable_xmms+set}" = set; then
+   enableval=$enable_xmms;
+ fi
+ 
+-if test "x$mingw" != xyes -a "x$enable_xmms" == xyes; then
++if test "x$mingw" != xyes -a "x$enable_xmms" = xyes; then
+ 
+ 
+ # Check whether --with-xmms-prefix was given.
+@@ -20937,10 +20937,8 @@ fi
+ if test "x$gl_driver" = xauto -o "x$gl_driver" = xyes; then
+ 	if test "$SYSTYPE" = WIN32; then
+ 		gl_driver="OPENGL32.DLL"
+-	elif test "$SYSTYPE" = OPENBSD; then
+-		gl_driver="libGL.so"
+ 	else
+-		gl_driver="libGL.so.1"
++		gl_driver="libGL.so"
+ 	fi
+ fi
+ 

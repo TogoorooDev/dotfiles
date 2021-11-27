@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2019/10/12 20:14:08 rillig Exp $
+bin/rtpdump
+bin/rtpplay
+bin/rtpsend
+bin/rtptrans
+share/doc/rtptools/ChangeLog.html
+share/doc/rtptools/rtptools.html
+share/examples/rtptools/multidump
+share/examples/rtptools/multiplay

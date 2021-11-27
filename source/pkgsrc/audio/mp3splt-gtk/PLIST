@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.3 2018/09/30 22:30:37 schmonz Exp $
+bin/mp3splt-gtk
+man/man1/mp3splt-gtk.1
+share/applications/mp3splt-gtk.desktop
+share/locale/cs/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/de_DE/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/es/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/es_CL/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/fr_FR/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/ro/LC_MESSAGES/mp3splt-gtk.mo
+share/locale/ru_RU/LC_MESSAGES/mp3splt-gtk.mo
+share/mp3splt-gtk/backward.svg
+share/mp3splt-gtk/backward_inactive.svg
+share/mp3splt-gtk/forward.svg
+share/mp3splt-gtk/forward_inactive.svg
+share/mp3splt-gtk/pause.svg
+share/mp3splt-gtk/pause_inactive.svg
+share/mp3splt-gtk/play.svg
+share/mp3splt-gtk/play_inactive.svg
+share/mp3splt-gtk/stop.svg
+share/mp3splt-gtk/stop_inactive.svg
+share/pixmaps/mp3splt-gtk.png
+share/pixmaps/mp3splt-gtk_ico.svg

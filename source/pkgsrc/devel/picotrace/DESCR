@@ -1,0 +1,12 @@
+picotrace is designed to be a framework for other more advanced tracers, and an
+example of the canonical usage of ptrace(2). New features are not expected
+unless they reflect a new feature in the kernel.
+
+For historical reasons this repository is called picotrace, although it now
+contains other software as well:
+
+ * sigtracer
+ * singlestepper
+ * NetBSD strace
+ * NetBSD truss
+ * coredumper

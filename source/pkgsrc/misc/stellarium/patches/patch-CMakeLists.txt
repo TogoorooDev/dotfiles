@@ -1,0 +1,56 @@
+$NetBSD: patch-CMakeLists.txt,v 1.4 2019/12/29 16:24:30 adam Exp $
+
+Do not use ccache.
+Do not use application bundle on Darwin.
+
+--- CMakeLists.txt.orig	2019-12-22 10:23:41.000000000 +0000
++++ CMakeLists.txt
+@@ -98,12 +98,6 @@ IF(OPENGL_DEBUG_LOGGING)
+      ADD_DEFINITIONS(-DQ_ENABLE_OPENGL_FUNCTIONS_DEBUG)
+ ENDIF()
+ 
+-# Use ccache if possible
+-FIND_PROGRAM(CCACHE_PROGRAM ccache)
+-IF(CCACHE_PROGRAM)
+-     MESSAGE(STATUS "Found ccache ${CCACHE_PROGRAM}")
+-     SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+-ENDIF()
+ 
+ # Add gprof build options if necessary.  Note gmon.out will be created in working directory when Stellarium is executed
+ IF(${CMAKE_BUILD_TYPE} MATCHES "GProf")
+@@ -132,7 +126,7 @@ IF(${CMAKE_BUILD_TYPE} MATCHES "UBSan")
+      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -g")
+ ENDIF()
+ 
+-IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
++IF(FALSE)
+      SET(APPLE 1)
+      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+      # share data location:
+@@ -249,7 +243,7 @@ IF(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBS
+ ENDIF()
+ 
+ # best way to get to APPLE?
+-IF(APPLE)
++IF(FALSE)
+      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-common -Wall -Wextra")
+      # using regular Clang or AppleClang
+      IF("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+@@ -593,7 +587,7 @@ ENDIF()
+ 
+ ########### Set some global variables ###########
+ IF(UNIX AND NOT WIN32)
+-     IF(APPLE)
++     IF(FALSE)
+           SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/Stellarium.app/Contents")
+      ELSE()
+           ADD_DEFINITIONS(-DINSTALL_DATADIR="${CMAKE_INSTALL_PREFIX}/${SDATALOC}")          
+@@ -758,7 +752,7 @@ IF(GENERATE_PACKAGE_TARGET)
+ ENDIF()
+ 
+ ########### OS X Bundling ###############
+-IF(APPLE)
++IF(FALSE)
+      GET_FILENAME_COMPONENT(_qt_bin_dir "${QMAKE_LOCATION}" DIRECTORY)
+      FIND_PROGRAM(MACDEPLOYQT_COMMAND macdeployqt HINTS "${_qt_bin_dir}")
+ 

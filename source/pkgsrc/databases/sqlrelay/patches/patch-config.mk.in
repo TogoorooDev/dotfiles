@@ -1,0 +1,27 @@
+$NetBSD: patch-config.mk.in,v 1.4 2021/02/16 13:12:39 adam Exp $
+
+Fix PERLLIB.
+We install init scripts ourselves.
+
+--- config.mk.in.orig	2020-08-26 04:29:55.000000000 +0000
++++ config.mk.in
+@@ -226,8 +226,8 @@ else
+ PERLMAN3EXT_LOCAL = $(OVERRIDEPERLMAN3EXT)
+ endif
+ PERLCPPFLAGS = $(BASECPPFLAGS) $(PERLOPTIMIZE_LOCAL) $(PERLCCFLAGS_LOCAL) -I$(top_builddir) -I$(top_builddir)/src/api/c++ $(RUDIMENTSINCLUDES) $(PERLINC_LOCAL)
+-PERLCONLIBS = $(PERLLIB) -L$(top_builddir)/src/api/c++ -l$(SQLR)client $(RUDIMENTSLIBS) $(LIBDMALLOC) $(LIBEFENCE) -rpath $(PERLSITEARCH_LOCAL)/auto/SQLRelay/Connection
+-PERLCURLIBS = $(PERLLIB) -L$(top_builddir)/src/api/c++ -l$(SQLR)client $(RUDIMENTSLIBS) $(LIBDMALLOC) $(LIBEFENCE) -rpath $(PERLSITEARCH_LOCAL)/auto/SQLRelay/Cursor
++PERLCONLIBS = $(PERLLIB) -lperl -L$(top_builddir)/src/api/c++ -l$(SQLR)client $(RUDIMENTSLIBS) $(LIBDMALLOC) $(LIBEFENCE) -rpath $(PERLSITEARCH_LOCAL)/auto/SQLRelay/Connection
++PERLCURLIBS = $(PERLLIB) -lperl -L$(top_builddir)/src/api/c++ -l$(SQLR)client $(RUDIMENTSLIBS) $(LIBDMALLOC) $(LIBEFENCE) -rpath $(PERLSITEARCH_LOCAL)/auto/SQLRelay/Cursor
+ ifneq ($(strip $(libdir)),)
+ ifeq ($(PERLUSERPATH),yes)
+ PERLCONLIBS += -R $(libdir)
+@@ -883,7 +883,7 @@ MODULERENAME = $(top_builddir)/moduleren
+ 
+ 
+ # build directories
+-INSTALLSUBDIRS = install-src install-bin install-etc install-init install-license
++INSTALLSUBDIRS = install-src install-bin install-etc install-license
+ ifeq ($(ENABLE_CPP),yes)
+ INSTALLSUBDIRS += install-pkgconfig
+ endif

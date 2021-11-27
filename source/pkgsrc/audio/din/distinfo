@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.23 2021/08/21 21:37:08 fox Exp $
+
+SHA1 (din-51.1.1.tar.gz) = 5b7c1ac8a6dc697aa99d59acd866f9c60e1477c6
+RMD160 (din-51.1.1.tar.gz) = 34450713bb83276aacbd6486f9626d8579b46147
+SHA512 (din-51.1.1.tar.gz) = ea5e1ab79cbc24abb80a9fd25d8304f36ab2345505ee98132196685cda73b31dd7db3f62cb1821cbdc9694703d3454bd58d733833710d492ecebffee23732a0f
+Size (din-51.1.1.tar.gz) = 3700797 bytes
+SHA1 (patch-src_Makefile.am) = 42f2f712db4092bc89793f4db6dda915a708ee20
+SHA1 (patch-src_Makefile.in) = e4f93496379202ac25ae1909351fea6532989078

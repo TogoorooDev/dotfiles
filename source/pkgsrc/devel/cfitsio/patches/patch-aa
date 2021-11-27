@@ -1,0 +1,107 @@
+$NetBSD: patch-aa,v 1.8 2019/11/26 10:24:11 markd Exp $
+
+Use libtool.
+
+--- Makefile.in.orig	2018-05-10 04:16:01.000000000 +0900
++++ Makefile.in	2019-11-23 15:43:52.872488997 +0900
+@@ -37,13 +37,15 @@ SHELL =		/bin/sh
+ ARCHIVE =	@ARCHIVE@
+ RANLIB =	@RANLIB@
+ CC =		@CC@
++CC =		${LIBTOOL} --mode=compile @CC@
++LD =		${LIBTOOL} --mode=link @CC@
+ CFLAGS =	@CFLAGS@
+ CPPFLAGS =	@CPPFLAGS@
+ SSE_FLAGS =	@SSE_FLAGS@
+ FC =		@FC@
+ LDFLAGS =	@LDFLAGS@
+ LDFLAGS_BIN =	@LDFLAGS_BIN@
+-DEFS =		@DEFS@
++DEFS =		@DEFS@ -Dunix
+ LIBS =		@LIBS@
+ LIBS_CURL =	@LIBS_CURL@
+ FLEX =		flex
+@@ -94,10 +96,10 @@ all:
+ all-nofitsio:
+ 		${MAKE} stand_alone "FITSIO_SRC="
+ 
+-stand_alone:	lib${PACKAGE}.a shared
++stand_alone:	lib${PACKAGE}.la
+ 
+-lib${PACKAGE}.a:	${OBJECTS}
+-		${ARCHIVE} $@ ${OBJECTS}; \
+-		${RANLIB} $@;
++lib${PACKAGE}.la:	${OBJECTS}
++		${ARCHIVE} $lib${PACKAGE}.la ${OBJECTS}; \
++		${LIBTOOL} --mode=link @CC@ -o $@ ${OBJECTS:.o=.lo} ${LIBS_CURL} -rpath ${PREFIX}/lib -version-info 3:0
+ 
+ shared: lib${PACKAGE}${SHLIB_SUFFIX}
+@@ -109,16 +111,17 @@ lib${PACKAGE}${SHLIB_SUFFIX}: ${OBJECTS}
+ 			ln -sf ${CFITSIO_SHLIB_SONAME} $@; \
+ 		fi
+ 
+-install:	lib${PACKAGE}.a ${INSTALL_DIRS}
+-		@for lib in lib${PACKAGE}.a lib${PACKAGE}${SHLIB_SUFFIX} \
++install:	lib${PACKAGE}.la ${INSTALL_DIRS}
++		${LIBTOOL} --mode=install ${BSD_INSTALL_LIB} libcfitsio.la ${CFITSIO_LIB}
++		@for lib in  lib${PACKAGE}${SHLIB_SUFFIX} \
+ 				${CFITSIO_SHLIB} ${CFITSIO_SHLIB_SONAME}; do \
+ 		    if [ -f $$lib ]; then \
+ 			echo "/bin/cp -a $$lib ${CFITSIO_LIB}"; \
+-			/bin/cp -a $$lib ${CFITSIO_LIB}; \
++			${BSD_INSTALL_DATA} -a $$lib ${CFITSIO_LIB}; \
+ 		    fi; \
+ 		done
+-		/bin/cp fitsio.h fitsio2.h longnam.h drvrsmem.h ${CFITSIO_INCLUDE}
+-		/bin/cp cfitsio.pc ${CFITSIO_LIB}/pkgconfig
++		${BSD_INSTALL_DATA} fitsio.h fitsio2.h longnam.h drvrsmem.h ${CFITSIO_INCLUDE}
++		${BSD_INSTALL_DATA} cfitsio.pc ${CFITSIO_LIB}/pkgconfig
+ 		@for task in ${FPACK_UTILS} ${UTILS}; do \
+ 		    if [ -f $$task ]; then \
+ 			if [ ! -d ${CFITSIO_BIN} ]; then mkdir -p ${CFITSIO_BIN}; fi; \
+@@ -139,29 +142,29 @@ utils:		${FPACK_UTILS} ${UTILS}
+ swapproc.o:	swapproc.c
+ 		${CC} -c ${CFLAGS} ${CPPFLAGS} ${SSE_FLAGS} ${DEFS} $<
+ 
+-smem:		smem.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm
++smem:		smem.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o smem smem.o -L. -lcfitsio -lm
+ 
+-testprog:	testprog.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
++testprog:	testprog.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-fpack:		fpack.o fpackutil.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o fpackutil.o -L. -l${PACKAGE} -lm ${LIBS}
++fpack:		fpack.o fpackutil.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o fpackutil.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-funpack:	funpack.o fpackutil.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o fpackutil.o -L. -l${PACKAGE} -lm ${LIBS}
++funpack:	funpack.o fpackutil.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o fpackutil.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-fitscopy:	fitscopy.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
++fitscopy:	fitscopy.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-speed:		speed.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
++speed:		speed.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-imcopy:		imcopy.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
++imcopy:		imcopy.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+-cookbook:	cookbook.o lib${PACKAGE}.a ${OBJECTS}
+-		${CC} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
++cookbook:	cookbook.o lib${PACKAGE}.la ${OBJECTS}
++		${LD} ${LDFLAGS_BIN} ${DEFS} -o $@ ${@}.o -L. -l${PACKAGE} -lm ${LIBS}
+ 
+ eval:		# Rebuild eval_* files from flex/bison source
+ 		${FLEX} -t eval.l > eval_l.c1

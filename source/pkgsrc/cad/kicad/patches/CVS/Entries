@@ -1,0 +1,22 @@
+/patch-3d-viewer_3d_cache_sg_CMakeLists.txt/1.2/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-CMakeLists.txt/1.5/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-CMakeModules_Functions.cmake/1.4/Thu Aug 29 15:36:40 2019//Tpkgsrc-2021Q3
+/patch-CMakeModules_KiCadFullVersion.cmake/1.1/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-CMakeModules_WritePlatformMetadata_linux.cmake/1.1/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-CMakeModules_WriteVersionHeader.cmake/1.5/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-CMakeModules_config.h.cmake/1.4/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-bitmaps_png_CMakeLists.txt/1.3/Thu Sep  8 09:32:28 2016//Tpkgsrc-2021Q3
+/patch-common_CMakeLists.txt/1.4/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-common_lib__tree__model.cpp/1.1/Mon Jun  1 03:50:21 2020//Tpkgsrc-2021Q3
+/patch-cvpcb_CMakeLists.txt/1.4/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-eeschema_CMakeLists.txt/1.5/Sun Feb 21 18:56:36 2021//Tpkgsrc-2021Q3
+/patch-gerbview_CMakeLists.txt/1.3/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-include_hashtables.h/1.3/Thu Sep  8 09:32:28 2016//Tpkgsrc-2021Q3
+/patch-include_kiway.h/1.3/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-include_system_libcontext.h/1.1/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-pagelayout_editor_CMakeLists.txt/1.3/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-pcb_calculator_CMakeLists.txt/1.3/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-pcbnew_CMakeLists.txt/1.4/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-plugins_3d_idf_CMakeLists.txt/1.1/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+/patch-plugins_3d_vrml_CMakeLists.txt/1.1/Fri Jun 14 15:59:32 2019//Tpkgsrc-2021Q3
+D

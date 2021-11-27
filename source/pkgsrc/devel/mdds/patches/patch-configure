@@ -1,0 +1,67 @@
+$NetBSD: patch-configure,v 1.2 2020/08/11 16:03:49 ryoon Exp $
+
+* POSIX shell portability
+
+--- configure.orig	2020-02-07 00:00:40.000000000 +0000
++++ configure
+@@ -2509,7 +2509,7 @@ if test "${enable_debug_stdcxx+set}" = s
+ fi
+ 
+ 
+-if test x"$debug_stdcxx" == "xyes"; then :
++if test x"$debug_stdcxx" = "xyes"; then :
+ 
+   CXXFLAGS="$CXXFLAGS -D_GLIBCXX_DEBUG"
+ 
+@@ -2521,7 +2521,7 @@ if test "${enable_release_tests+set}" = 
+ fi
+ 
+ 
+-if test x"$release_tests" == "xyes"; then :
++if test x"$release_tests" = "xyes"; then :
+ 
+   CXXFLAGS="$CXXFLAGS -DNDEBUG -O2"
+ 
+@@ -2545,13 +2545,13 @@ else
+ fi
+ 
+ 
+-if test x"$enable_loop_unrolling" == "xno"; then :
++if test x"$enable_loop_unrolling" = "xno"; then :
+ 
+   CXXFLAGS="$CXXFLAGS -DMDDS_LOOP_UNROLLING=0"
+ 
+ fi
+ 
+-if test x"$enable_gcov" == "xyes"; then :
++if test x"$enable_gcov" = "xyes"; then :
+ 
+   CXXFLAGS="$CXXFLAGS --coverage -O0"
+ 
+@@ -2566,7 +2566,7 @@ else
+ fi
+ 
+ 
+-if test x"$enable_openmp" == "xyes"; then :
++if test x"$enable_openmp" = "xyes"; then :
+ 
+   CXXFLAGS="$CXXFLAGS -fopenmp"
+   LDFLAGS="$LDFLAGS -fopenmp"
+@@ -2582,7 +2582,7 @@ else
+ fi
+ 
+ 
+-if test x"$enable_sanitizer_coverage" == "xyes"; then :
++if test x"$enable_sanitizer_coverage" = "xyes"; then :
+ 
+   CXXFLAGS="$CXXFLAGS -fprofile-instr-generate -fcoverage-mapping -O0"
+ 
+@@ -3589,7 +3589,7 @@ else
+ 
+ fi
+ 
+-if test x"$enable_werror" == "xyes"; then :
++if test x"$enable_werror" = "xyes"; then :
+ 
+ 	CXXFLAGS="$CXXFLAGS -Werror"
+ 

@@ -1,0 +1,10 @@
+Mg (mg) is a Public Domain EMACS style editor.  It is "broadly"
+compatible with GNU Emacs.  Mg was formerly named MicroGnuEmacs,
+but is not associated with the GNU project.
+
+This program is intended to be a small, fast, and portable editor for
+people who can't (or don't want to) run real Emacs.
+
+The NetBSD version has a few minor cosmetic changes, better locating
+of the startup file (mg.rc), journaling and original mirroring of
+files.

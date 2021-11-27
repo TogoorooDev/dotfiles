@@ -1,0 +1,53 @@
+$NetBSD: patch-configure,v 1.2 2019/10/14 19:18:15 adam Exp $
+
+Fix wx detection.
+Add DragonFly support.
+
+--- configure.orig	2019-10-04 21:44:09.000000000 +0000
++++ configure
+@@ -365,6 +365,7 @@ Optional Libraries:
+   --disable-png            disable libpng (compression) support [autodetect]
+ 
+   --with-wx-prefix=DIR     Prefix where wxwidgets is installed (optional)
++  --with-wx-config=DIR     Prefix where wx-config is installed (optional)
+   --disable-wxwidgets      disable wxwidgets (GUI) support [autodetect]
+ 
+   --disable-iconv          disable iconv (Japanese font) support [autodetect]
+@@ -447,7 +448,15 @@ for ac_option in $@; do
+ 		;;
+ 	--with-wx-prefix=*)
+ 		arg=`echo $ac_option | cut -d '=' -f 2`
+-		_wxpath="$arg:$arg/bin"
++		_wxpath="$arg"
++		;;
++	--with-wx-config=*)
++		arg=`echo $ac_option | cut -d '=' -f 2`
++		_wxconfig="$arg"
++		;;
++	--with-wx-version=*)
++		arg=`echo $ac_option | cut -d '=' -f 2`
++		# ignore
+ 		;;
+ 	--with-boost-prefix=*)
+ 		arg=`echo $ac_option | cut -d '=' -f 2`
+@@ -1326,6 +1335,9 @@ case $_host_os in
+ 	android | beos* | bsd* | darwin* | freebsd* | gph-linux | haiku* | hpux* | iphone | irix* | linux* | mint* | netbsd* | openbsd* | riscos | solaris* | sunos* | uclinux* | webos)
+ 		_posix=yes
+ 		;;
++	dragonfly*)
++		_posix=yes
++		;;
+ 	os2-emx*)
+ 		_posix=yes	# FIXME: Really???
+ 		;;
+@@ -1665,7 +1677,9 @@ echo "$_iconv"
+ #
+ if test "$_wxwidgets" = auto ; then
+ 	_wxwidgets=no
+-	find_wxconfig
++	if test -z "$_wxconfig"; then
++		find_wxconfig
++	fi
+ 	if test -n "$_wxconfig"; then
+ 		_wxwidgets=yes
+ 	fi

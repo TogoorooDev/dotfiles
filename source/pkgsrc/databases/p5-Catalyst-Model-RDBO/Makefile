@@ -1,0 +1,19 @@
+# $NetBSD: Makefile,v 1.19 2021/05/24 19:49:31 wiz Exp $
+
+DISTNAME=	Catalyst-Model-RDBO-0.07
+PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	13
+CATEGORIES=	databases perl5
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Catalyst/}
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://metacpan.org/release/Catalyst-Model-RDBO
+COMMENT=	Rose::DB::Object model class for Catalyst
+
+DEPENDS+=	p5-Catalyst-Runtime>=5.00:../../www/p5-Catalyst-Runtime
+DEPENDS+=	p5-Rose-DB-Object>=0:../../databases/p5-Rose-DB-Object
+
+PERL5_PACKLIST=	auto/Catalyst/Model/RDBO/.packlist
+
+.include "../../lang/perl5/module.mk"
+.include "../../mk/bsd.pkg.mk"

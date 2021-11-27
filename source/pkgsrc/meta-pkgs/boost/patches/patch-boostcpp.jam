@@ -1,0 +1,18 @@
+$NetBSD: patch-boostcpp.jam,v 1.4 2019/07/01 04:00:10 ryoon Exp $
+
+Find pkgsrc libraries.
+Allow exclusion of all libraries.
+
+--- boostcpp.jam.orig	2019-04-09 19:35:15.000000000 +0000
++++ boostcpp.jam
+@@ -520,6 +520,10 @@ rule libraries-to-install ( existing-lib
+     {
+         EXIT error\: both --with-<library> and --without-<library> specified ;
+     }
++    if $(without-parameter) && $(without-parameter) = "*"
++    {
++        without-parameter = $(existing-libs) ;
++    }
+ 
+     local wrong = [ set.difference $(with-parameter) : $(existing-libs) ] ;
+     if $(wrong)

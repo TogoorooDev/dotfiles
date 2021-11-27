@@ -1,0 +1,13 @@
+$NetBSD: distinfo,v 1.19 2021/01/27 16:20:20 jperkin Exp $
+
+SHA1 (apache-couchdb-2.3.1.tar.gz) = 075a4f2fa2b1f2274f089593338e9ee86b61ee62
+RMD160 (apache-couchdb-2.3.1.tar.gz) = 2d43affc236c536694c061ef7c1a89b489ef6bc9
+SHA512 (apache-couchdb-2.3.1.tar.gz) = a34a8775b2be3c51f48c9f45c5ccaa01fbd8435d58aa326e1e53f1c82678fdbf657f90003d476ad43d3898bbd3cbedfc2dd9adbd2d98cec31f850ca743c8c64c
+Size (apache-couchdb-2.3.1.tar.gz) = 13473795 bytes
+SHA1 (patch-aa) = c657ce706e3ba0487aff6ac96628ebf3c97b1475
+SHA1 (patch-rebar.config.script) = 628340e6a8085e92d4193ac11905eebd8377a6b6
+SHA1 (patch-rel_files_couchdb.in) = d94bf0e54657fea26dd42e807cc2de36a67e8fda
+SHA1 (patch-rel_overlay_etc_default.ini) = 203af5ee1684288b66103842c30fa0f9135abd4b
+SHA1 (patch-src_config_src_config__app.erl) = 62c15c6e48961736dab4dd0d27b0c968847df323
+SHA1 (patch-src_couch_rebar.config.script) = 75f1d2d8aaa32d87f79c1c9820fad9b1d7b2b03b
+SHA1 (patch-src_snappy_rebar.config) = 767157cd1ff73267d8b023c2902d3861aedbc61b

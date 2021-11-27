@@ -1,0 +1,22 @@
+$NetBSD: patch-Makefile,v 1.10 2021/05/20 12:23:24 wiz Exp $
+
+Enable the "install" target on all OS.
+
+--- Makefile.orig	2021-05-14 14:59:34.000000000 +0000
++++ Makefile
+@@ -148,7 +148,6 @@ clean:
+ #------------------------------------------------------------------------------
+ # make install is validated only for Linux, macOS, Hurd and some BSD targets
+ #------------------------------------------------------------------------------
+-ifneq (,$(filter $(shell uname),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD DragonFly NetBSD MSYS_NT Haiku))
+ 
+ HOST_OS = POSIX
+ 
+@@ -354,7 +353,6 @@ clang38install:
+ lz4install:
+ 	[ -e lz4 ] || git clone https://github.com/lz4/lz4 && sudo $(MAKE) -C lz4 install
+ 
+-endif
+ 
+ 
+ CMAKE_PARAMS = -DZSTD_BUILD_CONTRIB:BOOL=ON -DZSTD_BUILD_STATIC:BOOL=ON -DZSTD_BUILD_TESTS:BOOL=ON -DZSTD_ZLIB_SUPPORT:BOOL=ON -DZSTD_LZMA_SUPPORT:BOOL=ON -DCMAKE_BUILD_TYPE=Release

@@ -1,0 +1,17 @@
+Gajim is a graphical XMPP/Jabber client written in Python. The goal
+of Gajim's developers is to provide a full featured and easy to use
+XMPP client.
+
+FEATURES:
+* Tabbed chat window and single window modes
+* Group chat support (with Multi-User Chat protocol), invitation, chat
+to group chat transformation, minimize group chat to roster
+* Emoticons, avatars, PEP (user activity, mood and tune)
+* File transfer, room bookmarks
+* Metacontacts support
+* Tray icon, speller, extended chat history functionalities
+* Transport registration support
+* Service discovery including nodes, user search
+* Multiple accounts support
+* DBus capabilities
+* XML console

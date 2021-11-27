@@ -1,0 +1,65 @@
+$NetBSD: patch-configure.ac,v 1.2 2020/07/02 08:50:09 schmonz Exp $
+
+Remove anonymous inner functions to build with clang.
+Remove outdated OpenSSL check to build with 1.1.x.
+
+--- configure.ac.orig	2015-04-30 00:53:36.000000000 +0000
++++ configure.ac
+@@ -149,19 +149,6 @@ AS_IF([ test "x$enable_tls" != "xno" ],
+                        [
+                          AC_MSG_RESULT([yes])
+                          AC_SEARCH_LIBS([RSA_sign], [ssl crypto], [], [ AC_MSG_FAILURE([--enable-tls was given but OpenSSL was not found]) ])
+-                         AC_SEARCH_LIBS([SSL_library_init],
+-                                        [ssl crypto],
+-                                        [ LIBS="$LIBS -lssl"
+-                                          AC_DEFINE([HAVE_LIBSSL], [1])
+-                                          AC_MSG_CHECKING([for OpenSSL libraries (for TLS support)]) 
+-                                          AC_MSG_RESULT([yes])
+-                                        ],
+-                                        [ AS_IF([ test "x$enable_tls" = "xcheck" ],
+-                                                [ AC_MSG_CHECKING([for OpenSSL libraries (for TLS support)])
+-                                                  AC_MSG_RESULT([no, TLS disabled]) ],
+-                                                [ AC_MSG_FAILURE([--enable-tls was given but OpenSSL was not found])
+-                                                ])
+-                                        ])
+                        ],
+                        [
+                          AC_MSG_RESULT([no])
+@@ -188,37 +175,6 @@ AC_SEARCH_LIBS([getopt_long],
+                                 [ AC_MSG_FAILURE([unable to compile without getopt_long(), you may need to install the libgnugetopt package/port]) ])
+                ])
+ 
+-# Checks for the flag to compile anonymous inner functions.
+-AC_MSG_CHECKING([whether anonymous inner functions are supported by default])
+-AC_TRY_COMPILE([],
+-               [ int (*bar)(int) = ({ int tmp_action(int foo) { foo++; return(0); } &tmp_action; }); (*bar)(0); ],
+-               [ AC_MSG_RESULT([yes]) ],
+-               [ AC_MSG_RESULT([no])
+-                 OLD_CFLAGS=$CFLAGS
+-                 CFLAGS="$OLD_CFLAGS -fnested-functions"
+-                 AC_MSG_CHECKING([whether anonymous inner functions are supported with -fnested-functions])
+-                 AC_TRY_COMPILE([],
+-                                [ int (*bar)(int) = ({ int tmp_action(int foo) { foo++; return(0); } &tmp_action; }); (*bar)(0); ],
+-                                [ AC_MSG_RESULT([yes]) ],
+-                                [ AC_MSG_RESULT([no])
+-                                  CFLAGS="$OLD_CFLAGS -ftrampolines"
+-                                  AC_MSG_CHECKING([whether anonymous inner functions are supported with -ftrampolines])
+-                                  AC_TRY_COMPILE([],
+-                                                 [ int (*bar)(int) = ({ int tmp_action(int foo) { foo++; return(0); } &tmp_action; }); (*bar)(0); ],
+-                                                 [ AC_MSG_RESULT([yes]) ],
+-                                                 [ AC_MSG_RESULT([no])
+-                                                   CFLAGS="$OLD_CFLAGS -Wp,-Wno-trampolines"
+-                                                   AC_MSG_CHECKING([whether anonymous inner functions are supported with -Wp,-Wno-trampolines])
+-                                                   AC_TRY_COMPILE([],
+-                                                                  [ int (*bar)(int) = ({ int tmp_action(int foo) { foo++; return(0); } &tmp_action; }); (*bar)(0); ],
+-                                                                  [ AC_MSG_RESULT([yes]) ],
+-                                                                  [ AC_MSG_RESULT([no])
+-                                                                    AC_MSG_FAILURE([Unable to compile without anonymous inner function support.])
+-                                                                  ])
+-                                                 ])
+-                                ])
+-               ])
+-
+ AC_MSG_CHECKING([whether struct option is defined in getopt.h])
+ AC_TRY_COMPILE([ #define _GNU_SOURCE
+                  #include <stdio.h>

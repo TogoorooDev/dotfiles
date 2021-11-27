@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.10.2.1 2021/10/11 18:40:50 bsiegert Exp $
+
+RMD160 (hiredis-1.0.2.tar.gz) = a3924f0d60525d9c2d52b56c74733a5532b6b2c8
+SHA512 (hiredis-1.0.2.tar.gz) = 86497a1c21869bbe535378885eee6dbd594ef96325966511a3513f81e501af0f5ac7fed864f3230372f3ac7a23c05bad477fa5aa90b9747c9fb1408028174f9b
+Size (hiredis-1.0.2.tar.gz) = 98139 bytes
+SHA1 (patch-Makefile) = 2071de674bd5322365702986421accbfd1aadbcc

@@ -1,0 +1,7 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.3 2019/11/26 19:13:25 nia Exp $
+
+All Claws-Mail plug-ins are separate packages, and must be installed
+separately.
+
+===========================================================================

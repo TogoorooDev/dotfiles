@@ -1,0 +1,6 @@
+/etc/portage/package.use/base
+/etc/portage/package.use/#base#
+/home/hens/.emacs.d/pkg/gentoo.el
+/home/hens/.emacs.d/pkg/#gentoo.el#
+/home/hens/.emacs.d/conf.org
+/home/hens/.emacs.d/#conf.org#

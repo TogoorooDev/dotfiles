@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.3 2020/02/01 20:49:43 adam Exp $
+include/librdkafka/rdkafka.h
+include/librdkafka/rdkafka_mock.h
+include/librdkafka/rdkafkacpp.h
+lib/librdkafka++.a
+lib/librdkafka++.so
+lib/librdkafka++.so.1
+lib/librdkafka.a
+lib/librdkafka.so
+lib/librdkafka.so.1
+lib/pkgconfig/rdkafka++-static.pc
+lib/pkgconfig/rdkafka++.pc
+lib/pkgconfig/rdkafka-static.pc
+lib/pkgconfig/rdkafka.pc

@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2020/03/08 15:39:43 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/lib/wmi-lite.rb
+${GEM_LIBDIR}/lib/wmi-lite/version.rb
+${GEM_LIBDIR}/lib/wmi-lite/wmi.rb
+${GEM_LIBDIR}/lib/wmi-lite/wmi_exception.rb
+${GEM_LIBDIR}/lib/wmi-lite/wmi_instance.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

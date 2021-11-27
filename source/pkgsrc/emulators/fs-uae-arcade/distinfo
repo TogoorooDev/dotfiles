@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.4 2020/05/23 09:12:57 adam Exp $
+
+SHA1 (fs-uae-arcade-3.0.5.tar.gz) = ac5084a3fa6fe6cd1138981fb0535ed93d3c8318
+RMD160 (fs-uae-arcade-3.0.5.tar.gz) = e20405b1b762f5495ce2b6c271e6a989b199485c
+SHA512 (fs-uae-arcade-3.0.5.tar.gz) = 1fe70a2863d1ec6051565b62f549f505ddd05802826a67a0e65d84904fe1156006eac9e77d41049274471fb3e4ad26f74b728c78206048c09041f91a646b1fee
+Size (fs-uae-arcade-3.0.5.tar.gz) = 9277503 bytes
+SHA1 (patch-setup.py) = fc9a71aeb662210193f7fb399a5fa25425a47773

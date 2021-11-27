@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2018/03/13 17:00:05 bsiegert Exp $
+bin/matterircd

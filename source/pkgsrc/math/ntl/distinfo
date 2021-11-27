@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.10 2020/06/08 13:42:38 wiz Exp $
+
+SHA1 (ntl-11.4.3.tar.gz) = f4c7dc1fd448b499ef98549e8702b320ba6a7830
+RMD160 (ntl-11.4.3.tar.gz) = 362e62354c160daeda3af7395df79385b0c582f5
+SHA512 (ntl-11.4.3.tar.gz) = 26515ed73c8e74d0ff8bc161101f1b815f2c23e4bd633cc426f6da2741c6d8f43ad4f8df2cb7ad915475933599e0ee01cc360e75569f6f5d49cb5e5eae37b3f5
+Size (ntl-11.4.3.tar.gz) = 2274421 bytes
+SHA1 (patch-mfile) = c40f7c85a6a5719ab30c4423f296d121b25018db

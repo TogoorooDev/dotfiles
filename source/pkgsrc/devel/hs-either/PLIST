@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 13:16:50 pho Exp $
+lib/either-${PKGVERSION}/${HS_VERSION}/package-description
+lib/either-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Combinators.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Combinators.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Combinators.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Validation.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Validation.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Either/Validation.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/Data-Either-Combinators.html
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/Data-Either-Validation.html
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/either.haddock
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/either-${PKGVERSION}/html/synopsis.png

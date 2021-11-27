@@ -1,0 +1,5 @@
+mini_sendmail reads its standard input up to an end-of-file and
+sends a copy of the message found there to all of the addresses
+listed.  The message is sent by connecting to a local SMTP server.
+
+See the manual entry for more details.

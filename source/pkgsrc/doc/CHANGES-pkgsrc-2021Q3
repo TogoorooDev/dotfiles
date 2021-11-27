@@ -1,0 +1,76 @@
+$NetBSD: CHANGES-pkgsrc-2021Q3,v 1.1.2.22 2021/10/17 16:41:44 tm Exp $
+
+Changes to packages and infrastructure on the pkgsrc-2021Q3 branch:
+
+Pullup ticket #6502 - requested by wiz
+graphics/libexif: security fix
+
+Pullup ticket #6501 - requested by bsiegert
+net/tigervnc: Bugfix for X11R7 fonts
+
+Pullup ticket #6500 - requested by bsiegert
+print/ghostscript-agpl: Bugfix, undefined reference error during link
+
+Pullup ticket #6503 - requested by taca
+databases/redis: security fix
+
+Pullup ticket #6504 - requested by taca
+www/apache24: security fix
+
+Pullup ticket #6505 - requested by wiz
+security/tor-browser: bugfix
+
+Pullup ticket #6507 - requested by tm
+net/rsync: security fix
+
+Pullup ticket #6506 - requested by taca
+apache24: security fix
+
+Pullup ticket #6510 - requested by nia
+x11/mate-applets: bugfix for non-x86
+
+Pullup ticket #6508 - requested by nia
+www/firefox78: security fix
+www/firefox78-l10n: dependent update
+
+Pullup ticket #6509 - requested by nia
+www/firefox91: security fix
+www/firefox91-l10n: dependent update
+
+Pullup ticket #6511 - requested by tm
+databases/hiredis: security fix
+
+Pullup ticket #6512 - requested by mlelstv
+print/ghostscript-agpl: pullup and build fix
+
+Pullup ticket #6513 - requested by gutteridge
+lang/python27: security fix
+
+Pullup ticket #6514 - requested by wiz
+mail/neomutt: security fix
+
+Pullup ticket #6515 - requested by wiz
+databases/p5-DBI: security fix
+
+Pullup ticket #6516 - requested by wiz
+multimedia/libmediainfo: security fix
+multimedia/mediainfo: security fix
+
+Pullup ticket #6517 - requested by wiz
+devel/ncurses: security fix
+
+Pullup ticket #6518 - requested by wiz
+devel/apache-maven: security fix
+
+Pullup ticket #6519 - requested by nia
+graphics/pfstools: build fix
+
+Pullup ticket #6520 - requested by wiz
+databases/sqlite3: segfault fix
+
+Pullup ticket #6522 - requested by nia
+mail/balsa: security fix
+
+Pullup ticket #6521 - requested by nia
+mail/alpine: security fix
+

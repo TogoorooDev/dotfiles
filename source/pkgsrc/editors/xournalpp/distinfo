@@ -1,0 +1,10 @@
+$NetBSD: distinfo,v 1.7 2021/07/22 12:10:46 yhardy Exp $
+
+SHA1 (xournalpp-1.1.0.tar.gz) = 339bf9d0548148f1d8c0f9d1ed91f7615a8805c4
+RMD160 (xournalpp-1.1.0.tar.gz) = b007b5ed880e17acad87db6c75c8c24c397ff5df
+SHA512 (xournalpp-1.1.0.tar.gz) = 823d2561caa45bd7deb994bd71df0df35b6f279e04c4e8bb5d3f05f2fff2a68af8ea572f42095a9f28da5b2fdbe6b9b465aeca758d36ab29a24c62ea68c99c56
+Size (xournalpp-1.1.0.tar.gz) = 15037204 bytes
+SHA1 (patch-CMakeLists.txt) = 18c8d997593a72b34fa13517a9a3b337cbfd4824
+SHA1 (patch-po_CMakeLists.txt) = 897b4f9507b48be394409deda8170fe7d39f008c
+SHA1 (patch-src_control_settings_Settings.cpp) = d981d5254488f4cfd138cf5413f7ac485b8322fe
+SHA1 (patch-src_util_DeviceListHelper.cpp) = 19e57e0c95d8b885da5d4b9087ef804fb2c6ab57

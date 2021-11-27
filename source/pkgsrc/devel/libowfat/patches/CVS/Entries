@@ -1,0 +1,11 @@
+/patch-aa/1.4/Sun Oct  7 12:13:46 2018//Tpkgsrc-2021Q3
+/patch-io_io__sendfile.c/1.1/Fri Jun 26 19:21:52 2020//Tpkgsrc-2021Q3
+/patch-io_iom__init.c/1.1/Sun Dec 22 22:23:00 2019//Tpkgsrc-2021Q3
+/patch-io_iom__wait.c/1.2/Sun Dec 22 22:23:00 2019//Tpkgsrc-2021Q3
+/patch-mmap_mmap__readat.c/1.1/Fri Jun 26 19:21:52 2020//Tpkgsrc-2021Q3
+/patch-scan_scan__iso8601.c/1.1/Fri Jun 26 19:21:52 2020//Tpkgsrc-2021Q3
+/patch-tai_tai__now__libowfat.3/1.1/Tue Jul 16 21:39:11 2019//Tpkgsrc-2021Q3
+/patch-tai_tai__pack__libowfat.3/1.1/Tue Jul 16 21:39:11 2019//Tpkgsrc-2021Q3
+/patch-taia_taia__now__libowfat.3/1.1/Tue Jul 16 21:39:11 2019//Tpkgsrc-2021Q3
+/patch-taia_taia__pack__libowfat.3/1.1/Tue Jul 16 21:39:11 2019//Tpkgsrc-2021Q3
+D

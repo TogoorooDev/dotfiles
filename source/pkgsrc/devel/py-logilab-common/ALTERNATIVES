@@ -1,0 +1,1 @@
+bin/logilab-pytest @PREFIX@/bin/logilab-pytest-@PYVERSSUFFIX@

@@ -1,0 +1,45 @@
+$NetBSD: patch-Makefile.in,v 1.3 2018/10/01 09:29:00 jperkin Exp $
+
+Fix install permissions.
+Pass sysconfdir.
+
+--- Makefile.in.orig	2018-06-25 20:37:20.000000000 +0000
++++ Makefile.in
+@@ -1,5 +1,5 @@
+ CC		= @CC@
+-DEFS		= @DEFS@ -DPREFIX=\"${prefix}\"
++DEFS		= @DEFS@ -DSYSCONFDIR=\"${etcdir}\"
+ CFLAGS		= @CFLAGS@ $(DEFS) -I@srcdir@ -I.
+ LDFLAGS		= @LDFLAGS@
+ LIBS		= @LIBS@
+@@ -47,14 +47,14 @@ distclean: clean
+ 	config.status Makefile mbuffer.1 core
+ 
+ $(DESTDIR)$(etcdir)/mbuffer.rc:
+-	-$(INSTALL) -d -m 755 $(DESTDIR)$(etcdir)
+-	$(INSTALL) -m 644 mbuffer.rc $(DESTDIR)$(etcdir)
++	-$(BSD_INSTALL_DATA_DIR) -d -m 755 $(DESTDIR)$(etcdir)
++	$(BSD_INSTALL_DATA) -m 644 mbuffer.rc $(DESTDIR)$(etcdir)
+ 
+ install: $(TARGET) $(DESTDIR)$(etcdir)/mbuffer.rc
+-	-$(INSTALL) -d -m 755 $(DESTDIR)$(bindir)
+-	$(INSTALL) -m 755 $(TARGET) $(DESTDIR)$(bindir)/
+-	-$(INSTALL) -d -m 755 $(DESTDIR)$(mandir)
+-	$(INSTALL) -m 644 mbuffer.1 $(DESTDIR)$(mandir)/
++	-$(BSD_INSTALL_PROGRAM_DIR) -d -m 755 $(DESTDIR)$(bindir)
++	$(BSD_INSTALL_PROGRAM) -m 755 $(TARGET) $(DESTDIR)$(bindir)/
++	-$(BSD_INSTALL_MAN_DIR) -d -m 755 $(DESTDIR)$(mandir)
++	$(BSD_INSTALL_MAN) -m 644 mbuffer.1 $(DESTDIR)$(mandir)/
+ 
+ lint:
+ 	lint $(DEFS) $(SOURCES)
+@@ -157,7 +157,7 @@ test7: mbuffer
+ 	./mbuffer -P90 --md5 -i INSTALL -o /dev/null
+ 
+ tapetest.so: tapetest.c config.h
+-	$(CC) $(CFLAGS) -shared -fPIC tapetest.c -o $@ $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -shared -fPIC tapetest.c -o $@ $(LIBS)
+ 
+ idev.so: idev.c config.h
+-	$(CC) $(CFLAGS) -shared -g -fPIC idev.c -o $@ $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -shared -g -fPIC idev.c -o $@ $(LIBS)

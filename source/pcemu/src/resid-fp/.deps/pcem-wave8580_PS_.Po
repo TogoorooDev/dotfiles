@@ -1,0 +1,5 @@
+resid-fp/pcem-wave8580_PS_.o: resid-fp/wave8580_PS_.cc \
+ /usr/include/stdc-predef.h resid-fp/wave.h resid-fp/siddefs-fp.h
+/usr/include/stdc-predef.h:
+resid-fp/wave.h:
+resid-fp/siddefs-fp.h:

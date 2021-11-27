@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2018/01/01 22:29:38 rillig Exp $
+bin/qvalldel
+bin/qvplay
+bin/qvrec
+man/man1/qvalldel.1
+man/man1/qvplay.1
+man/man1/qvrec.1

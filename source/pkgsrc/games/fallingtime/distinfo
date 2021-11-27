@@ -1,0 +1,10 @@
+$NetBSD: distinfo,v 1.2 2019/10/06 18:22:22 nia Exp $
+
+SHA1 (fallingtime-1.0.2.tar.gz) = 135f51242ff22b0f45fb30867b08d646c3f05830
+RMD160 (fallingtime-1.0.2.tar.gz) = 62cf2163f8ebe71364c267758a600dfc290e4040
+SHA512 (fallingtime-1.0.2.tar.gz) = ada433b2a43558eea10b9e63564fc467640df96d5c3b6007610b9a4987e6f3cc6d5b0ef155da513d4f651be2a8e3cd9cdc59d6cbbeec5a58d66f408de1cd4929
+Size (fallingtime-1.0.2.tar.gz) = 1879166 bytes
+SHA1 (patch-CMakeLists.txt) = 27d7c488cdd24162f49f3391c75e7b8afb8ba521
+SHA1 (patch-cfgpath.h) = 95f82b5c981136a43b68764b33ded926e4dd807a
+SHA1 (patch-chipmunk_include_chipmunk_chipmunk.h) = 076caf52ccd588c59f0448050350af7209f6360e
+SHA1 (patch-pkg_default.gcw0.desktop) = c3cc6d289369cbfb49ea3adf2f068c49717a71af

@@ -1,0 +1,24 @@
+$NetBSD: patch-ac,v 1.4 2021/05/31 12:05:52 wiz Exp $
+
+--- sorcerer/makefile.orig	2001-04-13 00:43:59.000000000 +0000
++++ sorcerer/makefile
+@@ -9,8 +9,8 @@ DLG = $(BIN)/dlg
+ PCCTS_H = $(PCCTS)/h
+ SET = $(PCCTS)/support/set
+ 
+-CC=cc
+-COPT=-g
++#CC=cc
++#COPT=-g
+ CFLAGS = $(COPT) -Ih -I. -I$(PCCTS_H) -I$(SET) -DZZLEXBUFSIZE=32000
+ AFLAGS = -gh -k 2 -gt
+ DFLAGS = -C2
+@@ -25,7 +25,7 @@ all:
+ 	(cd ./lib; $(MAKE) CC="$(CC)" COPT="$(COPT)")
+ 
+ sor: $(OBJ) $(SRC)
+-	$(CC) -o sor $(CFLAGS) $(OBJ)
++	$(CC) $(LDFLAGS) -o sor $(CFLAGS) $(OBJ)
+ 	mv sor $(BIN)/.
+ 
+ sor.o : sor.c mode.h tokens.h

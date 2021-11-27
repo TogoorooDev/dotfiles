@@ -1,0 +1,40 @@
+$NetBSD: patch-Makefile,v 1.16 2020/12/09 10:33:04 jaapb Exp $
+
+Use BSD_INSTALL_* instead of mkdir
+Honor LDFLAGS
+
+--- Makefile.orig	2020-09-01 12:47:58.000000000 +0000
++++ Makefile
+@@ -61,7 +61,7 @@ INCLUDES=-I utils -I parsing -I typing -
+ COMPFLAGS=-strict-sequence -principal -absname -w +a-4-9-40-41-42-44-45-48-66 \
+ 	  -warn-error A \
+           -bin-annot -safe-string -strict-formats $(INCLUDES)
+-LINKFLAGS=
++LINKFLAGS= -cclib "$(LDFLAGS)"
+ 
+ ifeq "$(strip $(NATDYNLINKOPTS))" ""
+ OCAML_NATDYNLINKOPTS=
+@@ -351,10 +351,10 @@ endif
+ # Installation
+ .PHONY: install
+ install:
+-	$(MKDIR) "$(INSTALL_BINDIR)"
+-	$(MKDIR) "$(INSTALL_LIBDIR)"
+-	$(MKDIR) "$(INSTALL_STUBLIBDIR)"
+-	$(MKDIR) "$(INSTALL_COMPLIBDIR)"
++	$(BSD_INSTALL_PROGRAM_DIR) "$(INSTALL_BINDIR)"
++	$(BSD_INSTALL_LIB_DIR) "$(INSTALL_LIBDIR)"
++	$(BSD_INSTALL_LIB_DIR) "$(INSTALL_STUBLIBDIR)"
++	$(BSD_INSTALL_LIB_DIR) "$(INSTALL_COMPLIBDIR)"
+ 	$(INSTALL_DATA) \
+ 	  VERSION \
+ 	  "$(INSTALL_LIBDIR)"
+@@ -408,7 +408,7 @@ ifeq "$(INSTALL_SOURCE_ARTIFACTS)" "true
+ endif
+ 	$(MAKE) -C tools install
+ ifeq "$(UNIX_OR_WIN32)" "unix" # Install manual pages only on Unix
+-	$(MKDIR) "$(INSTALL_MANDIR)/man$(PROGRAMS_MAN_SECTION)"
++	$(BSD_INSTALL_MAN_DIR) "$(INSTALL_MANDIR)/man$(PROGRAMS_MAN_SECTION)"
+ 	-$(MAKE) -C man install
+ endif
+ 	for i in $(OTHERLIBRARIES); do \

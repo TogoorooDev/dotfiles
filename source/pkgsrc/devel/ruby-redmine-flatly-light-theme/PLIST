@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.4 2021/02/28 16:12:52 taca Exp $
+${RM_THEMEDIR}/flatly_light_redmine/fonts/FontAwesome.otf
+${RM_THEMEDIR}/flatly_light_redmine/fonts/fontawesome-webfont.eot
+${RM_THEMEDIR}/flatly_light_redmine/fonts/fontawesome-webfont.svg
+${RM_THEMEDIR}/flatly_light_redmine/fonts/fontawesome-webfont.ttf
+${RM_THEMEDIR}/flatly_light_redmine/fonts/fontawesome-webfont.woff
+${RM_THEMEDIR}/flatly_light_redmine/fonts/fontawesome-webfont.woff2
+${RM_THEMEDIR}/flatly_light_redmine/javascripts/theme.js
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/DMSF.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/activity.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/application.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/buttons.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/color_tasks.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/font-awesome.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/forum.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/lists.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/news.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/pagination.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/projects.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/redminebacklogs.css
+${RM_THEMEDIR}/flatly_light_redmine/stylesheets/theme.css
+@pkgdir ${RM_THEMEDIR}/flatly_light_redmine/images

@@ -1,0 +1,25 @@
+/patch-gio_gcredentialsprivate.h/1.4/Tue Sep 29 10:43:33 2020//Tpkgsrc-2021Q3
+/patch-gio_gdbus-2.0_codegen_meson.build/1.2/Thu Nov 14 11:40:30 2019//Tpkgsrc-2021Q3
+/patch-gio_giomodule.c/1.6/Tue Aug 20 14:06:46 2019//Tpkgsrc-2021Q3
+/patch-gio_glib-compile-schemas.c/1.1/Fri Sep 18 11:18:29 2020//Tpkgsrc-2021Q3
+/patch-gio_gresource-tool.c/1.2/Mon Jun  3 09:53:50 2019//Tpkgsrc-2021Q3
+/patch-gio_gunixcredentialsmessage.c/1.3/Fri Oct 19 16:44:15 2018//Tpkgsrc-2021Q3
+/patch-gio_gunixmounts.c/1.6/Sat Sep 18 13:19:26 2021//Tpkgsrc-2021Q3
+/patch-gio_inotify_inotify-kernel.c/1.5/Thu Nov 14 11:40:30 2019//Tpkgsrc-2021Q3
+/patch-gio_meson.build/1.7/Thu Nov 14 11:40:30 2019//Tpkgsrc-2021Q3
+/patch-gio_tests_gdbus-export.c/1.1/Fri Jun 21 20:21:00 2019//Tpkgsrc-2021Q3
+/patch-glib_gatomic.c/1.2/Wed Mar  4 15:11:48 2020//Tpkgsrc-2021Q3
+/patch-glib_gatomic.h/1.2/Wed Mar  4 15:11:48 2020//Tpkgsrc-2021Q3
+/patch-glib_genviron.c/1.2/Wed Mar  4 15:11:48 2020//Tpkgsrc-2021Q3
+/patch-glib_gspawn.c/1.2/Wed Mar  4 15:11:48 2020//Tpkgsrc-2021Q3
+/patch-glib_meson.build/1.9/Tue Sep 29 10:43:33 2020//Tpkgsrc-2021Q3
+/patch-glib_tests_hash.c/1.3/Wed Mar  4 15:11:48 2020//Tpkgsrc-2021Q3
+/patch-glib_tests_include.c/1.3/Tue Nov 26 10:27:09 2019//Tpkgsrc-2021Q3
+/patch-glib_tests_meson.build/1.2/Wed Mar 31 10:11:23 2021//Tpkgsrc-2021Q3
+/patch-gmodule_gmodule-dl.c/1.3/Wed Jun 30 14:26:11 2021//Tpkgsrc-2021Q3
+/patch-gmodule_gmodule.c/1.3/Wed Jun 30 14:26:11 2021//Tpkgsrc-2021Q3
+/patch-gobject_glib-mkenums.in/1.5/Mon Jun  3 09:53:50 2019//Tpkgsrc-2021Q3
+/patch-gobject_meson.build/1.5/Thu Nov 14 11:40:30 2019//Tpkgsrc-2021Q3
+/patch-meson.build/1.14/Tue Mar 30 09:37:51 2021//Tpkgsrc-2021Q3
+/patch-meson_options.txt/1.2/Thu Nov 14 11:40:30 2019//Tpkgsrc-2021Q3
+D

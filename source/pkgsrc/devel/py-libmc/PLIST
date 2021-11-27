@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.4 2018/12/05 16:20:45 adam Exp $
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/_pylibmc.so
+${PYSITELIB}/pylibmc/__init__.py
+${PYSITELIB}/pylibmc/__init__.pyc
+${PYSITELIB}/pylibmc/__init__.pyo
+${PYSITELIB}/pylibmc/__main__.py
+${PYSITELIB}/pylibmc/__main__.pyc
+${PYSITELIB}/pylibmc/__main__.pyo
+${PYSITELIB}/pylibmc/autoconf.py
+${PYSITELIB}/pylibmc/autoconf.pyc
+${PYSITELIB}/pylibmc/autoconf.pyo
+${PYSITELIB}/pylibmc/client.py
+${PYSITELIB}/pylibmc/client.pyc
+${PYSITELIB}/pylibmc/client.pyo
+${PYSITELIB}/pylibmc/consts.py
+${PYSITELIB}/pylibmc/consts.pyc
+${PYSITELIB}/pylibmc/consts.pyo
+${PYSITELIB}/pylibmc/pools.py
+${PYSITELIB}/pylibmc/pools.pyc
+${PYSITELIB}/pylibmc/pools.pyo
+${PYSITELIB}/pylibmc/test.py
+${PYSITELIB}/pylibmc/test.pyc
+${PYSITELIB}/pylibmc/test.pyo

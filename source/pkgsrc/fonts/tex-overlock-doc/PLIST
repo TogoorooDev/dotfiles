@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/20 00:35:37 markd Exp $
+share/texmf-dist/doc/fonts/overlock/OFL.txt
+share/texmf-dist/doc/fonts/overlock/README
+share/texmf-dist/doc/fonts/overlock/overlock-samples.pdf
+share/texmf-dist/doc/fonts/overlock/overlock-samples.tex

@@ -1,0 +1,8 @@
+Nestopia is a portable and cycle-accurate open-source Nintendo
+Entertainment System/Famicom emulator designed to emulate the NES
+hardware as accurately as possible.
+
+This is Nestopia UE. Nestopia UE (Undead Edition) is a fork of the
+original source code, with enhancements from members of the emulation
+community. This includes support for new platforms, and bug fixes
+in the emulator core.

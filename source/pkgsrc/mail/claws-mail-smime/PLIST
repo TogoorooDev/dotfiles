@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.5 2018/11/08 07:29:36 markd Exp $
+lib/claws-mail/plugins/smime.deps

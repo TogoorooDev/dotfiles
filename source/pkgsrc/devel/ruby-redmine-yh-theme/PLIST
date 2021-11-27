@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/28 16:23:47 taca Exp $
+${RM_THEMEDIR}/yenihat/favicon/favicon.ico
+${RM_THEMEDIR}/yenihat/images/redmine.png
+${RM_THEMEDIR}/yenihat/javascripts/theme.js
+${RM_THEMEDIR}/yenihat/stylesheets/admin.css
+${RM_THEMEDIR}/yenihat/stylesheets/application.css
+${RM_THEMEDIR}/yenihat/stylesheets/buttons.css
+${RM_THEMEDIR}/yenihat/stylesheets/controller_specific.css
+${RM_THEMEDIR}/yenihat/stylesheets/custom_responsive.css
+${RM_THEMEDIR}/yenihat/stylesheets/files.css
+${RM_THEMEDIR}/yenihat/stylesheets/header.css
+${RM_THEMEDIR}/yenihat/stylesheets/icons.css
+${RM_THEMEDIR}/yenihat/stylesheets/issues.css
+${RM_THEMEDIR}/yenihat/stylesheets/modal.css
+${RM_THEMEDIR}/yenihat/stylesheets/older.css
+${RM_THEMEDIR}/yenihat/stylesheets/table.css

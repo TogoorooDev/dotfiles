@@ -1,0 +1,27 @@
+$NetBSD: patch-CMakeLists.txt,v 1.6 2021/05/02 08:40:00 nia Exp $
+
+Fix locale detection.
+
+--- CMakeLists.txt.orig	2020-08-04 04:46:14.000000000 +0000
++++ CMakeLists.txt
+@@ -364,7 +364,9 @@ if(HAVE_LOCALTIME_R)
+ 	list(APPEND FUNCTION_DEFINES HAVE_LOCALTIME_R)
+ endif()
+ 
+-if(HAVE_NEWLOCALE AND HAVE_FREELOCALE AND HAVE_USELOCALE OR APPLE)
++check_include_files("locale.h" HAVE_LOCALE)
++
++if(HAVE_LOCALE OR APPLE)
+ 	list(APPEND FUNCTION_DEFINES HAVE_LOCALE)
+ 	if (HAVE_SNPRINTF_L)
+ 		list(APPEND FUNCTION_DEFINES HAVE_SNPRINTF_L)
+@@ -1033,9 +1035,6 @@ endif()
+ 
+ file(GLOB READMES ${CMAKE_CURRENT_SOURCE_DIR}/README*.md)
+ 
+-find_program(UNIX2DOS NAMES unix2dos)
+-find_program(MARKDOWN NAMES markdown kramdown pandoc)
+-
+ if(UNIX OR NOT UNIX2DOS)
+ 	if(UNIX OR NOT MARKDOWN)
+ 		install(FILES ${READMES} DESTINATION ${CMAKE_INSTALL_DOCDIR} COMPONENT ${BINARY_NAME})

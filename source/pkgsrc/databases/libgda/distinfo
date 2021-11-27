@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.37 2019/05/17 08:20:34 wiz Exp $
+
+SHA1 (libgda-5.2.9.tar.xz) = 005d3be4448ae9faa5fe422f8479630793adf89e
+RMD160 (libgda-5.2.9.tar.xz) = b96a8548228f932d51bd92c19667a214b1ab1d55
+SHA512 (libgda-5.2.9.tar.xz) = a28324533298d42aacfce5d9f3d699314ddb5d5fe7e492433dbbe4232fb310b798d312ac08dffd4f4ebef5ceea3c6c49ef3c679ab97b5e9d1f64e3fed50b2231
+Size (libgda-5.2.9.tar.xz) = 12619160 bytes
+SHA1 (patch-data_Makefile.in) = b5c09e1d653f5290db1452537c310767cb6cf5b1
+SHA1 (patch-providers_mysql_Makefile.in) = 7926d08a71581f8ebd2f4e09cae71bfce2c4a1cc
+SHA1 (patch-providers_postgres_Makefile.in) = f925b74ef1658e8f289b9c69e0e8e9476ad7a428
+SHA1 (patch-providers_reuseable_mysql_Makefile.in) = 0ce50b4871938dc13a701be0831c8caf0d6d9be9
+SHA1 (patch-providers_reuseable_postgres_Makefile.in) = cba14f42297e7346ca9448e5f3503f4c49d09ab5

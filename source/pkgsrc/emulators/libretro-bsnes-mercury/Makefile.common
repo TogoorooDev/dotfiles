@@ -1,0 +1,31 @@
+# $NetBSD: Makefile.common,v 1.8 2020/06/28 13:30:29 nia Exp $
+#
+# used by emulators/libretro-bsnes-mercury/Makefile
+# used by emulators/libretro-bsnes-mercury-accuracy/Makefile
+# used by emulators/libretro-bsnes-mercury-performance/Makefile
+
+DISTNAME=	libretro-bsnes-mercury-20180803
+PKGNAME=	${DISTNAME:S/libretro-bsnes-mercury/libretro-bsnes-mercury-${BSNES_PROFILE}/}
+CATEGORIES=	emulators
+GITHUB_PROJECT=	bsnes-mercury
+GITHUB_TAG=	4e221df676ffc7b46d083cf2ae100131eabe5076
+
+LICENSE=	gnu-gpl-v3
+
+WRKSRC=		${WRKDIR}/${GITHUB_PROJECT}-${GITHUB_TAG}
+
+USE_LANGUAGES=	c c++
+
+MAKE_FLAGS+=	profile=${BSNES_PROFILE}
+MAKE_FLAGS+=	compiler=${CXX:Q}
+
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--version-script=target-libretro/link.T
+
+DISTINFO_FILE=	${.CURDIR}/../../emulators/libretro-bsnes-mercury/distinfo
+PATCHDIR=	${.CURDIR}/../../emulators/libretro-bsnes-mercury/patches
+
+.include "../../mk/bsd.prefs.mk"
+
+LIBRETRO_CORE=	bsnes_mercury_${BSNES_PROFILE}
+
+.include "../../emulators/retroarch/core.mk"

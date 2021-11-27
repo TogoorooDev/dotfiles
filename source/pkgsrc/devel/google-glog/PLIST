@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/20 20:46:13 ryoon Exp $
+include/glog/log_severity.h
+include/glog/logging.h
+include/glog/raw_logging.h
+include/glog/stl_logging.h
+include/glog/vlog_is_on.h
+lib/libglog.la
+lib/pkgconfig/libglog.pc
+share/doc/glog-${PKGVERSION}/AUTHORS
+share/doc/glog-${PKGVERSION}/COPYING
+share/doc/glog-${PKGVERSION}/ChangeLog
+share/doc/glog-${PKGVERSION}/INSTALL
+share/doc/glog-${PKGVERSION}/README.md
+share/doc/glog-${PKGVERSION}/README.windows
+share/doc/glog-${PKGVERSION}/designstyle.css
+share/doc/glog-${PKGVERSION}/glog.html

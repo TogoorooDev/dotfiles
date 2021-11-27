@@ -1,0 +1,20 @@
+/patch-configure/1.1/Wed Nov 16 13:13:44 2016//Tpkgsrc-2021Q3
+/patch-jsatom.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jscell.h/1.1/Sun Dec 18 21:54:05 2016//Tpkgsrc-2021Q3
+/patch-jscntxt.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsgc.h/1.1/Sun Dec 18 21:54:05 2016//Tpkgsrc-2021Q3
+/patch-jsgcchunk.cpp/1.2/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsiter.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsnum.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsobj.h/1.1/Sun Dec 18 21:54:05 2016//Tpkgsrc-2021Q3
+/patch-jspubtd.h/1.1/Sun Dec 18 21:54:05 2016//Tpkgsrc-2021Q3
+/patch-jsstr.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsstr.h/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jsstrinlines.h/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jstracer.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-jstracer.h/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-methodjit_MethodJIT.cpp/1.1/Mon Apr 13 19:19:37 2020//Tpkgsrc-2021Q3
+/patch-tracejit_Writer.cpp/1.1/Wed May  2 12:42:51 2018//Tpkgsrc-2021Q3
+/patch-v8-dtoa_platform.cc/1.1/Wed Nov 16 13:13:44 2016//Tpkgsrc-2021Q3
+/patch-v8-dtoa_platform.h/1.1/Wed Nov 16 13:13:44 2016//Tpkgsrc-2021Q3
+D

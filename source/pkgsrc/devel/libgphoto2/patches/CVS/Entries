@@ -1,0 +1,16 @@
+/patch-aj/1.1/Tue Apr 29 09:31:09 2008//Tpkgsrc-2021Q3
+/patch-an/1.2/Mon Feb 13 12:08:11 2012//Tpkgsrc-2021Q3
+/patch-ao/1.1/Fri Nov 20 17:02:23 2009//Tpkgsrc-2021Q3
+/patch-camlibs_ax203_jpeg__memsrcdest.c/1.1/Thu Feb  4 11:57:50 2016//Tpkgsrc-2021Q3
+/patch-camlibs_ax203_jpeg__memsrcdest.h/1.1/Thu Feb  4 11:57:50 2016//Tpkgsrc-2021Q3
+/patch-camlibs_barbie_barbie.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-camlibs_jl2005c_jpeg__memsrcdest.c/1.1/Thu Feb  4 11:57:50 2016//Tpkgsrc-2021Q3
+/patch-camlibs_jl2005c_jpeg__memsrcdest.h/1.1/Thu Feb  4 11:57:50 2016//Tpkgsrc-2021Q3
+/patch-camlibs_kodak_dc120_dc120.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-camlibs_kodak_dc120_library.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-camlibs_panasonic_coolshot_library.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-camlibs_st2205_st2205.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-libgphoto2__port_gphoto2_gphoto2-port-portability.h/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-libgphoto2_gphoto2-file.c/1.1/Wed Jan 31 10:53:40 2018//Tpkgsrc-2021Q3
+/patch-packaging_generic_check-ptp-camera/1.1/Tue Aug 18 00:30:13 2020//Tpkgsrc-2021Q3
+D

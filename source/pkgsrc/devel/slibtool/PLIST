@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2018/10/11 20:03:45 wiedi Exp $
+bin/clibtool
+bin/clibtool-shared
+bin/clibtool-static
+bin/dlibtool
+bin/dlibtool-shared
+bin/dlibtool-static
+bin/slibtool
+bin/slibtool-shared
+bin/slibtool-static
+lib/pkgconfig/slibtool.pc

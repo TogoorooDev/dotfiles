@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/11 15:06:49 nia Exp $
+share/fonts/X11/OTF/ComicNeue-Bold.otf
+share/fonts/X11/OTF/ComicNeue-BoldItalic.otf
+share/fonts/X11/OTF/ComicNeue-Italic.otf
+share/fonts/X11/OTF/ComicNeue-Light.otf
+share/fonts/X11/OTF/ComicNeue-LightItalic.otf
+share/fonts/X11/OTF/ComicNeue-Regular.otf
+share/fonts/X11/OTF/ComicNeueAngular-Bold.otf
+share/fonts/X11/OTF/ComicNeueAngular-BoldItalic.otf
+share/fonts/X11/OTF/ComicNeueAngular-Italic.otf
+share/fonts/X11/OTF/ComicNeueAngular-Light.otf
+share/fonts/X11/OTF/ComicNeueAngular-LightItalic.otf
+share/fonts/X11/OTF/ComicNeueAngular-Regular.otf
+share/fonts/X11/TTF/ComicNeue-Bold.ttf
+share/fonts/X11/TTF/ComicNeue-BoldItalic.ttf
+share/fonts/X11/TTF/ComicNeue-Italic.ttf
+share/fonts/X11/TTF/ComicNeue-Light.ttf
+share/fonts/X11/TTF/ComicNeue-LightItalic.ttf
+share/fonts/X11/TTF/ComicNeue-Regular.ttf
+share/fonts/X11/TTF/ComicNeueAngular-Bold.ttf
+share/fonts/X11/TTF/ComicNeueAngular-BoldItalic.ttf
+share/fonts/X11/TTF/ComicNeueAngular-Italic.ttf
+share/fonts/X11/TTF/ComicNeueAngular-Light.ttf
+share/fonts/X11/TTF/ComicNeueAngular-LightItalic.ttf
+share/fonts/X11/TTF/ComicNeueAngular-Regular.ttf

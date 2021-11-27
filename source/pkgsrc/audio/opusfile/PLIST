@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2018/05/13 09:44:03 maya Exp $
+include/opus/opusfile.h
+lib/libopusfile.la
+lib/libopusurl.la
+lib/pkgconfig/opusfile.pc
+lib/pkgconfig/opusurl.pc
+share/doc/opusfile/AUTHORS
+share/doc/opusfile/COPYING
+share/doc/opusfile/README.md

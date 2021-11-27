@@ -1,0 +1,18 @@
+/patch-Lib_ctypes_____init____.py/1.1/Tue Sep  1 09:26:54 2020//Tpkgsrc-2021Q3
+/patch-Lib_ctypes_util.py/1.2/Sat Mar  2 13:23:36 2019//Tpkgsrc-2021Q3
+/patch-Lib_distutils_command_install.py/1.2/Sun Jun 17 19:21:22 2018//Tpkgsrc-2021Q3
+/patch-Lib_distutils_sysconfig.py/1.2/Thu Jan 26 09:13:27 2017//Tpkgsrc-2021Q3
+/patch-Lib_distutils_unixccompiler.py/1.1/Sun Jan  1 14:34:27 2017//Tpkgsrc-2021Q3
+/patch-Lib_lib2to3_pgen2_driver.py/1.2/Sat Aug 15 12:35:57 2020//Tpkgsrc-2021Q3
+/patch-Lib_sysconfig.py/1.2/Thu Jan 26 09:13:27 2017//Tpkgsrc-2021Q3
+/patch-Makefile.pre.in/1.6/Mon Dec 31 10:06:45 2018//Tpkgsrc-2021Q3
+/patch-Modules_makesetup/1.1/Sun Jan  1 14:34:27 2017//Tpkgsrc-2021Q3
+/patch-Modules_nismodule.c/1.1/Sun Jan  1 14:34:27 2017//Tpkgsrc-2021Q3
+/patch-Modules_socketmodule.c/1.2/Tue Dec 19 09:37:14 2017//Tpkgsrc-2021Q3
+/patch-Modules_socketmodule.h/1.1/Tue May 30 13:36:39 2017//Tpkgsrc-2021Q3
+/patch-Python_pylifecycle.c/1.2/Thu Apr 25 17:44:21 2019//Tpkgsrc-2021Q3
+/patch-Python_thread__pthread.h/1.1/Sun Jan  1 14:34:27 2017//Tpkgsrc-2021Q3
+/patch-configure/1.13/Tue Oct 15 16:52:41 2019//Tpkgsrc-2021Q3
+/patch-pyconfig.h.in/1.1/Tue May 30 13:36:39 2017//Tpkgsrc-2021Q3
+/patch-setup.py/1.5/Sun Jun 17 19:21:22 2018//Tpkgsrc-2021Q3
+D

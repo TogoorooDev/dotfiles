@@ -1,0 +1,27 @@
+/patch-libanjuta_anjuta-plugin-manager.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-libanjuta_anjuta-status.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-libanjuta_anjuta-status.h/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-libanjuta_anjuta-utils.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-libanjuta_anjuta-utils.h/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_am-project_projectparser.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_build-basic-autotools_build.c/1.4/Sun Sep 15 17:55:09 2019//Tpkgsrc-2021Q3
+/patch-plugins_build-basic-autotools_executer.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_build-basic-autotools_program.h/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_cvs-plugin_cvs-callbacks.c/1.1/Sat May  7 09:55:21 2016//Tpkgsrc-2021Q3
+/patch-plugins_cvs-plugin_cvs-execute.c/1.1/Sat May  7 09:55:21 2016//Tpkgsrc-2021Q3
+/patch-plugins_cvs-plugin_cvs-interface.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_debug-manager_breakpoints.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_debug-manager_queue.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_debug-manager_start.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_document-manager_plugin.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_gdb_debugger.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_gdb_preferences.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_project-manager_dialogs.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_project-manager_plugin.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_project-wizard_druid.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_project-wizard_parser.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_run-program_execute.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+/patch-plugins_run-program_plugin.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_tools_execute.c/1.1/Sun Oct  6 20:01:27 2013//Tpkgsrc-2021Q3
+/patch-plugins_tools_fileop.c/1.2/Sat Dec  7 23:47:02 2013//Tpkgsrc-2021Q3
+D

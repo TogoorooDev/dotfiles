@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.4 2020/03/24 17:48:28 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/lib/mixlib/authentication.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/digester.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/http_authentication_request.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/null_logger.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/signatureverification.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/signedheaderauth.rb
+${GEM_LIBDIR}/lib/mixlib/authentication/version.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

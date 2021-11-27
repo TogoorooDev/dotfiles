@@ -1,0 +1,7 @@
+Thunderbird is a free email, news, and chat application with support for
+add-ons, derived from the Mozilla Firefox web browser.
+
+This is is the last version of Thunderbird without a dependency on Rust.
+
+The latest version (in mail/thunderbird) should be preferred on supported
+platforms.

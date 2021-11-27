@@ -1,0 +1,34 @@
+$NetBSD: patch-ab,v 1.6 2018/04/09 16:19:12 ryoon Exp $
+
+--- EMULib/Unix/SndUnix.c.orig	2018-03-24 08:47:36.000000000 +0000
++++ EMULib/Unix/SndUnix.c
+@@ -38,7 +38,9 @@
+ 
+ #include <sys/audioio.h>
+ #include <sys/conf.h>
++#ifndef __NetBSD__
+ #include <stropts.h>
++#endif
+ 
+ static const unsigned char ULAW[256] =
+ {
+@@ -82,6 +84,10 @@ static const unsigned char ULAW[256] =
+ #include <sys/soundcard.h>
+ #endif
+ 
++#ifdef __DragonFly__
++#include <sys/soundcard.h>
++#endif
++
+ #ifdef __NetBSD__
+ #include <soundcard.h>
+ #endif
+@@ -285,7 +291,7 @@ void TrashAudio(void)
+ #elif defined(SUN_AUDIO)
+     close(SoundFD);
+ #else
+-    ioctl(SoundFD,SNDCTL_DSP_RESET);
++    ioctl(SoundFD,SNDCTL_DSP_RESET, 1);
+     close(SoundFD);
+ #endif
+   }

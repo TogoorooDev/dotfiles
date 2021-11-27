@@ -1,0 +1,5 @@
+/patch-atomic_unix_builtins.c/1.1/Thu Feb 20 06:25:28 2020//Tpkgsrc-2021Q3
+/patch-atomic_unix_builtins64.c/1.1/Thu Feb 20 06:25:28 2020//Tpkgsrc-2021Q3
+/patch-include_apr__general.h/1.1/Tue Nov 25 14:55:46 2014//Tpkgsrc-2021Q3
+/patch-include_arch_unix_apr__arch__atomic.h/1.1/Thu Feb 20 06:25:28 2020//Tpkgsrc-2021Q3
+D

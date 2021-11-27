@@ -1,0 +1,184 @@
+$NetBSD: patch-unix_configure,v 1.13 2021/01/20 20:38:49 adam Exp $
+
+--- unix/configure.orig	2020-12-31 01:31:43.000000000 +0000
++++ unix/configure
+@@ -6771,12 +6771,12 @@ fi
+ 	    LD_SEARCH_FLAGS=""
+ 	    ;;
+ 	BSD/OS-4.*)
+-	    SHLIB_CFLAGS="-export-dynamic -fPIC"
++	    SHLIB_CFLAGS="-Wl,--export-dynamic -fPIC"
+ 	    SHLIB_LD='${CC} -shared'
+ 	    SHLIB_SUFFIX=".so"
+ 	    DL_OBJS="tclLoadDl.o"
+ 	    DL_LIBS="-ldl"
+-	    LDFLAGS="$LDFLAGS -export-dynamic"
++	    LDFLAGS="$LDFLAGS --export-dynamic"
+ 	    CC_SEARCH_FLAGS=""
+ 	    LD_SEARCH_FLAGS=""
+ 	    ;;
+@@ -7447,7 +7447,7 @@ fi
+ 	    CC_SEARCH_FLAGS=""
+ 	    LD_SEARCH_FLAGS=""
+ 	    ;;
+-	OpenBSD-*)
++	OpenBSD-*|MirBSD-*)
+ 	    arch=`arch -s`
+ 	    case "$arch" in
+ 	    alpha|sparc64)
+@@ -7468,7 +7468,7 @@ fi
+ 
+ 	    LD_SEARCH_FLAGS=${CC_SEARCH_FLAGS}
+ 	    SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so${SHLIB_VERSION}'
+-	    LDFLAGS="-Wl,-export-dynamic"
++	    LDFLAGS="-Wl,--export-dynamic"
+ 	    CFLAGS_OPTIMIZE="-O2"
+ 	    if test "${TCL_THREADS}" = "1"; then
+ 
+@@ -7490,7 +7490,7 @@ fi
+ 	    SHLIB_SUFFIX=".so"
+ 	    DL_OBJS="tclLoadDl.o"
+ 	    DL_LIBS=""
+-	    LDFLAGS="$LDFLAGS -export-dynamic"
++	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
+ 	    if test $doRpath = yes; then
+ 
+ 		CC_SEARCH_FLAGS='"-Wl,-rpath,${LIB_RUNTIME_DIR}"'
+@@ -7540,7 +7540,6 @@ fi
+ 	    esac
+ 	    ;;
+ 	Darwin-*)
+-	    CFLAGS_OPTIMIZE="-Os"
+ 	    SHLIB_CFLAGS="-fno-common"
+ 	    # To avoid discrepancies between what headers configure sees during
+ 	    # preprocessing tests and compiling tests, move any -isysroot and
+@@ -8750,7 +8749,11 @@ fi
+ 
+ else
+ 
+-            INSTALL_LIB='$(INSTALL_LIBRARY) $(LIB_FILE) "$(LIB_INSTALL_DIR)/$(LIB_FILE)"'
++        if test "${SHLIB_SUFFIX}" = ".dylib" ; then
++            INSTALL_LIB='$(INSTALL_LIBRARY) $(LIB_FILE) "$(LIB_INSTALL_DIR)/libtcl$(MAJOR_VERSION)$(MINOR_VERSION)$(SHLIB_VERSION)$(SHLIB_SUFFIX)"'
++        else
++            INSTALL_LIB='$(INSTALL_LIBRARY) $(LIB_FILE) "$(LIB_INSTALL_DIR)/$(LIB_FILE)$(SHLIB_VERSION)"'
++        fi
+ 
+ fi
+ 
+@@ -8785,7 +8788,7 @@ else
+ 
+ fi
+ 
+-    INSTALL_STUB_LIB='$(INSTALL_LIBRARY) $(STUB_LIB_FILE) "$(LIB_INSTALL_DIR)/$(STUB_LIB_FILE)"'
++    INSTALL_STUB_LIB='$(INSTALL_DATA) $(STUB_LIB_FILE) "$(LIB_INSTALL_DIR)/$(STUB_LIB_FILE)"'
+ 
+     # Define TCL_LIBS now that we know what DL_LIBS is.
+     # The trick here is that we don't want to change the value of TCL_LIBS if
+@@ -18697,9 +18700,9 @@ fi
+ #	building libtcl as a shared library instead of a static library.
+ #--------------------------------------------------------------------
+ 
+-TCL_UNSHARED_LIB_SUFFIX=${UNSHARED_LIB_SUFFIX}
+-TCL_SHARED_LIB_SUFFIX=${SHARED_LIB_SUFFIX}
+-eval "TCL_LIB_FILE=libtcl${LIB_SUFFIX}"
++TCL_UNSHARED_LIB_SUFFIX=${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}.a
++TCL_SHARED_LIB_SUFFIX=${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}${SHLIB_SUFFIX}
++eval "TCL_LIB_FILE=libtcl${TCL_SHARED_LIB_SUFFIX}"
+ 
+ # tclConfig.sh needs a version of the _LIB_SUFFIX that has been eval'ed
+ # since on some platforms TCL_LIB_FILE contains shell escapes.
+@@ -18812,13 +18815,10 @@ else
+     eval libdir="$libdir"
+     # default install directory for bundled packages
+     PACKAGE_DIR="$libdir"
+-    if test "${TCL_LIB_VERSIONS_OK}" = "ok"; then
+-        TCL_LIB_FLAG="-ltcl${TCL_VERSION}"
+-    else
+-        TCL_LIB_FLAG="-ltcl`echo ${TCL_VERSION} | tr -d .`"
+-    fi
++    TCL_LIB_FLAG="-ltcl${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}"
+     TCL_BUILD_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_LIB_FLAG}"
+-    TCL_LIB_SPEC="-L${libdir} ${TCL_LIB_FLAG}"
++    TCL_LIB_SPEC_RPATH="${COMPILER_RPATH_FLAG}${libdir}"
++    TCL_LIB_SPEC="${TCL_LIB_SPEC_RPATH} -L${libdir} ${TCL_LIB_FLAG}"
+ fi
+ VERSION='${VERSION}'
+ eval "CFG_TCL_SHARED_LIB_SUFFIX=${TCL_SHARED_LIB_SUFFIX}"
+@@ -18837,10 +18837,8 @@ if test "$FRAMEWORK_BUILD" = "1" ; then
+ 	TCL_PACKAGE_PATH="~/Library/Tcl /Library/Tcl ~/Library/Frameworks /Library/Frameworks"
+     test -z "$TCL_MODULE_PATH"  && \
+ 	TCL_MODULE_PATH="~/Library/Tcl /Library/Tcl"
+-elif test "$prefix/lib" != "$libdir"; then
+-    test -z "$TCL_PACKAGE_PATH" && TCL_PACKAGE_PATH="{${libdir}} {${prefix}/lib} ${TCL_PACKAGE_PATH}"
+ else
+-    test -z "$TCL_PACKAGE_PATH" && TCL_PACKAGE_PATH="{${prefix}/lib} ${TCL_PACKAGE_PATH}"
++    test -z "$TCL_PACKAGE_PATH" && TCL_PACKAGE_PATH="${prefix}/lib/tcl ${prefix}/lib"
+ fi
+ 
+ #--------------------------------------------------------------------
+@@ -18855,12 +18853,7 @@ eval "TCL_STUB_LIB_FILE=libtclstub${TCL_
+ eval "TCL_STUB_LIB_FILE=\"${TCL_STUB_LIB_FILE}\""
+ eval "TCL_STUB_LIB_DIR=\"${libdir}\""
+ 
+-if test "${TCL_LIB_VERSIONS_OK}" = "ok"; then
+-    TCL_STUB_LIB_FLAG="-ltclstub${TCL_VERSION}"
+-else
+-    TCL_STUB_LIB_FLAG="-ltclstub`echo ${TCL_VERSION} | tr -d .`"
+-fi
+-
++TCL_STUB_LIB_FLAG="-ltclstub${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}"
+ TCL_BUILD_STUB_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_STUB_LIB_FLAG}"
+ TCL_STUB_LIB_SPEC="-L${TCL_STUB_LIB_DIR} ${TCL_STUB_LIB_FLAG}"
+ TCL_BUILD_STUB_LIB_PATH="`pwd`/${TCL_STUB_LIB_FILE}"
+@@ -19014,34 +19007,15 @@ fi
+ # Transform confdefs.h into DEFS.
+ # Protect against shell expansion while executing Makefile rules.
+ # Protect against Makefile macro expansion.
+-#
+-# If the first sed substitution is executed (which looks for macros that
+-# take arguments), then we branch to the quote section.  Otherwise,
+-# look for a macro that doesn't take arguments.
+-cat >confdef2opt.sed <<\_ACEOF
+-t clear
+-: clear
+-s,^[	 ]*#[	 ]*define[	 ][	 ]*\([^	 (][^	 (]*([^)]*)\)[	 ]*\(.*\),-D\1=\2,g
+-t quote
+-s,^[	 ]*#[	 ]*define[	 ][	 ]*\([^	 ][^	 ]*\)[	 ]*\(.*\),-D\1=\2,g
+-t quote
+-d
+-: quote
+-s,[	 `~#$^&*(){}\\|;'"<>?],\\&,g
+-s,\[,\\&,g
+-s,\],\\&,g
+-s,\$,$$,g
+-p
+-_ACEOF
+-# We use echo to avoid assuming a particular line-breaking character.
+-# The extra dot is to prevent the shell from consuming trailing
+-# line-breaks from the sub-command output.  A line-break within
+-# single-quotes doesn't work because, if this script is created in a
+-# platform that uses two characters for line-breaks (e.g., DOS), tr
+-# would break.
+-ac_LF_and_DOT=`echo; echo .`
+-DEFS=`sed -n -f confdef2opt.sed confdefs.h | tr "$ac_LF_and_DOT" ' .'`
+-rm -f confdef2opt.sed
++cat > conftest.defs <<\EOF
++s%#define \([A-Za-z_][A-Za-z0-9_]*\) *\(.*\)%-D\1=\2%g
++s%[ 	`~#$^&*(){}\\|;'"<>?]%\\&%g
++s%\[%\\&%g
++s%\]%\\&%g
++s%\$%$$%g
++EOF
++DEFS=`sed -f conftest.defs confdefs.h | tr '\012' ' '`
++rm -f conftest.defs
+ 
+ 
+ 
+@@ -19669,6 +19643,7 @@ s,@EXTRA_BUILD_HTML@,$EXTRA_BUILD_HTML,;
+ s,@EXTRA_TCLSH_LIBS@,$EXTRA_TCLSH_LIBS,;t t
+ s,@DLTEST_LD@,$DLTEST_LD,;t t
+ s,@DLTEST_SUFFIX@,$DLTEST_SUFFIX,;t t
++s,@SHLIB_VERSION@,$SHLIB_VERSION,;t t
+ CEOF
+ 
+ _ACEOF

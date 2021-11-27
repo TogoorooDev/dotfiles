@@ -1,0 +1,26 @@
+/patch-common.gypi/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_cares_cares.gyp/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_uv_common.gypi/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_arm_assembler-arm-inl.h/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_arm_assembler-arm.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_arm_cpu-arm.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_base_atomicops.h/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_base_platform_platform-freebsd.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_base_platform_platform-openbsd.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_base_platform_platform-posix.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_base_platform_semaphore.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_compiler_types.h/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_globals.h/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_log-utils.h/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-deps_v8_src_objects_intl-objects.cc/1.1/Sat Nov 14 09:54:23 2020//Tpkgsrc-2021Q3
+/patch-deps_v8_src_runtime_runtime-intl.cc/1.1/Sat Nov 14 09:54:23 2020//Tpkgsrc-2021Q3
+/patch-deps_v8_tools_run-llprof.sh/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-node.gypi/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-src_cares__wrap.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-src_inspector__agent.cc/1.2/Fri Oct  2 12:23:54 2020//Tpkgsrc-2021Q3
+/patch-src_node__postmortem__metadata.cc/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-tools_gyp_pylib_gyp_common.py/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-tools_gyp_pylib_gyp_generator_make.py/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-tools_gyp_pylib_gyp_xcode__emulation.py/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+/patch-tools_install.py/1.1/Mon Dec  9 20:05:40 2019//Tpkgsrc-2021Q3
+D

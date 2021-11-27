@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.5 2018/01/01 22:29:31 rillig Exp $
+share/doc/freefont/AUTHORS
+share/doc/freefont/CREDITS
+share/doc/freefont/README
+share/fonts/X11/TTF/FreeMono.ttf
+share/fonts/X11/TTF/FreeMonoBold.ttf
+share/fonts/X11/TTF/FreeMonoBoldOblique.ttf
+share/fonts/X11/TTF/FreeMonoOblique.ttf
+share/fonts/X11/TTF/FreeSans.ttf
+share/fonts/X11/TTF/FreeSansBold.ttf
+share/fonts/X11/TTF/FreeSansBoldOblique.ttf
+share/fonts/X11/TTF/FreeSansOblique.ttf
+share/fonts/X11/TTF/FreeSerif.ttf
+share/fonts/X11/TTF/FreeSerifBold.ttf
+share/fonts/X11/TTF/FreeSerifBoldItalic.ttf
+share/fonts/X11/TTF/FreeSerifItalic.ttf

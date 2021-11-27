@@ -1,0 +1,29 @@
+$NetBSD: patch-CMakeLists.txt,v 1.4 2020/10/06 00:26:51 mrg Exp $
+
+Add NetBSD support.
+
+--- CMakeLists.txt.orig	2020-08-13 18:03:03.000000000 -0500
++++ CMakeLists.txt	2020-10-05 17:46:13.721846309 -0500
+@@ -133,6 +133,12 @@
+     set(OSX_VERSION " ")
+ endif()
+ 
++if(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
++    set(NETBSD YES)
++else()
++    set(NETBSD NO)
++endif()
++
+ ## USER OPTIONS ##
+ # Optional targets, they should all default to ON (check_deps will disable them if not possible to build)
+ option(USE_DOUBLE "Set to use double-precision floating point for audio samples." ON)
+@@ -1233,7 +1243,9 @@
+       list(APPEND libcsound_LIBS ${LIBRT_LIBRARY})
+       message(STATUS "  ADDING LIBRT LIBRARY: ${LIBRT_LIBRARY}.")
+     endif()
++endif()
+ 
++if(LINUX OR NETBSD)
+     find_library(LIBEXECINFO_LIBRARY execinfo)
+ 
+     if(LIBEXECINFO_LIBRARY)

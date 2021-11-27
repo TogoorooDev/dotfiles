@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2020/03/24 17:51:09 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/lib/mixlib/log.rb
+${GEM_LIBDIR}/lib/mixlib/log/child.rb
+${GEM_LIBDIR}/lib/mixlib/log/formatter.rb
+${GEM_LIBDIR}/lib/mixlib/log/logger.rb
+${GEM_LIBDIR}/lib/mixlib/log/logging.rb
+${GEM_LIBDIR}/lib/mixlib/log/version.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

@@ -1,0 +1,16 @@
+# $NetBSD: INSTALL,v 1.2 2021/01/28 12:46:55 schmonz Exp $
+
+PKG_SYSCONFDIR=@PKG_SYSCONFDIR@
+LN=@LN@
+
+case "${STAGE}" in
+
+POST-INSTALL)
+	cd ${PKG_SYSCONFDIR}
+	if [ ! -e default -a -d en_US ]; then
+		${LN} -s en_US default
+	fi
+
+	;;
+
+esac

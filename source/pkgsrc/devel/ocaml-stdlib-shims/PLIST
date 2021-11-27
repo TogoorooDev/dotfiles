@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2020/12/10 08:55:22 jaapb Exp $
+${OCAML_SITELIB}/stdlib-shims/META
+${OCAML_SITELIB}/stdlib-shims/dune-package
+${OCAML_SITELIB}/stdlib-shims/opam
+${PLIST.ocaml-opt}${OCAML_SITELIB}/stdlib-shims/stdlib_shims.a
+${OCAML_SITELIB}/stdlib-shims/stdlib_shims.cma
+${PLIST.ocaml-opt}${OCAML_SITELIB}/stdlib-shims/stdlib_shims.cmxa
+${PLIST.ocaml-opt}${OCAML_SITELIB}/stdlib-shims/stdlib_shims.cmxs
+share/doc/stdlib-shims/CHANGES.md
+share/doc/stdlib-shims/LICENSE
+share/doc/stdlib-shims/README.md

@@ -1,0 +1,5 @@
+/patch-gegl_gegl-config.c/1.3/Sat Nov  2 14:05:46 2019//Tpkgsrc-2021Q3
+/patch-operations_external_exr-save.cc/1.3/Thu Jul  8 21:29:49 2021//Tpkgsrc-2021Q3
+/patch-operations_external_png-load.c/1.1/Thu Jan 14 10:16:30 2021//Tpkgsrc-2021Q3
+/patch-operations_external_tiff-load.c/1.1/Thu Jan 14 10:16:30 2021//Tpkgsrc-2021Q3
+D

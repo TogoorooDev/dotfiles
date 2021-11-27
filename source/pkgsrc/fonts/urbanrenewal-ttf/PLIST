@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/01 22:29:33 rillig Exp $
+share/doc/urbanrenewal-ttf/FreeLicense.txt
+share/doc/urbanrenewal-ttf/ReadMe.pdf
+share/fonts/X11/TTF/Athene.ttf
+share/fonts/X11/TTF/Liverpool.ttf
+share/fonts/X11/TTF/Los Altos.ttf
+share/fonts/X11/TTF/Parc Place.ttf
+share/fonts/X11/TTF/Sanfrisco.ttf
+share/fonts/X11/TTF/Torrance.ttf
+share/fonts/X11/TTF/Valencia.ttf

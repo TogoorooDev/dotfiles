@@ -1,0 +1,26 @@
+/patch-acceptance-tests_Makefile.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-acceptance-tests_microbench-perf_sh_in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__2__0_Browsers_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__2__0_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__4__0_Browsers_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__4__0_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__4__5_Browsers_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-data_net__4__5_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-external_corert_src_Native_gc_env_gcenv.structs.h/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_eglib_giconv.c/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_metadata_icall.c/1.2/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_metadata_w32mutex-unix.c/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_mini_Makefile.am.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_mini_Makefile.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_tests_Makefile.am/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_tests_Makefile.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_utils_jemalloc_Makefile.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_utils_mono-os-semaphore.h/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_utils_mono-sigcontext.h/1.2/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_utils_mono-threads-posix.c/1.3/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-mono_utils_mono-utils-debug.c/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-runtime_mono-wrapper.in/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-scripts_submodules_versions.mk/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+/patch-support_minizip_ioapi.c/1.1/Wed Mar  3 12:05:41 2021//Tpkgsrc-2021Q3
+D

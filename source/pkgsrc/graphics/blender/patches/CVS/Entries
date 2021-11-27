@@ -1,0 +1,12 @@
+/patch-CMakeLists.txt/1.1/Mon Jul 26 05:15:15 2021//Tpkgsrc-2021Q3
+/patch-build__files_cmake_Modules_FindOpenEXR.cmake/1.1/Thu Jul  8 21:25:31 2021//Tpkgsrc-2021Q3
+/patch-extern_Eigen3_Eigen_src_Core_IO.h/1.1/Sun Apr 19 01:16:02 2020//Tpkgsrc-2021Q3
+/patch-extern_Eigen3_Eigen_src_Core_arch_CUDA_Half.h/1.1/Sun Apr 19 01:16:02 2020//Tpkgsrc-2021Q3
+/patch-extern_glog_src_config.h/1.2/Wed Sep 18 23:40:17 2019//Tpkgsrc-2021Q3
+/patch-extern_glog_src_config__netbsd.h/1.2/Wed Sep 18 23:40:17 2019//Tpkgsrc-2021Q3
+/patch-intern_cycles_kernel_svm_svm__sky.h/1.1/Sat Sep  5 11:40:58 2020//Tpkgsrc-2021Q3
+/patch-intern_guardedalloc_intern_mallocn__intern.h/1.3/Wed Sep 18 23:40:17 2019//Tpkgsrc-2021Q3
+/patch-source_blender_gpu_intern_gpu_matrix.cc/1.1/Mon Jul 26 05:15:15 2021//Tpkgsrc-2021Q3
+/patch-source_blender_imbuf_intern_anim_movie.c/1.1/Mon Jul 26 05:15:15 2021//Tpkgsrc-2021Q3
+/patch-source_blender_imbuf_intern_openexr_openexr__api.cpp/1.1/Thu Jul  8 21:25:31 2021//Tpkgsrc-2021Q3
+D

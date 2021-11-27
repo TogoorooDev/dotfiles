@@ -1,0 +1,19 @@
+/patch-BUILD_compile-pentium32-gcov/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-CMakeLists.txt/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-client_CMakeLists.txt/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-extra_wolfssl_wolfssl_certs_intermediate_genintcerts.sh/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-include_my__global.h/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-plugin_auth__pam_CMakeLists.txt/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-plugin_auth__socket_CMakeLists.txt/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-plugin_auth__socket_auth__socket.c/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-scripts_CMakeLists.txt/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-scripts_mysqld__safe.sh/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-sql_mysqld.cc/1.1/Sat Aug  7 08:55:50 2021//Tpkgsrc-2021Q3
+/patch-storage_connect_ioapi.c/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-storage_connect_tabvct.cpp/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-storage_rocksdb_rdb__io__watchdog.cc/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-storage_rocksdb_rdb__io__watchdog.h/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-storage_rocksdb_rocksdb_Makefile/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-storage_rocksdb_rocksdb_build__tools_fb__compile__mongo.sh/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+/patch-support-files_mysql.server.sh/1.1/Wed Aug  4 15:47:24 2021//Tpkgsrc-2021Q3
+D

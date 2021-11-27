@@ -1,0 +1,21 @@
+$NetBSD: patch-configure,v 1.7 2021/03/18 08:30:43 jaapb Exp $
+
+Do not install META files for libraries that were split off
+
+--- configure.orig	2021-03-16 11:43:00.000000000 +0000
++++ configure
+@@ -511,10 +511,10 @@ fi
+ 
+ check_library bigarray 'possible since 4.08'
+ check_library compiler-libs '' 'compiler-libs'
+-check_library dbm 'normal since 4.00'
+-check_library graphics 'normal since 4.09'
+-check_library num 'normal since 4.06'
+-check_library ocamlbuild 'normal since 4.03' ocamlbuild/ocamlbuildlib.cma
++#check_library dbm 'normal since 4.00'
++#check_library graphics 'normal since 4.09'
++#check_library num 'normal since 4.06'
++#check_library ocamlbuild 'normal since 4.03' ocamlbuild/ocamlbuildlib.cma
+ check_library ocamldoc '' ocamldoc/odoc.cmi
+ check_library raw_spacetime 'normal since 4.12' raw_spacetime_lib.cmxa
+ check_library threads '' threads/thread.cmi vmthreads/thread.cmi;

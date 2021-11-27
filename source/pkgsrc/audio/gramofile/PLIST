@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/01 22:29:16 rillig Exp $
+bin/bplay_gramo
+bin/brec_gramo
+bin/gramofile

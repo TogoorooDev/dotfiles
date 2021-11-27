@@ -1,0 +1,9 @@
+/patch-pango_pangocairo-coretextfont.c/1.1/Tue Nov 20 08:34:43 2018//Tpkgsrc-2021Q3
+/patch-pango_pangocairo-coretextfontmap.c/1.1/Tue Nov 20 08:34:43 2018//Tpkgsrc-2021Q3
+/patch-pango_pangocoretext-fontmap.c/1.2/Thu Apr  8 08:38:55 2021//Tpkgsrc-2021Q3
+/patch-pango_pangocoretext-private.h/1.2/Thu Apr  8 08:38:55 2021//Tpkgsrc-2021Q3
+/patch-pango_pangocoretext.c/1.3/Thu Apr  8 08:38:55 2021//Tpkgsrc-2021Q3
+/patch-pango_pangocoretext.h/1.3/Wed Jun 10 23:30:24 2015//Tpkgsrc-2021Q3
+/patch-pangocairo-coretext.h/1.1/Tue May 15 15:07:23 2012//Tpkgsrc-2021Q3
+/patch-utils_meson.build/1.1/Mon Feb 24 17:08:31 2020//Tpkgsrc-2021Q3
+D

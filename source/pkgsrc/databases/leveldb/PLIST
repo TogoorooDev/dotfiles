@@ -1,0 +1,21 @@
+@comment $NetBSD: PLIST,v 1.2 2019/06/05 13:22:04 adam Exp $
+include/leveldb/c.h
+include/leveldb/cache.h
+include/leveldb/comparator.h
+include/leveldb/db.h
+include/leveldb/dumpfile.h
+include/leveldb/env.h
+include/leveldb/export.h
+include/leveldb/filter_policy.h
+include/leveldb/iterator.h
+include/leveldb/options.h
+include/leveldb/slice.h
+include/leveldb/status.h
+include/leveldb/table.h
+include/leveldb/table_builder.h
+include/leveldb/write_batch.h
+lib/cmake/leveldb/leveldbConfig.cmake
+lib/cmake/leveldb/leveldbConfigVersion.cmake
+lib/cmake/leveldb/leveldbTargets-noconfig.cmake
+lib/cmake/leveldb/leveldbTargets.cmake
+lib/libleveldb.a

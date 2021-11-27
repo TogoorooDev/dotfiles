@@ -1,0 +1,32 @@
+$NetBSD: distinfo,v 1.29 2019/09/15 17:55:09 nia Exp $
+
+SHA1 (anjuta-3.34.0.tar.xz) = a2feeb1a1c5582dbee56ad62b3ad6435cc022ebd
+RMD160 (anjuta-3.34.0.tar.xz) = 113e01eee1675d08ff2fc4f56e755d6e01b8ce07
+SHA512 (anjuta-3.34.0.tar.xz) = 9d5a4c23751893ff7e21cd55c1f112f27b53fe2ea5ac645c63e2da627efce202b88696e3e5d860ad75a5c13c88a9082775d74f4482208161b5e63d56c4004d57
+Size (anjuta-3.34.0.tar.xz) = 6420472 bytes
+SHA1 (patch-libanjuta_anjuta-plugin-manager.c) = cf8ec97d221ca9e091b4addd9ada24e3427bb025
+SHA1 (patch-libanjuta_anjuta-status.c) = 7541533e061a588ea9b6c404c8a7dd78710905f9
+SHA1 (patch-libanjuta_anjuta-status.h) = 4fc61d652a3877bf2ebbe39024af3fadd11805c3
+SHA1 (patch-libanjuta_anjuta-utils.c) = 6659d7a9bf6912f4fd96045cb326d4619f635fb6
+SHA1 (patch-libanjuta_anjuta-utils.h) = bc42909f3ea4afd2ca426fc614742e4063d9ba6c
+SHA1 (patch-plugins_am-project_projectparser.c) = 7502510bc4c6d564aecca76c4f7b68779b34aecd
+SHA1 (patch-plugins_build-basic-autotools_build.c) = 6aab2cfaea34784dd69ac6fa8812f0916afa2d6e
+SHA1 (patch-plugins_build-basic-autotools_executer.c) = 4e89ea52eaaf41aa8804681cfc9bb6f407526748
+SHA1 (patch-plugins_build-basic-autotools_program.h) = 72247949ddbfa0b41acd934f566ffd80d7841db7
+SHA1 (patch-plugins_cvs-plugin_cvs-callbacks.c) = daef25e5f07c47affba5621e631b1f7ebaa19f21
+SHA1 (patch-plugins_cvs-plugin_cvs-execute.c) = a6b7258b83b6efd6a4436e12fae6d0f381c7fb1a
+SHA1 (patch-plugins_cvs-plugin_cvs-interface.c) = 19541f4ab3bd70245461d317ac6c182a7e0f7633
+SHA1 (patch-plugins_debug-manager_breakpoints.c) = 7ea483aeca934f1b105efac07a5ff1a29e6ed56f
+SHA1 (patch-plugins_debug-manager_queue.c) = a39e5adcc739f4eaff29138a21ad0e5375573f6d
+SHA1 (patch-plugins_debug-manager_start.c) = a1d703fc97ad33b36d3b43eb699308d298034a01
+SHA1 (patch-plugins_document-manager_plugin.c) = e34a635090fb46f22a936024ec83c4308a8a29f7
+SHA1 (patch-plugins_gdb_debugger.c) = 5af43c0332ed8ded2af610ebba693a9920ba38e2
+SHA1 (patch-plugins_gdb_preferences.c) = 19680a65945b6b1c4b3c960cdf81a7e30959a9f4
+SHA1 (patch-plugins_project-manager_dialogs.c) = 3b9cd7393559b22eeeaa120079b4f448ea95a62a
+SHA1 (patch-plugins_project-manager_plugin.c) = 07fcb683258a141b8c4d3865a6d4c8d5e6043746
+SHA1 (patch-plugins_project-wizard_druid.c) = 697ad749d408526bda9aff4360f8e5223dcf7a4a
+SHA1 (patch-plugins_project-wizard_parser.c) = a63a5d05bbce9f21e6fd546b67d7f6c655771c85
+SHA1 (patch-plugins_run-program_execute.c) = 672adc09332674899fa2678a63262859856a6bcd
+SHA1 (patch-plugins_run-program_plugin.c) = 4eb47b9f8a968bc6b7e0e660489c8f5408c97676
+SHA1 (patch-plugins_tools_execute.c) = 60edf300449182875164ff3ac441f1dfe5a5f7cf
+SHA1 (patch-plugins_tools_fileop.c) = 37a8a17335ec37b8dcfd29406b5428e8f6bd7163

@@ -1,0 +1,7 @@
+/patch-configure/1.3/Sat May 23 21:20:39 2020//Tpkgsrc-2021Q3
+/patch-dlls_wininet_http.c/1.2/Tue Jun  1 05:05:54 2021//Tpkgsrc-2021Q3
+/patch-dlls_ws2__32_socket.c/1.1/Tue May 26 15:20:23 2020//Tpkgsrc-2021Q3
+/patch-programs_wineconsole_Makefile.in/1.1/Fri May 22 17:44:42 2020//Tpkgsrc-2021Q3
+/patch-programs_wineconsole_curses.c/1.2/Sat May 23 21:20:39 2020//Tpkgsrc-2021Q3
+/patch-tools_winegcc_winegcc.c/1.1/Tue Jun  1 05:05:54 2021//Tpkgsrc-2021Q3
+D

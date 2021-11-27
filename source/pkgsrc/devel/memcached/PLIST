@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.17 2021/08/02 05:58:19 adam Exp $
+bin/memcached
+bin/memcached-tool
+include/memcached/protocol_binary.h
+include/memcached/xxhash.h
+man/man1/memcached.1
+share/doc/memcached/napi_ids.txt
+share/doc/memcached/new_lru.txt
+share/doc/memcached/protocol-binary-range.txt
+share/doc/memcached/protocol-binary.txt
+share/doc/memcached/protocol.txt
+share/doc/memcached/readme.txt
+share/doc/memcached/storage.txt
+share/doc/memcached/threads.txt
+share/doc/memcached/tls.txt

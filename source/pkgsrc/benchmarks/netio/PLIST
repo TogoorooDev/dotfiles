@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2020/03/27 16:02:04 jdolecek Exp $
+bin/netio
+bin/netio6
+share/doc/netio/netio.txt

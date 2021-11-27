@@ -1,0 +1,6 @@
+The Mesa project is as an open-source implementation of the OpenGL
+specification - a system for rendering interactive 3D graphics.
+
+This package provides examples and demos of Mesa's capabilities, among
+them the examples from the ``Red Book'' (_OpenGL Programming Guide_,
+published by Addison-Wesley; ISBN 0-201-63274-8).

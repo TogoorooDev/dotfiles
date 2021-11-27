@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2020/07/26 07:54:45 maya Exp $
+bin/woff2_compress
+bin/woff2_decompress
+bin/woff2_info
+include/woff2/decode.h
+include/woff2/encode.h
+include/woff2/output.h
+lib/libwoff2common.so
+lib/libwoff2common.so.${PKGVERSION}
+lib/libwoff2dec.so
+lib/libwoff2dec.so.${PKGVERSION}
+lib/libwoff2enc.so
+lib/libwoff2enc.so.${PKGVERSION}
+lib/pkgconfig/libwoff2common.pc
+lib/pkgconfig/libwoff2dec.pc
+lib/pkgconfig/libwoff2enc.pc

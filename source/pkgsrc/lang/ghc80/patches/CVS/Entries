@@ -1,0 +1,18 @@
+/patch-compiler_main_DynFlags.hs/1.1/Tue Jan 14 08:46:17 2020//Tpkgsrc-2021Q3
+/patch-configure.ac/1.2/Mon Feb 17 17:22:43 2020//Tpkgsrc-2021Q3
+/patch-ghc.mk/1.1/Sat May  1 01:24:50 2021//Tpkgsrc-2021Q3
+/patch-iserv_ghc.mk/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_base_GHC_Event_KQueue.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_base_System_Environment.hs/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_time_lib_Data_Time_Clock_CTimespec.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_time_lib_Data_Time_Clock_CTimeval.hs/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_unix_System_Posix_Env.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_unix_System_Posix_Env_ByteString.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_unix_System_Posix_Files_Common.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_unix_System_Posix_Signals.hsc/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-libraries_unix_include_execvpe.h/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-rts_PosixSource.h/1.1/Fri Jan  3 15:24:08 2020//Tpkgsrc-2021Q3
+/patch-rts_ghc.mk/1.1/Sat May  1 01:24:50 2021//Tpkgsrc-2021Q3
+/patch-rules_build-package-way.mk/1.1/Sat May  1 01:24:50 2021//Tpkgsrc-2021Q3
+/patch-rules_distdir-way-opts.mk/1.2/Sat May  1 01:24:50 2021//Tpkgsrc-2021Q3
+D

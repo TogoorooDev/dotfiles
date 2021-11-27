@@ -1,0 +1,22 @@
+/patch-Makefile.fip/1.5/Mon May 25 12:24:37 2020//Tpkgsrc-2021Q3
+/patch-Makefile.gnu/1.2/Mon May 25 12:24:37 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage.h/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImageToolkit_JPEGTransform.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_J2KHelper.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PSDParser.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_Plugin.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginEXR.cpp/1.2/Thu Jul  8 21:26:12 2021//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginJ2K.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginJP2.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginJPEG.cpp/1.2/Sun Jul 11 04:08:06 2021//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginPNG.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginRAW.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginTIFF.cpp/1.3/Sun Jul 11 04:08:06 2021//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_PluginWebP.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_FreeImage_ZLibInterface.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_Metadata_TagConversion.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_Metadata_XTIFF.cpp/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-Source_Utilities.h/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-genfipsrclist.sh/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+/patch-gensrclist.sh/1.1/Thu May 14 16:42:14 2020//Tpkgsrc-2021Q3
+D

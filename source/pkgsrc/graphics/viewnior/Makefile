@@ -1,0 +1,34 @@
+# $NetBSD: Makefile,v 1.34 2021/04/12 13:23:05 nia Exp $
+
+DISTNAME=	viewnior-1.7
+PKGREVISION=	1
+CATEGORIES=	graphics
+MASTER_SITES=	${MASTER_SITE_GITHUB:=hellosiyan/}
+GITHUB_PROJECT=	Viewnior
+GITHUB_TAG=	${DISTNAME}
+
+MAINTAINER=	ryoon@NetBSD.org
+HOMEPAGE=	http://siyanpanayotov.com/project/viewnior
+COMMENT=	Viewnior is a fast and simple image viewer
+LICENSE=	gnu-gpl-v3
+
+WRKSRC=		${WRKDIR}/Viewnior-${DISTNAME}
+
+USE_TOOLS+=	pkg-config msgfmt xgettext
+USE_LANGUAGES=	c c++
+
+.include "../../mk/bsd.prefs.mk"
+# msgfmt: unknown option -- desktop
+.if ${OPSYS} == "NetBSD"
+TOOLS_PLATFORM.msgfmt=
+.endif
+
+PYTHON_FOR_BUILD_ONLY=	tool
+
+.include "../../devel/meson/build.mk"
+.include "../../databases/shared-mime-info/buildlink3.mk"
+.include "../../devel/glib2/buildlink3.mk"
+.include "../../graphics/exiv2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../x11/gtk2/buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

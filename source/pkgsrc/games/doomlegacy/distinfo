@@ -1,0 +1,17 @@
+$NetBSD: distinfo,v 1.9 2021/01/04 16:40:59 micha Exp $
+
+SHA1 (doomlegacy_1.48.8_common.zip) = 536f387824d50208e7494547afd21a92a6ef877d
+RMD160 (doomlegacy_1.48.8_common.zip) = 7fa66010f384411972f052ecf3676ce22d43f267
+SHA512 (doomlegacy_1.48.8_common.zip) = 4b93aed03bcfd9eb0dd22f0b9231e93e63ee2cc0eee6a3a9854def384c4c290dbdb586eb8d888392c53d8a5d549718eb7b4f55cecb1c4924c03b18125876b292
+Size (doomlegacy_1.48.8_common.zip) = 1011350 bytes
+SHA1 (doomlegacy_1.48.8_source.tar.bz2) = d75a65b62ae30de21f22e112b3a87bb8035597ad
+RMD160 (doomlegacy_1.48.8_source.tar.bz2) = e5db4a6ea05ecd7678c70bcf57843bb9edc69526
+SHA512 (doomlegacy_1.48.8_source.tar.bz2) = 10dfe5ac20715b3c8ca2305f28d28bd5eada42a13a3aadad23bbf9b691e988561f26b61267816867b69e2854f86cc5c4ec876a4cb10fda157f971a4014db55ec
+Size (doomlegacy_1.48.8_source.tar.bz2) = 2451682 bytes
+SHA1 (patch-src_Makefile) = 34c323bdd96787cb6afe0be5dc99b129ab8f1552
+SHA1 (patch-src_am__map.c) = 14b3c8b70c63778ad043827ab2f0b6f4fe07bcde
+SHA1 (patch-src_doomdata.h) = 8c3186dafbf11a8a75262a06755dd9807cb58612
+SHA1 (patch-src_dstrings.c) = 16e50ac649f76d415b820a0e5093d15af3180e6d
+SHA1 (patch-src_p__local.h) = ad6c770b95e87fb06e34ec7643e98f59d41e71f4
+SHA1 (patch-src_p__setup.c) = f478975acbc64627d4b2727fa77d1b1252ffc719
+SHA1 (patch-src_r__defs.h) = 91e6543674e3474c9afdb0ba19d6869b658d0543

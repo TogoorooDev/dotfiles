@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.42 2020/08/24 07:52:03 wiz Exp $
+
+SHA1 (gawk-5.1.0.tar.xz) = 02408f1be58747a0d8c16ef1d191398b4260c638
+RMD160 (gawk-5.1.0.tar.xz) = a233f071ee975a95f0801da1026188e7dbc696ad
+SHA512 (gawk-5.1.0.tar.xz) = 971e6a7617eb051d587984f64be2ff830e49eb60721c3401e8944401e3c3a7cd3334f0334b6e28bfc9283aaff15d83b0933f1fd77b0f8c7059068fa3f94c3cb4
+Size (gawk-5.1.0.tar.xz) = 3154564 bytes
+SHA1 (patch-Makefile.in) = 59b1999ebf4d149c450d6c1ad89b63b1e9716380
+SHA1 (patch-extension_Makefile.in) = 07184d54caadbdc4193d1ba2ee52eb557900bdf3
+SHA1 (patch-extension_gawkfts.c) = a88ac0ed14be5133cf081bf25ab8663f0f3372a7
+SHA1 (patch-extension_inplace.c) = 84b1d8f18ed78a872cd7befa65def30b4bcb3252
+SHA1 (patch-test_Makefile.in) = e4f9a009fc6f282b15af1d1aaf9584e7531a41d6

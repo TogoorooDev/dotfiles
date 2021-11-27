@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/01 22:29:37 rillig Exp $
+include/Hermes/H_Blit.h
+include/Hermes/H_Clear.h
+include/Hermes/H_Config.h
+include/Hermes/H_Conv.h
+include/Hermes/H_Format.h
+include/Hermes/H_Pal.h
+include/Hermes/H_Types.h
+include/Hermes/Hermes.h
+include/Hermes/Types.h
+lib/libHermes.la

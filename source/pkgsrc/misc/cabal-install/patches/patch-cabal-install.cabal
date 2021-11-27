@@ -1,0 +1,18 @@
+$NetBSD: patch-cabal-install.cabal,v 1.2 2021/04/25 13:43:44 pho Exp $
+
+Fix build with GHC 9
+Fix build with base16-bytestring-1.0.*
+
+--- cabal-install.cabal.orig	2001-09-09 01:46:40.000000000 +0000
++++ cabal-install.cabal
+@@ -336,8 +336,8 @@ executable cabal
+     build-depends:
+         async      >= 2.0      && < 2.3,
+         array      >= 0.4      && < 0.6,
+-        base       >= 4.8      && < 4.15,
+-        base16-bytestring >= 0.1.1 && < 0.2,
++        base       >= 4.8      && < 5,
++        base16-bytestring >= 0.1.1 && < 1.1,
+         binary     >= 0.7.3    && < 0.9,
+         bytestring >= 0.10.6.0 && < 0.11,
+         Cabal      == 3.4.*,

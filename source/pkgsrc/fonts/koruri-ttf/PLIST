@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.5 2021/07/20 15:35:23 nonaka Exp $
+share/doc/koruri-ttf/LICENSE
+share/doc/koruri-ttf/README.md
+share/doc/koruri-ttf/README_EN.md
+share/fonts/X11/TTF/Koruri-Bold.ttf
+share/fonts/X11/TTF/Koruri-Extrabold.ttf
+share/fonts/X11/TTF/Koruri-Light.ttf
+share/fonts/X11/TTF/Koruri-Regular.ttf
+share/fonts/X11/TTF/Koruri-Semibold.ttf
+@pkgdir share/fonts/X11/OTF

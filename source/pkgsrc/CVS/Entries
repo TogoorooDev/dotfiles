@@ -1,0 +1,53 @@
+/Makefile/1.88/Wed Feb 12 15:04:51 2020//Tpkgsrc-2021Q3
+/README.md/1.13/Sat May 29 13:14:10 2021//Tpkgsrc-2021Q3
+/_NetBSD-pkgdb/1.2/Tue Dec 29 17:56:14 2020//Tpkgsrc-2021Q3
+/pkglocate/1.11/Wed Aug 22 20:48:36 2018//Tpkgsrc-2021Q3
+D/archivers////
+D/audio////
+D/benchmarks////
+D/biology////
+D/bootstrap////
+D/cad////
+D/chat////
+D/comms////
+D/converters////
+D/cross////
+D/databases////
+D/devel////
+D/distfiles////
+D/doc////
+D/editors////
+D/emulators////
+D/filesystems////
+D/finance////
+D/fonts////
+D/games////
+D/geography////
+D/graphics////
+D/ham////
+D/inputmethod////
+D/lang////
+D/licenses////
+D/mail////
+D/math////
+D/mbone////
+D/meta-pkgs////
+D/misc////
+D/mk////
+D/multimedia////
+D/net////
+D/news////
+D/packages////
+D/parallel////
+D/pkgtools////
+D/print////
+D/regress////
+D/security////
+D/shells////
+D/sysutils////
+D/templates////
+D/textproc////
+D/time////
+D/wm////
+D/www////
+D/x11////

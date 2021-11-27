@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2018/01/07 19:53:16 rillig Exp $
+bin/bladeenc
+man/man1/bladeenc.1
+share/doc/bladeenc/bladeenc.html

@@ -1,0 +1,5 @@
+/patch-configure/1.2/Wed Jan 20 15:12:56 2021//Tpkgsrc-2021Q3
+/patch-src_base_atomicops-internals-arm-v6plus.h/1.1/Tue Apr 14 14:40:02 2015//Tpkgsrc-2021Q3
+/patch-src_base_sysinfo.cc/1.1/Thu Nov 28 12:19:58 2019//Tpkgsrc-2021Q3
+/patch-src_symbolize.cc/1.1/Thu Nov 28 12:19:58 2019//Tpkgsrc-2021Q3
+D

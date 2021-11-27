@@ -1,0 +1,33 @@
+$NetBSD: patch-jdk_make_lib_Awt2dLibraries.gmk,v 1.5 2018/12/12 14:22:11 ryoon Exp $
+
+GCC support.
+Proper libiconv link (and SunOS needs it too).
+
+--- jdk/make/lib/Awt2dLibraries.gmk.orig	2018-12-09 09:51:37.000000000 +0000
++++ jdk/make/lib/Awt2dLibraries.gmk
+@@ -45,6 +45,8 @@ ifneq ($(OPENJDK_TARGET_OS), windows)
+   BUILD_LIBMLIB_LDLIBS += $(LIBM) $(LIBDL)
+ endif
+ 
++LIBICONV := @COMPILER_RPATH_FLAG@@BUILDLINK_PREFIX.iconv@/lib -L@BUILDLINK_PREFIX.iconv@/lib -liconv
++
+ $(eval $(call SetupNativeCompilation,BUILD_LIBMLIB_IMAGE, \
+     LIBRARY := mlib_image, \
+     OUTPUT_DIR := $(INSTALL_LIBRARIES_HERE), \
+@@ -684,7 +686,6 @@ $(eval $(call SetupNativeCompilation,BUI
+         $(SHARED_LIBRARY_FLAGS) \
+         -I$(JDK_TOPDIR)/src/share/native/sun/java2d \
+         -I$(JDK_TOPDIR)/src/share/native/sun/awt/debug, \
+-    CFLAGS_solaris := -xc99=no_lib, \
+     CFLAGS_windows := -DCMS_IS_WINDOWS_, \
+     MAPFILE := $(JDK_TOPDIR)/make/mapfiles/liblcms/mapfile-vers, \
+     LDFLAGS := $(LDFLAGS_JDKLIB) \
+@@ -1062,7 +1063,7 @@ else # OPENJDK_TARGET_OS not windows
+       JAWT_LIBS += -lawt
+     endif
+     ifndef BUILD_HEADLESS_ONLY
+-      JAWT_LIBS += -lawt_xawt
++      JAWT_LIBS += $(X_LIBS) -lawt_xawt
+     else
+       JAWT_LIBS += -lawt_headless
+       HEADLESS_CFLAG += -DHEADLESS

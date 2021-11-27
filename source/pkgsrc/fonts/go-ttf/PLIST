@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2020/08/18 02:35:25 tnn Exp $
+share/fonts/X11/TTF/Go-Bold-Italic.ttf
+share/fonts/X11/TTF/Go-Bold.ttf
+share/fonts/X11/TTF/Go-Italic.ttf
+share/fonts/X11/TTF/Go-Medium-Italic.ttf
+share/fonts/X11/TTF/Go-Medium.ttf
+share/fonts/X11/TTF/Go-Mono-Bold-Italic.ttf
+share/fonts/X11/TTF/Go-Mono-Bold.ttf
+share/fonts/X11/TTF/Go-Mono-Italic.ttf
+share/fonts/X11/TTF/Go-Mono.ttf
+share/fonts/X11/TTF/Go-Regular.ttf
+share/fonts/X11/TTF/Go-Smallcaps-Italic.ttf
+share/fonts/X11/TTF/Go-Smallcaps.ttf

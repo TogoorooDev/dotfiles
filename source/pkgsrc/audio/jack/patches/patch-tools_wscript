@@ -1,0 +1,25 @@
+$NetBSD: patch-tools_wscript,v 1.2 2021/09/10 11:14:05 nia Exp $
+
+- Add NetBSD support.
+- Ensure jack_netsource is built on all Unixes.
+
+--- tools/wscript.orig	2021-07-15 06:18:26.000000000 +0000
++++ tools/wscript
+@@ -30,6 +30,8 @@ def build(bld):
+         os_incdir = ['../macosx', '../posix']
+     if bld.env['IS_SUN']:
+         os_incdir = ['../solaris', '../posix']
++    if bld.env['IS_NETBSD']:
++        os_incdir = ['../netbsd', '../posix']
+     if bld.env['IS_WINDOWS']:
+         os_incdir = ['../windows']
+     for example_tool, example_tool_source in list(example_tools.items()):
+@@ -66,7 +68,7 @@ def build(bld):
+                 prog.env['LIB_PTHREAD'] = [':libwinpthread.a']
+         prog.target = 'jack_transport'
+ 
+-    if bld.env['IS_LINUX'] or bld.env['IS_MACOSX']:
++    if not bld.env['IS_WINDOWS']:
+         prog = bld(features = 'c cprogram')
+         prog.includes = os_incdir + ['.', '..', '../common/jack', '../common']
+         prog.source = ['netsource.c', '../common/netjack_packet.c']

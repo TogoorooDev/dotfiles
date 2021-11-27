@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.3 2020/04/27 02:08:13 markd Exp $
+share/texmf-dist/doc/plain/graphics-pln/README.md
+share/texmf-dist/doc/plain/graphics-pln/exmplcol.tex
+share/texmf-dist/doc/plain/graphics-pln/exmplgrf.tex
+share/texmf-dist/doc/plain/graphics-pln/exmplpfg.tex
+share/texmf-dist/doc/plain/graphics-pln/exmplpic.tex

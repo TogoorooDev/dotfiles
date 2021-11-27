@@ -1,0 +1,19 @@
+/patch-Makefile.in/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-ayusys__gtk2.ja.po/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-configure/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-configure.in/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-file.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-file.h/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di.h/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__Xbpp.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__impl.h/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__seldraw.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__selimpl1.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__selimpl2.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__di__selimpl3.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-image__pdt.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-senario.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-senario__flags.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-system__config.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+/patch-window__text.cc/1.1/Thu Jan  2 09:56:49 2020//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,20 @@
+/patch-configure/1.2/Mon Mar 11 13:46:12 2019//Tpkgsrc-2021Q3
+/patch-disable-filter-url/1.2/Fri Nov 22 05:34:52 2019//Tpkgsrc-2021Q3
+/patch-ext_gd_config.m4/1.1/Sat Dec 15 17:12:44 2018//Tpkgsrc-2021Q3
+/patch-ext_intl_breakiterator_codepointiterator__internal.cpp/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_intl_collator_collator__sort.c/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_intl_dateformat_dateformat__attr.c/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_intl_normalizer_normalizer__normalize.c/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_intl_timezone_timezone__class.cpp/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_intl_timezone_timezone__methods.cpp/1.1/Wed Nov 11 20:05:10 2020//Tpkgsrc-2021Q3
+/patch-ext_phar_Makefile.frag/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+/patch-ext_recode_recode.c/1.1/Sat Dec 15 17:12:44 2018//Tpkgsrc-2021Q3
+/patch-ext_tidy_config.m4/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+/patch-ext_xsl_php__xsl.h/1.1/Sat Dec 15 17:12:44 2018//Tpkgsrc-2021Q3
+/patch-php.ini-development/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+/patch-php.ini-production/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+/patch-sapi_cgi_Makefile.frag/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+/patch-sapi_cli_Makefile.frag/1.1/Sat Dec 15 17:12:44 2018//Tpkgsrc-2021Q3
+/patch-sapi_fpm_fpm_events_port.c/1.1/Sat Dec 15 17:12:44 2018//Tpkgsrc-2021Q3
+/patch-sapi_fpm_php-fpm.conf.in/1.2/Mon Dec 16 15:58:19 2019//Tpkgsrc-2021Q3
+D

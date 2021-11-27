@@ -1,0 +1,23 @@
+$NetBSD: patch-af,v 1.4 2020/05/14 19:05:49 joerg Exp $
+
+--- Makefile.FreeBSD.orig	2007-02-11 08:00:00.000000000 +0000
++++ Makefile.FreeBSD
+@@ -56,9 +56,6 @@ CFLAGS += $(GTK_CFLAGS) -O2 -Wall \
+           -DPREFIX=\"$(PREFIX)\" \
+           -DLOCALBASE=\"$(LOCALBASE)\" -DX11BASE=\"$(X11BASE)\"
+ 
+-CPPFLAGS = -D__cplusplus -Dc_plusplus
+-
+-
+ # ########################################################################
+ # Dependant Libraries:
+ #
+@@ -116,7 +113,7 @@ OBJ_CPP = $(SRC_CPP:.cpp=.o)
+ # Build Rules:
+ #
+ $(BIN): $(OBJ_C) $(OBJ_CPP)
+-	$(CC) $(OBJ_C) $(OBJ_CPP) -o $(BIN) $(LIB) $(LIB_DIR)
++	$(CXX) $(OBJ_C) $(OBJ_CPP) -o $(BIN) $(LIB) $(LIB_DIR)
+ 
+ all: $(BIN) $(BIN).1.out
+ 

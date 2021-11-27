@@ -1,0 +1,18 @@
+# $NetBSD: Makefile,v 1.4 2020/01/18 23:32:38 rillig Exp $
+
+DISTNAME=	venndiagram
+PKGNAME=	tex-${DISTNAME}-1.2
+TEXLIVE_REV=	47952
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://ctan.org/pkg/venndiagram
+COMMENT=	Creating Venn diagrams with TikZ
+LICENSE=	lppl-1.3c
+
+DEPENDS+=	tex-etoolbox-[0-9]*:../../devel/tex-etoolbox
+DEPENDS+=	tex-pgf-[0-9]*:../../print/tex-pgf
+DEPENDS+=	tex-xkeyval-[0-9]*:../../print/tex-xkeyval
+
+TEXLIVE_UNVERSIONED=	yes
+.include "../../print/texlive/package.mk"
+.include "../../mk/bsd.pkg.mk"

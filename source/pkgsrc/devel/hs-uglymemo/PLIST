@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/24 05:31:09 pho Exp $
+lib/uglymemo-${PKGVERSION}/${HS_VERSION}/package-description
+lib/uglymemo-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/MemoUgly.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/MemoUgly.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/MemoUgly.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/Data-MemoUgly.html
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/uglymemo-${PKGVERSION}/html/uglymemo.haddock

@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.11 2019/11/24 09:02:56 ryoon Exp $
+include/check.h
+include/check_stdint.h
+lib/libcheck.la
+lib/pkgconfig/check.pc
+man/man1/checkmk.1
+share/aclocal/check.m4
+share/doc/check/COPYING.LESSER
+share/doc/check/ChangeLog
+share/doc/check/NEWS
+share/doc/check/README

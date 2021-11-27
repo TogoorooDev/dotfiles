@@ -1,0 +1,7 @@
+JACK (JACK Audio Connection Kit) provides a basic infrastructure for audio
+applications to communicate with each other and with audio hardware. Through
+JACK, users are enabled to build powerful systems for signal processing and
+music production.
+
+JACK2 aka jackdmp is a C++ version of the JACK low-latency audio server for
+multi-processor machines.

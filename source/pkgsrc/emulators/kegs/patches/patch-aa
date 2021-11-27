@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.2 2018/03/06 15:29:13 wiz Exp $
+--- src/Makefile.orig	2004-12-07 00:42:47.000000000 +0000
++++ src/Makefile
+@@ -11,7 +11,7 @@ include vars
+ 
+ AS = $(CC)
+ 
+-XLIBS = -L/usr/X11R6/lib
++XLIBS = -L${X11BASE}/lib
+ PERL = perl
+ 
+ all: $(TARGET)
+@@ -40,7 +40,7 @@ kegsmac: $(OBJECTS) compile_time.o
+ 
+ # Linux for X builds:
+ xkegs: $(OBJECTS) compile_time.o
+-	$(CC) $(CCOPTS) $(LDOPTS) $(OBJECTS) compile_time.o $(LDFLAGS) -o $(NAME)$(SUFFIX) $(XLIBS) $(EXTRA_LIBS) -lX11
++	$(CC) $(CCOPTS) $(LDFLAGS) $(LDOPTS) $(OBJECTS) compile_time.o $(LDFLAGS) -o $(NAME)$(SUFFIX) $(XLIBS) $(EXTRA_LIBS) -lX11
+ 	mv xkegs ..
+ 
+ # Cygwin for X builds:

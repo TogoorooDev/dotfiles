@@ -1,0 +1,58 @@
+$NetBSD: patch-configure,v 1.3 2020/08/13 09:24:25 ryoon Exp $
+
+--- configure.orig	2020-07-16 16:00:28.000000000 +0000
++++ configure
+@@ -8960,7 +8960,7 @@ $as_echo_n "checking for clang -fblocks.
+ 				AST_CLANG_BLOCKS="-Wno-unknown-warning-option -fblocks"
+ 				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+-			elif test "`echo 'int main(){return ^{return 42;}();}' | ${CC} -o /dev/null -fblocks -x c -lBlocksRuntime - 2>&1`" = ""; then
++			elif test "`echo 'int main(){return ^{return 42;}();}' | ${CC} ${LDFLAGS} -o /dev/null -fblocks -x c -lBlocksRuntime - 2>&1`" = ""; then
+ 				AST_CLANG_BLOCKS_LIBS="-lBlocksRuntime"
+ 				AST_CLANG_BLOCKS="-fblocks"
+ 				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+@@ -9057,7 +9057,7 @@ if test "${with_pjproject_bundled+set}" 
+ fi
+ 
+ 
+-if test "${with_pjproject}" == "no" || test "${with_pjproject}" == "n" ; then
++if test "${with_pjproject}" = "no" || test "${with_pjproject}" = "n" ; then
+ 	PJPROJECT_BUNDLED=no
+ fi
+ 
+@@ -14689,7 +14689,7 @@ fi
+ 
+ 
+ 
+-if test "${PERMANENT_DLOPEN}" == "yes"; then
++if test "${PERMANENT_DLOPEN}" = "yes"; then
+ 
+ $as_echo "#define HAVE_PERMANENT_DLOPEN 1" >>confdefs.h
+ 
+@@ -14723,7 +14723,7 @@ fi
+ done
+ 
+ 
+-ac_fn_c_check_header_mongrel "$LINENO" "sys/poll.h" "ac_cv_header_sys_poll_h" "$ac_includes_default"
++ac_fn_c_check_header_mongrel "$LINENO" "poll.h" "ac_cv_header_sys_poll_h" "$ac_includes_default"
+ if test "x$ac_cv_header_sys_poll_h" = xyes; then :
+ 
+ else
+@@ -16738,7 +16738,7 @@ fi
+ done
+ 
+ 
+-for ac_func in asprintf atexit closefrom dup2 eaccess endpwent euidaccess ffsll ftruncate getcwd gethostbyname gethostname getloadavg gettimeofday glob ioperm inet_ntoa isascii memchr memmove memset mkdir mkdtemp munmap newlocale pipe2 ppoll putenv re_comp regcomp select setenv socket strcasecmp strcasestr strchr strcspn strdup strerror strlcat strlcpy strncasecmp strndup strnlen strrchr strsep strspn strstr strtod strtol strtold strtoq unsetenv uselocale utime vasprintf getpeereid sysctl swapctl malloc_trim
++for ac_func in asprintf atexit closefrom dup2 eaccess endpwent euidaccess ffsll ftruncate getcwd gethostbyname gethostname getloadavg gettimeofday glob ioperm inet_ntoa isascii memchr memmove memset mkdir mkdtemp munmap newlocale pipe2 ppoll putenv re_comp regcomp select setenv socket strcasecmp strcasestr strchr strcspn strdup strerror strlcat strlcpy strncasecmp strndup strnlen strrchr strsep strspn strstr strtod strtol strtold strtoq unsetenv uselocale utime vasprintf getpeereid sysctl swapctl malloc_trim strftime_l strptime_l
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
+@@ -16973,7 +16973,7 @@ rm -f core conftest.err conftest.$ac_obj
+ LDFLAGS=${old_LDFLAGS}
+ rm -f conftest.dynamics
+ 
+-ac_fn_c_check_header_mongrel "$LINENO" "sys/poll.h" "ac_cv_header_sys_poll_h" "$ac_includes_default"
++ac_fn_c_check_header_mongrel "$LINENO" "poll.h" "ac_cv_header_sys_poll_h" "$ac_includes_default"
+ if test "x$ac_cv_header_sys_poll_h" = xyes; then :
+   HAS_POLL=1
+ 

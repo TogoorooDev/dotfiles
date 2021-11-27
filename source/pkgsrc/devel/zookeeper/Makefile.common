@@ -1,0 +1,15 @@
+# $NetBSD: Makefile.common,v 1.7 2020/05/27 19:37:40 wiz Exp $
+#
+# used by devel/libzookeeper/Makefile
+# used by devel/zookeeper/Makefile
+
+DISTNAME=	zookeeper-3.4.12
+CATEGORIES=	devel
+MASTER_SITES=	${MASTER_SITE_APACHE:=zookeeper/${DISTNAME}/}
+
+MAINTAINER?=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://zookeeper.apache.org/
+LICENSE=	apache-2.0
+
+PATCHDIR=	${.CURDIR}/../../devel/zookeeper/patches
+DISTINFO_FILE=	${.CURDIR}/../../devel/zookeeper/distinfo

@@ -1,0 +1,27 @@
+# $NetBSD: Makefile.common,v 1.9 2021/08/27 14:11:08 ryoon Exp $
+#
+# used by cross/mingw-w64-x86_64-headers/Makefile
+# used by cross/mingw-w64-i686-headers/Makefile
+# used by cross/mingw-w64-i686-headers/Makefile.common
+# used by cross/mingw-w64-x86_64-headers/Makefile.common
+
+DISTNAME=		mingw-w64-v9.0.0
+CATEGORIES=		cross
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=mingw-w64/}
+EXTRACT_SUFX=		.tar.bz2
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://mingw-w64.org/
+
+WRKSRC=			${WRKDIR}/${DISTNAME}/mingw-w64-headers
+
+USE_GNU_CONFIGURE_HOST=	no
+
+USE_TOOLS+=		gmake
+
+GNU_CONFIGURE=		yes
+GNU_CONFIGURE_PREFIX=	${PREFIX}/cross/${MINGW_TARGET}/mingw
+CONFIGURE_ARGS+=	--enable-sdk=all
+CONFIGURE_ARGS+=	--host=${MINGW_TARGET}
+
+.include "../../cross/mingw-w64/Makefile.common"

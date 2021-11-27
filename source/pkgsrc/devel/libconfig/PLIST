@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2018/10/08 20:58:12 triaxx Exp $
+include/libconfig.h
+include/libconfig.h++
+info/libconfig.info
+lib/cmake/libconfig++/libconfig++Config.cmake
+lib/cmake/libconfig/libconfigConfig.cmake
+lib/libconfig++.la
+lib/libconfig.la
+lib/pkgconfig/libconfig++.pc
+lib/pkgconfig/libconfig.pc

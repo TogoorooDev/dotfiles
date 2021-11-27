@@ -1,0 +1,5 @@
+/patch-configure/1.2/Sun Mar 21 12:41:11 2021//Tpkgsrc-2021Q3
+/patch-lib_cpp_src_thrift_server_TNonblockingServer.cpp/1.1/Wed Sep 18 11:27:53 2019//Tpkgsrc-2021Q3
+/patch-lib_cpp_src_thrift_transport_SocketCommon.cpp/1.1/Sun Mar 21 12:41:11 2021//Tpkgsrc-2021Q3
+/patch-lib_cpp_src_thrift_transport_TSocketUtils.h/1.1/Sun Mar 21 12:41:11 2021//Tpkgsrc-2021Q3
+D

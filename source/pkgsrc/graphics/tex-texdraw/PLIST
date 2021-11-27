@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2019/05/14 10:05:41 markd Exp $
+share/texmf-dist/tex/generic/texdraw/blockdiagram.tex
+share/texmf-dist/tex/generic/texdraw/texdraw.sty
+share/texmf-dist/tex/generic/texdraw/texdraw.tex
+share/texmf-dist/tex/generic/texdraw/txdps.tex
+share/texmf-dist/tex/generic/texdraw/txdtools.tex

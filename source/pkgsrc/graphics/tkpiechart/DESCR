@@ -1,0 +1,3 @@
+Tkpiechart is a Tcl only extension that allows the programmer to
+create and dynamically update 2D or 3D pie charts in a Tcl/Tk
+application (obviously Tk is required).

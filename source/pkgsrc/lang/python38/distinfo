@@ -1,0 +1,25 @@
+$NetBSD: distinfo,v 1.22 2021/09/01 13:52:52 adam Exp $
+
+SHA1 (Python-3.8.12.tar.xz) = 7643eccc15f5606bd0dc04affc7ea901e417165d
+RMD160 (Python-3.8.12.tar.xz) = 3453c1e5cacbc2cb506c8a98b2310fda9ade3ea8
+SHA512 (Python-3.8.12.tar.xz) = 2f93fe5ff83f470c7b6a1b7f29f499a2a010fabd649e9fe65ad3fbfa21b6e1966e77c9b7ac012d978159bc3fe63fec2d64bc6982fc2ee1714d3fa0e47631f279
+Size (Python-3.8.12.tar.xz) = 18443568 bytes
+SHA1 (patch-Lib_ctypes_util.py) = 032cc99ebad93ddddfd89073c60424a952e3faa3
+SHA1 (patch-Lib_distutils_command_install.py) = 6fc6f5d918b7581fc62cd0fe55857ee932c3a341
+SHA1 (patch-Lib_distutils_sysconfig.py) = 6822eafb4dfded86d7f7353831816aeb8119e6cf
+SHA1 (patch-Lib_distutils_unixccompiler.py) = 2e65a8dd5dd3fe25957206c062106fa7a6fc4e69
+SHA1 (patch-Lib_lib2to3_pgen2_driver.py) = 5d6dab14197f27363394ff1aeee22a8ced8026d2
+SHA1 (patch-Lib_sysconfig.py) = a4f009ed73ebbd9d9c4bf7e12b7981182ed8fd7c
+SHA1 (patch-Makefile.pre.in) = d42f9f5bca1dd663f64122dc95b49111452fe6e8
+SHA1 (patch-Modules_makesetup) = a06786eebffadecedba5e3a50a9785fb47613567
+SHA1 (patch-Modules_nismodule.c) = 1bafe9b06359586d027a77011b103877590d947d
+SHA1 (patch-Modules_posixmodule.c) = ea24a1aa19b596b5d4457a4eff761e516406145f
+SHA1 (patch-Modules_socketmodule.c) = e99fd9e30e3feafef1747a2f52446d8fec543362
+SHA1 (patch-Modules_socketmodule.h) = 9ba713069aeb4e262d0bf621e3873002a11f97bb
+SHA1 (patch-Modules_timemodule.c) = 10dc2769432bbfd4360f90fedfa6504d8b6f6347
+SHA1 (patch-Python_bootstrap__hash.c) = 2e7d24ded1369624b2983b15784988517a9697a5
+SHA1 (patch-Python_pytime.c) = 41981f821e0b420abcb0334312148deb9a9fed5e
+SHA1 (patch-Python_thread__pthread.h) = fb81eaa604b4ed7c1b64c3f4731d58a8aee257be
+SHA1 (patch-configure) = 114060a92a3d6fc20ad4adc12ae396307b5f4c16
+SHA1 (patch-pyconfig.h.in) = dc98ffe351623df2e8453e9350c30d705f4e99bd
+SHA1 (patch-setup.py) = 0b05bdc61289ee75758dcf8e422b988ff2067cba

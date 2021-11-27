@@ -1,0 +1,15 @@
+# $NetBSD: ulimit.help,v 1.4 2020/03/22 21:17:30 joerg Exp $
+#
+
+# UNLIMIT_RESOURCES
+#	This variable controls which resources are set to "unlimited"
+#	during the configure, build and install phases. The possible
+#	values are the following, which can be combined:
+#
+#	* cputime
+#	* datasize
+#	* memorysize
+#	* stacksize
+#	* virtualsize
+#
+# Keywords: ulimit unlimit memory cputime ENOMEM

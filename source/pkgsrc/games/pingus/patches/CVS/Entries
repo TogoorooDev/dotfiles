@@ -1,0 +1,22 @@
+/patch-Makefile/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-SConscript/1.2/Mon May 27 16:07:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_button.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_checkbox.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_combobox.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_file__list.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_inputbox.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_message__box.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_object__selector.cpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_editor_viewport.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_lisp_getters.hpp/1.2/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_components_check__box.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_components_choice__box.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_components_slider__box.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_config__manager.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_pingus__level.hpp/1.1/Thu Dec 19 22:15:10 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_pingus__main.cpp/1.2/Mon May 27 16:07:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_screens_demo__session.hpp/1.1/Mon May 27 15:37:56 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_screens_option__menu.hpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_pingus_screens_pingus__menu.cpp/1.1/Sun May 12 06:17:30 2019//Tpkgsrc-2021Q3
+/patch-src_util_file__reader.hpp/1.1/Thu Dec 19 22:15:10 2019//Tpkgsrc-2021Q3
+D

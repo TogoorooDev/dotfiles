@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.25.6.1 2021/10/17 16:23:57 tm Exp $
+
+SHA1 (balsa-2.6.3.tar.xz) = 1184d7a98ea01c2605fa50db8c6a3e7d714965ff
+RMD160 (balsa-2.6.3.tar.xz) = 0fbb48dd6b6dda1dc0d264f41eb35912b7039d0d
+SHA512 (balsa-2.6.3.tar.xz) = 7e64f75423dd37536812854e56db1af97c00bc35f640d82c22d86e5212c766926430f1c99423f1a972daf6f20d084d4cf16d89e13deb2f1ce550c016cd132f8d
+Size (balsa-2.6.3.tar.xz) = 3761940 bytes
+SHA1 (patch-sounds_Makefile.in) = 5f0f7daecc5f22dc8733305a547760a73466b37c

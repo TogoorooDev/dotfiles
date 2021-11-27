@@ -1,0 +1,4 @@
+# $NetBSD: Makefile.common,v 1.51 2021/07/13 13:24:43 nia Exp $
+# used by editors/abiword-plugins/Makefile
+
+ABIVERSION=	3.0.5

@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2021/09/01 18:16:44 adam Exp $
+
+SHA1 (platformdirs-2.3.0.tar.gz) = b5bb65b09ac9e3c2e54c97aba4915acf03be3786
+RMD160 (platformdirs-2.3.0.tar.gz) = 242c0868d604a217515475cb876ef46820dc4c30
+SHA512 (platformdirs-2.3.0.tar.gz) = 06c570f1c206f557fe989e79a1a98da90c05f15a66a56ebbe260884b2250c2cd1a6345d664af63a886268b5a2bb366186927561721fd6a4b52b11eb2868677b1
+Size (platformdirs-2.3.0.tar.gz) = 22730 bytes

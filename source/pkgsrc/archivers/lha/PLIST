@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2020/12/19 15:03:14 rhialto Exp $
+bin/lha
+man/man1/lha.1

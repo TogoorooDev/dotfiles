@@ -1,0 +1,15 @@
+$NetBSD: patch-ad,v 1.5 2019/07/30 08:08:22 nia Exp $
+
+NetBSD does not have this pts ioctl.
+
+--- src/Unix/sshpty.c.orig	2019-04-05 05:12:49.000000000 +0000
++++ src/Unix/sshpty.c
+@@ -182,7 +182,7 @@ pty_allocate(int *ptyfd, int *ttyfd, cha
+ 		close(*ptyfd);
+ 		return 0;
+ 	}
+-#ifndef HAVE_CYGWIN
++#if !defined(HAVE_CYGWIN) && !defined(__NetBSD__)
+ 	/*
+ 	 * Push the appropriate streams modules, as described in Solaris pts(7).
+ 	 * HP-UX pts(7) doesn't have ttcompat module.

@@ -1,0 +1,14 @@
+$NetBSD: patch-bfd_Makefile.in,v 1.1 2021/09/08 12:03:00 micha Exp $
+
+Avoid installing info and po (NLS) files.
+
+--- bfd/Makefile.in.orig	2021-07-18 16:36:53.000000000 +0000
++++ bfd/Makefile.in
+@@ -1748,7 +1748,6 @@ installdirs-am:
+ 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+ 	done
+ install: $(BUILT_SOURCES)
+-	$(MAKE) $(AM_MAKEFLAGS) install-recursive
+ install-exec: install-exec-recursive
+ install-data: install-data-recursive
+ uninstall: uninstall-recursive

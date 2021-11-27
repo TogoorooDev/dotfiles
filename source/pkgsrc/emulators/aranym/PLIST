@@ -1,0 +1,47 @@
+@comment $NetBSD: PLIST,v 1.8 2019/10/01 14:54:59 nia Exp $
+bin/aranym-mmu
+man/man1/aranym-mmu.1
+man/man1/aranym.1
+share/applications/aranym-mmu.desktop
+share/aranym/arabridge
+share/aranym/atari/hostfs/README
+share/aranym/atari/hostfs/bdconfig.sys
+share/aranym/atari/mmusetup.cnf
+share/aranym/atari/network/README
+share/aranym/atari/network/eth0-config.sh
+share/aranym/atari/newdesk.inf
+share/aranym/atari/nfosmesa/README
+share/aranym/atari/sound/README
+share/aranym/atari/tools/README
+share/aranym/atari/tools/pc101us.kbd.bz2
+share/aranym/etos512k.img
+share/aranym/floppy.sh
+share/aranym/logo.bmp
+share/aranym/wm_icon.bmp
+share/doc/aranym/AUTHORS
+share/doc/aranym/BUGS
+share/doc/aranym/COPYING
+share/doc/aranym/FAQ
+share/doc/aranym/INSTALL
+share/doc/aranym/NEWS
+share/doc/aranym/README
+share/doc/aranym/TODO
+share/doc/aranym/changelog
+share/doc/aranym/config
+share/doc/aranym/emutos/announce.txt
+share/doc/aranym/emutos/authors.txt
+share/doc/aranym/emutos/changelog.txt
+share/doc/aranym/emutos/license.txt
+share/doc/aranym/emutos/readme.txt
+share/doc/aranym/emutos/status.txt
+share/icons/hicolor/32x32/apps/aranym-jit.png
+share/icons/hicolor/32x32/apps/aranym-mmu.png
+share/icons/hicolor/32x32/apps/aranym.png
+share/icons/hicolor/48x48/apps/aranym-jit.png
+share/icons/hicolor/48x48/apps/aranym-mmu.png
+share/icons/hicolor/48x48/apps/aranym.png
+share/pixmaps/aranym-jit.png
+share/pixmaps/aranym-mmu.png
+share/pixmaps/aranym.png
+@pkgdir share/aranym/atari/nfjpeg
+@pkgdir share/aranym/atari/nfcdrom

@@ -1,0 +1,20 @@
+$NetBSD: patch-ab,v 1.5 2019/12/21 23:44:00 joerg Exp $
+
+--- /dev/null	Thu Feb  8 05:50:43 2001
++++ src/Makefile
+@@ -0,0 +1,15 @@
++LIB= 	dcdflib_c
++
++SHLIB_MAJOR=0
++SHLIB_MINOR=0
++
++LIBDIR=${PREFIX}/lib
++
++NOLINT=1
++MKPICINSTALL=no
++
++SRCS= 	dcdflib.c ipmpar.c
++
++INCS=	cdflib.h
++
++.include <bsd.lib.mk>

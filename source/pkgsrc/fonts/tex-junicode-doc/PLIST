@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2020/04/26 12:21:16 markd Exp $
+share/texmf-dist/doc/fonts/junicode/COPYING
+share/texmf-dist/doc/fonts/junicode/ChangeLog
+share/texmf-dist/doc/fonts/junicode/README
+share/texmf-dist/doc/fonts/junicode/README.TEXLIVE
+share/texmf-dist/doc/fonts/junicode/fleurons
+share/texmf-dist/doc/fonts/junicode/replacements

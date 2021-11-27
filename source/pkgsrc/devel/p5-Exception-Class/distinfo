@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.19 2017/12/30 13:23:40 wiz Exp $
+
+SHA1 (Exception-Class-1.44.tar.gz) = 2af1d17e8b941922fb5cb06ef285186fb212a26f
+RMD160 (Exception-Class-1.44.tar.gz) = 50a6f22adb13caeb53c80d94e9fecc7300790b7d
+SHA512 (Exception-Class-1.44.tar.gz) = 7ce1e488505dc3d1c6d6365b5ed523b204b93d89d205ad4cdf6c9ee9dbad1a6edc257251a365275f067479e734def56b3b21d588e978822e7714bd8a49ba6bb2
+Size (Exception-Class-1.44.tar.gz) = 46156 bytes

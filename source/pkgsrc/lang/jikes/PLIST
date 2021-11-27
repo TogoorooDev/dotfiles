@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.4 2018/02/18 05:06:18 rillig Exp $
+bin/jikes
+include/jikesapi.h
+man/man1/jikes.1
+share/doc/jikes/license.htm

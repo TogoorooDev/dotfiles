@@ -1,0 +1,27 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/01 22:29:26 rillig Exp $
+bin/B
+bin/sam
+bin/samsave
+bin/samterm
+include/sam/frame.h
+include/sam/libc.h
+include/sam/libg.h
+include/sam/u.h
+lib/X11/app-defaults/Sam
+lib/libXg.a
+lib/libframe.a
+man/man1/sam.1
+man/man3/add.3
+man/man3/balloc.3
+man/man3/bitblt.3
+man/man3/cachechars.3
+man/man3/event.3
+man/man3/frame.3
+man/man3/graphics.3
+man/man3/rgbpix.3
+man/man3/rune.3
+man/man4/font.4
+man/man4/keyboard.4
+man/man4/utf.4
+man/man6/bitmap.6
+man/man6/regexp.6

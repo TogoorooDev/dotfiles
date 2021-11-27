@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2019/03/16 00:44:22 manu Exp $
+lib/ltfs/libdriver-ltotape.la

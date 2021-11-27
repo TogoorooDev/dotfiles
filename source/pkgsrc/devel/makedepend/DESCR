@@ -1,0 +1,2 @@
+makedepend parses C source files to make dependency lists for
+Makefiles.

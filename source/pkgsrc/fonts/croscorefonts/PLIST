@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.4 2019/01/08 19:25:57 bsiegert Exp $
+share/fonts/X11/TTF/Arimo-Bold.ttf
+share/fonts/X11/TTF/Arimo-BoldItalic.ttf
+share/fonts/X11/TTF/Arimo-Italic.ttf
+share/fonts/X11/TTF/Arimo-Regular.ttf
+share/fonts/X11/TTF/Cousine-Bold.ttf
+share/fonts/X11/TTF/Cousine-BoldItalic.ttf
+share/fonts/X11/TTF/Cousine-Italic.ttf
+share/fonts/X11/TTF/Cousine-Regular.ttf
+share/fonts/X11/TTF/Tinos-Bold.ttf
+share/fonts/X11/TTF/Tinos-BoldItalic.ttf
+share/fonts/X11/TTF/Tinos-Italic.ttf
+share/fonts/X11/TTF/Tinos-Regular.ttf

@@ -61,11 +61,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", NULL };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *firefoxcmd[] = { "firefox", NULL };
+static const char *firefoxcmd[] = { "firefox-bin", NULL };
 static const char *surfcmd[] = { "tabbed", "surf", "-e", NULL};
-static const char *emacscmd[] = { "emacs", NULL};
+static const char *emacscmd[] = { "emacsclient", "-c", NULL};
+static const char *sscmd[] = { "scrot", "~/Screenshot/%b%d::%H%M%S.png", NULL };
+static const char *ssselcmd[] = { "scrot", "~/Screenshot/%b%d::%H%M%S.png", "-s",  NULL };
+static const char *plumbcmd[] = { "/home/hens/projects/plumb/plumb.sh", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,8 +101,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY,						XK_f,	   spawn,		   {.v = firefoxcmd } },
-	{ MODKEY,						XK_s,	   spawn,		   {.v = surfcmd } },
+	//{ MODKEY,						XK_s,	   spawn,		   {.v = surfcmd } },
 	{ MODKEY,						XK_e,	   spawn,			{.v = emacscmd} },
+	{ MODKEY,			XK_s,	   spawn,	   {.v = sscmd} },
+	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   {.v = ssselcmd} },
+	{ MODKEY, 			XK_r,	   spawn,	   {.v = plumbcmd} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

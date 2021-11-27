@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.5 2021/04/03 18:03:12 nia Exp $
+bin/ioq3ded
+bin/ioquake3
+lib/ioquake3/baseq3/cgame${QUAKE_ARCH}.so
+lib/ioquake3/baseq3/qagame${QUAKE_ARCH}.so
+lib/ioquake3/baseq3/ui${QUAKE_ARCH}.so
+lib/ioquake3/ioq3ded.${QUAKE_ARCH}
+lib/ioquake3/ioquake3.${QUAKE_ARCH}
+lib/ioquake3/missionpack/cgame${QUAKE_ARCH}.so
+lib/ioquake3/missionpack/qagame${QUAKE_ARCH}.so
+lib/ioquake3/missionpack/ui${QUAKE_ARCH}.so
+lib/ioquake3/renderer_opengl1_${QUAKE_ARCH}.so
+lib/ioquake3/renderer_opengl2_${QUAKE_ARCH}.so
+man/man6/ioq3ded.6
+man/man6/ioquake3.6

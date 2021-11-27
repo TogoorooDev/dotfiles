@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.17 2020/05/08 13:03:20 nia Exp $
+bin/faad
+include/faad2/faad.h
+include/faad2/neaacdec.h
+lib/libfaad.la
+lib/libfaad_drm.la
+lib/pkgconfig/faad2.pc
+man/man1/faad.1

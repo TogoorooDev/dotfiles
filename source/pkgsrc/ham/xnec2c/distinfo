@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.11 2021/08/16 13:43:49 mef Exp $
+
+SHA1 (xnec2c-4.1.5.tar.bz2) = 7474de3525abb921fb78e7b93bf5d80c222e376b
+RMD160 (xnec2c-4.1.5.tar.bz2) = c3d9dd85d4be26c79ca573d0f30b5c188e5c5fff
+SHA512 (xnec2c-4.1.5.tar.bz2) = aaf5d7d30dcbb5c78a93ee6baea8ab4a00e44231826ce54dc54ee10be9b989dc4d2be4c8c32671596dd8c84292cdcf10a6e547aac6b943cbff0904b22ffc1299
+Size (xnec2c-4.1.5.tar.bz2) = 936233 bytes
+SHA1 (patch-src_Makefile.in) = 4fde316b9074b29f59494c0ac43a0481f93d9f43

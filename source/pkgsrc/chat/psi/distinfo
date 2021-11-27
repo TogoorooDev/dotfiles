@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.30 2020/11/13 14:06:48 nia Exp $
+
+SHA1 (psi-1.5/psi-1.5.tar.xz) = 8950a80111f2dabb9c4fa3dc27c0544a970685ce
+RMD160 (psi-1.5/psi-1.5.tar.xz) = fbea608528f90d90b3acf76014e1a6312e39d340
+SHA512 (psi-1.5/psi-1.5.tar.xz) = c2e17dad346b5f7e8c97dc8959d99eaf4c30c1ba11c2d04b562af7b30482d5dbdc3a86508c4c29881ea0fc72db5a9d5fb4017768732cafee6a1d3025a39d8520
+Size (psi-1.5/psi-1.5.tar.xz) = 2125104 bytes
+SHA1 (patch-src_accountmanagedlg.cpp) = ca40ab15b01121a327b4774fb9f6284341f055bd
+SHA1 (patch-src_options_opt__application.cpp) = b0ddccbd3ffec0d89daa85e92f0ef06bc2d7fe68

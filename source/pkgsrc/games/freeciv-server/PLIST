@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.6 2021/09/19 07:31:27 nia Exp $
+bin/freeciv-server
+etc/freeciv/database.lua
+lib/libfreeciv-srv.la
+share/appdata/freeciv-server.appdata.xml
+share/applications/org.freeciv.server.desktop

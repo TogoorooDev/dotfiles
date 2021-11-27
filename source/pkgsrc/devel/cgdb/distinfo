@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.9 2020/10/14 05:32:16 kamil Exp $
+
+SHA1 (cgdb-0.7.1.tar.gz) = 23eb5a8f0fda6b974d422be6f23f500d124edeb0
+RMD160 (cgdb-0.7.1.tar.gz) = c3de8f0f229595cf622481b3f4eaaf7cbdc7adca
+SHA512 (cgdb-0.7.1.tar.gz) = 34f1fa53cfc9fbf7a2603db169e8338c0bf32200ed7a63e9944951f446e295e49f4ff3c5d0998a4c70bc872376263e1469d7e518becc13b4959f66495d5b9521
+Size (cgdb-0.7.1.tar.gz) = 731818 bytes
+SHA1 (patch-aa) = a880e12228d102e98d9a50fa493ae922ebce7b67
+SHA1 (patch-lib_util_fork__util.cpp) = 2717251ef4d0b042a1e760d9dcc531095cf726c3

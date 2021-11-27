@@ -1,0 +1,13 @@
+# $NetBSD: buildlink3.mk,v 1.2 2021/05/03 19:01:07 pho Exp $
+
+BUILDLINK_TREE+=	hs-ieee754
+
+.if !defined(HS_IEEE754_BUILDLINK3_MK)
+HS_IEEE754_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.hs-ieee754+=	hs-ieee754>=0.8.0
+BUILDLINK_ABI_DEPENDS.hs-ieee754+=	hs-ieee754>=0.8.0nb1
+BUILDLINK_PKGSRCDIR.hs-ieee754?=	../../math/hs-ieee754
+.endif	# HS_IEEE754_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-hs-ieee754

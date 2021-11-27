@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.22 2021/06/09 15:19:29 cirnatdan Exp $
+share/backgrounds/gnome/ColdWarm.jpg
+share/backgrounds/gnome/DepthLava.png
+share/backgrounds/gnome/IceCrystals.jpg
+share/backgrounds/gnome/Lava.jpg
+share/backgrounds/gnome/Leaf.jpg
+share/backgrounds/gnome/LightBulb.jpg
+share/backgrounds/gnome/Loveles.jpg
+share/backgrounds/gnome/Symbolics-1.png
+share/backgrounds/gnome/Tree.jpg
+share/backgrounds/gnome/VNC.png
+share/backgrounds/gnome/Wood.jpg
+share/backgrounds/gnome/adwaita-day.png
+share/backgrounds/gnome/adwaita-morning.png
+share/backgrounds/gnome/adwaita-night.png
+share/backgrounds/gnome/adwaita-timed.xml
+share/gnome-background-properties/adwaita.xml
+share/gnome-background-properties/gnome-backgrounds.xml

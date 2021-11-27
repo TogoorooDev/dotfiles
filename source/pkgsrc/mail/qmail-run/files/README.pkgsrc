@@ -1,0 +1,101 @@
+ Getting started
+ ===============
+
+Assuming NetBSD-style mailwrapper(8) and rc(8), to enable qmail for...
+
+Local and outbound delivery:
+- Run "@RCD_SCRIPTS_DIR@/postfix stop" and set postfix=NO in /etc/rc.conf.
+- Replace /etc/mailer.conf with @PREFIX@/share/examples/qmail-run/mailer.conf.
+- Check configuration in @PKG_SYSCONFDIR@ (especially alias/.qmail-*).
+- Set qmailsend=YES and qmailqread=YES in /etc/rc.conf.
+- Run "@RCD_SCRIPTS_DIR@/qmail start".
+
+Incoming SMTP on port 25:
+- Set qmailsmtpd=YES in /etc/rc.conf.
+- Add any qmail-rcptcheck programs to control/rcptchecks.
+- Add any qmail-qfilter programs to control/smtpfilters.
+- Add any qmail-spp programs (such as greylisting) to control/smtpplugins.
+- Run "@RCD_SCRIPTS_DIR@/qmailsmtpd start".
+
+Greylisting:
+- Add any exempt recipient addresses to control/greylist/exemptrcpts.
+- Add any exempt recipient domains to control/greylist/exemptrcpthosts.
+- Tuples are (IP,sender,recipient). To effectively omit IP, add
+  GL_WRAPPER_TCPREMOTEIP="127.127.127.127" to control/tcprules/smtp,
+  then run "@RCD_SCRIPTS_DIR@/qmailsmtpd cdb".
+- Uncomment "greylisting-spp-wrapper" in control/smtpplugins.
+
+Authenticated message submission on port 587:
+- Set qmailofmipd=YES in /etc/rc.conf.
+- Add any qmail-qfilter programs to control/ofmipfilters.
+- Run "@RCD_SCRIPTS_DIR@/qmailofmipd start".
+
+POP3 (for Maildirs only) on port 110:
+- Set qmailpop3d=YES in /etc/rc.conf.
+- Run "@RCD_SCRIPTS_DIR@/qmailpop3d start".
+
+TLS encryption for SMTP, submission, POP3, and remote delivery:
+- Create cert and DH params (see @PREFIX@/share/doc/qmail/README.tls).
+- Run "@RCD_SCRIPTS_DIR@/qmail restart".
+
+Sender Policy Framework:
+- Configure Sender Rewriting Scheme (see @PREFIX@/share/doc/qmail/README.srs)
+  so your auto-forwarded messages will reach servers that choose to
+  enforce the forwarded domains' SPF policies.
+- Publish a DNS TXT record with your desired policy.
+- Incoming messages that explicit-fail published policy are nonetheless
+  accepted. To reject -- including rejecting auto-forwarded messages
+  from servers that haven't configured SRS -- add
+  SPP_SPF_RESULT_FAIL="E550 spf_smtp_msg" to control/tcprules/smtp,
+  then run "@RCD_SCRIPTS_DIR@/qmailsmtpd cdb".
+- Messages that explicit-pass are not greylisted. To remove the
+  exemption, remove SPP_SPF_RESULT_PASS="SGL_WHITELISTED=1" from
+  control/tcprules/smtp, then run "@RCD_SCRIPTS_DIR@/qmailsmtpd cdb".
+
+
+ Getting help
+ ============
+
+You've installed an automated and customized qmail-run package. If
+you're having trouble getting the qmail daemons to run, ask the
+package's maintainer:
+
+<URL:mailto:schmonz-pkgsrc-qmail@schmonz.com>
+
+Many members of the qmail mailing list recommend following the
+install instructions in Dave Sill's "Life with qmail" document:
+
+<URL:http://www.lifewithqmail.org/lwq.html>
+
+A "Life with qmail" installation is done by hand, so any qmail
+package necessarily deviates from LWQ in at least this respect.
+Therefore, if you need to ask for help on the qmail list, please
+mention that you're using the qmail-run package from pkgsrc.
+
+If you can first reproduce your problem on a manual LWQ-style
+installation, your request for help is likely to be better received.
+
+It is highly recommended that you read Charles Cazabon's "12 Steps
+to qmail List Bliss" before posting to the list:
+
+<URL:http://pyropus.ca/personal/writings/12-steps-to-qmail-list-bliss.html>
+
+
+ Deviations from LWQ
+ ===================
+
+LWQ suggests doing some things that the qmail-run package doesn't do:
+* Copying a script from /var/qmail/boot to /var/qmail/rc.
+* Configuring svscan(8) to run at boot.
+* Creating and/or populating /service.
+* Using supervise(8) and multilog(8).
+* Using the qmailctl script to control qmail.
+* Using the inst_check script to verify the installation.
+* Storing tcp.smtp{,cdb} in /etc.
+* Renaming the system sendmail(8) and marking it non-executable.
+
+Instead, the qmail-run package:
+* Provides NetBSD-style rc.d scripts, including one very similar to qmailctl.
+* Sends log messages to syslog(3) by default.
+* Stores tcprules in @PKG_SYSCONFDIR@/control/tcprules.
+* Uses mailwrapper(8) and mailer.conf(5).

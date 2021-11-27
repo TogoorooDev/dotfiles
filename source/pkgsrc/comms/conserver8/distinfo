@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.12 2019/05/23 15:14:51 he Exp $
+
+SHA1 (conserver-8.2.4.tar.gz) = 1aa679abaa0e2e1f654a65f6ab1af254518e3407
+RMD160 (conserver-8.2.4.tar.gz) = a911377a5821d6a9129ce875c1d6d5bada620b24
+SHA512 (conserver-8.2.4.tar.gz) = c59b9bcf582209f8450a8189c1af536951e15ff3aa97994ea99f9de5c6028237a9fa3ca8ba0f7d63ec33b96e45adf76be755181c4199621debfed9feaf1659ad
+Size (conserver-8.2.4.tar.gz) = 432854 bytes
+SHA1 (patch-aa) = e7dea78d62c4e879c0741b0c9992811410737178
+SHA1 (patch-conserver.cf_conserver.cf.man.in) = d175b593a0352c0d9ede6f2d54c23faddc0262d9
+SHA1 (patch-conserver_access.c) = a7956022bbdbbf2dc97ee474e8815d48d6adfadd
+SHA1 (patch-conserver_consent.c) = aa868cdacfe8a8e294ba8dcf74e2460ddf34ef3a
+SHA1 (patch-conserver_readcfg.c) = c39e1d50829658cb77e4c943e631da4b3cdd31ee

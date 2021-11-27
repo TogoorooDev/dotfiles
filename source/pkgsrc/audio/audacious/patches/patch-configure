@@ -1,0 +1,24 @@
+$NetBSD: patch-configure,v 1.4 2021/03/04 10:40:58 nia Exp $
+
+Fix install_name on Darwin.
+
+--- configure.orig	2021-02-01 23:52:35.000000000 +0000
++++ configure
+@@ -8064,7 +8064,7 @@ printf %s "checking for shared library s
+ printf "%s\n" "Darwin" >&6; }
+ 			LIB_CFLAGS='-fPIC -DPIC'
+ 			LIB_LDFLAGS='-dynamiclib -current_version ${LIB_MAJOR}.${LIB_MINOR} -compatibility_version ${LIB_MAJOR}'
+-			LIB_LDFLAGS_INSTALL_NAME='-Wl,-install_name,${libdir}/$${out%.dylib}.${LIB_MAJOR}.dylib'
++			LIB_LDFLAGS_INSTALL_NAME='-Wl,-install_name,${libdir}/${SHARED_LIB}'
+ 			LIB_PREFIX='lib'
+ 			LIB_SUFFIX='.dylib'
+ 			LDFLAGS_RPATH='-Wl,-rpath,${libdir}'
+@@ -8125,7 +8125,7 @@ printf "%s\n" "OpenBSD" >&6; }
+ 			UNINSTALL_PLUGIN='&& rm -f ${DESTDIR}${plugindir}/$$i'
+ 			CLEAN_LIB=''
+ 			;;
+-		solaris*)
++		notsolaris*)
+ 			{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: Solaris" >&5
+ printf "%s\n" "Solaris" >&6; }
+ 			LIB_CFLAGS='-fPIC -DPIC'

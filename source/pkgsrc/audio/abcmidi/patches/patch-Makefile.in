@@ -1,0 +1,15 @@
+$NetBSD: patch-Makefile.in,v 1.4 2021/04/17 07:46:52 nia Exp $
+
+Install man pages to mandir.
+
+--- Makefile.in.orig	2020-10-19 12:07:59.000000000 +0000
++++ Makefile.in
+@@ -51,7 +51,7 @@ bindir = @bindir@
+ libdir = @libdir@
+ datadir = @datarootdir@
+ docdir = @datarootdir@/doc/abcmidi
+-mandir = @datarootdir@/man/man1
++mandir = @mandir@/man1
+ 
+ binaries=abc2midi midi2abc abc2abc mftext yaps midicopy abcmatch
+ 

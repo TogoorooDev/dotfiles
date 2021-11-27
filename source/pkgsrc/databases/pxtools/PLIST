@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.3 2018/01/01 22:29:22 rillig Exp $
+bin/pxcsvdump
+bin/pxinfo
+bin/pxsqldump
+bin/pxxmldump
+share/locale/de/LC_MESSAGES/pxtools.mo

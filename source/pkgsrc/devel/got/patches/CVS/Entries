@@ -1,0 +1,15 @@
+/patch-Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-Makefile.inc/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-got_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-libexec_Makefile.inc/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_cmdline_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_cmdline_common.sh/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_cmdline_histedit.sh/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_delta_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_fetch_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_idset_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-regress_path_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-tog_Makefile/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+/patch-tog_tog.c/1.1/Fri Jan 29 20:35:11 2021//Tpkgsrc-2021Q3
+D

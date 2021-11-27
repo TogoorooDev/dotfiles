@@ -1,0 +1,13 @@
+$NetBSD: distinfo,v 1.27 2021/02/11 15:45:27 nia Exp $
+
+SHA1 (goffice-0.10.48.tar.xz) = 86da465e81d84a1f353766adaf3c88ad62b22e55
+RMD160 (goffice-0.10.48.tar.xz) = 65362cd8dbeb4441e976e76a1aece35bd586ad46
+SHA512 (goffice-0.10.48.tar.xz) = 90ce49c666a164205f8f78dca9fa40c81ddf0312b1b7f76808b8813d168868b5ce46c307fd5405a1314b0a475a4e52e95ab379b2dc751c1626e085ecf846d0f3
+Size (goffice-0.10.48.tar.xz) = 2413400 bytes
+SHA1 (patch-gofffice_app_io-context.h) = b8aceae57a06af6873cbf0219b255ce9b9627d84
+SHA1 (patch-goffice_app_error-info.h) = 6273b5d9a95bb5d45aaa9369271f7476d74f6b0a
+SHA1 (patch-goffice_math_go-complex.c) = 813c0047372c268d1f8855d264a9e366d1cd979e
+SHA1 (patch-goffice_math_go-dtoa.c) = 49a9194f6be85cfec2df4ee09a918f65f820c1cc
+SHA1 (patch-goffice_math_go-math.c) = a7301ca61559efc336ef6905ef9c116eacb7cbdf
+SHA1 (patch-goffice_math_go-matrix.c) = 3d7be1540defaefbd2facc2c85b31938e0c5cac0
+SHA1 (patch-goffice_utils_go-glib-extras.c) = ed27e08c67a9341a43f24a23a1f97c4851d8cd3d

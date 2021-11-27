@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.7 2020/11/06 18:07:37 maya Exp $
+share/doc/liberation-ttf/AUTHORS
+share/doc/liberation-ttf/ChangeLog
+share/doc/liberation-ttf/LICENSE
+share/doc/liberation-ttf/README.md
+share/doc/liberation-ttf/TODO
+share/fonts/X11/TTF/LiberationMono-Bold.ttf
+share/fonts/X11/TTF/LiberationMono-BoldItalic.ttf
+share/fonts/X11/TTF/LiberationMono-Italic.ttf
+share/fonts/X11/TTF/LiberationMono-Regular.ttf
+share/fonts/X11/TTF/LiberationSans-Bold.ttf
+share/fonts/X11/TTF/LiberationSans-BoldItalic.ttf
+share/fonts/X11/TTF/LiberationSans-Italic.ttf
+share/fonts/X11/TTF/LiberationSans-Regular.ttf
+share/fonts/X11/TTF/LiberationSerif-Bold.ttf
+share/fonts/X11/TTF/LiberationSerif-BoldItalic.ttf
+share/fonts/X11/TTF/LiberationSerif-Italic.ttf
+share/fonts/X11/TTF/LiberationSerif-Regular.ttf

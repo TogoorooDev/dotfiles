@@ -1,0 +1,1 @@
+bin/blockdiag @PREFIX@/bin/blockdiag-@PYVERSSUFFIX@

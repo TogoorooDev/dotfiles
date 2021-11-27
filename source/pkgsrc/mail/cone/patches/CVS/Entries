@@ -1,0 +1,17 @@
+/patch-af/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-cone_cursesmessage.C/1.1/Mon Nov 11 16:42:21 2013//Tpkgsrc-2021Q3
+/patch-cone_myserverremoteconfig.C/1.1/Sun Mar 22 21:24:56 2020//Tpkgsrc-2021Q3
+/patch-curses-cursesscreen.C/1.2/Sun Mar 22 21:24:56 2020//Tpkgsrc-2021Q3
+/patch-curses_cursescontainer.C/1.1/Thu May 23 15:05:54 2013//Tpkgsrc-2021Q3
+/patch-curses_cursescontainer.H/1.1/Thu May 23 15:05:54 2013//Tpkgsrc-2021Q3
+/patch-libmail-maildir.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-mbox.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-mboxadd.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-mboxfolder.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-mboxgetmessage.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-mboxread.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail-tmpaccount.C/1.2/Sat Jun  9 11:51:36 2012//Tpkgsrc-2021Q3
+/patch-libmail_addmessage.H/1.1/Sun Mar 22 21:24:56 2020//Tpkgsrc-2021Q3
+/patch-tcpd_configure/1.1/Fri Apr 17 00:21:17 2020//Tpkgsrc-2021Q3
+/patch-tcpd_libcouriertls.c/1.1/Fri Apr 17 00:21:17 2020//Tpkgsrc-2021Q3
+D

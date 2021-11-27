@@ -1,0 +1,5 @@
+/patch-Makefile/1.8/Fri Mar  5 11:18:39 2021//Tpkgsrc-2021Q3
+/patch-audio_drivers_audioio.c/1.2/Sat May 30 14:26:52 2020//Tpkgsrc-2021Q3
+/patch-frontend_drivers_platform__unix.c/1.5/Sat May 30 14:26:52 2020//Tpkgsrc-2021Q3
+/patch-qb_config.libs.sh/1.3/Fri Dec 21 15:10:51 2018//Tpkgsrc-2021Q3
+D

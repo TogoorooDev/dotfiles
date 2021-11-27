@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.16 2020/02/27 15:46:56 mef Exp $
+
+SHA1 (camlimages-4.0.1a/v4.0.1.tar.gz) = 3ff44142386970003d3cff1446ad351b36759a8e
+RMD160 (camlimages-4.0.1a/v4.0.1.tar.gz) = dd3a1aeb43bc7459781958a93db23ce32d0ca6e6
+SHA512 (camlimages-4.0.1a/v4.0.1.tar.gz) = c4e2a816911ed128c0414308d1ace914bbb51e40b6d70a3c492690b38c860f79e3e01efa3f1be7d57654c78f8acca6f30bffb9e6b8fd423d1d36d6a477d0fd8d
+Size (camlimages-4.0.1a/v4.0.1.tar.gz) = 2190274 bytes
+SHA1 (patch-OMakefile) = f650eca9bf8edbc64f9f5352718ee2046c368667
+SHA1 (patch-src_gifread.c) = 63aac1a76e809676f0000f37af63c79c4edbe316
+SHA1 (patch-src_gifwrite.c) = ab92107467b059d9541edacf60a5f73ed71fd687
+SHA1 (patch-src_jpegread.c) = 2b32040ce34218437bb4947d8a87fe2b840223b4
+SHA1 (patch-src_pngread.c) = 00d753b8570b5ff9ffa71e6e62328496b03f9654
+SHA1 (patch-src_pngwrite.c) = 4df4f69851769e0eefc2249a30ac8dd53aa8d755
+SHA1 (patch-src_tiffread.c) = 4dab0fe8da42fe7d0720d5edddf45743c7fa41fd
+SHA1 (patch-src_tiffwrite.c) = 2bc3de2b56a8f8d46fac3ac8d7c1b9ae9c4bd52c

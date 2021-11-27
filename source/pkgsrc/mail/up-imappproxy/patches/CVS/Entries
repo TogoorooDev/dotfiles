@@ -1,0 +1,15 @@
+/patch-check-dup-return-value/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-configure/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-default-location-conf/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-egd-ifdef/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-missing-definitions/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-size_t-formatters-hash.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-size_t-formatters-imapcommon.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-socklen_t-types-main.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-socklen_t-types-request.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-ssl-types/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-fix-verify-hostname-imapcommon.c/1.1/Thu Mar 18 22:05:56 2021//Tpkgsrc-2021Q3
+/patch-openssl-1.1-imapcommon.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-openssl-1.1-main.c/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+/patch-remove-install-chown/1.1/Fri Apr 17 11:28:02 2020//Tpkgsrc-2021Q3
+D

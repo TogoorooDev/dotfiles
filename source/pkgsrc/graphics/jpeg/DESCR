@@ -1,0 +1,10 @@
+This package contains C software to implement JPEG image encoding,
+decoding, and transcoding written by the Independent JPEG Group.
+JPEG is a standardized compression method for full-color and
+gray-scale images.
+
+The distributed programs provide conversion between JPEG "JFIF"
+format and image files in PBMPLUS PPM/PGM, GIF, BMP, and Targa file
+formats.  The core compression and decompression library can easily
+be reused in other programs, such as image viewers.  The package
+is highly portable C code.

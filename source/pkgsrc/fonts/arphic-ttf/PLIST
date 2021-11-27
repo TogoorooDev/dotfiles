@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.7 2018/12/08 20:32:06 nia Exp $
+share/doc/arphic-ttf/ARPHICPL.txt
+share/doc/arphic-ttf/release.txt
+share/fonts/X11/TTF/bkai00mp.ttf
+share/fonts/X11/TTF/bsmi00lp.ttf
+share/fonts/X11/TTF/gbsn00lp.ttf
+share/fonts/X11/TTF/gkai00mp.ttf

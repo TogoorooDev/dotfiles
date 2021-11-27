@@ -1,0 +1,12 @@
+/patch-Makefile/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-image_sys_strcodec.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-image_sys_strcodec.h/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrencoderdecoder_JxrDecApp.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrencoderdecoder_JxrEncApp.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrgluelib_JXRGlueJxr.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrgluelib_JXRMeta.h/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrtestlib_JXRTest.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrtestlib_JXRTestHdr.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrtestlib_JXRTestPnm.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+/patch-jxrtestlib_JXRTestTif.c/1.1/Mon Nov 25 21:07:19 2019//Tpkgsrc-2021Q3
+D

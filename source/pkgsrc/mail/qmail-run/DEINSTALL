@@ -1,0 +1,12 @@
+# $NetBSD: DEINSTALL,v 1.2 2018/12/11 17:49:40 schmonz Exp $
+
+case "${STAGE}" in
+
+POST-DEINSTALL)
+	for i in ofmip pop3 smtp; do
+		s="${PKG_SYSCONFDIR}/control/tcprules/${i}"
+		[ -f "${s}.cdb" ] && ! [ -f "${s}" ] && ${RM} -f "${s}.cdb"
+	done
+	;;
+
+esac

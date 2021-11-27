@@ -1,0 +1,7 @@
+QjackCtl is a simple Qt application to control the JACK sound server
+daemon.
+
+Provides a simple GUI dialog for setting several JACK daemon parameters,
+which are properly saved between sessions, and a way control of the status
+of the audio server daemon. With time, this primordial interface has become
+richer by including a enhanced patchbay and connection control features.

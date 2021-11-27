@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2021/09/16 20:43:36 wiz Exp $
+
+SHA1 (CLion-2021.2.tar.gz) = e91b85c4341ddd2d92a04acf6c9819e3883180f1
+RMD160 (CLion-2021.2.tar.gz) = 7b0e71d3fb5123866d579b6c8f0e47229d0044d3
+SHA512 (CLion-2021.2.tar.gz) = 9742c29f57ecf2ca4b69fa323241d12bb7660cd64b875d953cbf720bc54daaaf7dab14c487ef113368c8ad7cbb6733d34a4740bb0997d9ceb8ca702f1e30da32
+Size (CLion-2021.2.tar.gz) = 750721029 bytes
+SHA1 (patch-bin_clion.sh) = 3001ec036c37466ae93f14209508235fa1fd2fb1

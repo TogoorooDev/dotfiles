@@ -1,0 +1,32 @@
+$NetBSD: patch-sa-update,v 1.6 2020/03/23 18:45:47 gdt Exp $
+
+Prepare for substitution.
+
+--- sa-update.raw.orig	2020-01-25 02:51:16.000000000 +0000
++++ sa-update.raw
+@@ -357,10 +357,10 @@ my $GPGPath;
+ if ($GPG_ENABLED || $opt{'import'}) {
+   # find GPG in the PATH
+   # bug 4958: for *NIX it's "gpg", in Windows it's "gpg.exe"
+-  $GPGPath = 'gpg' . $Config{_exe};
++  $GPGPath = '@GPGPATH@' . $Config{_exe};
+   dbg("gpg: Searching for '$GPGPath'");
+ 
+-  if ($GPGPath = Mail::SpamAssassin::Util::find_executable_in_env_path($GPGPath)) {
++  if (-f $GPGPath) {
+     dbg("gpg: found $GPGPath");
+ 
+     # bug 5030: if GPGPath has a space, put it in quotes
+@@ -1570,10 +1570,8 @@ sub http_get {
+       }
+     }
+   } else {
+-    foreach my $try_prog ('curl', 'wget', 'fetch') {
+-      $cmd = Mail::SpamAssassin::Util::find_executable_in_env_path($try_prog);
+-      if (defined $cmd && $cmd ne '') { $ext_prog = $try_prog; last }
+-    }
++    $ext_prog = '@SA_UPDATE_FETCH_PROG@';
++    $cmd = '@SA_UPDATE_FETCH_CMD@';
+   }
+ 
+   if (defined $ext_prog && $ext_prog eq 'curl') {

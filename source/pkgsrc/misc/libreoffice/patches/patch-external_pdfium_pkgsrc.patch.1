@@ -1,0 +1,38 @@
+$NetBSD: patch-external_pdfium_pkgsrc.patch.1,v 1.7 2021/08/22 02:41:50 ryoon Exp $
+
+* Support NetBSD
+* Add pkgsrc font path
+
+--- external/pdfium/pkgsrc.patch.1.orig	2021-08-19 17:48:05.038930162 +0000
++++ external/pdfium/pkgsrc.patch.1
+@@ -0,0 +1,30 @@
++--- pdfium/core/fxcrt/cfx_datetime.cpp.orig	2021-05-03 04:55:56.000000000 +0000
+++++ pdfium/core/fxcrt/cfx_datetime.cpp
++@@ -11,7 +11,7 @@
++ #include "third_party/base/check.h"
++ 
++ #if defined(OS_ANDROID) || defined(OS_LINUX) || defined(OS_CHROMEOS) || \
++-    defined(OS_APPLE) || defined(OS_ASMJS)
+++    defined(OS_APPLE) || defined(OS_ASMJS) || defined(OS_NETBSD)
++ #include <sys/time.h>
++ #include <time.h>
++ #endif
++--- pdfium/core/fxge/linux/fx_linux_impl.cpp.orig	2021-05-03 04:55:56.000000000 +0000
+++++ pdfium/core/fxge/linux/fx_linux_impl.cpp
++@@ -17,7 +17,7 @@
++ #include "third_party/base/check.h"
++ #include "third_party/base/stl_util.h"
++ 
++-#if !defined(OS_LINUX) && !defined(OS_CHROMEOS) && !defined(OS_ASMJS)
+++#if !defined(OS_LINUX) && !defined(OS_CHROMEOS) && !defined(OS_ASMJS) && !defined(OS_NETBSD)
++ #error "Included on the wrong platform"
++ #endif
++ 
++@@ -170,6 +170,7 @@ class CLinuxPlatform : public CFX_GEModu
++       pInfo->AddPath("/usr/share/X11/fonts/Type1");
++       pInfo->AddPath("/usr/share/X11/fonts/TTF");
++       pInfo->AddPath("/usr/local/share/fonts");
+++      pInfo->AddPath("@X11BASE@/share/fonts");
++     }
++     return pInfo;
++   }

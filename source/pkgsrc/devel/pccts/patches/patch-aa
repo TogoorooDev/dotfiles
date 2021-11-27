@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.4 2021/05/31 12:05:52 wiz Exp $
+
+--- antlr/makefile.orig	2000-09-10 00:56:56.000000000 +0000
++++ antlr/makefile
+@@ -164,8 +164,8 @@ PCCTS_H=../h
+ #
+ #   UNIX  (default)
+ #
+-CC=cc
+-COPT=-O
++#CC=cc
++#COPT=-O
+ ANTLR=../bin/antlr
+ DLG=../bin/dlg
+ OBJ_EXT=o
+@@ -179,7 +179,7 @@ OBJ=antlr.o scan.o err.o bits.o build.o 
+         globals.o hash.o lex.o main.o misc.o set.o pred.o egman.o mrhoist.o fcache.o
+ 
+ antlr : $(OBJ) $(SRC)
+-		$(CC) $(CFLAGS) -o antlr $(OBJ)
++		$(CC) $(CFLAGS) $(LDFLAGS) -o antlr $(OBJ)
+ 		mv antlr ../bin/.
+ 
+ # what files does PCCTS generate (both ANTLR and DLG)

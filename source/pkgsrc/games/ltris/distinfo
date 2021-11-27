@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.11 2020/06/09 11:25:00 ryoon Exp $
+
+SHA1 (ltris-1.0.20.tar.gz) = 63bd13e1d94f0930672cd005020267f311cdaf6e
+RMD160 (ltris-1.0.20.tar.gz) = 5b82d41058df61ba7db59b4f818013cd55ddc530
+SHA512 (ltris-1.0.20.tar.gz) = 92861bdb4b43750edbdb31c999e106b0f166cae736b598caba3028b26651502f6b4e81d0b7c92df38d96223c899450ddaa445ab186198dfeb21617340eb73d26
+Size (ltris-1.0.20.tar.gz) = 897167 bytes
+SHA1 (patch-aa) = 951a8dba5a263338be2ff46d7faddc8216aa8345
+SHA1 (patch-ab) = 1b06b8a065fa6b4231a3b8d49f6111b37033e5aa

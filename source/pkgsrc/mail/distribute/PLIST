@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2018/01/01 22:29:40 rillig Exp $
+libexec/archive
+libexec/distribute
+man/man1/distribute.1

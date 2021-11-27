@@ -1,0 +1,13 @@
+$NetBSD: patch-an,v 1.6 2019/05/27 13:21:41 ryoon Exp $
+
+--- Makefile.in.orig	2019-05-12 15:09:24.000000000 +0000
++++ Makefile.in
+@@ -308,7 +308,7 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
+ ACLOCAL_AMFLAGS = -I m4
+-SUBDIRS = gnulib-local gettext-runtime libtextstyle gettext-tools
++SUBDIRS = gettext-runtime libtextstyle gettext-tools
+ changelog_etc = \
+   gettext-runtime/ChangeLog.0 \
+   gettext-runtime/doc/ChangeLog.0 \

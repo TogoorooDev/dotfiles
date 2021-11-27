@@ -1,0 +1,11 @@
+The Hewlett-Packard IA-64 instruction set simulator
+
+ski is an itanium or ia64 instruction set simulator.  It can be used
+for user or operating system development.  It can be run in batch,
+curses, gtk, or graphical (motif) modes, where you can inspect code,
+set breakpoints, and so on.
+
+BUGS: manual pages out of date, rpm build target broken, ctrl-c breaks
+      curses ski program not emulator, doesn't decode source code yet,
+      "cstack" and "pm" commands not implemented for NetBSD,
+      probably others.

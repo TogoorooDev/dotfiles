@@ -1,0 +1,37 @@
+$NetBSD: patch-aa,v 1.4 2020/08/17 20:14:55 wiz Exp $
+
+Honor CFLAGS and LDFLAGS passwed to configure script.
+
+Avoid unportable test(1) operator.
+
+--- Makefile.in.orig	2010-02-01 16:40:38.000000000 +0000
++++ Makefile.in
+@@ -54,8 +54,8 @@ CPPFLAGS = @MYCPPFLAGS@ \
+   -D_TT_PREFIX="\"$(prefix)\"" -D_TT_INCLUDEDIR="\"$(INCLUDEDIR)\"" \
+   -D_TT_LIBDIR="\"$(LIBDIR)\"" -D_TT_BINDIR="\"$(BINDIR)\"" -D_TT_LIBEXECDIR="\"$(LIBEXECDIR)\"" \
+   -D_TT_APPINC="\"-I$(INCLUDEDIR)\"" -D_TT_APPLIBS="\"-L$(LIBDIR) -ltokyotyrant @LIBS@\""
+-CFLAGS = @MYCFLAGS@
+-LDFLAGS = @MYLDFLAGS@
++CFLAGS = @CFLAGS@ @MYCFLAGS@
++LDFLAGS = @LDFLAGS@ @MYLDFLAGS@
+ CMDLDFLAGS = @MYCMDLDFLAGS@
+ LIBS = @LIBS@
+ LDENV = LD_RUN_PATH=/lib:/usr/lib:$(LIBDIR):$(HOME)/lib:/usr/local/lib:@MYRUNPATH@:.
+@@ -132,7 +132,7 @@ install :
+ 	cd man && cp -Rf $(MAN8FILES) $(DESTDIR)$(MAN8DIR)
+ 	mkdir -p $(DESTDIR)$(PCDIR)
+ 	cp -Rf $(PCFILES) $(DESTDIR)$(PCDIR)
+-	[ "$$UID" == 0 ] && ldconfig || true
++	[ "$$UID" = 0 ] && ldconfig || true
+ 	@printf '\n'
+ 	@printf '#================================================================\n'
+ 	@printf '# Thanks for using Tokyo Tyrant.\n'
+@@ -154,7 +154,7 @@ uninstall :
+ 	cd $(DESTDIR)$(MAN8DIR) && rm -f $(MAN8FILES)
+ 	rm -rf $(DESTDIR)$(DATADIR)
+ 	cd $(DESTDIR)$(PCDIR) && rm -f $(PCFILES)
+-	[ "$$UID" == 0 ] && ldconfig || true
++	[ "$$UID" = 0 ] && ldconfig || true
+ 
+ 
+ dist :

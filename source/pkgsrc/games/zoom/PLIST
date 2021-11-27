@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/07 19:17:57 rillig Exp $
+bin/zoom
+share/doc/zoom/colours.png
+share/doc/zoom/configXwin.html
+share/doc/zoom/configmac.html
+share/doc/zoom/fonts.png
+share/doc/zoom/game.png
+share/doc/zoom/generalset.png
+share/doc/zoom/idx
+share/doc/zoom/index.html
+share/doc/zoom/intro.html
+share/doc/zoom/resources.png
+share/doc/zoom/troubleshooting.html
+share/doc/zoom/ui.png
+share/doc/zoom/zicon.gif
+share/doc/zoom/zoom-icon.png
+share/doc/zoom/zoom.html
+share/doc/zoom/ztitle.html
+share/zoom/zoomrc

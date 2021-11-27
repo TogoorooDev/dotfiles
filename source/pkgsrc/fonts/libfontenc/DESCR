@@ -1,0 +1,2 @@
+The libfontenc library is used by the Xorg server and other X font
+tools for handling fonts with different character set encodings.

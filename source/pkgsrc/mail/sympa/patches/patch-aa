@@ -1,0 +1,77 @@
+$NetBSD: patch-aa,v 1.10 2020/04/27 17:57:52 bouyer Exp $
+
+--- Makefile.in.orig	2019-09-29 11:02:14.000000000 +0200
++++ Makefile.in	2019-10-17 14:40:43.000000000 +0200
+@@ -958,59 +958,30 @@
+ 		$(confdir) $(sysconfdir); do \
+ 		if [ ! -d $(DESTDIR)$$dir ] ; then \
+ 			echo "Creating $(DESTDIR)$$dir"; \
+-			$(INSTALL) -d -m 755 $(DESTDIR)$$dir; \
++			$(INSTALL) -o $(USER) -g $(GROUP) -d -m 755 $(DESTDIR)$$dir; \
+ 		fi; \
+-		chown $(USER) $(DESTDIR)$$dir; \
+-		chgrp $(GROUP) $(DESTDIR)$$dir; \
+ 	done
+ 	-@for subdir in automatic bounce msg task tmp; do \
+ 		if [ ! -d $(DESTDIR)$(spooldir)/$$subdir ] ; then \
+ 			echo "Creating $(DESTDIR)$(spooldir)/$$subdir"; \
+-			$(INSTALL) -d -m 750 $(DESTDIR)$(spooldir)/$$subdir; \
++			$(INSTALL) -o $(USER) -g $(GROUP) -d -m 750 $(DESTDIR)$(spooldir)/$$subdir; \
+ 		fi; \
+-		chown $(USER) $(DESTDIR)$(spooldir)/$$subdir; \
+-		chgrp $(GROUP) $(DESTDIR)$(spooldir)/$$subdir; \
+ 	done
+ 
+ installconfig: installdir
+-	@echo "Installing basic configuration ..."
+-	-@if [ ! -f  $(DESTDIR)$(confdir)/sympa.conf ]; then \
+-		echo "installing sympa.conf"; \
+-		$(INSTALL) -m 640 sympa.conf $(DESTDIR)$(confdir); \
+-		chown $(USER) $(DESTDIR)$(confdir)/sympa.conf; \
+-		chgrp $(GROUP) $(DESTDIR)$(confdir)/sympa.conf; \
+-	fi
+ 	@echo "Installing configuration template ..."
+ 	-@echo "installing sympa.conf-dist"; \
+-	$(INSTALL) -m 644 -T sympa.conf-dist $(DESTDIR)$(confdir)/sympa.conf-dist; \
+-	chown $(USER) $(DESTDIR)$(confdir)/sympa.conf-dist; \
+-	chgrp $(GROUP) $(DESTDIR)$(confdir)/sympa.conf-dist
+-	-@if [ ! -f $(DESTDIR)$(sysconfdir)/data_structure.version ]; then \
+-		cd $(DESTDIR)$(sysconfdir); \
+-		echo "# automatically created file" >> data_structure.version; \
+-		echo "# you should not modify it" >> data_structure.version; \
+-		echo $(VERSION) >> data_structure.version; \
+-		chown $(USER) data_structure.version; \
+-		chgrp $(GROUP) data_structure.version; \
+-	fi
+-	-@for dir in create_list_templates custom_actions custom_conditions \
+-		data_sources families tasks \
+-		mail_tt2 scenari search_filters web_tt2; do \
+-		if [ ! -d $(DESTDIR)$(sysconfdir)/$$dir ] ; then \
+-			echo "Creating $(DESTDIR)$(sysconfdir)/$$dir"; \
+-			$(INSTALL) -d -m 755 $(DESTDIR)$(sysconfdir)/$$dir; \
+-		fi; \
+-		chown $(USER) $(DESTDIR)$(sysconfdir)/$$dir; \
+-		chgrp $(GROUP) $(DESTDIR)$(sysconfdir)/$$dir; \
+-	done
+-	@if [ ! -e $(DESTDIR)$(sysconfdir)/README ]; then \
+-		echo "Creating $(DESTDIR)$(sysconfdir)/README"; \
+-		$(SED) \
+-			-e 's|--sysconfdir--|$(sysconfdir)|' \
+-			-e 's|--defaultdir--|$(defaultdir)|' \
+-			$(srcdir)/etc_README > $(DESTDIR)$(sysconfdir)/README; \
+-		chmod 644 $(DESTDIR)$(sysconfdir)/README; \
+-	fi
++	$(INSTALL) -d -m 755 $(DESTDIR)$(prefix)/share/examples/sympa; \
++	$(INSTALL) -m 644 sympa.conf-dist $(DESTDIR)$(prefix)/share/examples/sympa/sympa.conf; \
++	cd $(DESTDIR)$(prefix)/share/examples/sympa; \
++	echo "# automatically created file" >> data_structure.version; \
++	echo "# you should not modify it" >> data_structure.version; \
++	echo $(VERSION) >> data_structure.version;
++	echo "Creating $(DESTDIR)$(prefix)share/examples/sympa/README"; \
++	$(SED) \
++		-e 's|--sysconfdir--|$(sysconfdir)|' \
++		-e 's|--defaultdir--|$(defaultdir)|' \
++		$(srcdir)/etc_README > README; \
+ 
+ nextstep: 
+ 	@echo ""

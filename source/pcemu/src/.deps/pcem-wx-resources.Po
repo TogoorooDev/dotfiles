@@ -1,0 +1,794 @@
+pcem-wx-resources.o: wx-resources.cpp /usr/include/stdc-predef.h \
+ /usr/local/include/wx-3.0/wx/wxprec.h \
+ /usr/local/include/wx-3.0/wx/defs.h \
+ /usr/local/include/wx-3.0/wx/platform.h \
+ /usr/local/include/wx-3.0/wx/compiler.h \
+ /usr/local/lib/wx/include/gtk2-unicode-3.0/wx/setup.h \
+ /usr/local/include/wx-3.0/wx/chkconf.h \
+ /usr/local/include/wx-3.0/wx/gtk/chkconf.h \
+ /usr/local/include/wx-3.0/wx/unix/chkconf.h \
+ /usr/local/include/wx-3.0/wx/version.h \
+ /usr/local/include/wx-3.0/wx/cpp.h \
+ /usr/local/include/wx-3.0/wx/dlimpexp.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stddef.h \
+ /usr/local/include/wx-3.0/wx/debug.h /usr/include/assert.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/libc-header-start.h \
+ /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
+ /usr/include/linux/limits.h /usr/include/bits/posix2_lim.h \
+ /usr/include/bits/xopen_lim.h /usr/include/bits/uio_lim.h \
+ /usr/local/include/wx-3.0/wx/chartype.h /usr/include/wchar.h \
+ /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdarg.h \
+ /usr/include/bits/wchar.h /usr/include/bits/types/wint_t.h \
+ /usr/include/bits/types/mbstate_t.h \
+ /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/bits/types/locale_t.h \
+ /usr/include/bits/types/__locale_t.h /usr/include/bits/wchar2.h \
+ /usr/include/sys/types.h /usr/include/bits/types.h \
+ /usr/include/bits/timesize.h /usr/include/bits/typesizes.h \
+ /usr/include/bits/time64.h /usr/include/bits/types/clock_t.h \
+ /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \
+ /usr/include/bits/types/timer_t.h /usr/include/bits/stdint-intn.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/endianness.h /usr/include/bits/byteswap.h \
+ /usr/include/bits/uintn-identity.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/types/sigset_t.h \
+ /usr/include/bits/types/__sigset_t.h \
+ /usr/include/bits/types/struct_timeval.h \
+ /usr/include/bits/types/struct_timespec.h /usr/include/bits/select2.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \
+ /usr/include/bits/pthreadtypes-arch.h /usr/include/bits/struct_mutex.h \
+ /usr/include/bits/struct_rwlock.h \
+ /usr/local/include/wx-3.0/wx/windowid.h \
+ /usr/local/include/wx-3.0/wx/features.h \
+ /usr/local/include/wx-3.0/wx/filesys.h \
+ /usr/local/include/wx-3.0/wx/stream.h /usr/include/stdio.h \
+ /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
+ /usr/include/bits/types/struct_FILE.h \
+ /usr/include/bits/types/cookie_io_functions_t.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/stdio.h \
+ /usr/include/bits/stdio2.h /usr/local/include/wx-3.0/wx/object.h \
+ /usr/local/include/wx-3.0/wx/memory.h \
+ /usr/local/include/wx-3.0/wx/string.h /usr/include/string.h \
+ /usr/include/strings.h /usr/include/bits/strings_fortified.h \
+ /usr/include/bits/string_fortified.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/stdlib.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdlib \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++config.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/os_defines.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/cpu_defines.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/pstl/pstl_config.h \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/alloca.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/bits/stdlib.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/std_abs.h \
+ /usr/local/include/wx-3.0/wx/wxcrtbase.h /usr/include/ctype.h \
+ /usr/include/wctype.h /usr/include/bits/wctype-wchar.h \
+ /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h \
+ /usr/local/include/wx-3.0/wx/strvararg.h \
+ /usr/local/include/wx-3.0/wx/strconv.h \
+ /usr/local/include/wx-3.0/wx/buffer.h \
+ /usr/local/include/wx-3.0/wx/fontenc.h \
+ /usr/local/include/wx-3.0/wx/unichar.h \
+ /usr/local/include/wx-3.0/wx/stringimpl.h \
+ /usr/local/include/wx-3.0/wx/beforestd.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/string \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stringfwd.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/memoryfwd.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/char_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_algobase.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/functexcept.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception_defines.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cpp_type_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/type_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/numeric_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_pair.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/move.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/type_traits \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator_base_types.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator_base_funcs.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/concept_check.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/debug/assertions.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ptr_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/debug/debug.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/predefined_ops.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/postypes.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cwchar \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/allocator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/new_allocator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/new \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/localefwd.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++locale.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/clocale \
+ /usr/include/locale.h /usr/include/bits/locale.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/iosfwd \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cctype \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ostream_insert.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cxxabi_forced.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_function.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/backward/binders.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/range_access.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/initializer_list \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/basic_string.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/atomicity.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/gthr.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
+ /usr/include/bits/setjmp.h \
+ /usr/include/bits/types/struct___jmp_buf_tag.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/atomic_word.h \
+ /usr/include/sys/single_threaded.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/alloc_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/alloc_traits.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_construct.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/string_view \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/functional_hash.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/hash_bytes.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/string_view.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/string_conversions.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdio \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cerrno \
+ /usr/include/errno.h /usr/include/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/bits/types/error_t.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/charconv.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/basic_string.tcc \
+ /usr/local/include/wx-3.0/wx/afterstd.h \
+ /usr/local/include/wx-3.0/wx/stringops.h \
+ /usr/local/include/wx-3.0/wx/iosfwrap.h \
+ /usr/local/include/wx-3.0/wx/crt.h /usr/local/include/wx-3.0/wx/wxcrt.h \
+ /usr/local/include/wx-3.0/wx/wxcrtvararg.h \
+ /usr/local/include/wx-3.0/wx/msgout.h /usr/local/include/wx-3.0/wx/xti.h \
+ /usr/local/include/wx-3.0/wx/rtti.h /usr/local/include/wx-3.0/wx/flags.h \
+ /usr/local/include/wx-3.0/wx/xti2.h \
+ /usr/local/include/wx-3.0/wx/filefn.h \
+ /usr/local/include/wx-3.0/wx/list.h \
+ /usr/local/include/wx-3.0/wx/vector.h \
+ /usr/local/include/wx-3.0/wx/scopeguard.h \
+ /usr/local/include/wx-3.0/wx/except.h \
+ /usr/local/include/wx-3.0/wx/meta/movable.h \
+ /usr/local/include/wx-3.0/wx/meta/pod.h \
+ /usr/local/include/wx-3.0/wx/meta/if.h \
+ /usr/local/include/wx-3.0/wx/arrstr.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/iterator \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stream_iterator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/streambuf_iterator.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/streambuf \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ios_base.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/locale_classes.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/locale_classes.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/system_error \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/error_constants.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/stdexcept \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/exception \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception_ptr.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cxxabi_init_exception.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/typeinfo \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/nested_exception.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/streambuf.tcc \
+ /usr/include/sys/stat.h /usr/include/bits/stat.h \
+ /usr/include/bits/struct_stat.h /usr/include/bits/statx.h \
+ /usr/include/linux/stat.h /usr/include/linux/types.h \
+ /usr/include/asm/types.h /usr/include/asm-generic/types.h \
+ /usr/include/asm-generic/int-ll64.h /usr/include/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
+ /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
+ /usr/include/bits/statx-generic.h \
+ /usr/include/bits/types/struct_statx_timestamp.h \
+ /usr/include/bits/types/struct_statx.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
+ /usr/include/bits/getopt_core.h /usr/include/bits/unistd.h \
+ /usr/include/bits/unistd_ext.h /usr/include/dirent.h \
+ /usr/include/bits/dirent.h /usr/include/bits/dirent_ext.h \
+ /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl-linux.h /usr/include/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/bits/fcntl2.h \
+ /usr/local/include/wx-3.0/wx/datetime.h \
+ /usr/local/include/wx-3.0/wx/longlong.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/limits \
+ /usr/local/include/wx-3.0/wx/anystr.h \
+ /usr/local/include/wx-3.0/wx/dynarray.h \
+ /usr/local/include/wx-3.0/wx/filename.h \
+ /usr/local/include/wx-3.0/wx/intl.h \
+ /usr/local/include/wx-3.0/wx/translation.h \
+ /usr/local/include/wx-3.0/wx/language.h \
+ /usr/local/include/wx-3.0/wx/hashmap.h \
+ /usr/local/include/wx-3.0/wx/scopedptr.h \
+ /usr/local/include/wx-3.0/wx/checkeddelete.h \
+ /usr/local/include/wx-3.0/wx/file.h \
+ /usr/local/include/wx-3.0/wx/convauto.h \
+ /usr/local/include/wx-3.0/wx/fs_mem.h \
+ /usr/local/include/wx-3.0/wx/bitmap.h \
+ /usr/local/include/wx-3.0/wx/gdicmn.h \
+ /usr/local/include/wx-3.0/wx/math.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/math.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cmath \
+ /usr/include/math.h /usr/include/bits/math-vector.h \
+ /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
+ /usr/include/bits/iscanonical.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/specfun.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/gamma.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/special_function_util.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/bessel_function.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/beta_function.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/ell_integral.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/exp_integral.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/hypergeometric.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/legendre_function.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/modified_bessel_func.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/poly_hermite.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/poly_laguerre.tcc \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/riemann_zeta.tcc \
+ /usr/local/include/wx-3.0/wx/colour.h \
+ /usr/local/include/wx-3.0/wx/gdiobj.h \
+ /usr/local/include/wx-3.0/wx/variant.h \
+ /usr/local/include/wx-3.0/wx/any.h \
+ /usr/local/include/wx-3.0/wx/typeinfo.h \
+ /usr/local/include/wx-3.0/wx/gtk/colour.h \
+ /usr/local/include/wx-3.0/wx/image.h \
+ /usr/local/include/wx-3.0/wx/imagbmp.h \
+ /usr/local/include/wx-3.0/wx/imagpng.h \
+ /usr/local/include/wx-3.0/wx/versioninfo.h \
+ /usr/local/include/wx-3.0/wx/imaggif.h \
+ /usr/local/include/wx-3.0/wx/imagpcx.h \
+ /usr/local/include/wx-3.0/wx/imagjpeg.h \
+ /usr/local/include/wx-3.0/wx/imagtga.h \
+ /usr/local/include/wx-3.0/wx/imagtiff.h \
+ /usr/local/include/wx-3.0/wx/imagpnm.h \
+ /usr/local/include/wx-3.0/wx/imagxpm.h \
+ /usr/local/include/wx-3.0/wx/imagiff.h \
+ /usr/local/include/wx-3.0/wx/gtk/bitmap.h \
+ /usr/local/include/wx-3.0/wx/xrc/xmlres.h \
+ /usr/local/include/wx-3.0/wx/icon.h \
+ /usr/local/include/wx-3.0/wx/iconloc.h \
+ /usr/local/include/wx-3.0/wx/generic/icon.h \
+ /usr/local/include/wx-3.0/wx/artprov.h \
+ /usr/local/include/wx-3.0/wx/iconbndl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xmlreshandler.h \
+ /usr/local/include/wx-3.0/wx/imaglist.h \
+ /usr/local/include/wx-3.0/wx/generic/imaglist.h \
+ /usr/local/include/wx-3.0/wx/window.h \
+ /usr/local/include/wx-3.0/wx/event.h \
+ /usr/local/include/wx-3.0/wx/clntdata.h \
+ /usr/local/include/wx-3.0/wx/cursor.h \
+ /usr/local/include/wx-3.0/wx/gtk/cursor.h \
+ /usr/local/include/wx-3.0/wx/utils.h \
+ /usr/local/include/wx-3.0/wx/meta/implicitconversion.h \
+ /usr/local/include/wx-3.0/wx/mousestate.h \
+ /usr/local/include/wx-3.0/wx/kbdstate.h \
+ /usr/local/include/wx-3.0/wx/platinfo.h \
+ /usr/local/include/wx-3.0/wx/thread.h \
+ /usr/local/include/wx-3.0/wx/tracker.h \
+ /usr/local/include/wx-3.0/wx/meta/convertible.h \
+ /usr/local/include/wx-3.0/wx/meta/removeref.h \
+ /usr/local/include/wx-3.0/wx/font.h \
+ /usr/local/include/wx-3.0/wx/gtk/font.h \
+ /usr/local/include/wx-3.0/wx/region.h \
+ /usr/local/include/wx-3.0/wx/gtk/region.h \
+ /usr/local/include/wx-3.0/wx/validate.h \
+ /usr/local/include/wx-3.0/wx/palette.h \
+ /usr/local/include/wx-3.0/wx/generic/paletteg.h \
+ /usr/local/include/wx-3.0/wx/accel.h \
+ /usr/local/include/wx-3.0/wx/gtk/accel.h \
+ /usr/local/include/wx-3.0/wx/generic/accel.h \
+ /usr/local/include/wx-3.0/wx/gtk/window.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_all.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_animatctrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_bannerwindow.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_bmp.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_bmpbt.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_bmpcbox.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_bttn.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_cald.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_chckb.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_chckl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_choic.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_choicbk.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_clrpicker.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_cmdlinkbn.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_collpane.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_combo.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_comboctrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_datectrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_dirpicker.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_dlg.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_editlbox.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_filectrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_filepicker.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_fontpicker.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_frame.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_gauge.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_gdctl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_grid.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_html.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_htmllbox.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_hyperlink.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_listb.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_listc.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_listbk.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_mdi.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_menu.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_notbk.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_odcombo.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_panel.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_propdlg.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_radbt.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_radbx.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_scrol.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_scwin.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_simplebook.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_sizer.h \
+ /usr/local/include/wx-3.0/wx/sizer.h \
+ /usr/local/include/wx-3.0/wx/gbsizer.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_slidr.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_spin.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_split.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_srchctrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_statbar.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_stbox.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_stbmp.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_sttxt.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_stlin.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_text.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_tglbtn.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_timectrl.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_toolb.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_toolbk.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_tree.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_treebk.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_unkwn.h \
+ /usr/local/include/wx-3.0/wx/xrc/xh_wizrd.h
+/usr/include/stdc-predef.h:
+/usr/local/include/wx-3.0/wx/wxprec.h:
+/usr/local/include/wx-3.0/wx/defs.h:
+/usr/local/include/wx-3.0/wx/platform.h:
+/usr/local/include/wx-3.0/wx/compiler.h:
+/usr/local/lib/wx/include/gtk2-unicode-3.0/wx/setup.h:
+/usr/local/include/wx-3.0/wx/chkconf.h:
+/usr/local/include/wx-3.0/wx/gtk/chkconf.h:
+/usr/local/include/wx-3.0/wx/unix/chkconf.h:
+/usr/local/include/wx-3.0/wx/version.h:
+/usr/local/include/wx-3.0/wx/cpp.h:
+/usr/local/include/wx-3.0/wx/dlimpexp.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stddef.h:
+/usr/local/include/wx-3.0/wx/debug.h:
+/usr/include/assert.h:
+/usr/include/features.h:
+/usr/include/sys/cdefs.h:
+/usr/include/bits/wordsize.h:
+/usr/include/bits/long-double.h:
+/usr/include/gnu/stubs.h:
+/usr/include/gnu/stubs-64.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/limits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed/syslimits.h:
+/usr/include/limits.h:
+/usr/include/bits/libc-header-start.h:
+/usr/include/bits/posix1_lim.h:
+/usr/include/bits/local_lim.h:
+/usr/include/linux/limits.h:
+/usr/include/bits/posix2_lim.h:
+/usr/include/bits/xopen_lim.h:
+/usr/include/bits/uio_lim.h:
+/usr/local/include/wx-3.0/wx/chartype.h:
+/usr/include/wchar.h:
+/usr/include/bits/floatn.h:
+/usr/include/bits/floatn-common.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdarg.h:
+/usr/include/bits/wchar.h:
+/usr/include/bits/types/wint_t.h:
+/usr/include/bits/types/mbstate_t.h:
+/usr/include/bits/types/__mbstate_t.h:
+/usr/include/bits/types/__FILE.h:
+/usr/include/bits/types/FILE.h:
+/usr/include/bits/types/locale_t.h:
+/usr/include/bits/types/__locale_t.h:
+/usr/include/bits/wchar2.h:
+/usr/include/sys/types.h:
+/usr/include/bits/types.h:
+/usr/include/bits/timesize.h:
+/usr/include/bits/typesizes.h:
+/usr/include/bits/time64.h:
+/usr/include/bits/types/clock_t.h:
+/usr/include/bits/types/clockid_t.h:
+/usr/include/bits/types/time_t.h:
+/usr/include/bits/types/timer_t.h:
+/usr/include/bits/stdint-intn.h:
+/usr/include/endian.h:
+/usr/include/bits/endian.h:
+/usr/include/bits/endianness.h:
+/usr/include/bits/byteswap.h:
+/usr/include/bits/uintn-identity.h:
+/usr/include/sys/select.h:
+/usr/include/bits/select.h:
+/usr/include/bits/types/sigset_t.h:
+/usr/include/bits/types/__sigset_t.h:
+/usr/include/bits/types/struct_timeval.h:
+/usr/include/bits/types/struct_timespec.h:
+/usr/include/bits/select2.h:
+/usr/include/bits/pthreadtypes.h:
+/usr/include/bits/thread-shared-types.h:
+/usr/include/bits/pthreadtypes-arch.h:
+/usr/include/bits/struct_mutex.h:
+/usr/include/bits/struct_rwlock.h:
+/usr/local/include/wx-3.0/wx/windowid.h:
+/usr/local/include/wx-3.0/wx/features.h:
+/usr/local/include/wx-3.0/wx/filesys.h:
+/usr/local/include/wx-3.0/wx/stream.h:
+/usr/include/stdio.h:
+/usr/include/bits/types/__fpos_t.h:
+/usr/include/bits/types/__fpos64_t.h:
+/usr/include/bits/types/struct_FILE.h:
+/usr/include/bits/types/cookie_io_functions_t.h:
+/usr/include/bits/stdio_lim.h:
+/usr/include/bits/stdio.h:
+/usr/include/bits/stdio2.h:
+/usr/local/include/wx-3.0/wx/object.h:
+/usr/local/include/wx-3.0/wx/memory.h:
+/usr/local/include/wx-3.0/wx/string.h:
+/usr/include/string.h:
+/usr/include/strings.h:
+/usr/include/bits/strings_fortified.h:
+/usr/include/bits/string_fortified.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/stdlib.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdlib:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++config.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/os_defines.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/cpu_defines.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/pstl/pstl_config.h:
+/usr/include/stdlib.h:
+/usr/include/bits/waitflags.h:
+/usr/include/bits/waitstatus.h:
+/usr/include/alloca.h:
+/usr/include/bits/stdlib-bsearch.h:
+/usr/include/bits/stdlib-float.h:
+/usr/include/bits/stdlib.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/std_abs.h:
+/usr/local/include/wx-3.0/wx/wxcrtbase.h:
+/usr/include/ctype.h:
+/usr/include/wctype.h:
+/usr/include/bits/wctype-wchar.h:
+/usr/include/time.h:
+/usr/include/bits/time.h:
+/usr/include/bits/timex.h:
+/usr/include/bits/types/struct_tm.h:
+/usr/include/bits/types/struct_itimerspec.h:
+/usr/local/include/wx-3.0/wx/strvararg.h:
+/usr/local/include/wx-3.0/wx/strconv.h:
+/usr/local/include/wx-3.0/wx/buffer.h:
+/usr/local/include/wx-3.0/wx/fontenc.h:
+/usr/local/include/wx-3.0/wx/unichar.h:
+/usr/local/include/wx-3.0/wx/stringimpl.h:
+/usr/local/include/wx-3.0/wx/beforestd.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/string:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stringfwd.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/memoryfwd.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/char_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_algobase.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/functexcept.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception_defines.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cpp_type_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/type_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/numeric_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_pair.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/move.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/type_traits:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator_base_types.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator_base_funcs.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/concept_check.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/debug/assertions.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_iterator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ptr_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/debug/debug.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/predefined_ops.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/postypes.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cwchar:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdint:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdint.h:
+/usr/include/stdint.h:
+/usr/include/bits/stdint-uintn.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/allocator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++allocator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/new_allocator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/new:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/localefwd.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/c++locale.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/clocale:
+/usr/include/locale.h:
+/usr/include/bits/locale.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/iosfwd:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cctype:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ostream_insert.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cxxabi_forced.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_function.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/backward/binders.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/range_access.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/initializer_list:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/basic_string.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/atomicity.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/gthr.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/gthr-default.h:
+/usr/include/pthread.h:
+/usr/include/sched.h:
+/usr/include/bits/sched.h:
+/usr/include/bits/types/struct_sched_param.h:
+/usr/include/bits/cpu-set.h:
+/usr/include/bits/setjmp.h:
+/usr/include/bits/types/struct___jmp_buf_tag.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/atomic_word.h:
+/usr/include/sys/single_threaded.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/alloc_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/alloc_traits.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stl_construct.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/string_view:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/functional_hash.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/hash_bytes.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/string_view.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/ext/string_conversions.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cstdio:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cerrno:
+/usr/include/errno.h:
+/usr/include/bits/errno.h:
+/usr/include/linux/errno.h:
+/usr/include/asm/errno.h:
+/usr/include/asm-generic/errno.h:
+/usr/include/asm-generic/errno-base.h:
+/usr/include/bits/types/error_t.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/charconv.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/basic_string.tcc:
+/usr/local/include/wx-3.0/wx/afterstd.h:
+/usr/local/include/wx-3.0/wx/stringops.h:
+/usr/local/include/wx-3.0/wx/iosfwrap.h:
+/usr/local/include/wx-3.0/wx/crt.h:
+/usr/local/include/wx-3.0/wx/wxcrt.h:
+/usr/local/include/wx-3.0/wx/wxcrtvararg.h:
+/usr/local/include/wx-3.0/wx/msgout.h:
+/usr/local/include/wx-3.0/wx/xti.h:
+/usr/local/include/wx-3.0/wx/rtti.h:
+/usr/local/include/wx-3.0/wx/flags.h:
+/usr/local/include/wx-3.0/wx/xti2.h:
+/usr/local/include/wx-3.0/wx/filefn.h:
+/usr/local/include/wx-3.0/wx/list.h:
+/usr/local/include/wx-3.0/wx/vector.h:
+/usr/local/include/wx-3.0/wx/scopeguard.h:
+/usr/local/include/wx-3.0/wx/except.h:
+/usr/local/include/wx-3.0/wx/meta/movable.h:
+/usr/local/include/wx-3.0/wx/meta/pod.h:
+/usr/local/include/wx-3.0/wx/meta/if.h:
+/usr/local/include/wx-3.0/wx/arrstr.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/iterator:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/stream_iterator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/streambuf_iterator.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/streambuf:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/ios_base.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/locale_classes.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/locale_classes.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/system_error:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/x86_64-pc-linux-gnu/bits/error_constants.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/stdexcept:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/exception:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/exception_ptr.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/cxxabi_init_exception.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/typeinfo:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/nested_exception.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/streambuf.tcc:
+/usr/include/sys/stat.h:
+/usr/include/bits/stat.h:
+/usr/include/bits/struct_stat.h:
+/usr/include/bits/statx.h:
+/usr/include/linux/stat.h:
+/usr/include/linux/types.h:
+/usr/include/asm/types.h:
+/usr/include/asm-generic/types.h:
+/usr/include/asm-generic/int-ll64.h:
+/usr/include/asm/bitsperlong.h:
+/usr/include/asm-generic/bitsperlong.h:
+/usr/include/linux/posix_types.h:
+/usr/include/linux/stddef.h:
+/usr/include/asm/posix_types.h:
+/usr/include/asm/posix_types_64.h:
+/usr/include/asm-generic/posix_types.h:
+/usr/include/bits/statx-generic.h:
+/usr/include/bits/types/struct_statx_timestamp.h:
+/usr/include/bits/types/struct_statx.h:
+/usr/include/unistd.h:
+/usr/include/bits/posix_opt.h:
+/usr/include/bits/environments.h:
+/usr/include/bits/confname.h:
+/usr/include/bits/getopt_posix.h:
+/usr/include/bits/getopt_core.h:
+/usr/include/bits/unistd.h:
+/usr/include/bits/unistd_ext.h:
+/usr/include/dirent.h:
+/usr/include/bits/dirent.h:
+/usr/include/bits/dirent_ext.h:
+/usr/include/fcntl.h:
+/usr/include/bits/fcntl.h:
+/usr/include/bits/fcntl-linux.h:
+/usr/include/bits/types/struct_iovec.h:
+/usr/include/linux/falloc.h:
+/usr/include/bits/fcntl2.h:
+/usr/local/include/wx-3.0/wx/datetime.h:
+/usr/local/include/wx-3.0/wx/longlong.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/limits:
+/usr/local/include/wx-3.0/wx/anystr.h:
+/usr/local/include/wx-3.0/wx/dynarray.h:
+/usr/local/include/wx-3.0/wx/filename.h:
+/usr/local/include/wx-3.0/wx/intl.h:
+/usr/local/include/wx-3.0/wx/translation.h:
+/usr/local/include/wx-3.0/wx/language.h:
+/usr/local/include/wx-3.0/wx/hashmap.h:
+/usr/local/include/wx-3.0/wx/scopedptr.h:
+/usr/local/include/wx-3.0/wx/checkeddelete.h:
+/usr/local/include/wx-3.0/wx/file.h:
+/usr/local/include/wx-3.0/wx/convauto.h:
+/usr/local/include/wx-3.0/wx/fs_mem.h:
+/usr/local/include/wx-3.0/wx/bitmap.h:
+/usr/local/include/wx-3.0/wx/gdicmn.h:
+/usr/local/include/wx-3.0/wx/math.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/math.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/cmath:
+/usr/include/math.h:
+/usr/include/bits/math-vector.h:
+/usr/include/bits/libm-simd-decl-stubs.h:
+/usr/include/bits/flt-eval-method.h:
+/usr/include/bits/fp-logb.h:
+/usr/include/bits/fp-fast.h:
+/usr/include/bits/mathcalls-helper-functions.h:
+/usr/include/bits/mathcalls.h:
+/usr/include/bits/mathcalls-narrow.h:
+/usr/include/bits/iscanonical.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/bits/specfun.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/gamma.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/special_function_util.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/bessel_function.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/beta_function.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/ell_integral.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/exp_integral.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/hypergeometric.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/legendre_function.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/modified_bessel_func.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/poly_hermite.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/poly_laguerre.tcc:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/g++-v11/tr1/riemann_zeta.tcc:
+/usr/local/include/wx-3.0/wx/colour.h:
+/usr/local/include/wx-3.0/wx/gdiobj.h:
+/usr/local/include/wx-3.0/wx/variant.h:
+/usr/local/include/wx-3.0/wx/any.h:
+/usr/local/include/wx-3.0/wx/typeinfo.h:
+/usr/local/include/wx-3.0/wx/gtk/colour.h:
+/usr/local/include/wx-3.0/wx/image.h:
+/usr/local/include/wx-3.0/wx/imagbmp.h:
+/usr/local/include/wx-3.0/wx/imagpng.h:
+/usr/local/include/wx-3.0/wx/versioninfo.h:
+/usr/local/include/wx-3.0/wx/imaggif.h:
+/usr/local/include/wx-3.0/wx/imagpcx.h:
+/usr/local/include/wx-3.0/wx/imagjpeg.h:
+/usr/local/include/wx-3.0/wx/imagtga.h:
+/usr/local/include/wx-3.0/wx/imagtiff.h:
+/usr/local/include/wx-3.0/wx/imagpnm.h:
+/usr/local/include/wx-3.0/wx/imagxpm.h:
+/usr/local/include/wx-3.0/wx/imagiff.h:
+/usr/local/include/wx-3.0/wx/gtk/bitmap.h:
+/usr/local/include/wx-3.0/wx/xrc/xmlres.h:
+/usr/local/include/wx-3.0/wx/icon.h:
+/usr/local/include/wx-3.0/wx/iconloc.h:
+/usr/local/include/wx-3.0/wx/generic/icon.h:
+/usr/local/include/wx-3.0/wx/artprov.h:
+/usr/local/include/wx-3.0/wx/iconbndl.h:
+/usr/local/include/wx-3.0/wx/xrc/xmlreshandler.h:
+/usr/local/include/wx-3.0/wx/imaglist.h:
+/usr/local/include/wx-3.0/wx/generic/imaglist.h:
+/usr/local/include/wx-3.0/wx/window.h:
+/usr/local/include/wx-3.0/wx/event.h:
+/usr/local/include/wx-3.0/wx/clntdata.h:
+/usr/local/include/wx-3.0/wx/cursor.h:
+/usr/local/include/wx-3.0/wx/gtk/cursor.h:
+/usr/local/include/wx-3.0/wx/utils.h:
+/usr/local/include/wx-3.0/wx/meta/implicitconversion.h:
+/usr/local/include/wx-3.0/wx/mousestate.h:
+/usr/local/include/wx-3.0/wx/kbdstate.h:
+/usr/local/include/wx-3.0/wx/platinfo.h:
+/usr/local/include/wx-3.0/wx/thread.h:
+/usr/local/include/wx-3.0/wx/tracker.h:
+/usr/local/include/wx-3.0/wx/meta/convertible.h:
+/usr/local/include/wx-3.0/wx/meta/removeref.h:
+/usr/local/include/wx-3.0/wx/font.h:
+/usr/local/include/wx-3.0/wx/gtk/font.h:
+/usr/local/include/wx-3.0/wx/region.h:
+/usr/local/include/wx-3.0/wx/gtk/region.h:
+/usr/local/include/wx-3.0/wx/validate.h:
+/usr/local/include/wx-3.0/wx/palette.h:
+/usr/local/include/wx-3.0/wx/generic/paletteg.h:
+/usr/local/include/wx-3.0/wx/accel.h:
+/usr/local/include/wx-3.0/wx/gtk/accel.h:
+/usr/local/include/wx-3.0/wx/generic/accel.h:
+/usr/local/include/wx-3.0/wx/gtk/window.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_all.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_animatctrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_bannerwindow.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_bmp.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_bmpbt.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_bmpcbox.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_bttn.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_cald.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_chckb.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_chckl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_choic.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_choicbk.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_clrpicker.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_cmdlinkbn.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_collpane.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_combo.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_comboctrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_datectrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_dirpicker.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_dlg.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_editlbox.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_filectrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_filepicker.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_fontpicker.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_frame.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_gauge.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_gdctl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_grid.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_html.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_htmllbox.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_hyperlink.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_listb.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_listc.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_listbk.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_mdi.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_menu.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_notbk.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_odcombo.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_panel.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_propdlg.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_radbt.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_radbx.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_scrol.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_scwin.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_simplebook.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_sizer.h:
+/usr/local/include/wx-3.0/wx/sizer.h:
+/usr/local/include/wx-3.0/wx/gbsizer.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_slidr.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_spin.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_split.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_srchctrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_statbar.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_stbox.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_stbmp.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_sttxt.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_stlin.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_text.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_tglbtn.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_timectrl.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_toolb.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_toolbk.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_tree.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_treebk.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_unkwn.h:
+/usr/local/include/wx-3.0/wx/xrc/xh_wizrd.h:

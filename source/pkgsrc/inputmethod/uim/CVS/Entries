@@ -1,0 +1,15 @@
+/DEINSTALL/1.3/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/DESCR/1.2/Tue Mar 29 18:47:51 2005//Tpkgsrc-2021Q3
+/INSTALL/1.3/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/Makefile/1.168/Wed Apr 21 11:42:05 2021//Tpkgsrc-2021Q3
+/Makefile.common/1.17/Tue Mar 30 17:01:49 2021//Tpkgsrc-2021Q3
+/PLIST/1.28/Tue Mar 30 17:01:49 2021//Tpkgsrc-2021Q3
+/PLIST.gtk2/1.3/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/PLIST.gtk3/1.1/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/PLIST.qt5/1.1/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/buildlink3.mk/1.16/Sun Jul 22 06:15:22 2012//Tpkgsrc-2021Q3
+/distinfo/1.34/Sat Apr  3 05:13:07 2021//Tpkgsrc-2021Q3
+/modules.mk/1.3/Fri Nov  1 16:21:11 2019//Tpkgsrc-2021Q3
+/options.mk/1.37/Sun Mar  8 08:59:08 2020//Tpkgsrc-2021Q3
+D/files////
+D/patches////

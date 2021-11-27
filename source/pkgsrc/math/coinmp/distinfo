@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.7 2019/03/25 13:26:12 wiz Exp $
+
+SHA1 (CoinMP-1.8.4.tgz) = 3acd305258bc017c7224b1933edd148deb03d79a
+RMD160 (CoinMP-1.8.4.tgz) = 5d95750160aa03222ecd80593d72c1357ca9dc34
+SHA512 (CoinMP-1.8.4.tgz) = 992ffc1a81057e2f044e6e5f67055010727c53c2f8f1b60f7cb23154f45e526af936edcbc38f33c18d3b98b472183b47949c9fd6ef1808479734ad410a0c61cc
+Size (CoinMP-1.8.4.tgz) = 10778373 bytes
+SHA1 (patch-Cbc-configure) = 952f46ebdfe030cbea90ba89293185f3ffd95cd0
+SHA1 (patch-Cgl-configure) = 1515dd0c0e806e87586f115acb3c827bf5531a6d
+SHA1 (patch-Clp-configure) = 2b25360a39089abd9570db1255e785a721e85af0
+SHA1 (patch-CoinMP-configure) = 13fdf4d38d328029dbe8e3525b8b7c5cb1974e9b
+SHA1 (patch-CoinUtils-configure) = 2fad81415b80a5b3b302e43a679f897ba98a370c
+SHA1 (patch-Osi-configure) = 1d31ad1af50976ee6f865aa6e7d146ad6e690961

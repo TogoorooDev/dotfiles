@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 09:12:12 pho Exp $
+lib/text-conversions-${PKGVERSION}/${HS_VERSION}/package-description
+lib/text-conversions-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Text/Conversions.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Text/Conversions.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Text/Conversions.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_text_conversions.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_text_conversions.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_text_conversions.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/Data-Text-Conversions.html
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/text-conversions-${PKGVERSION}/html/text-conversions.haddock

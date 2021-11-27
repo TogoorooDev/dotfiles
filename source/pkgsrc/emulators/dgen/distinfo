@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.9 2019/06/20 12:13:19 nia Exp $
+
+SHA1 (dgen-sdl-1.33.tar.gz) = 08629d9396a582ecc1ca50dba2f211e9405c5adc
+RMD160 (dgen-sdl-1.33.tar.gz) = 4c6df66bf861390db7150e12c0252de6b549218b
+SHA512 (dgen-sdl-1.33.tar.gz) = c98ab8cdced62a5d26fd677ad36b031e756620114c946ac067599e84ae6ebcfab731554dd4337b6314c3b5db4601c8a6cc67c285d2aad136e659b9973c01a749
+Size (dgen-sdl-1.33.tar.gz) = 939297 bytes
+SHA1 (patch-cyclone_Cyclone.h) = 80922337ccb228b701a1f08a45d44f91a2f2da7b
+SHA1 (patch-cyclone_Ea.cpp) = 51314ba86c0f91f7a2e4f4f2e05dec8ec8847096
+SHA1 (patch-cyclone_Main.cpp) = 568c4515b78882b3a8601ca15c7ad883dfe432c1
+SHA1 (patch-cyclone_OpArith.cpp) = 9113408463bdb19c219e2c0207689d4ea2dbe1b7
+SHA1 (patch-cyclone_OpBranch.cpp) = 0e4dc6c1cfa973405e0a5b22905ca19b90b6ab0d
+SHA1 (patch-cyclone_OpLogic.cpp) = abb1e6433e04a7a3c3c6dbf0395df28bf0e44bc3
+SHA1 (patch-drz80_drz80.h) = 0758e21069346ab2712e707cdc4b7188ff4681f2
+SHA1 (patch-drz80_drz80.s) = d87a121797eb8ba4e330376bb6229850f09f91ab

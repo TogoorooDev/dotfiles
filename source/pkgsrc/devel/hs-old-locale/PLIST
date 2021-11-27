@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 06:20:08 pho Exp $
+lib/old-locale-${PKGVERSION}/${HS_VERSION}/package-description
+lib/old-locale-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Locale.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Locale.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/System/Locale.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/System-Locale.html
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/old-locale.haddock
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/old-locale-${PKGVERSION}/html/synopsis.png

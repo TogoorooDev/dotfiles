@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2019/08/06 11:09:16 markd Exp $
+share/texmf-dist/doc/fonts/droid/CHANGES
+share/texmf-dist/doc/fonts/droid/README
+share/texmf-dist/doc/fonts/droid/droid-samples.pdf
+share/texmf-dist/doc/fonts/droid/droid.pdf

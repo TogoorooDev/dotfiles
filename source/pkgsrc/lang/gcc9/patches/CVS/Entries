@@ -1,0 +1,16 @@
+/patch-gcc_Makefile.in/1.1/Thu Sep 17 12:31:24 2020//Tpkgsrc-2021Q3
+/patch-gcc_config_sparc_sparc.c/1.1/Sat Feb 13 15:56:17 2021//Tpkgsrc-2021Q3
+/patch-gcc_gimplify.c/1.1/Wed Apr  8 16:35:59 2020//Tpkgsrc-2021Q3
+/patch-libgfortran_io_format.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libgfortran_io_list__read.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libgfortran_io_read.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libgfortran_runtime_environ.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libgo_go_runtime_os__netbsd.go/1.1/Mon Apr 20 14:25:52 2020//Tpkgsrc-2021Q3
+/patch-libgo_go_runtime_signal__gccgo.go/1.1/Mon Apr 20 14:25:52 2020//Tpkgsrc-2021Q3
+/patch-libgo_go_runtime_stubs.go/1.1/Mon Apr 20 14:25:52 2020//Tpkgsrc-2021Q3
+/patch-libgo_runtime_go-signal.c/1.1/Mon Apr 20 14:25:52 2020//Tpkgsrc-2021Q3
+/patch-libquadmath_printf_quadmath-printf.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libquadmath_strtod_strtod__l.c/1.1/Sun May 17 22:36:07 2020//Tpkgsrc-2021Q3
+/patch-libstdc++-v3_config_os_bsd_netbsd_ctype__base.h/1.1/Sun Jan  5 21:15:45 2020//Tpkgsrc-2021Q3
+/patch-libstdc++-v3_config_os_bsd_netbsd_ctype__configure__char.cc/1.1/Sun Jan  5 21:15:45 2020//Tpkgsrc-2021Q3
+D

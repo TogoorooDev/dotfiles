@@ -1,0 +1,9 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.4 2020/09/03 16:50:16 ryoon Exp $
+
+To change the language in Thunderbird,
+1) Go to: Edit -> Preferences ->  Config Editor
+2) Set as follows:
+   intl.locale.requested= ""
+   extensions.autoDisableScopes=11
+===========================================================================

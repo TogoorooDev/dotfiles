@@ -1,0 +1,21 @@
+/CMakeLists.txt/1.9/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/COPYING/1.6/Sun Sep 22 09:55:06 2019//Tpkgsrc-2021Q3
+/INSTALL/1.5/Mon Jun 20 17:24:55 2016//Tpkgsrc-2021Q3
+/Makefile.am/1.12/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/Makefile.in/1.14/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/NEWS/1.13/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/README.md/1.4/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/aclocal.m4/1.12/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/config.h.in/1.15/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+/configure/1.22/Sat Mar 13 19:34:11 2021//Tpkgsrc-2021Q3
+/configure.ac/1.21/Tue May 26 09:16:39 2020//Tpkgsrc-2021Q3
+D/build////
+D/cat////
+D/contrib////
+D/cpio////
+D/doc////
+D/examples////
+D/libarchive////
+D/libarchive_fe////
+D/tar////
+D/test_utils////

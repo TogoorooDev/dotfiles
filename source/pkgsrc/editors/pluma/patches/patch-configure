@@ -1,0 +1,15 @@
+$NetBSD: patch-configure,v 1.2 2019/03/06 08:19:15 gutteridge Exp $
+
+Allow use of enchant-2.
+
+--- configure.orig	2018-03-25 08:39:40.000000000 +0000
++++ configure
+@@ -14382,7 +14382,7 @@ $as_echo "#define ENABLE_GVFS_METADATA 1
+ fi
+ 
+ 
+-ENCHANT_REQUIRED=1.6.0
++ENCHANT_REQUIRED=2.0.0
+ ISO_CODES_REQUIRED=0.35
+ 
+ # Check whether --enable-spell was given.

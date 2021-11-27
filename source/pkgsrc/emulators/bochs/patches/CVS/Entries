@@ -1,0 +1,9 @@
+/patch-.bochsrc/1.1/Wed Mar  2 15:43:12 2011//Tpkgsrc-2021Q3
+/patch-Makefile.in/1.1/Wed Mar  2 15:43:12 2011//Tpkgsrc-2021Q3
+/patch-configure/1.7/Sun Dec 22 22:09:53 2019//Tpkgsrc-2021Q3
+/patch-iodev_network_eth__socket.cc/1.1/Sun Jan 13 11:59:38 2019//Tpkgsrc-2021Q3
+/patch-iodev_network_slirp_compat_cc/1.2/Sun Jan 13 11:59:38 2019//Tpkgsrc-2021Q3
+/patch-iodev_network_slirp_slirp.h/1.1/Mon Jan 21 10:04:45 2019//Tpkgsrc-2021Q3
+/patch-iodev_sound_soundosx.cc/1.2/Sun Jan 13 11:59:38 2019//Tpkgsrc-2021Q3
+/patch-main.cc/1.1/Wed Mar  2 15:43:12 2011//Tpkgsrc-2021Q3
+D

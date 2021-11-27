@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.6 2018/04/07 19:46:21 adam Exp $
+bin/lowntfs-3g
+bin/ntfs-3g
+bin/ntfs-3g.probe
+man/man8/mount.lowntfs-3g.8
+man/man8/mount.ntfs-3g.8
+man/man8/ntfs-3g.8
+man/man8/ntfs-3g.probe.8
+sbin/mount.lowntfs-3g
+sbin/mount.ntfs-3g

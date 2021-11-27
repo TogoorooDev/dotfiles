@@ -1,0 +1,28 @@
+# $NetBSD: Makefile.common,v 1.10 2021/08/27 14:11:07 ryoon Exp $
+#
+# used by cross/mingw-w64-x86_64-binutils/Makefile
+# used by cross/mingw-w64-i686-binutils/Makefile
+
+DISTNAME=	binutils-2.37
+CATEGORIES=	cross
+MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://mingw-w64.org/
+
+PATCHDIR=	${.CURDIR}/../../cross/mingw-w64-x86_64-binutils/patches
+DISTINFO_FILE=	${.CURDIR}/../../cross/mingw-w64-x86_64-binutils/distinfo
+
+USE_TOOLS+=		gmake
+
+GNU_CONFIGURE=		yes
+GNU_CONFIGURE_STRICT=	no # several sub-configures know --enable-nls
+GNU_CONFIGURE_PREFIX=	${PREFIX}/cross/${MINGW_TARGET}
+CONFIGURE_ARGS+=	--target=${MINGW_TARGET}
+CONFIGURE_ARGS+=	--disable-nls
+INFO_FILES=		yes
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
+
+.include "../../cross/mingw-w64/Makefile.common"

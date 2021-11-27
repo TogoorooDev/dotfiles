@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.6 2019/10/12 20:09:24 rillig Exp $
+bin/hypermail
+bin/msg2archive
+bin/rdmsg
+man/man1/hypermail.1
+man/man4/hmrc.4
+share/doc/hypermail/archive_search.html
+share/doc/hypermail/customizing.html
+share/doc/hypermail/hmrc.html
+share/doc/hypermail/hr.yellow.png
+share/doc/hypermail/hypermail-faq.html
+share/doc/hypermail/hypermail.html
+share/doc/hypermail/hypermail.png
+share/doc/hypermail/stars.png

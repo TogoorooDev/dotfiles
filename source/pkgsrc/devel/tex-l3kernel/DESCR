@@ -1,0 +1,6 @@
+The l3kernel bundle provides an implementation of the LaTeX3
+programmers' interface, as a set of packages that run under
+LaTeX2e. The interface provides the foundation on which the
+LaTeX3 kernel and other future code are built: it is an API for
+TeX programmers. The packages are set up so that the LaTeX3
+conventions can be used with regular LaTeX2e packages.

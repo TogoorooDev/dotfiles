@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2020/05/26 09:45:12 nia Exp $
+lib/libretro/mednafen_pce_fast_libretro.${SOEXT}

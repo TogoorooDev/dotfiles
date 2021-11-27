@@ -29,9 +29,11 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           0,         0,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           0,         0,        -1 },
 	{ "st",       NULL,       NULL,       0,            0,           1,         1,        -1 },
 	{ "mpv",      NULL,       NULL,       1 << 2,       1,           0,         0,        -1 },
+	{ "Nicotine",      NULL,       NULL,       1 << 7,       0,           0,         0,        -1 },
+	{ "Transmission-gtk", NULL, NULL, 1 << 8, 0, 0, 0, -1},
 };
 
 /* layout(s) */
@@ -59,11 +61,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", NULL };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *firefoxcmd[] = { "firefox", NULL };
+static const char *firefoxcmd[] = { "firefox-bin", NULL };
 static const char *surfcmd[] = { "tabbed", "surf", "-e", NULL};
-static const char *emacscmd[] = { "emacs", NULL};
+static const char *emacscmd[] = { "emacsclient", "-c", NULL};
+static const char *sscmd[] = { "scrot", "~/Screenshot/%b%d::%H%M%S.png", NULL };
+static const char *ssselcmd[] = { "scrot", "~/Screenshot/%b%d::%H%M%S.png", "-s",  NULL };
+static const char *plumbcmd[] = { "/home/hens/projects/plumb/plumb.sh", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -95,9 +100,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	{ MODKEY,						XK_f,	   spawn,		   {.v = firefoxcmd } },
-	{ MODKEY,						XK_s,	   spawn,		   {.v = surfcmd } },
+	{ MODKEY,						XK_f,	   spaewn,		   {.v = firefoxcmd } },
+	//{ MODKEY,						XK_s,	   spawn,		   {.v = surfcmd } },
 	{ MODKEY,						XK_e,	   spawn,			{.v = emacscmd} },
+	{ MODKEY,			XK_s,	   spawn,	   {.v = sscmd} },
+	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   {.v = ssselcmd} },
+	{ MODKEY, 			XK_r,	   spawn,	   {.v = plumbcmd} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

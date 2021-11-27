@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.37 2021/06/28 07:50:44 wiz Exp $
+
+SHA1 (exiv2-0.27.4-Source.tar.gz) = ed620c568463179aca7847bee5fda40c11c08318
+RMD160 (exiv2-0.27.4-Source.tar.gz) = 175baf677c419549d6968e3786405ed5912d2670
+SHA512 (exiv2-0.27.4-Source.tar.gz) = f6798baafb36a54ba5bc65c2d28d4f4469e298582c90b417eb437b5dbda8e11963fb3314e8419717b3815ee8c3a68955cddc79e45351d9f2c165a0b73eb7b7be
+Size (exiv2-0.27.4-Source.tar.gz) = 32055837 bytes
+SHA1 (patch-cmake_compilerFlags.cmake) = 1476eea6dee5d08aece6840ec8ca3eef3442783d
+SHA1 (patch-cmake_config.h.cmake) = b7e0336e5ca55a9df08958a05d8ac2a2c800e836
+SHA1 (patch-contrib_organize_Makefile) = 27348fdb0f80092b6e16f27e3ac1dca988eefe70
+SHA1 (patch-contrib_organize_helpers.cpp) = ec003c826d463b3e7e571ab4c41baffaca1240e9
+SHA1 (patch-include_exiv2_types.hpp) = 829e101c1c5f06de0a497b8c6a052b0a4e667d25
+SHA1 (patch-src_convert.cpp) = b600c1f6f6bf3ac6323ef51203603b248f9c0432

@@ -1,0 +1,41 @@
+# $NetBSD: Makefile.common,v 1.13 2018/07/11 07:30:40 adam Exp $
+# used by devel/distcc-pump/Makefile
+# used by devel/distccmon-gnome/Makefile
+# used by devel/distccmon-gtk/Makefile
+
+DISTNAME=	distcc-3.3
+CATEGORIES=	devel
+MASTER_SITES=	${MASTER_SITE_GITHUB:=distcc/}
+GITHUB_PROJECT=	distcc
+GITHUB_RELEASE=	v${PKGVERSION_NOREV}
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://github.com/distcc/distcc
+LICENSE=	gnu-gpl-v2
+
+DISTINFO_FILE=		${.CURDIR}/../../devel/distcc/distinfo
+PATCHDIR=		${.CURDIR}/../../devel/distcc/patches
+
+USE_TOOLS+=		gmake
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-Werror
+CONFIGURE_ARGS+=	--enable-rfc2553
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--without-avahi
+CONFIGURE_ARGS+=	--without-libiberty
+
+CHECK_PORTABILITY_SKIP+=	contrib/redhat/*
+
+SUBST_CLASSES+=		doc
+SUBST_STAGE.doc=	pre-configure
+SUBST_FILES.doc=	src/distcc.c src/hosts.c
+SUBST_SED.doc=		-e "s|%s/distcc/hosts|%s/hosts|g"
+SUBST_MESSAGE.doc=	Fixing paths.
+
+.if empty(PKGNAME:Mdistcc-[0-9]*)
+DEPENDS+=		distcc>=${PKGVERSION_NOREV}:../../devel/distcc
+.endif
+
+INSTALLATION_DIRS+=	bin
+
+.include "../../devel/popt/buildlink3.mk"

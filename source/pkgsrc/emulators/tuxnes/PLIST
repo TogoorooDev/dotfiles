@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2018/01/01 22:29:28 rillig Exp $
+bin/romfixer
+bin/tuxnes
+share/doc/tuxnes/AUTHORS
+share/doc/tuxnes/BUGS
+share/doc/tuxnes/COPYING
+share/doc/tuxnes/README
+share/doc/tuxnes/THANKS

@@ -1,0 +1,20 @@
+/patch-common_JackAudioAdapterFactory.cpp/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-common_memops.c/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-common_wscript/1.4/Sun Sep 12 06:04:44 2021//Tpkgsrc-2021Q3
+/patch-example-clients_wscript/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-man_wscript/1.1/Wed Sep 15 07:44:37 2021//Tpkgsrc-2021Q3
+/patch-netbsd_JackAtomic__os.h/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-netbsd_JackNetBSDTime.c/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-netbsd_JackPlatformPlug__os.h/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-netbsd_sun_JackSunAdapter.cpp/1.4/Sun Sep 12 06:04:44 2021//Tpkgsrc-2021Q3
+/patch-netbsd_sun_JackSunAdapter.h/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-netbsd_sun_JackSunDriver.cpp/1.4/Sun Sep 12 06:04:44 2021//Tpkgsrc-2021Q3
+/patch-netbsd_sun_JackSunDriver.h/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-posix_JackNetUnixSocket.cpp/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-posix_JackNetUnixSocket.h/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-posix_JackPosixSemaphore.cpp/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-posix_JackSocket.cpp/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-tests_wscript/1.1/Wed Sep  8 19:19:20 2021//Tpkgsrc-2021Q3
+/patch-tools_wscript/1.2/Fri Sep 10 11:14:05 2021//Tpkgsrc-2021Q3
+/patch-wscript/1.3/Sun Sep 12 06:04:44 2021//Tpkgsrc-2021Q3
+D

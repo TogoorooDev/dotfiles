@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2019/01/21 10:31:16 adam Exp $
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/wrapt/__init__.py
+${PYSITELIB}/wrapt/__init__.pyc
+${PYSITELIB}/wrapt/__init__.pyo
+${PYSITELIB}/wrapt/_wrappers.so
+${PYSITELIB}/wrapt/decorators.py
+${PYSITELIB}/wrapt/decorators.pyc
+${PYSITELIB}/wrapt/decorators.pyo
+${PYSITELIB}/wrapt/importer.py
+${PYSITELIB}/wrapt/importer.pyc
+${PYSITELIB}/wrapt/importer.pyo
+${PYSITELIB}/wrapt/wrappers.py
+${PYSITELIB}/wrapt/wrappers.pyc
+${PYSITELIB}/wrapt/wrappers.pyo

@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.4 2021/05/12 14:13:22 ryoon Exp $
+
+--- configure.orig	2020-10-15 11:46:16.000000000 +0000
++++ configure
+@@ -7575,7 +7575,7 @@ if test "$alsa_prefix" != "" ; then
+ 	LDFLAGS="$LDFLAGS $ALSA_LIBS"
+ fi
+ 
+-ALSA_LIBS="$ALSA_LIBS -lasound -lm $LIBDL -lpthread"
++ALSA_LIBS="$(pkg-config --libs alsa)"
+ LIBS="$ALSA_LIBS $LIBS"
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ALSA_LIBS" >&5
+ $as_echo "$ALSA_LIBS" >&6; }

@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.4 2019/07/20 19:32:17 tnn Exp $
+
+SHA1 (gimp2-wideangle-1.0.10/wideangle.c) = ee2e4b9bf9558d94337edddaf3b61685cf6b52b9
+RMD160 (gimp2-wideangle-1.0.10/wideangle.c) = 3bf9d348635a7010f4e861639471f84260840f48
+SHA512 (gimp2-wideangle-1.0.10/wideangle.c) = c5e1a9859791cb0f6684934a24bcb8074558e4aa7794b6dd89220ef6c62f6ab05e70e202777c8b633260b7f2b836d8d63c8f64e3246836b398705c998eb4cb91
+Size (gimp2-wideangle-1.0.10/wideangle.c) = 33845 bytes
+SHA1 (patch-wideangle.c) = e6b50038f9b1cf43c4b060b9a04bef3278db65e4

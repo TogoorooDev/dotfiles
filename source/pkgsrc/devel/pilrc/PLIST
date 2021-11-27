@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.5 2018/01/07 21:31:10 rillig Exp $
+bin/pilrc
+${PLIST.pilrcui}bin/pilrcui
+share/doc/pilrc/archive.html
+share/doc/pilrc/contrib.html
+share/doc/pilrc/download.html
+share/doc/pilrc/history.html
+share/doc/pilrc/images/download.gif
+share/doc/pilrc/index.html
+share/doc/pilrc/manual.html
+share/pilrc/palette-02.pbm
+share/pilrc/palette-04.pgm
+share/pilrc/palette-16.pgm
+share/pilrc/palette-256.ppm

@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.2 2021/02/03 09:35:31 jaapb Exp $
+${OCAML_SITELIB}/optint/META
+${OCAML_SITELIB}/optint/dune-package
+${OCAML_SITELIB}/optint/opam
+${PLIST.ocaml-opt}${OCAML_SITELIB}/optint/optint.a
+${OCAML_SITELIB}/optint/optint.cma
+${OCAML_SITELIB}/optint/optint.cmi
+${OCAML_SITELIB}/optint/optint.cmt
+${OCAML_SITELIB}/optint/optint.cmti
+${PLIST.ocaml-opt}${OCAML_SITELIB}/optint/optint.cmx
+${PLIST.ocaml-opt}${OCAML_SITELIB}/optint/optint.cmxa
+${PLIST.ocaml-opt}${OCAML_SITELIB}/optint/optint.cmxs
+${OCAML_SITELIB}/optint/optint.ml
+${OCAML_SITELIB}/optint/optint.mli
+share/doc/optint/CHANGES.md
+share/doc/optint/LICENSE.md
+share/doc/optint/README.md

@@ -1,0 +1,39 @@
+$NetBSD: patch-configure.ac,v 1.6 2021/05/31 07:16:51 thor Exp $
+
+install .oct loadable modules with INSTALL_LIB to avoid stripping them
+
+Allow overriding MKOCTFILE_F77 so we can install a full path gfortran
+(for building octave-forge packages like control)
+
+--- configure.ac.orig	2021-02-19 17:36:34.000000000 +0000
++++ configure.ac
+@@ -230,8 +230,11 @@ AC_PROG_LN_S
+ AC_PROG_MKDIR_P
+ 
+ AC_PROG_INSTALL
+-INSTALL_SCRIPT="${INSTALL}"
++test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
+ AC_SUBST(INSTALL_SCRIPT)
++test -z "$INSTALL_LIB" && INSTALL_LIB='${INSTALL_SCRIPT}'
++AC_SUBST(INSTALL_LIB)
++
+ 
+ ## Programs used when running Octave.
+ OCTAVE_PROG_GHOSTSCRIPT
+@@ -897,11 +900,11 @@ if test "$cross_compiling" = yes && test
+   MKOCTFILE_F77=`echo "$F77" | $SED "s,$CROSS_TOOL_PREFIX,,"`
+   MKOCTFILE_RANLIB=`echo "$RANLIB" | $SED "s,$CROSS_TOOL_PREFIX,,"`
+ else
+-  MKOCTFILE_AR="$AR"
+-  MKOCTFILE_CC="$CC"
+-  MKOCTFILE_CXX="$CXX"
+-  MKOCTFILE_F77="$F77"
+-  MKOCTFILE_RANLIB="$RANLIB"
++  MKOCTFILE_AR="${MKOCTFILE_AR-$AR}"
++  MKOCTFILE_CC="${MKOCTFILE_CC-$CC}"
++  MKOCTFILE_CXX="${MKOCTFILE_CXX-$CXX}"
++  MKOCTFILE_F77="${MKOCTFILE_F77-$F77}"
++  MKOCTFILE_RANLIB="${MKOCTFILE_RANLIB-$RANLIB}"
+ fi
+ AC_MSG_NOTICE([defining CROSS_TOOL_PREFIX to be $CROSS_TOOL_PREFIX])
+ AC_MSG_NOTICE([defining MKOCTFILE_AR to be $MKOCTFILE_AR])

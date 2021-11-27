@@ -1,0 +1,20 @@
+$NetBSD: patch-aa,v 1.2 2019/12/28 11:47:35 wiz Exp $
+
+--- Makefile.orig	2019-12-28 11:46:09.222077493 +0000
++++ Makefile
+@@ -0,0 +1,15 @@
++LIB= 	randlib
++
++SHLIB_MAJOR=0
++SHLIB_MINOR=0
++
++LIBDIR=${PREFIX}/lib
++
++NOLINT=1
++MKPICINSTALL=no
++
++SRCS = com.c randlib.c linpack.c
++
++INCS=	randlib.h
++
++.include <bsd.lib.mk>

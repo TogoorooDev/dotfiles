@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.4 2020/03/22 11:37:17 nia Exp $
+bin/twolame
+include/twolame.h
+lib/libtwolame.la
+lib/pkgconfig/twolame.pc
+man/man1/twolame.1
+share/doc/twolame/AUTHORS
+share/doc/twolame/COPYING
+share/doc/twolame/NEWS
+share/doc/twolame/README
+share/doc/twolame/api.txt
+share/doc/twolame/psycho.txt
+share/doc/twolame/vbr.txt

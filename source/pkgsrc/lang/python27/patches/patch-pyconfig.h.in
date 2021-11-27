@@ -1,0 +1,27 @@
+$NetBSD: patch-pyconfig.h.in,v 1.6 2021/06/23 18:30:24 schmonz Exp $
+
+Fix build with LibreSSL.
+darwin20 support, via MacPorts.
+
+--- pyconfig.h.in.orig	2021-06-22 19:20:43.000000000 +0000
++++ pyconfig.h.in
+@@ -216,6 +216,9 @@
+ /* Define to 1 if you have the `dup2' function. */
+ #undef HAVE_DUP2
+ 
++/* Define if you have the '_dyld_shared_cache_contains_path' function. */
++#undef HAVE_DYLD_SHARED_CACHE_CONTAINS_PATH
++
+ /* Defined when any dynamic module loading is enabled. */
+ #undef HAVE_DYNAMIC_LOADING
+ 
+@@ -1241,7 +1244,9 @@
+ #undef _UINT64_T
+ 
+ /* Define to the level of X/Open that your system supports */
++#if !defined(__sun) || (defined(__sun) && !defined(_XOPEN_SOURCE))
+ #undef _XOPEN_SOURCE
++#endif
+ 
+ /* Define to activate Unix95-and-earlier features */
+ #undef _XOPEN_SOURCE_EXTENDED

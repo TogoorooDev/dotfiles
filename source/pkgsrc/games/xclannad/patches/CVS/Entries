@@ -1,0 +1,16 @@
+/patch-Makefile.in/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-font_font__peer__ft2.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-font_text__stream.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-music2_music.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-scn2k_scn2k__cmd.cc/1.2/Thu Mar 26 02:33:34 2020//Tpkgsrc-2021Q3
+/patch-scn2k_scn2k__grp.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-scn2k_scn2k__impl.cc/1.1/Thu Mar 26 02:33:34 2020//Tpkgsrc-2021Q3
+/patch-scn2k_scn2k__text.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-system_file.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-system_file.h/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-system_system__config.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-window_SDL__rotozoom.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-window_button.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-window_picture.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+/patch-xlovesys.cc/1.1/Fri Jan  3 02:35:51 2020//Tpkgsrc-2021Q3
+D

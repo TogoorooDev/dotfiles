@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 12:34:06 pho Exp $
+lib/unliftio-core-${PKGVERSION}/${HS_VERSION}/package-description
+lib/unliftio-core-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Monad/IO/Unlift.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Monad/IO/Unlift.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Monad/IO/Unlift.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_unliftio_core.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_unliftio_core.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Paths_unliftio_core.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/Control-Monad-IO-Unlift.html
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/unliftio-core-${PKGVERSION}/html/unliftio-core.haddock

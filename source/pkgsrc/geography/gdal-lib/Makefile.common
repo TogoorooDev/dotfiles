@@ -1,0 +1,44 @@
+# $NetBSD: Makefile.common,v 1.14 2021/09/08 22:48:13 gdt Exp $
+#
+# used by geography/gdal-lib/Makefile
+# used by geography/py-gdal/Makefile
+
+# Accomodate testing unreleased versions.
+VERSION_BASE=	3.3.2
+#VERSION_RC=	rc1
+VERSION=	${VERSION_BASE}${VERSION_RC}
+DISTNAME=	gdal-${VERSION}
+EXTRACT_SUFX=	.tar.xz
+CATEGORIES=	geography
+MASTER_SITES=	https://download.osgeo.org/gdal/${VERSION_BASE}${VERSION_RC}/
+
+MAINTAINER=	gdt@NetBSD.org
+#MAINTAINER+=	brook@nmsu.edu
+HOMEPAGE=	http://www.gdal.org/
+LICENSE=	mit
+
+WRKSRC=		${WRKDIR}/gdal-${VERSION_BASE}
+
+PATCHDIR=	${.CURDIR}/../../geography/gdal-lib/patches
+DISTINFO_FILE=	${.CURDIR}/../../geography/gdal-lib/distinfo
+
+CHECK_PORTABILITY_SKIP+=	mkbindist.sh
+
+USE_TOOLS+=		gmake pkg-config
+USE_LANGUAGES=		c99 c++
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-geos
+CONFIGURE_ARGS+=	--with-libjson-c=internal
+CONFIGURE_ARGS+=	--with-libtiff=${BUILDLINK_PREFIX.tiff}
+CONFIGURE_ARGS+=	--with-libz=${BUILDLINK_PREFIX.zlib}/include
+CONFIGURE_ARGS+=	--with-netcdf=${BUILDLINK_PREFIX.netcdf}
+CONFIGURE_ARGS+=	--with-webp=${BUILDLINK_PREFIX.libwebp}
+CONFIGURE_ARGS+=	--with-xerces
+CONFIGURE_ARGS+=	--with-xerces-inc=${BUILDLINK_PREFIX.xerces-c}/include
+CONFIGURE_ARGS+=	--with-xerces-lib=-L${BUILDLINK_PREFIX.xerces-c}/lib\ -lxerces-c
+
+# force OpenJPEG for JPEG 2000 support
+CONFIGURE_ARGS+=	--without-jasper
+CONFIGURE_ARGS+=	--with-openjpeg

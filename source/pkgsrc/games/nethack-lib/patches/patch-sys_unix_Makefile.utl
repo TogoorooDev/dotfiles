@@ -1,0 +1,30 @@
+$NetBSD: patch-sys_unix_Makefile.utl,v 1.3 2019/10/24 11:51:23 pho Exp $
+
+Make configurable.
+
+--- sys/unix/Makefile.utl.orig	2019-05-08 07:00:16.000000000 +0000
++++ sys/unix/Makefile.utl
+@@ -94,7 +94,7 @@ NHSROOT=..
+ # flags for debugging:
+ # CFLAGS = -g -I../include
+ 
+-#CFLAGS = -O -I../include
++CFLAGS = -I../include
+ #LFLAGS =
+ 
+ # we specify C preprocessor flags via CFLAGS; files built with default rules
+@@ -104,6 +104,14 @@ CPPFLAGS =
+ 
+ LIBS =
+ 
++.if "${GTYPE}" == "-tty"
++CFLAGS += -DGTYPE_TTY
++.elif "${GTYPE}" == "-x11"
++CFLAGS += -DGTYPE_X11
++.elif "${GTYPE}" == "-qt"
++CFLAGS += -DGTYPE_QT
++.endif
++
+ # If you are cross-compiling, you must use this:
+ #OBJDIR = .
+ # otherwise, you can save a little bit of disk space with this:

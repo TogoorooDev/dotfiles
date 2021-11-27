@@ -1,0 +1,13 @@
+/patch-CMakeLists.txt/1.3/Sun Jun 28 15:04:36 2020//Tpkgsrc-2021Q3
+/patch-Externals_SFML_include_SFML_Config.hpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Common_FileUtil.cpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Common_MemoryUtil.cpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Common_StringUtil.cpp/1.2/Fri Oct 25 09:56:51 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Common_Thread.cpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Common_x64CPUDetect.cpp/1.1/Mon Apr 20 00:34:20 2020//Tpkgsrc-2021Q3
+/patch-Source_Core_Core_HW_EXI__DeviceEthernet.h/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Core_IPC__HLE_WII__Socket.h/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_Core_MemTools.cpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_VideoCommon_DriverDetails.cpp/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+/patch-Source_Core_VideoCommon_DriverDetails.h/1.1/Tue Jan  1 17:19:58 2019//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2018/01/01 22:29:18 rillig Exp $
+bin/sid2wav
+bin/sidcon
+bin/sidplay

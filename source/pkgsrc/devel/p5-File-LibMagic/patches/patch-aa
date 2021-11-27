@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.9 2020/09/06 23:09:45 wiz Exp $
+
+Ensure we use the required ldflags for the platform.
+
+--- Makefile.PL.orig	2020-08-29 03:54:44.000000000 +0000
++++ Makefile.PL
+@@ -18,7 +18,7 @@ my %WriteMakefileArgs = (
+     "ExtUtils::MakeMaker" => 0
+   },
+   "DISTNAME" => "File-LibMagic",
+-  "LIBS" => "-lmagic",
++  "LIBS" => "$ENV{LDFLAGS} -lmagic -lz",
+   "LICENSE" => "perl",
+   "MIN_PERL_VERSION" => "5.008",
+   "NAME" => "File::LibMagic",

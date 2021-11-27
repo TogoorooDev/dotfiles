@@ -1,0 +1,80 @@
+PATH="$PATH:/home/hens/.local/bin"
+
+pwd_helper() {
+	if [[ `pwd` -eq "/home/hens" ]]; then
+		echo "~"
+	else
+		echo `pwd`
+	fi
+}
+
+PS1="[36m[${USER}@$(hostname)] [31m:: [35m\${PWD} [34m$ [00m"
+
+if [[ ! -d /tmp/wayland ]]; then
+    mkdir /tmp/wayland
+fi
+
+# Options
+#PRIVESC="sudo"
+PRIVESC="doas"
+
+# External Variables
+export PAGER=most
+export XDG_RUNTIME_DIR=/tmp/wayland
+export ALTERNATE_EDITOR=emacs
+
+# Aliases
+alias ls="ls --color"
+#alias ls="exa"
+alias la="exa -a"
+alias ll="exa -l"
+alias lla="exa -a -l"
+alias emacs="emacsclient -c"
+alias rick="$HOME/scripts/rick.sh"
+alias vim="nvim"
+alias srm="srm -P"
+alias cp="rsync -a"
+alias s="sudo"
+alias d="doas"
+alias e="$PRIVESC"
+alias reboot="$PRIVESC reboot"
+alias poweroff="$PRIVESC poweroff"
+#alias ed="$EDITOR"
+alias sudo="$PRIVECS"
+alias doas="$PRIVESC"
+
+## Package Management
+
+### FreeBSD
+alias p="pkg"
+alias ep="$PRIVESC pkg"
+
+### Arch
+alias pm="pacman"
+alias epm="$PRIVESC pacman"
+
+### Void
+alias xbpi="$PRIVESC xbps-install"
+alias xbpr="$PRIVESC xbps-remove"
+alias xbprc="xbps-reconfigure"
+alias xbpq="xbps-query"
+alias xbpa="xbps-alternatives"
+alias xbpri="xbps-rindex"
+alias xbpp="xbps-pkgdb"
+
+### Fedora
+alias yum="dnf"
+alias ednf="$PRIVESC dnf"
+
+### Debian/Ubuntu
+alias a="apt"
+alias ea="$PRIVESC apt"
+
+### OpenSUSE
+alias z="zypper"
+alias ez="$PRIVESC zypper"
+
+### Gentoo
+alias m="emerge"
+alias em="$PRIVESC emerge"
+alias es="eselect"

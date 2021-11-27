@@ -1,0 +1,5 @@
+pcem-wx-common.o: wx-common.c /usr/include/stdc-predef.h wx-common.h \
+ config.h
+/usr/include/stdc-predef.h:
+wx-common.h:
+config.h:

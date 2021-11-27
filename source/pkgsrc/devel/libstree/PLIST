@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.5 2020/03/24 17:15:47 nia Exp $
+include/libstree.h
+include/stree/lst_algorithms.h
+include/stree/lst_macros.h
+include/stree/lst_stree.h
+include/stree/lst_string.h
+include/stree/lst_structs.h
+include/stree/lst_timestamp.h
+lib/libstree.la
+@pkgdir share/doc/libstree

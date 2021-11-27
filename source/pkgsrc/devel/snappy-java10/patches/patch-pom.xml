@@ -1,0 +1,32 @@
+$NetBSD: patch-pom.xml,v 1.2 2020/07/01 05:03:39 yyamano Exp $
+
+Specify java source and target version as maven option to make this build with JDK 11.
+Remove pre-built binaries for other platforms.
+
+--- pom.xml.orig	2014-07-04 05:20:00.000000000 +0000
++++ pom.xml
+@@ -102,10 +102,6 @@
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-compiler-plugin</artifactId>
+                 <version>2.0.2</version>
+-                <configuration>
+-                    <source>1.5</source>
+-                    <target>1.5</target>
+-                </configuration>
+             </plugin>
+ 
+             <plugin>
+@@ -182,13 +178,6 @@
+                         <Import-Package>org.osgi.framework;version="[1.5,2)"</Import-Package>
+                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                         <Bundle-NativeCode>
+-                        	org/xerial/snappy/native/Windows/amd64/snappyjava.dll;selection-filter="(&amp;(osgi.arch=x86_64)(osgi.os=win32))",
+-                        	org/xerial/snappy/native/Windows/x86/snappyjava.dll;selection-filter="(&amp;(osgi.arch=x86)(osgi.os=win32))",
+-                        	org/xerial/snappy/native/Mac/i386/libsnappyjava.jnilib;selection-filter="(&amp;(osgi.arch=x86)(osgi.os=macosx))",
+-                        	org/xerial/snappy/native/Mac/x86_64/libsnappyjava.jnilib;selection-filter="(&amp;(osgi.arch=x86_64)(osgi.os=macosx))",
+-                        	org/xerial/snappy/native/Linux/amd64/libsnappyjava.so;selection-filter="(&amp;(osgi.arch=x86_64)(osgi.os=linux))",
+-                        	org/xerial/snappy/native/Linux/i386/libsnappyjava.so;selection-filter="(&amp;(osgi.arch=x86)(osgi.os=linux))",
+-                        	org/xerial/snappy/native/Linux/arm/libsnappyjava.so;selection-filter="(&amp;(osgi.arch=arm)(osgi.os=linux))"
+                         </Bundle-NativeCode>
+                         <!-- TODO: unsure about ARMHF -->
+                     </instructions>

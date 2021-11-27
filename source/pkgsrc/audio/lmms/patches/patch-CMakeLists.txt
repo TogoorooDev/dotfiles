@@ -1,0 +1,23 @@
+$NetBSD: patch-CMakeLists.txt,v 1.2 2019/06/10 19:08:42 nia Exp $
+
+Install plain (un-gzipped) man page.
+
+--- CMakeLists.txt.orig	2018-11-03 01:43:42.000000000 +0000
++++ CMakeLists.txt
+@@ -563,16 +563,6 @@ ADD_SUBDIRECTORY(doc)
+ # post-install tasks
+ ADD_SUBDIRECTORY(cmake/postinstall)
+ 
+-ADD_CUSTOM_COMMAND(OUTPUT "${CMAKE_BINARY_DIR}/lmms.1.gz"
+-				COMMAND gzip -c ${CMAKE_SOURCE_DIR}/doc/lmms.1 > ${CMAKE_BINARY_DIR}/lmms.1.gz
+-				DEPENDS "${CMAKE_SOURCE_DIR}/doc/lmms.1"
+-				COMMENT "Generating lmms.1.gz"
+-				VERBATIM)
+-
+-
+-ADD_CUSTOM_TARGET(manpage ALL
+-				DEPENDS "${CMAKE_BINARY_DIR}/lmms.1.gz")
+-
+ # install headers
+ 
+ IF(LMMS_BUILD_LINUX)

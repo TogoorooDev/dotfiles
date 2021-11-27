@@ -1,0 +1,19 @@
+# $NetBSD: Makefile.common,v 1.16 2021/01/30 08:57:02 mef Exp $
+#
+# used by graphics/cal3d/Makefile
+# used by graphics/cal3d-examples/Makefile
+
+DISTNAME=		cal3d-${CAL3D_VERSION}
+CATEGORIES=		graphics
+MASTER_SITES=		https://mp3butcher.github.io/Cal3D/sources/
+
+CAL3D_VERSION=		0.11.0
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://cal3d.sourceforge.net/
+COMMENT=	Skeletal based 3d character animation library in C++
+
+USE_LANGUAGES=		c c++03
+USE_LIBTOOL=		yes
+USE_TOOLS+=		automake
+GNU_CONFIGURE=		yes

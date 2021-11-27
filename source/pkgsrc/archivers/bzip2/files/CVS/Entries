@@ -1,0 +1,23 @@
+/CHANGES/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/LICENSE/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/Makefile/1.4/Fri Sep 20 04:05:13 2013//Tpkgsrc-2021Q3
+/README/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/blocksort.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzdiff/1.2/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzdiff.1/1.1.1.1/Wed Sep 22 14:32:17 2010//Tpkgsrc-2021Q3
+/bzgrep/1.2/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzgrep.1/1.1.1.1/Wed Sep 22 14:32:17 2010//Tpkgsrc-2021Q3
+/bzip2.1/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzip2.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzip2recover.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzlib.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzlib.h/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzlib_private.h/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/bzmore/1.1.1.1/Thu Aug  2 13:01:34 2007//Tpkgsrc-2021Q3
+/bzmore.1/1.1.1.1/Thu Aug  2 13:01:34 2007//Tpkgsrc-2021Q3
+/compress.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/crctable.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/decompress.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/huffman.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+/randtable.c/1.4/Sun Jul 21 11:51:24 2019//Tpkgsrc-2021Q3
+D

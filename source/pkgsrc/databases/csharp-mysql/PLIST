@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2020/01/26 12:43:54 nia Exp $
+lib/mono/gac/MySql.Data/${PKGVERSION}.0__c5687fc88969c44d/MySql.Data.dll

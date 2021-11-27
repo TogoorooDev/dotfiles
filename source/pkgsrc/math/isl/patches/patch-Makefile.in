@@ -1,0 +1,19 @@
+$NetBSD: patch-Makefile.in,v 1.4 2021/04/22 12:03:39 adam Exp $
+
+'$$libisl' differs between systems, so use 'libisl' instead.
+
+--- Makefile.in.orig	2020-11-01 13:53:55.000000000 +0000
++++ Makefile.in
+@@ -2889,10 +2889,10 @@ install-data-local: $(srcdir)/libisl-gdb
+ 	case $$libisl in \
+ 	'') echo Cannot find isl library name. GDB bindings not installed.;; \
+ 	*) echo $(INSTALL_DATA) $(srcdir)/libisl-gdb.py \
+-		$(DESTDIR)$(libdir)/$$libisl-gdb.py; \
++		$(DESTDIR)$(libdir)/libisl-gdb.py; \
+ 	test -z "$(libdir)" || $(MKDIR_P) "$(DESTDIR)$(libdir)"; \
+ 	$(INSTALL_DATA) $(srcdir)/libisl-gdb.py \
+-	    $(DESTDIR)$(libdir)/$$libisl-gdb.py; \
++	    $(DESTDIR)$(libdir)/libisl-gdb.py; \
+ 	esac
+ 
+ uninstall-local:

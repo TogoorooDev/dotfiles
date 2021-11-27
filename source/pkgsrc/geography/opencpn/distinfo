@@ -1,0 +1,18 @@
+$NetBSD: distinfo,v 1.25 2019/06/03 15:20:59 bouyer Exp $
+
+SHA1 (OpenCPN-5.0.0.zip) = e4f2c77001fafed835c2329a1f2a74afdd4858ca
+RMD160 (OpenCPN-5.0.0.zip) = e8ee55b1b00017f2fc885c147e8f69ec13c627aa
+SHA512 (OpenCPN-5.0.0.zip) = 146fe0bf29424f72138168cd20617aabc2f130d2ffd47b8da4aa1e0aa6d7176093b36d96d8f0d456af1f7805db13ed87be67f4f3af7a7a2d6abf0d5734834f7a
+Size (OpenCPN-5.0.0.zip) = 70056870 bytes
+SHA1 (patch-CMakeLists.txt) = 797928fcc105566f5e5670920f03d38b5a779366
+SHA1 (patch-FindPortaudio.cmake) = d13b7e6cf42ea5b837ea6230c16b4558e87aa16c
+SHA1 (patch-plugins_chartdldr_pi_CMakeLists.txt) = e193798a04082c3a20264214e2a3aa951f0ee514
+SHA1 (patch-plugins_dashboard_pi_CMakeLists.txt) = 5523e8bb960306a15367a7c9a8385f3787a2baf4
+SHA1 (patch-plugins_grib_pi_CMakeLists.txt) = 75338d3a85666eed26157e17d693f937b0356689
+SHA1 (patch-plugins_wmm_pi_CMakeLists.txt) = 88339a61dd4b78b823bbd34bd1b02863d150f046
+SHA1 (patch-src_glu_CMakeLists.txt) = d63494a41071097252ac9e2cb95db75041f30b62
+SHA1 (patch-src_mipmap_mipmap.c) = 3bdb2c37e7a6d89fc6a531af6e0396a1ff385aeb
+SHA1 (patch-src_ocpndc.cpp) = 4a72093a49f29d66a42e3f64b99a1a40bf08a658
+SHA1 (patch-src_printtable.cpp) = 52ed0f09610d56e9acc5ec9b8e4cbdc7ad55d043
+SHA1 (patch-src_routeprintout.cpp) = c0f960b76b1b7a8acb7e5faca5f656a5c259f02c
+SHA1 (patch-src_wxcurl_base.cpp) = 25c6d03dd1215885f15221d888327f0535080284

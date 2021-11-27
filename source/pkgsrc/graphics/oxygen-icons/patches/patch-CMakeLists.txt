@@ -1,0 +1,15 @@
+$NetBSD: patch-CMakeLists.txt,v 1.4 2018/01/17 20:03:37 markd Exp $
+
+Dont do tests as requires Qt5
+
+--- CMakeLists.txt.orig	2017-12-02 10:22:01.000000000 +0000
++++ CMakeLists.txt
+@@ -20,7 +20,7 @@ set(REQUIRED_QT_VERSION 5.7.0)
+ 
+ set( oxygen_icon_dirs  8x8 16x16 22x22 32x32 48x48 64x64 128x128 256x256 )
+ 
+-add_subdirectory(autotests)
++#add_subdirectory(autotests)
+ 
+ ########### install files ###############
+ 

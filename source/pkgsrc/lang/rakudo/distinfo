@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.12 2021/09/04 11:32:21 mef Exp $
+
+SHA1 (rakudo-2021.08.tar.gz) = c274f15744d7a2e4881e7e1cf952f84a642b8b3a
+RMD160 (rakudo-2021.08.tar.gz) = a98bb252c3b9c96d4d795e4e4cdfcb8d216d6a81
+SHA512 (rakudo-2021.08.tar.gz) = 6b58ddf47742cb8abc7c017ccbc658dac04a7a2e9802e3c656f775f94a97264a92c24f0a88c0f7baae3fa5b531acb407a652eea6c9d9cdc2f00afef00c92a018
+Size (rakudo-2021.08.tar.gz) = 5906537 bytes

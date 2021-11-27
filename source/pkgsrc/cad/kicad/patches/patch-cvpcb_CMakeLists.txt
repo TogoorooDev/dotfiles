@@ -1,0 +1,16 @@
+$NetBSD: patch-cvpcb_CMakeLists.txt,v 1.4 2021/02/21 18:56:36 bouyer Exp $
+
+Force proper LDFLAGS for MODULE, as cmake doens't set rpath for theses
+
+--- cvpcb/CMakeLists.txt.orig	2020-12-22 21:05:01.000000000 +0100
++++ cvpcb/CMakeLists.txt	2021-02-20 10:20:18.102832805 +0100
+@@ -117,6 +117,9 @@
+         LINK_FLAGS "${TO_LINKER},-cref ${TO_LINKER},-Map=_cvpcb.kiface.map" )
+ endif()
+ 
++set_property(TARGET cvpcb_kiface APPEND_STRING
++	PROPERTY LINK_FLAGS " $ENV{LDFLAGS}")
++
+ # these 2 binaries are a matched set, keep them together:
+ if( APPLE )
+     # puts binaries into the *.app bundle while linking

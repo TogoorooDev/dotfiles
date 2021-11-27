@@ -1,0 +1,43 @@
+# $NetBSD: Makefile.common,v 1.59 2021/09/19 07:31:27 nia Exp $
+
+# used by games/freeciv-share/Makefile
+# used by games/freeciv-client/Makefile
+# used by games/freeciv-server/Makefile
+
+DISTNAME=	freeciv-${FC_VERS}
+FC_VERS=	2.6.5
+CATEGORIES=	games
+MASTER_SITES=	http://files.freeciv.org/stable/
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.freeciv.org/
+LICENSE=	gnu-gpl-v2
+
+USE_TOOLS+=		gmake gzip pkg-config
+USE_TOOLS+=		msgfmt msgmerge xgettext
+USE_LANGUAGES+=		c99 c++
+GNU_CONFIGURE=		yes
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+
+DISTINFO_FILE=		../../games/freeciv-share/distinfo
+#PATCHDIR=		../../games/freeciv-share/patches
+
+REPLACE_PYTHON=		common/generate_packets.py
+
+SUBST_CLASSES+=		data
+SUBST_STAGE.data=	pre-configure
+SUBST_FILES.data=	data/Makefile.in
+SUBST_SED.data+=	-e "s|@CLIENT_FALSE@|@MAKE_DATA_FALSE@|g"
+SUBST_SED.data+=	-e "s|@CLIENT_TRUE@|@MAKE_DATA_TRUE@|g"
+SUBST_SED.data+=	-e "s|@SERVER_FALSE@|@MAKE_DATA_FALSE@|g"
+SUBST_SED.data+=	-e "s|@SERVER_TRUE@|@MAKE_DATA_TRUE@|g"
+SUBST_SED.data+=	-e "s|@CLIENT_GUI_SDL_TRUE@||g"
+SUBST_SED.data+=	-e "s|@CLIENT_GUI_GTK_3_22_TRUE@||g"
+SUBST_MESSAGE.data=	Fixing installation of data files.
+
+.include "../../www/curl/buildlink3.mk"
+.include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../lang/python/application.mk"

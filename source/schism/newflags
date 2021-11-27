@@ -1,0 +1,1 @@
+media-libs/libsdl2 fcitx4 gles1 gles2 haptic ibus joystick kms pipewire sndio sound video vulkan Global Use Flags alsa aqua custom-cflags dbus doc jack libsamplerate  nas opengl  oss pulseaudio  static-libs threads  udev  wayland  X  xinerama  xscreensaver 	

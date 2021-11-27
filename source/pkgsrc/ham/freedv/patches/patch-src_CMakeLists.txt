@@ -1,0 +1,29 @@
+$NetBSD: patch-src_CMakeLists.txt,v 1.2 2020/11/29 23:14:21 dbj Exp $
+
+Don't use dylibbundler to package up the MacOS app.  We don't
+currently have this tool in tree, although that's fixable.
+(For example: https://github.com/auriamg/macdylibbundler)
+
+However, we do build a non-bundled MacOS application similar to how
+Emacs.app is built in pkgsrc.
+
+Also, don't make the disk image.
+
+--- src/CMakeLists.txt.orig	2020-07-18 23:16:05.000000000 +0000
++++ src/CMakeLists.txt
+@@ -112,10 +112,10 @@ if(APPLE)
+         COMMAND cp ARGS ${CMAKE_CURRENT_SOURCE_DIR}/freedv.icns FreeDV.app/Contents/Resources
+         COMMAND echo ARGS -n "APPL????" > FreeDV.app/Contents/PkgInfo
+         COMMAND cp ARGS freedv FreeDV.app/Contents/MacOS/FreeDV
+-        COMMAND DYLD_LIBRARY_PATH=${CODEC2_BUILD_DIR}/src:${LPCNET_BUILD_DIR}/src:${DYLD_LIBRARY_PATH} ${CMAKE_SOURCE_DIR}/macdylibbundler/dylibbundler ARGS -od -b -x FreeDV.app/Contents/MacOS/FreeDV -d FreeDV.app/Contents/libs -p @loader_path/../libs/
+-        COMMAND mkdir dist_tmp
+-        COMMAND cp -r FreeDV.app dist_tmp
+-        COMMAND hdiutil create -srcfolder dist_tmp/ -volname FreeDV -format UDZO -fs HFS+ ./FreeDV.dmg
+-        COMMAND rm -rf dist_tmp
++        #COMMAND DYLD_LIBRARY_PATH=${CODEC2_BUILD_DIR}/src:${LPCNET_BUILD_DIR}/src:${DYLD_LIBRARY_PATH} ${CMAKE_SOURCE_DIR}/macdylibbundler/dylibbundler ARGS -od -b -x FreeDV.app/Contents/MacOS/FreeDV -d FreeDV.app/Contents/libs -p @loader_path/../libs/
++        #COMMAND mkdir dist_tmp
++        #COMMAND cp -r FreeDV.app dist_tmp
++        #COMMAND hdiutil create -srcfolder dist_tmp/ -volname FreeDV -format UDZO -fs HFS+ ./FreeDV.dmg
++        #COMMAND rm -rf dist_tmp
+     )
+ endif(APPLE)

@@ -1,0 +1,25 @@
+$NetBSD: patch-tools_hsbench_CMakeLists.txt,v 1.2 2020/11/29 20:27:28 nia Exp $
+
+Avoid conflicts with pkgsrc's CMAKE_MODULE_PATH override.
+
+NetBSD's pthread_setaffinity_np is incompatible with hsbench's expectations.
+
+--- tools/hsbench/CMakeLists.txt.orig	2018-07-09 16:45:44.000000000 +0000
++++ tools/hsbench/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-include (${CMAKE_MODULE_PATH}/sqlite3.cmake)
++include (${PROJECT_SOURCE_DIR}/cmake/sqlite3.cmake)
+ if (NOT SQLITE3_FOUND)
+     message(STATUS "sqlite3 not found, not building hsbench")
+     return()
+@@ -16,7 +16,10 @@ endif ()
+ 
+ set (CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -D_GNU_SOURCE")
+ set (CMAKE_REQUIRED_LIBRARIES pthread)
++
++if (NOT CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+ CHECK_CXX_SYMBOL_EXISTS(pthread_setaffinity_np ${PTHREAD_NP_INC} HAVE_DECL_PTHREAD_SETAFFINITY_NP)
++endif ()
+ 
+ CHECK_FUNCTION_EXISTS(malloc_info HAVE_MALLOC_INFO)
+ CHECK_FUNCTION_EXISTS(shmget HAVE_SHMGET)

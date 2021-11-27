@@ -1,0 +1,18 @@
+/patch-Makefile/1.16/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-Makefile.common.in/1.3/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-check-linker-version_sh/1.1/Sat May 23 20:33:52 2020//Tpkgsrc-2021Q3
+/patch-configure/1.43/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-lex_Makefile/1.3/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-man_Makefile/1.4/Wed Jan 10 14:30:35 2018//Tpkgsrc-2021Q3
+/patch-ocamldoc_Makefile/1.9/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-ocamldoc_odoc__messages.ml/1.3/Tue Dec 29 23:34:53 2015//Tpkgsrc-2021Q3
+/patch-otherlibs_Makefile.otherlibs.common/1.3/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-otherlibs_systhreads_Makefile/1.12/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-otherlibs_systhreads_st__stubs.c/1.4/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-otherlibs_unix_Makefile/1.3/Fri Jan  8 12:28:16 2021//Tpkgsrc-2021Q3
+/patch-runtime_Makefile/1.3/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-testsuite_tests_lib-systhreads_testyield.ml/1.2/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-tools_Makefile/1.3/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-tools_ocamlmklib.ml/1.1/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+/patch-yacc_Makefile/1.6/Wed Dec  9 10:33:04 2020//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,15 @@
+$NetBSD: patch-tools_hscollider_CMakeLists.txt,v 1.2 2018/07/25 00:26:30 minskim Exp $
+
+Avoid conflicts with pkgsrc's CMAKE_MODULE_PATH override.
+
+--- tools/hscollider/CMakeLists.txt.orig	2018-07-09 16:45:44.000000000 +0000
++++ tools/hscollider/CMakeLists.txt
+@@ -5,7 +5,7 @@ endif()
+ 
+ include_directories(${PCRE_INCLUDE_DIRS})
+ 
+-include(${CMAKE_MODULE_PATH}/backtrace.cmake)
++include(${PROJECT_SOURCE_DIR}/cmake/backtrace.cmake)
+ 
+ # we need static libs - too much deep magic for shared libs
+ if (NOT BUILD_STATIC_LIBS)

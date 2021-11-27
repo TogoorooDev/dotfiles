@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/23 17:45:24 pho Exp $
+lib/vector-binary-instances-${PKGVERSION}/${HS_VERSION}/package-description
+lib/vector-binary-instances-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Vector/Binary.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Vector/Binary.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Data/Vector/Binary.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/Data-Vector-Binary.html
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/vector-binary-instances-${PKGVERSION}/html/vector-binary-instances.haddock

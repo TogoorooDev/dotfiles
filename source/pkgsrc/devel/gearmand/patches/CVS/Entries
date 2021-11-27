@@ -1,0 +1,13 @@
+/patch-benchmark_blobslap__worker.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-configure/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-examples_reverse__client.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-examples_reverse__client__bg.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-examples_reverse__client__cb.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-examples_reverse__client__epoch.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-libgearman-server__log.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-libgearman_backtrace.cc/1.1/Thu Oct 10 00:04:52 2013//Tpkgsrc-2021Q3
+/patch-libtest__exception.hpp/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-libtest__lite.h/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+/patch-libtest_alarm.cc/1.1/Thu Mar 26 21:49:49 2020//Tpkgsrc-2021Q3
+/patch-libtest_main.cc/1.1/Fri Oct  4 07:03:37 2013//Tpkgsrc-2021Q3
+D

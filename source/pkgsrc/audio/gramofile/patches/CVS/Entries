@@ -1,0 +1,20 @@
+/patch-Makefile/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-bplaysrc_Makefile/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-bplaysrc_bplay_c/1.1/Sun Sep  4 01:42:25 2011//Tpkgsrc-2021Q3
+/patch-bplaysrc_shmbuf.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-clrscr.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-errorwindow.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-fmtheaders.h/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-gramofile_c/1.2/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-playwav.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-reclp__main.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__cmf.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__cmf2.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__doubmed.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__mean.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__median.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-signpr__rms.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-stringinput.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-tracksplit__parammenu.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+/patch-yesnowindow.c/1.1/Thu May 20 19:24:15 2021//Tpkgsrc-2021Q3
+D

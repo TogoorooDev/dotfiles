@@ -1,0 +1,37 @@
+ Configuring TLS
+ ===============
+
+notqmail does not yet ship with native support for TLS encryption. This
+notqmail package enables outbound TLS via a patch:
+
+<URL:https://schmonz.com/qmail/tlsonlyremote/>
+
+To enable TLS for incoming mail, message submission, and POP3, install
+the qmail-run package. It includes these add-on programs:
+
+<URL:https://schmonz.com/qmail/acceptutils/>
+
+With qmail-run installed, follow these steps:
+
+1. Obtain a certificate (e.g., from Let's Encrypt), make it available as
+   @SERVERCERT@, and apply these permissions:
+
+    # chown @QMAIL_DAEMON_USER@:@QMAIL_QMAIL_GROUP@ @SERVERCERT@
+    # chmod 640 @SERVERCERT@
+
+2. If your cert's private key is in a separate file, make it available as
+   @SERVERKEY@ (same permissions).
+
+3. Use the same cert for your server's connections to other servers:
+
+    # ln -s @SERVERCERT@ \
+        @CLIENTCERT@
+
+4. Generate initial Diffie-Hellman parameters:
+
+    # @PREFIX@/bin/update_tmprsadh
+
+5. Arrange for update_tmprsadh to be run regularly from cron(8),
+   /etc/security.local, or similar.
+
+Then start your TLS-enabled notqmail using qmail-run's rc.d scripts.

@@ -1,0 +1,7 @@
+Atheme is a set of services for IRC networks designed for large IRC networks
+with high scalability requirements. It is relatively mature software, with
+some code and design derived from another package called Shrike.
+
+Atheme's behavior is tunable using modules and a highly detailed configuration
+file. Almost all behavior can be changed at deployment time just by editing
+the configuration.

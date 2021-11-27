@@ -1,0 +1,50 @@
+$NetBSD: patch-configure,v 1.4 2018/12/17 19:24:44 schmonz Exp $
+
+Ensure that libreplace contains at least one symbol.
+test for res_close, not available in OpenBSD
+
+--- configure.orig	2012-02-20 07:31:46.000000000 +0000
++++ configure
+@@ -13494,6 +13494,33 @@ cat >>confdefs.h <<_ACEOF
+ #define HAVE_DECL_RES_NDESTROY $ac_have_decl
+ _ACEOF
+ 
++ac_fn_c_check_decl "$LINENO" "res_close" "ac_cv_have_decl_res_close" "
++	#ifdef HAVE_SYS_TYPES_H
++	# include <sys/types.h>
++	#endif
++	#ifdef HAVE_SYS_SOCKET_H
++	# include <sys/socket.h>		/* inet_ functions / structs */
++	#endif
++	#ifdef HAVE_NETINET_IN_H
++	# include <netinet/in.h>		/* inet_ functions / structs */
++	#endif
++	#ifdef HAVE_ARPA_NAMESER_H
++	#  include <arpa/nameser.h> /* DNS HEADER struct */
++	#endif
++	#ifdef HAVE_RESOLV_H
++	# include <resolv.h>
++	#endif
++
++"
++if test "x$ac_cv_have_decl_res_close" = xyes; then :
++  ac_have_decl=1
++else
++  ac_have_decl=0
++fi
++
++cat >>confdefs.h <<_ACEOF
++#define HAVE_DECL_RES_CLOSE $ac_have_decl
++_ACEOF
+ 
+ ac_fn_c_check_decl "$LINENO" "ns_t_spf" "ac_cv_have_decl_ns_t_spf" "
+ 	#ifdef HAVE_SYS_TYPES_H
+@@ -13577,7 +13604,7 @@ _ACEOF
+ fi
+ done
+ 
+-for ac_func in strcasecmp strncasecmp strspn strtoul
++for ac_func in ensure_libreplace_symbol strcasecmp strncasecmp strspn strtoul
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"

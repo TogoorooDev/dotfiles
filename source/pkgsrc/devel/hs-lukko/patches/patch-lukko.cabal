@@ -1,0 +1,59 @@
+$NetBSD: patch-lukko.cabal,v 1.2 2021/04/23 10:38:26 pho Exp $
+
+* Fix build with GHC 9.
+* Newer Solaris/illumos have flock(3C).
+
+--- lukko.cabal.orig	2001-09-09 01:46:40.000000000 +0000
++++ lukko.cabal
+@@ -32,7 +32,7 @@ description:
+   \  cpp-options: -DHAS_OFD_LOCKING
+   \  cpp-options: -DHAS_FLOCK
+   .
+-  elif !(os(solaris) || os(aix))
++  elif !(os(aix))
+   \  cpp-options: -DHAS_FLOCK
+   @
+   .
+@@ -72,7 +72,7 @@ flag ofd-locking
+ library
+   default-language:   Haskell2010
+   hs-source-dirs:     src
+-  build-depends:      base >=4.5 && <4.15
++  build-depends:      base >=4.5 && <5
+   build-tool-depends: hsc2hs:hsc2hs >=0.67 && <0.69
+ 
+   -- Main library module
+@@ -93,7 +93,7 @@ library
+     cpp-options:     -DUSE_OFD_LOCKING
+     exposed-modules: Lukko.OFD
+ 
+-  elif !(os(solaris) || os(aix))
++  elif !(os(aix))
+     hs-source-dirs: src-flock
+     hs-source-dirs: src-unix
+     cpp-options:    -DUSE_FLOCK
+@@ -103,7 +103,7 @@ library
+     cpp-options:    -DUSE_NOOP
+ 
+   -- Cabal check is silly
+-  if (!os(windows) && !(os(solaris) || os(aix)))
++  if (!os(windows) && !(os(aix)))
+     exposed-modules: Lukko.FLock
+ 
+   other-modules:
+@@ -139,7 +139,7 @@ test-suite test-thread
+     cpp-options: -DHAS_OFD_LOCKING
+     cpp-options: -DHAS_FLOCK
+ 
+-  elif !(os(solaris) || os(aix))
++  elif !(os(aix))
+     cpp-options: -DHAS_FLOCK
+ 
+ test-suite test-process
+@@ -160,5 +160,5 @@ test-suite test-process
+     cpp-options: -DHAS_OFD_LOCKING
+     cpp-options: -DHAS_FLOCK
+ 
+-  elif !(os(solaris) || os(aix))
++  elif !(os(aix))
+     cpp-options: -DHAS_FLOCK

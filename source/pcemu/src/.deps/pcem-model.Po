@@ -1,0 +1,160 @@
+pcem-model.o: model.c /usr/include/stdc-predef.h ibm.h \
+ /usr/include/stdio.h /usr/include/bits/libc-header-start.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stddef.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdarg.h \
+ /usr/include/bits/types.h /usr/include/bits/timesize.h \
+ /usr/include/bits/typesizes.h /usr/include/bits/time64.h \
+ /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
+ /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/floatn.h \
+ /usr/include/bits/floatn-common.h /usr/include/bits/stdio.h \
+ /usr/include/bits/stdio2.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h \
+ /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/string.h /usr/include/bits/types/locale_t.h \
+ /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
+ /usr/include/bits/strings_fortified.h \
+ /usr/include/bits/string_fortified.h timer.h cpu.h model.h io.h mouse.h \
+ 82091aa.h acc2036.h acc2168.h acc3221.h acer386sx.h ali1429.h amstrad.h \
+ device.h cbm_io.h cmd640.h compaq.h cs8230.h dells200.h cassette.h dma.h \
+ f82c710_upc.h fdc.h fdc37c665.h fdc37c93x.h gameport.h headland.h \
+ i430fx.h i430hx.h i430lx.h i430vx.h i440bx.h i440fx.h ide.h ide_atapi.h \
+ scsi.h intel.h intel_flash.h jim.h keyboard_amstrad.h keyboard_at.h \
+ keyboard_olim24.h keyboard_pcjr.h keyboard_xt.h laserxt.h lpt.h mem.h \
+ x86.h mouse_ps2.h mvp3.h neat.h nmi.h nvr.h olivetti_m24.h opti495.h \
+ pc87306.h pc87307.h pci.h pic.h piix.h pit.h ps1.h ps2.h ps2_mca.h \
+ scamp.h scat.h serial.h sio.h sis496.h sl82c460.h sound_ps1.h \
+ sound_pssj.h sound_sn76489.h sound.h superxt.h sst39sf010.h \
+ tandy_eeprom.h tandy_rom.h um8669f.h vid_pcjr.h vid_tandy.h vid_t1000.h \
+ vl82c480.h vt82c586b.h w83877tf.h w83977tf.h wd76c10.h xi8088.h zenith.h
+/usr/include/stdc-predef.h:
+ibm.h:
+/usr/include/stdio.h:
+/usr/include/bits/libc-header-start.h:
+/usr/include/features.h:
+/usr/include/sys/cdefs.h:
+/usr/include/bits/wordsize.h:
+/usr/include/bits/long-double.h:
+/usr/include/gnu/stubs.h:
+/usr/include/gnu/stubs-64.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stddef.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdarg.h:
+/usr/include/bits/types.h:
+/usr/include/bits/timesize.h:
+/usr/include/bits/typesizes.h:
+/usr/include/bits/time64.h:
+/usr/include/bits/types/__fpos_t.h:
+/usr/include/bits/types/__mbstate_t.h:
+/usr/include/bits/types/__fpos64_t.h:
+/usr/include/bits/types/__FILE.h:
+/usr/include/bits/types/FILE.h:
+/usr/include/bits/types/struct_FILE.h:
+/usr/include/bits/stdio_lim.h:
+/usr/include/bits/floatn.h:
+/usr/include/bits/floatn-common.h:
+/usr/include/bits/stdio.h:
+/usr/include/bits/stdio2.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include/stdint.h:
+/usr/include/stdint.h:
+/usr/include/bits/wchar.h:
+/usr/include/bits/stdint-intn.h:
+/usr/include/bits/stdint-uintn.h:
+/usr/include/string.h:
+/usr/include/bits/types/locale_t.h:
+/usr/include/bits/types/__locale_t.h:
+/usr/include/strings.h:
+/usr/include/bits/strings_fortified.h:
+/usr/include/bits/string_fortified.h:
+timer.h:
+cpu.h:
+model.h:
+io.h:
+mouse.h:
+82091aa.h:
+acc2036.h:
+acc2168.h:
+acc3221.h:
+acer386sx.h:
+ali1429.h:
+amstrad.h:
+device.h:
+cbm_io.h:
+cmd640.h:
+compaq.h:
+cs8230.h:
+dells200.h:
+cassette.h:
+dma.h:
+f82c710_upc.h:
+fdc.h:
+fdc37c665.h:
+fdc37c93x.h:
+gameport.h:
+headland.h:
+i430fx.h:
+i430hx.h:
+i430lx.h:
+i430vx.h:
+i440bx.h:
+i440fx.h:
+ide.h:
+ide_atapi.h:
+scsi.h:
+intel.h:
+intel_flash.h:
+jim.h:
+keyboard_amstrad.h:
+keyboard_at.h:
+keyboard_olim24.h:
+keyboard_pcjr.h:
+keyboard_xt.h:
+laserxt.h:
+lpt.h:
+mem.h:
+x86.h:
+mouse_ps2.h:
+mvp3.h:
+neat.h:
+nmi.h:
+nvr.h:
+olivetti_m24.h:
+opti495.h:
+pc87306.h:
+pc87307.h:
+pci.h:
+pic.h:
+piix.h:
+pit.h:
+ps1.h:
+ps2.h:
+ps2_mca.h:
+scamp.h:
+scat.h:
+serial.h:
+sio.h:
+sis496.h:
+sl82c460.h:
+sound_ps1.h:
+sound_pssj.h:
+sound_sn76489.h:
+sound.h:
+superxt.h:
+sst39sf010.h:
+tandy_eeprom.h:
+tandy_rom.h:
+um8669f.h:
+vid_pcjr.h:
+vid_tandy.h:
+vid_t1000.h:
+vl82c480.h:
+vt82c586b.h:
+w83877tf.h:
+w83977tf.h:
+wd76c10.h:
+xi8088.h:
+zenith.h:

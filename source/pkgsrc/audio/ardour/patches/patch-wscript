@@ -1,0 +1,25 @@
+$NetBSD: patch-wscript,v 1.4 2021/09/11 16:33:11 nia Exp $
+
+- Use internal copy of qm-dsp. From Arch Linux.
+- Install config files to examples, per pkgsrc policy
+
+--- wscript.orig	2021-08-13 16:20:07.000000000 +0000
++++ wscript
+@@ -1098,8 +1098,6 @@ def configure(conf):
+ 
+     if Options.options.use_external_libs:
+         conf.define('USE_EXTERNAL_LIBS', 1)
+-        conf.env.append_value(
+-            'CXXFLAGS', '-I' + Options.options.qm_dsp_include)
+ 
+     if Options.options.boost_include != '':
+         conf.env.append_value('CXXFLAGS', '-I' + Options.options.boost_include)
+@@ -1557,7 +1555,7 @@ def build(bld):
+     if bld.is_defined ('BEATBOX'):
+         bld.recurse('tools/bb')
+ 
+-    bld.install_files (bld.env['CONFDIR'], 'system_config')
++    bld.install_files (os.environ['EGDIR'], 'system_config')
+ 
+     bld.install_files (os.path.join (bld.env['DATADIR'], 'templates'), bld.path.ant_glob ('share/templates/**'), cwd=bld.path.find_dir ('share/templates'), relative_trick=True)
+ 

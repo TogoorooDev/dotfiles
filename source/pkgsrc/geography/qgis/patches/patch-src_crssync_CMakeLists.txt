@@ -1,0 +1,17 @@
+$NetBSD: patch-src_crssync_CMakeLists.txt,v 1.4 2021/03/01 00:03:35 gdt Exp $
+
+Fix executing dynamically-linked executable from the build directory
+
+\todo Explain if this should be filed upstream or not.
+
+--- src/crssync/CMakeLists.txt.orig	2021-02-19 12:09:21.000000000 +0000
++++ src/crssync/CMakeLists.txt
+@@ -36,7 +36,7 @@ elseif()
+ else()
+   add_custom_target(synccrsdb
+     COMMENT "Running crssync"
+-    COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/crssync
++    COMMAND env LD_LIBRARY_PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/../lib ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/crssync
+     DEPENDS crssync
+   )
+ endif()

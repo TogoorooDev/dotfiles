@@ -1,0 +1,51 @@
+$NetBSD: patch-configure,v 1.2 2018/05/16 11:33:14 fhajny Exp $
+
+Portability.
+
+--- configure.orig	2018-05-14 08:49:08.000000000 +0000
++++ configure
+@@ -3247,7 +3247,7 @@ $as_echo "#define OS_AIX 1" >>confdefs.h
+     LDFLAGS="$LDFLAGS -brtl"
+   ;;
+ esac
+- if test x$os_type == xapple; then
++ if test x$os_type = xapple; then
+   OS_APPLE_TRUE=
+   OS_APPLE_FALSE='#'
+ else
+@@ -3255,7 +3255,7 @@ else
+   OS_APPLE_FALSE=
+ fi
+ 
+- if test x$os_type == xlinux; then
++ if test x$os_type = xlinux; then
+   xOS_LINUX_TRUE=
+   xOS_LINUX_FALSE='#'
+ else
+@@ -3263,7 +3263,7 @@ else
+   xOS_LINUX_FALSE=
+ fi
+ 
+- if test x$os_type == xlinux; then
++ if test x$os_type = xlinux; then
+   OS_LINUX_TRUE=
+   OS_LINUX_FALSE='#'
+ else
+@@ -3271,7 +3271,7 @@ else
+   OS_LINUX_FALSE=
+ fi
+ 
+- if test x$os_type == xsolaris; then
++ if test x$os_type = xsolaris; then
+   OS_SOLARIS_TRUE=
+   OS_SOLARIS_FALSE='#'
+ else
+@@ -14691,7 +14691,7 @@ fi
+ 
+ 
+ fi
+- if test "$enable_valgrind" == "yes"; then
++ if test "$enable_valgrind" = "yes"; then
+   HAVE_VALGRIND_TRUE=
+   HAVE_VALGRIND_FALSE='#'
+ else

@@ -1,0 +1,127 @@
+# $NetBSD: INSTALL,v 1.17 2019/08/29 22:04:21 schmonz Exp $
+
+DOCDIR=@DOCDIR@
+EGDIR=@EGDIR@
+PKGMANDIR=@PKGMANDIR@
+QMAILDIR=@QMAILDIR@
+QMAIL_QUEUE_DIR=@QMAIL_QUEUE_DIR@
+
+VAR_QMAIL_DIRS="alias bin boot control doc man queue users"
+
+error_qmaildir() {
+	local _qmaildir
+	_qmaildir="$1"
+
+	${CAT} <<EOF
+===========================================================================
+
+ERROR: ${_qmaildir} exists and is non-empty.
+
+Please remove or rename it, then try again.
+
+===========================================================================
+EOF
+	exit 1
+}
+
+error_instchown() {
+	local _exitcode
+	_exitcode="$1"
+
+	${CAT} <<EOF
+===========================================================================
+
+ERROR: instchown exited ${_exitcode}.
+
+Permissions are likely wrong, and/or the queue may be uninitialized.
+
+===========================================================================
+EOF
+	exit 1
+}
+
+error_instcheck() {
+	local _output
+	_output="$1"
+
+	${CAT} <<EOF
+===========================================================================
+
+ERROR: instcheck issued warnings:
+
+${_output}
+
+Permissions are likely wrong, and/or the queue may be uninitialized.
+
+===========================================================================
+EOF
+	exit 1
+}
+
+warning_fqdn() {
+	local _command _name
+	_command="$1"
+	_name="$2"
+
+	${CAT} <<EOF
+===========================================================================
+
+WARNING: "${_name}" is not a fully qualified name.
+
+To configure basic qmail control files, run this command as root:
+
+# ${_command} ${_name}.yourdomain.tld
+
+===========================================================================
+EOF
+}
+
+case "${STAGE}" in
+
+PRE-INSTALL)
+	for dir in $VAR_QMAIL_DIRS; do
+		if [ -e ${QMAILDIR}/$dir ]; then
+			error_qmaildir ${QMAILDIR}
+		fi
+	done
+
+	# keep in sync with Makefile:pre-install
+	${LN} -s ${PKG_SYSCONFDIR}/alias	${QMAILDIR}/alias
+	${LN} -s ${PREFIX}/bin			${QMAILDIR}/bin
+	${LN} -s ${EGDIR}/boot			${QMAILDIR}/boot
+	${LN} -s ${PKG_SYSCONFDIR}/control	${QMAILDIR}/control
+	${LN} -s ${DOCDIR}			${QMAILDIR}/doc
+	${LN} -s ${PREFIX}/${PKGMANDIR}		${QMAILDIR}/man
+	${LN} -s ${QMAIL_QUEUE_DIR}		${QMAILDIR}/queue
+	${LN} -s ${PKG_SYSCONFDIR}/users	${QMAILDIR}/users
+
+	;;
+
+POST-INSTALL)
+	# create the queue
+	${PREFIX}/share/qmail/setup/instpackage >/dev/null 2>&1
+	${PREFIX}/share/qmail/setup/instchown
+	QMAIL_SETUP_EXITCODE=$?
+	if [ ${QMAIL_SETUP_EXITCODE} -ne 0 ]; then
+		error_instchown ${QMAIL_SETUP_EXITCODE}
+	fi
+
+	QMAIL_CHECK_OUTPUT=$(${PREFIX}/share/qmail/setup/instcheck 2>&1)
+	if [ -n "${QMAIL_CHECK_OUTPUT}" ]; then
+		error_instcheck "${QMAIL_CHECK_OUTPUT}"
+	fi
+
+	QMAIL_CONFIG_CMD="${PREFIX}/share/qmail/setup/config-fast-pkgsrc"
+	QMAIL_FQDN=$(${PREFIX}/share/qmail/setup/hostname)
+	case "${QMAIL_FQDN}" in
+	*.*)
+		${QMAIL_CONFIG_CMD} "${QMAIL_FQDN}"
+		;;
+	*)
+		warning_fqdn "${QMAIL_CONFIG_CMD}" "${QMAIL_FQDN}"
+		;;
+	esac
+
+	;;
+
+esac

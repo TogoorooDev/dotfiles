@@ -1,0 +1,49 @@
+$NetBSD: BUILDLINK3_DG,v 1.9 2019/05/01 10:55:13 rillig Exp $
+
+ 0 Developer's guide to buildlink3
+ =================================
+
+This is a tutorial for pkgsrc developers to understand and to use the
+buildlink3 framework in pkgsrc.  The buildlink3 framework establishes the
+principle: only allow the software build process to see what we choose to
+allow it to see.
+
+
+ 1 libtool
+ ==============================
+
+The buildlink3 framework handles packages that install libtool archive
+files for libraries that are also present in the base system.  It more
+tightly controls where libtool can find libtool archives.  This reduces
+the number of conflicts between libtool libraries provided by the base
+system and those from pkgsrc.
+
+
+ 2 buildlink3.mk file structure
+ ==============================
+
+The buildlink3.mk files keep track of how "deep" we are in including
+buildlink3.mk files, and only create dependencies on packages encountered
+at depth 1.  This means that packages that want to add a dependency must
+directly include the buildlink3.mk file for that dependency.
+
+
+ 3 Troubleshooting
+ =================
+
+Q1: Where can I see the actual command executed by the wrapper
+    scripts?
+
+A1: You should examine the contents of the ${WRKDIR}/.work.log file.
+    The lines preceded with [*] are the commands that are intercepted
+    by the wrapper scripts, and the lines preceded with <.> are the
+    commands that are executed by the wrapper scripts.
+
+
+Q2: Why can't I check the values of variables set by the buildlink3
+    framework using 'make show-var VARNAME=...'?
+
+A2: Some variables are only defined for a subset of the package build
+    phases.  Try instead:
+
+	make show-var PKG_PHASE=wrapper VARNAME=...

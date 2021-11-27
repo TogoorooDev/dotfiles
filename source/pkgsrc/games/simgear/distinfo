@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.13 2021/09/18 09:01:01 nia Exp $
+
+SHA1 (simgear-2020.3.11.tar.bz2) = 69e938a458e637ae9f1d678fc46b4ddf597f378e
+RMD160 (simgear-2020.3.11.tar.bz2) = 124b5fbb762a73f6a58c5caab89f3982dacdf124
+SHA512 (simgear-2020.3.11.tar.bz2) = e7b7c73a574012f9ee33cc751eca9dc968339d0f8f5ec005386ed6863d96af6d17423dd68eb5180f1c6bf3b05a422de10ce03ea5e745029445edac7919fc1c99
+Size (simgear-2020.3.11.tar.bz2) = 1415047 bytes
+SHA1 (patch-simgear_canvas_ShivaVG_src_shConfig.h) = 0cb3c4c6049bbc5aeed85153f4cca6381219fd61
+SHA1 (patch-simgear_canvas_ShivaVG_src_shDefs.h) = 3aacbfdf03b9dd7111bfe039cf929a54c0953ef8
+SHA1 (patch-simgear_io_test__untar.cxx) = b3625254f9410411b30a8c3e30845c3d1509a993
+SHA1 (patch-simgear_io_untar.cxx) = 2cc21468bd0319aae012fb7c16e9e279888e34e3
+SHA1 (patch-simgear_misc_strutils.cxx) = c442cf04d88f2c61845a25d6bf7492b75654aeaa
+SHA1 (patch-simgear_package_md5.h) = 91dc8741ed547c26a6de8ab8bd25ee441e0e5e92

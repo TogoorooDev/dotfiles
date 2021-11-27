@@ -1,9 +1,9 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
-	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
-	{"Mem: ", "echo $(/home/hens/.config/polybar/mem_calculator.sh percentage)%",	30,		0},
+	/*Icon*/	/*Command*/				/*Update Interval*/	/*Update Signal*/
+	//{"Mem: ", "echo $(/home/hens/.config/polybar/mem_calculator.sh percentage)%",	30,		0},
 
-	{"Bat: ", "echo `sysctl hw.acpi.battery.life | cut -d' ' -f 2`%", 60, 0 },	
+	{"Bat: ", "acpi | cut -d\" \" -f 4 | cut -d \",\" -f 1", 	160, 		0},
 
 	{"", "date '+%I:%M %p'",					5,		0},
 };

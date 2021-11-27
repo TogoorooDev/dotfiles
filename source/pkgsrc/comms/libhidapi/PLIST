@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2019/07/08 12:52:42 nia Exp $
+include/hidapi/hidapi.h
+lib/libhidapi.la
+lib/pkgconfig/hidapi.pc
+share/doc/hidapi/AUTHORS.txt
+share/doc/hidapi/LICENSE-bsd.txt
+share/doc/hidapi/LICENSE-gpl3.txt
+share/doc/hidapi/LICENSE-orig.txt
+share/doc/hidapi/LICENSE.txt
+share/doc/hidapi/README.md

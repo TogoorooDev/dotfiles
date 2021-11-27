@@ -1,0 +1,11 @@
+/patch-configure/1.7/Fri May  1 00:08:22 2020//Tpkgsrc-2021Q3
+/patch-configure.ac/1.4/Sun Jun 16 18:56:05 2013//Tpkgsrc-2021Q3
+/patch-src_bin_evas__cserve2__shm.c/1.1/Sun Feb 14 13:14:06 2016//Tpkgsrc-2021Q3
+/patch-src_bin_loaders_psd_evas__image__load__psd.c/1.1/Sun Feb 14 13:14:06 2016//Tpkgsrc-2021Q3
+/patch-src_lib_cserve2_evas__cs2.h/1.1/Sun Feb 14 13:14:06 2016//Tpkgsrc-2021Q3
+/patch-src_lib_engines_common_evas__op__blend_op__blend__color__neon.c/1.1/Thu Feb 19 14:19:18 2015//Tpkgsrc-2021Q3
+/patch-src_lib_engines_common_evas__op__blend_op__blend__pixel__neon.c/1.1/Thu Feb 19 14:19:18 2015//Tpkgsrc-2021Q3
+/patch-src_lib_engines_common_evas__op__copy_op__copy__color__neon.c/1.1/Thu Feb 19 14:19:18 2015//Tpkgsrc-2021Q3
+/patch-src_modules_loaders_gif_evas__image__load__gif.c/1.3/Fri May  1 00:08:22 2020//Tpkgsrc-2021Q3
+/patch-src_modules_loaders_psd_evas__image__load__psd.c/1.4/Sun Feb 14 13:14:06 2016//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.21 2021/02/17 15:10:11 ryoon Exp $
+
+SHA1 (isync-1.4.0.tar.gz) = ccd641b0f08de6f68378fac60f01cc13f1fe718c
+RMD160 (isync-1.4.0.tar.gz) = 58e71c09c8757bb31b3bdbc5ecd4c9ca0e287e6c
+SHA512 (isync-1.4.0.tar.gz) = 6520bcfd9dc5d7c1d51d048c1814104815a3f76a3258ed79c06b22af07d4648340b1c4314175dc448bb109187c3af56565362c58fc744741b1806894e62374f5
+Size (isync-1.4.0.tar.gz) = 334991 bytes
+SHA1 (patch-ae) = a3bdbdd05e32474bf76f8110561bdcea9b72b0c3
+SHA1 (patch-src_Makefile.in) = b989a7627dbb7c989dd26c3e20beeceb000a7a47
+SHA1 (patch-src_drv__imap.c) = d27230038c7442c6a0f63ccbb566b67cb1812632

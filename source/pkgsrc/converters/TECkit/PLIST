@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.4 2018/01/25 15:51:24 jperkin Exp $
+bin/sfconv
+bin/teckit_compile
+bin/txtconv
+include/teckit/TECkit_Common.h
+include/teckit/TECkit_Compiler.h
+include/teckit/TECkit_Engine.h
+lib/libTECkit.la
+lib/libTECkit_Compiler.la
+lib/pkgconfig/teckit.pc
+man/man1/sfconv.1
+man/man1/teckit_compile.1
+man/man1/txtconv.1

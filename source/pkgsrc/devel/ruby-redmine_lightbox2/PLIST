@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.4 2021/02/28 16:25:09 taca Exp $
+${RM_PLUGINDIR}/redmine_lightbox2/app/views/attachments/_links.html.erb
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/blank.gif
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/fancybox_loading.gif
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/fancybox_loading@2x.gif
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/fancybox_overlay.png
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/fancybox_sprite.png
+${RM_PLUGINDIR}/redmine_lightbox2/assets/images/fancybox_sprite@2x.png
+${RM_PLUGINDIR}/redmine_lightbox2/assets/javascripts/jquery.fancybox-3.5.7.min.js
+${RM_PLUGINDIR}/redmine_lightbox2/assets/javascripts/lightbox.js
+${RM_PLUGINDIR}/redmine_lightbox2/assets/stylesheets/jquery.fancybox-3.5.7.min.css
+${RM_PLUGINDIR}/redmine_lightbox2/assets/stylesheets/lightbox.css
+${RM_PLUGINDIR}/redmine_lightbox2/config/routes.rb
+${RM_PLUGINDIR}/redmine_lightbox2/init.rb
+${RM_PLUGINDIR}/redmine_lightbox2/lib/hooks/view_layouts_base_html_head_hook.rb
+${RM_PLUGINDIR}/redmine_lightbox2/lib/patches/attachments_patch.rb
+${RM_PLUGINDIR}/redmine_lightbox2/test/test_helper.rb

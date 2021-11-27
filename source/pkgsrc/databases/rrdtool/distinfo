@@ -1,0 +1,17 @@
+$NetBSD: distinfo,v 1.57 2019/05/29 17:49:36 adam Exp $
+
+SHA1 (rrdtool-1.7.2.tar.gz) = f0e54258b0f871099623e3a866751928abbb47af
+RMD160 (rrdtool-1.7.2.tar.gz) = 6916f8424c501e13b609257429fa37e0bd471d23
+SHA512 (rrdtool-1.7.2.tar.gz) = 453230efc68aeb4a12842d20a9d246ba478a79c2f6bfd9693a91837c1c1136abe8af177be64fe29aa40bf84ccfce7f2f15296aefe095e89b8b62aef5a7623e29
+Size (rrdtool-1.7.2.tar.gz) = 2883737 bytes
+SHA1 (patch-bindings_perl-shared_Makefile.PL) = 839b4474e89b59002d1629425c5839e4df3b8f5c
+SHA1 (patch-doc_Makefile.in) = 749309b6532fff991a89c317a57e24f91a2804d1
+SHA1 (patch-examples_Makefile.in) = 985e90539340c8bac9788e897c4b7b899fe9f6b1
+SHA1 (patch-examples_rrdcached_Makefile.in) = be06ac61b314e225d62f9f27da28c24fb6a1b84b
+SHA1 (patch-src_gettext.h) = 1254beedc267d901e154ea98599bdfddbe49ddc0
+SHA1 (patch-src_rrd__cgi.c) = f2004681d9d430b6d347627e029ce3c7a717bcd6
+SHA1 (patch-src_rrd__graph.c) = e53a925c329e477b198cdeaf6b50891187ee17c5
+SHA1 (patch-src_rrd__list.c) = 5d548b4196d7242565e23d6d74af1fc2d8be1ba0
+SHA1 (patch-src_rrd__restore.c) = 06cc3918fd685fc4dfbfdefcf39835a6b08f947c
+SHA1 (patch-src_rrd__strtod.c) = 6148276ba17eaaf1ef728db1d55bda18d67da83e
+SHA1 (patch-src_rrd__utils.c) = c6eb0c0c1e4656984cbd72fa1d1952af776bad4c

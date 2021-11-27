@@ -1,0 +1,11 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.2 2020/11/24 13:04:52 nia Exp $
+
+To use Yamagi Quake II, you must have a set of data files from the original
+Quake II.
+
+Place them in the ${PREFIX}/share/yquake2/baseq2 directory.
+
+Then run "quake2".
+
+===========================================================================

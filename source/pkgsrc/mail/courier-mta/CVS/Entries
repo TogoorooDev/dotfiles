@@ -1,0 +1,17 @@
+/DEINSTALL/1.2/Mon Oct 15 15:37:13 2007//Tpkgsrc-2021Q3
+/DESCR/1.1.1.1/Fri Apr 28 18:10:21 2006//Tpkgsrc-2021Q3
+/MESSAGE/1.2/Fri Aug 10 17:57:03 2007//Tpkgsrc-2021Q3
+/Makefile/1.61/Mon May 24 19:52:39 2021//Tpkgsrc-2021Q3
+/Makefile.common/1.16/Mon May 25 05:33:59 2020//Tpkgsrc-2021Q3
+/PLIST/1.11/Tue Mar 11 14:05:02 2014//Tpkgsrc-2021Q3
+/PLIST.dsn/1.2/Sun Jun 14 18:04:30 2009//Tpkgsrc-2021Q3
+/PLIST.esmtp/1.4/Tue Mar 11 14:05:02 2014//Tpkgsrc-2021Q3
+/PLIST.fax/1.2/Sun Jun 14 18:04:30 2009//Tpkgsrc-2021Q3
+/PLIST.ldap/1.2/Tue Mar 11 14:05:02 2014//Tpkgsrc-2021Q3
+/PLIST.local/1.2/Sun Jun 14 18:04:30 2009//Tpkgsrc-2021Q3
+/PLIST.uucp/1.2/Sun Jun 14 18:04:30 2009//Tpkgsrc-2021Q3
+/distinfo/1.21/Mon May 15 13:06:48 2017//Tpkgsrc-2021Q3
+/options.mk/1.12/Mon May 15 13:07:19 2017//Tpkgsrc-2021Q3
+/pkginstall.mk/1.8/Sat Jun  9 11:45:38 2012//Tpkgsrc-2021Q3
+D/files////
+D/patches////

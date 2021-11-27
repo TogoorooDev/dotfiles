@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.4 2020/12/01 14:55:54 fcambus Exp $
+bin/dasm
+bin/ftohex
+man/man1/dasm.1
+share/dasm/dasm.txt
+share/dasm/ftohex.txt

@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.4 2020/04/26 12:21:15 markd Exp $
+share/texmf-dist/doc/fonts/ipaex/IPA_Font_License_Agreement_v1.0.txt
+share/texmf-dist/doc/fonts/ipaex/README
+share/texmf-dist/doc/fonts/ipaex/Readme_IPAexfont00401.txt
+share/texmf-dist/doc/fonts/ipaex/Readme_IPAfont00303.txt

@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2020/05/12 11:56:28 markd Exp $
+share/texmf-dist/doc/latex/comicneue/README.md
+share/texmf-dist/doc/latex/comicneue/SIL-License.txt
+share/texmf-dist/doc/latex/comicneue/comicneue-otf-specimen.pdf
+share/texmf-dist/doc/latex/comicneue/comicneue-otf-specimen.tex
+share/texmf-dist/doc/latex/comicneue/comicneue-type1-specimen.pdf
+share/texmf-dist/doc/latex/comicneue/comicneue-type1-specimen.tex
+share/texmf-dist/doc/latex/comicneue/comicneue.pdf
+share/texmf-dist/doc/latex/comicneue/comicneue.tex

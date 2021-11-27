@@ -1,0 +1,15 @@
+/patch-src_common_runtime.cpp/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_love.cpp/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_audio_openal_Audio.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_audio_openal_Pool.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_event_sdl_Event.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_graphics_opengl_GLee.h/1.1/Sun Dec 22 22:26:04 2019//Tpkgsrc-2021Q3
+/patch-src_modules_graphics_opengl_Graphics.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_graphics_opengl_ParticleSystem.cpp/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_joystick_sdl_Joystick.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_keyboard_sdl_Keyboard.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_keyboard_sdl_wrap__Keyboard.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_mouse_sdl_Mouse.cpp/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_thread_sdl_Thread.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+/patch-src_modules_timer_sdl_Timer.h/1.1/Sun Sep 30 19:10:11 2018//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.3 2020/01/24 14:21:52 khorben Exp $
+bin/camera
+bin/gallery
+lib/Desktop/widget/camera.so
+man/html1/camera.html
+man/html1/gallery.html
+man/man1/camera.1
+man/man1/gallery.1
+share/applications/deforaos-camera.desktop
+share/applications/deforaos-gallery.desktop
+share/doc/Camera/COPYING
+share/locale/es/LC_MESSAGES/Camera.mo
+share/locale/fr/LC_MESSAGES/Camera.mo

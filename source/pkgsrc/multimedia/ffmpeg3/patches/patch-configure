@@ -1,0 +1,33 @@
+$NetBSD: patch-configure,v 1.7 2020/06/26 21:19:16 nia Exp $
+
+Enable PIC and section_data_rel_ro on NetBSD, even on i386,
+to avoid text relocations.
+
+--- configure.orig	2019-12-01 22:46:41.000000000 +0000
++++ configure
+@@ -4941,6 +4941,8 @@ case $target_os in
+         ;;
+     netbsd)
+         disable symver
++        enable pic
++        enable section_data_rel_ro
+         oss_indev_extralibs="-lossaudio"
+         oss_outdev_extralibs="-lossaudio"
+         enabled gcc || check_ldflags -Wl,-zmuldefs
+@@ -5361,10 +5363,13 @@ check_cc <<EOF && enable attribute_may_a
+ union { int x; } __attribute__((may_alias)) x;
+ EOF
+ 
+-check_cc <<EOF || die "endian test failed"
+-unsigned int endian = 'B' << 24 | 'I' << 16 | 'G' << 8 | 'E';
++check_exec <<EOF || enable bigendian
++int main()
++{
++ long one = 1;
++ return !(*((char *)(&one)));
++}
+ EOF
+-od -t x1 $TMPO | grep -q '42 *49 *47 *45' && enable bigendian
+ 
+ check_cc <<EOF && enable const_nan
+ #include <math.h>

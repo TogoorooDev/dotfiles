@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2018/02/18 05:01:02 rillig Exp $
+bin/jhead
+man/man1/jhead.1
+share/doc/jhead/usage.html

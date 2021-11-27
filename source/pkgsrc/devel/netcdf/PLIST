@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.10 2021/01/05 17:05:41 wiz Exp $
+bin/nc-config
+bin/nccopy
+bin/ncdump
+bin/ncgen
+bin/ncgen3
+bin/ocprint
+include/netcdf.h
+include/netcdf_mem.h
+include/netcdf_meta.h
+lib/libmisc.la
+lib/libnetcdf.la
+lib/libnetcdf.settings
+lib/pkgconfig/netcdf.pc
+man/man1/nccopy.1
+man/man1/ncdump.1
+man/man1/ncgen.1
+man/man1/ncgen3.1
+man/man3/netcdf.3

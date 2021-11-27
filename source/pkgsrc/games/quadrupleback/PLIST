@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2020/01/08 11:46:27 nia Exp $
+bin/quadrupleback
+share/applications/quadrupleback.desktop
+share/doc/${PKGNAME}/AUTHORS
+share/doc/${PKGNAME}/COPYING
+share/doc/${PKGNAME}/NEWS
+share/doc/${PKGNAME}/README
+share/doc/${PKGNAME}/THANKS
+share/pixmaps/quadrupleback.png
+share/quadrupleback/fonts/9x18B.fnt
+share/sounds/quadrupleback/enemyAppears.wav
+share/sounds/quadrupleback/enemyCaptured.wav
+share/sounds/quadrupleback/enemyTouched.wav

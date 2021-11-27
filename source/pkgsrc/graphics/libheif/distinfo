@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.10 2021/05/20 08:21:21 wiz Exp $
+
+SHA1 (libheif-1.12.0.tar.gz) = 7bc8ed78a2946949f137dcd9f86492de99aee2bd
+RMD160 (libheif-1.12.0.tar.gz) = f5a153cd28f7aeb6d147069284868fcd827dc8f1
+SHA512 (libheif-1.12.0.tar.gz) = 9e6f74dd52841a33b6021a1581ab28c56123d927caa7972acd284444e90888bbdae983b6d847d20eac7651dacea2193d27eb8df45928cb0774229ef8eea23294
+Size (libheif-1.12.0.tar.gz) = 1684355 bytes
+SHA1 (patch-configure) = 859f4ae06e77a79a723f2760d426c88787916a9c
+SHA1 (patch-examples_heif__info.cc) = ecc286a3a93741c57c2c717b0eba5861027bbe39
+SHA1 (patch-libheif_heif__hevc.cc) = 341b7c2a96ff6448b757bfe70b5d7e19acb04f1b

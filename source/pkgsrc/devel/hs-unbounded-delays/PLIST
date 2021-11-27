@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/24 05:12:04 pho Exp $
+lib/unbounded-delays-${PKGVERSION}/${HS_VERSION}/package-description
+lib/unbounded-delays-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Thread/Delay.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Thread/Delay.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Thread/Delay.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Timeout.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Timeout.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Control/Concurrent/Timeout.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/Control-Concurrent-Thread-Delay.html
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/Control-Concurrent-Timeout.html
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/unbounded-delays-${PKGVERSION}/html/unbounded-delays.haddock

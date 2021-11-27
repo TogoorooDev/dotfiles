@@ -1,0 +1,14 @@
+/patch-configure/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_include_libv4l1-videodev.h/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_include_libv4l2rds.h/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_include_libv4lconvert.h/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l-mplane_libv4l-mplane.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l1_libv4l1.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l2_libv4l2.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l2_log.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l2_v4l2convert.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4l2rds_libv4l2rds.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4lconvert_control_libv4lcontrol.c/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4lconvert_libv4lsyscall-priv.h/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+/patch-lib_libv4lconvert_processing_libv4lprocessing.h/1.1/Wed Sep  2 09:54:33 2020//Tpkgsrc-2021Q3
+D

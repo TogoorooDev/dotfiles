@@ -1,0 +1,16 @@
+/patch-configure/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-contrib_slapd-modules_cloak_Makefile/1.3/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-contrib_slapd-modules_nops_Makefile/1.3/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-contrib_slapd-modules_nops_nops.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-contrib_slapd-modules_nops_slapo-nops.5/1.1/Tue Jan 24 20:36:40 2012//Tpkgsrc-2021Q3
+/patch-contrib_slapd-modules_smbk5pwd_Makefile/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_libldap_Makefile.in/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_libldap_cyrus.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_libldap_init.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_libldap_ldap-int.h/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_libldap_os-local.c/1.1/Fri Jul 18 11:31:25 2014//Tpkgsrc-2021Q3
+/patch-libraries_libldap_thr__posix.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-libraries_liblutil_sha1.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-servers_slapd_Makefile.in/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+/patch-servers_slapd_back-sql_delete.c/1.1/Mon Aug 23 09:58:58 2021//Tpkgsrc-2021Q3
+D

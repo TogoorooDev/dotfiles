@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2019/10/24 20:43:21 nia Exp $
+bin/extresso
+bin/genresscript
+bin/icotool
+bin/wrestool
+man/man1/extresso.1
+man/man1/genresscript.1
+man/man1/icotool.1
+man/man1/wrestool.1
+share/locale/en@boldquot/LC_MESSAGES/icoutils.mo
+share/locale/en@quot/LC_MESSAGES/icoutils.mo

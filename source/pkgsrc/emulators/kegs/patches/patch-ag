@@ -1,0 +1,23 @@
+$NetBSD: patch-ag,v 1.2 2018/03/06 15:29:13 wiz Exp $
+--- src/vars_x86linux.orig	2004-12-07 00:42:47.000000000 +0000
++++ src/vars_x86linux
+@@ -2,11 +2,10 @@
+ TARGET = xkegs
+ OBJECTS = $(OBJECTS1) xdriver.o
+ CC = cc
+-CCOPTS = -O2 -Wall -fomit-frame-pointer -march=pentium
++CCOPTS = ${CFLAGS}
+ OPTS = -DKEGS_LITTLE_ENDIAN
+ SUFFIX =
+ NAME = xkegs
+-LDFLAGS =
+ LDOPTS =
+ LD = $(CC)
+ EXTRA_LIBS = -lXext
+@@ -15,5 +14,5 @@ EXTRA_SPECIALS =
+ AS = cc
+ PERL = perl
+ 
+-XOPTS = -I/usr/X11R6/include
++XOPTS = -I${X11BASE}/include
+ 

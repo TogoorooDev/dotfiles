@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.16 2021/09/04 11:13:02 mef Exp $
+
+SHA1 (nqp-2021.08.tar.gz) = d2073f021cc4bd6de771c15fdc9a7a48a3b9f8eb
+RMD160 (nqp-2021.08.tar.gz) = 304a44347f05247223824531e2be0efe2aa1b814
+SHA512 (nqp-2021.08.tar.gz) = fca1dc8c36f914304f97330cb33be3a94c539f3cb6cc80d898c734dcf04b12b8be30ffce358a0a5320c6ea56afd627f792b4a8fa3f94134776922ae088b92814
+Size (nqp-2021.08.tar.gz) = 5208527 bytes

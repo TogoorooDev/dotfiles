@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.3 2018/01/01 22:29:33 rillig Exp $
+share/doc/proggy-fonts/Licence.txt
+share/fonts/X11/misc/ProggyClean.pcf.gz
+share/fonts/X11/misc/ProggyCleanCP.pcf.gz
+share/fonts/X11/misc/ProggyCleanSZ.pcf.gz
+share/fonts/X11/misc/ProggyCleanSZBP.pcf.gz
+share/fonts/X11/misc/ProggyCleanSZCP.pcf.gz
+share/fonts/X11/misc/ProggySmall.pcf.gz
+share/fonts/X11/misc/ProggySquare.pcf.gz
+share/fonts/X11/misc/ProggySquareSZ.pcf.gz
+share/fonts/X11/misc/ProggyTiny.pcf.gz
+share/fonts/X11/misc/ProggyTinyBold.pcf.gz
+share/fonts/X11/misc/ProggyTinySZ.pcf.gz

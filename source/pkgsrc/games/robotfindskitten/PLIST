@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2018/01/01 22:29:35 rillig Exp $
+bin/robotfindskitten
+info/robotfindskitten.info
+man/man6/robotfindskitten.6

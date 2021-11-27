@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2020/08/11 13:38:14 nia Exp $
+bin/fuse-ext2
+bin/fuse-ext2.probe
+lib/pkgconfig/fuse-ext2.pc
+man/man1/fuse-ext2.1
+@pkgdir lib/umview/modules

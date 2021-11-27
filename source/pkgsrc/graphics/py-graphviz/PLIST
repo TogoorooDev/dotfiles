@@ -1,0 +1,27 @@
+@comment $NetBSD: PLIST,v 1.2 2018/07/17 13:05:47 adam Exp $
+${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
+${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
+${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
+${PYSITELIB}/${EGG_INFODIR}/requires.txt
+${PYSITELIB}/${EGG_INFODIR}/top_level.txt
+${PYSITELIB}/graphviz/__init__.py
+${PYSITELIB}/graphviz/__init__.pyc
+${PYSITELIB}/graphviz/__init__.pyo
+${PYSITELIB}/graphviz/_compat.py
+${PYSITELIB}/graphviz/_compat.pyc
+${PYSITELIB}/graphviz/_compat.pyo
+${PYSITELIB}/graphviz/backend.py
+${PYSITELIB}/graphviz/backend.pyc
+${PYSITELIB}/graphviz/backend.pyo
+${PYSITELIB}/graphviz/dot.py
+${PYSITELIB}/graphviz/dot.pyc
+${PYSITELIB}/graphviz/dot.pyo
+${PYSITELIB}/graphviz/files.py
+${PYSITELIB}/graphviz/files.pyc
+${PYSITELIB}/graphviz/files.pyo
+${PYSITELIB}/graphviz/lang.py
+${PYSITELIB}/graphviz/lang.pyc
+${PYSITELIB}/graphviz/lang.pyo
+${PYSITELIB}/graphviz/tools.py
+${PYSITELIB}/graphviz/tools.pyc
+${PYSITELIB}/graphviz/tools.pyo

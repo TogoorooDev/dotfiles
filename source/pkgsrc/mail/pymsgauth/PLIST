@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.5 2019/10/12 20:12:47 rillig Exp $
+share/doc/pymsgauth/BUGS
+share/doc/pymsgauth/CHANGELOG
+share/doc/pymsgauth/COPYING
+share/doc/pymsgauth/pymsgauth.html
+share/doc/pymsgauth/pymsgauth.txt
+share/examples/pymsgauth/pymsgauthrc-example
+share/pymsgauth/ConfParser.py
+share/pymsgauth/pymsgauth-clean
+share/pymsgauth/pymsgauth-confirm
+share/pymsgauth/pymsgauth-filter
+share/pymsgauth/pymsgauth-mail
+share/pymsgauth/pymsgauth.py

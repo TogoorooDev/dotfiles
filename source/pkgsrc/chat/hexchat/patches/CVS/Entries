@@ -1,0 +1,6 @@
+/patch-osx_launcher.sh/1.1/Sun Feb 15 17:41:24 2015//Tpkgsrc-2021Q3
+/patch-plugins_sysinfo_meson.build/1.2/Sat Dec 21 14:41:32 2019//Tpkgsrc-2021Q3
+/patch-plugins_sysinfo_unix_parse.c/1.2/Sat Mar 17 11:56:15 2018//Tpkgsrc-2021Q3
+/patch-plugins_sysinfo_unix_pci.c/1.1/Tue Aug 16 08:30:14 2016//Tpkgsrc-2021Q3
+/patch-plugins_sysinfo_unix_pci.h/1.1/Tue Aug 16 08:30:14 2016//Tpkgsrc-2021Q3
+D

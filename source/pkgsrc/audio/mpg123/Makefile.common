@@ -1,0 +1,52 @@
+# $NetBSD: Makefile.common,v 1.62 2021/09/05 23:39:52 thor Exp $
+#
+# used by audio/mpg123-jack/Makefile
+# used by audio/mpg123-nas/Makefile
+# used by audio/mpg123-pulse/Makefile
+
+DISTNAME=	mpg123-1.29.0
+PKGNAME?=	${DISTNAME:C/[[:alnum:]]*/&-${MPG123_MODULE}/}
+CATEGORIES=	audio
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mpg123/}
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	martin@NetBSD.org
+HOMEPAGE=	https://www.mpg123.org/
+COMMENT?=	Contains the ${MPG123_MODULE} module for mpg123
+LICENSE=	gnu-lgpl-v2.1
+
+USE_LANGUAGES=		c99
+USE_LIBTOOL?=		yes
+USE_TOOLS+=		pkg-config gmake
+GNU_CONFIGURE?=		yes
+CONFIGURE_ARGS+=	--enable-modules=yes --with-audio=${MPG123_MODULE}
+
+# Be prepared for installing things like mpg123-pulse, mpg123-jack,
+# to have the modules picked up automatically. On a system with pulse,
+# you do not want to go through alsa by default.
+.if !empty(MPG123_TRY_MODULES)
+CONFIGURE_ARGS+=	--with-default-audio=${MPG123_TRY_MODULES}
+.endif
+
+DISTINFO_FILE=		${.CURDIR}/../../audio/mpg123/distinfo
+
+CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
+
+.if !defined(MPG123_BUILDING_BASE)
+INSTALLATION_DIRS+=	lib/mpg123
+LIBS+=			-lmpg123
+BUILD_TARGET=		src/libout123/modules/output_${MPG123_MODULE}.la
+PATCHDIR=		${.CURDIR}/../../audio/mpg123/patches
+.include "../../mk/bsd.prefs.mk"
+.  if ${OPSYS} == "Darwin"
+SOEXT=  dylib
+.  else
+SOEXT=  so
+.  endif
+do-install:
+	mkdir -p ${DESTDIR}${PREFIX}/lib/mpg123
+	install ${WRKSRC}/src/libout123/modules/.libs/output_${MPG123_MODULE}.${SOEXT} \
+	  ${DESTDIR}${PREFIX}/lib/mpg123
+.endif
+
+.include "../../mk/dlopen.buildlink3.mk"

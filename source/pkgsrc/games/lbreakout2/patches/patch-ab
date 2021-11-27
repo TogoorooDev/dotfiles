@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2019/09/04 17:43:15 nia Exp $
+
+--- configure.orig	2015-10-17 16:10:12.000000000 +0000
++++ configure
+@@ -9025,7 +9025,7 @@ fi
+ 
+ 
+ 
+-if test "$sdlnet_flag" == "-DSDL_NET_ENABLED" ; then
++if test "$sdlnet_flag" = "-DSDL_NET_ENABLED" ; then
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lSDL_net" >&5
+ $as_echo_n "checking for main in -lSDL_net... " >&6; }
+ if ${ac_cv_lib_SDL_net_main+:} false; then :

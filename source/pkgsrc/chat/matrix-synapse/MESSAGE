@@ -1,0 +1,16 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.2 2021/04/15 15:54:00 jperkin Exp $
+
+To generate a Synapse configuration, run:
+
+cd ${SYNAPSE_DATA} &&
+${PYTHONBIN} -m synapse.app.homeserver \
+	--server-name my.domain.name \
+	--config-path ${PKG_SYSCONFDIR}/homeserver.yaml \
+	--config-directory ${PKG_SYSCONFDIR} \
+	--generate-config \
+	--report-stats=no
+
+If you want to use Synapse with SQLite3 on NetBSD, you need to add
+PREFER_PKGSRC+= sqlite3 to mk.conf and rebuild databases/py-sqlite3.
+===========================================================================

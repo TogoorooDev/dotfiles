@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2020/10/02 19:44:47 bsiegert Exp $
+bin/gopkgs

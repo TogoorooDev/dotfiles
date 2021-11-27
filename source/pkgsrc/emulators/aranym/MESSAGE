@@ -1,0 +1,7 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.2 2019/10/01 14:54:59 nia Exp $
+
+Before starting Aranym, copy the ${PREFIX}/share/doc/aranym/config file to
+~/.aranym/config.
+
+===========================================================================

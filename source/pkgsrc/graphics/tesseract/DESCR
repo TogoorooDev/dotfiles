@@ -1,0 +1,8 @@
+Tesseract provides an OCR engine and a command line program. It
+includes a new neural net (LSTM) based OCR engine which is focused on
+line recognition, but also still provides a legacy OCR engine which
+works by recognizing character patterns. Tesseract has Unicode (UTF-8)
+support, and can recognize more than 100 languages "out of the box".
+Tesseract can be trained to recognize other languages. It supports
+various output formats: plain text, hOCR (HTML), PDF,
+invisible-text-only PDF, and TSV.

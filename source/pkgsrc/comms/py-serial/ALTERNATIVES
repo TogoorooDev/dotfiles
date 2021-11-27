@@ -1,0 +1,2 @@
+bin/pyserial-miniterm @PREFIX@/bin/pyserial-miniterm-@PYVERSSUFFIX@
+bin/pyserial-ports @PREFIX@/bin/pyserial-ports-@PYVERSSUFFIX@

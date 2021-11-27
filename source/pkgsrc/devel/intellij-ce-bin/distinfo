@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2019/05/13 17:30:12 ryoon Exp $
+
+SHA1 (ideaIC-2019.1.2-no-jbr.tar.gz) = 785817efa7b432156863f2593f2c6a0ed29167cb
+RMD160 (ideaIC-2019.1.2-no-jbr.tar.gz) = 7ffb99253f0a2f3fb7f69f595ac43f6d88eaafda
+SHA512 (ideaIC-2019.1.2-no-jbr.tar.gz) = e0d71c478d6345f9bf1e09bdfdfdc87c432067ffb7c4e658d50aa0684c7df1bcded08013d3bbae9425c0c7a665f59f30200f545d1f0003e99ddbeb7d2bcc0493
+Size (ideaIC-2019.1.2-no-jbr.tar.gz) = 496372707 bytes
+SHA1 (patch-bin_idea.sh) = 5d00f879376af911f092df4408357f95092294c8

@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.4 2021/08/10 12:03:37 nia Exp $
+${PYSITELIB}/gajim/data/plugins/omemo/__init__.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/__init__.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/aes.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/devices.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/liteaxolotlstore.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/state.py
+${PYSITELIB}/gajim/data/plugins/omemo/backend/util.py
+${PYSITELIB}/gajim/data/plugins/omemo/file_crypto.py
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/__init__.py
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/config.py
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/config.ui
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/key.py
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/key.ui
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/progress.py
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/progress.ui
+${PYSITELIB}/gajim/data/plugins/omemo/gtk/style.css
+${PYSITELIB}/gajim/data/plugins/omemo/manifest.ini
+${PYSITELIB}/gajim/data/plugins/omemo/modules/__init__.py
+${PYSITELIB}/gajim/data/plugins/omemo/modules/omemo.py
+${PYSITELIB}/gajim/data/plugins/omemo/modules/util.py
+${PYSITELIB}/gajim/data/plugins/omemo/omemo.png
+${PYSITELIB}/gajim/data/plugins/omemo/omemo16x16.png
+${PYSITELIB}/gajim/data/plugins/omemo/plugin.py

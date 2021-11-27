@@ -1,0 +1,2 @@
+A Python slugify (replace non-ASCII characters with ASCII characters)
+application that handles unicode.

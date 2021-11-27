@@ -1,0 +1,26 @@
+3;;(require 'key-chord)
+
+(define-key global-map (kbd "M-t") nil)
+
+(global-set-key (kbd "M-s") 'other-window)
+
+(global-set-key (kbd "M-t M-j") 'tab-bar-switch-to-prev-tab)
+(global-set-key (kbd "M-t M-k") 'tab-bar-switch-to-next-tab)
+(global-set-key (kbd "M-t M-n") 'tab-bar-new-tab)
+(global-set-key (kbd "M-t M-w") 'tab-bar-close-tab)
+(global-set-key (kbd "M-t M-l") 'tab-bar-move-tab) 
+(global-set-key (kbd "M-t M-t") 'tab-bar-mode)
+
+;;(key-chord-define-global "C-m C-j" 'tab-bar-switch-to-prev-tab)
+;;(key-chord-define-global "C-m C-k" 'tab-bar-switch-to-next-tab)
+
+
+;; tab bindings
+(add-hook 'go-mode-hook '(lambda ()
+			   (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
+
+(add-hook 'go-mode-hook '(lambda ()
+			   (local-set-key (kbd "C-c C-g") 'go-goto-imports)))
+
+(add-hook 'go-mode-hook '(lambda ()
+			   (local-set-key (kbd "C-c C-f") 'go-fmt)))

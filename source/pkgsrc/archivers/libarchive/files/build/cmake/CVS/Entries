@@ -1,0 +1,14 @@
+/CheckFileOffsetBits.c/1.1.1.1/Sat Feb 20 03:48:54 2010//Tpkgsrc-2021Q3
+/CheckFileOffsetBits.cmake/1.2/Sat Jan 17 12:44:48 2015//Tpkgsrc-2021Q3
+/CheckFuncs.cmake/1.1.1.1/Sat Feb 20 03:48:54 2010//Tpkgsrc-2021Q3
+/CheckFuncs_stub.c.in/1.1.1.1/Sat Feb 20 03:48:54 2010//Tpkgsrc-2021Q3
+/CheckHeaderDirent.cmake/1.1.1.1/Sat Feb 20 03:48:54 2010//Tpkgsrc-2021Q3
+/CheckTypeExists.cmake/1.1.1.1/Sat Feb 20 03:48:54 2010//Tpkgsrc-2021Q3
+/CreatePkgConfigFile.cmake/1.2/Tue May 26 09:16:40 2020//Tpkgsrc-2021Q3
+/FindLibGCC.cmake/1.1/Sat Jan 17 12:44:48 2015//Tpkgsrc-2021Q3
+/FindMbedTLS.cmake/1.1/Tue May 26 09:16:40 2020//Tpkgsrc-2021Q3
+/FindNettle.cmake/1.1/Sat Jan 17 12:44:48 2015//Tpkgsrc-2021Q3
+/FindPCREPOSIX.cmake/1.1/Sat Jan 17 12:44:48 2015//Tpkgsrc-2021Q3
+/LibarchiveCodeCoverage.cmake/1.1.1.1/Mon Jun 20 17:11:42 2016//Tpkgsrc-2021Q3
+/config.h.in/1.9/Tue May 26 09:16:40 2020//Tpkgsrc-2021Q3
+D

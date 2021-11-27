@@ -1,0 +1,7 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.2 2019/03/16 00:44:22 manu Exp $
+
+Enable ltotape by setting the following in ${PKG_SYSCONFDIR}/ltfs.conf
+default tape ltotape
+plugin tape ltotape ${PREFIX}/lib/ltfs/libdriver-ltotape.so
+===========================================================================

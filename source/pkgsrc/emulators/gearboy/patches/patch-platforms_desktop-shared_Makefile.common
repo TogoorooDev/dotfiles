@@ -1,0 +1,36 @@
+$NetBSD: patch-platforms_desktop-shared_Makefile.common,v 1.3 2021/08/24 13:27:26 nia Exp $
+
+Avoid overriding variables we want to pass through pkgsrc.
+
+--- platforms/desktop-shared/Makefile.common.orig	2021-08-13 21:15:08.000000000 +0000
++++ platforms/desktop-shared/Makefile.common
+@@ -1,11 +1,5 @@
+-
+-CXX = g++
+-#CXX = clang++
+-
+ EXE = gearboy
+ 
+-GIT_VERSION := "$(shell git describe --abbrev=7 --dirty --always --tags)"
+-
+ EMULATOR_SRC=../../src
+ EMULATOR_DESKTOP_SHARED_SRC=../desktop-shared
+ EMULATOR_AUDIO_SRC=$(EMULATOR_SRC)/audio
+@@ -27,14 +21,14 @@ OBJS = $(addsuffix .o, $(basename $(notd
+ 
+ UNAME_S := $(shell uname -s)
+ 
+-CXXFLAGS = -I../ -I../../
++CXXFLAGS += -I../ -I../../
+ CXXFLAGS += -Wall -Wextra -Wformat -std=c++11 -DEMULATOR_BUILD=\"$(GIT_VERSION)\"
+ 
+ DEBUG ?= 0
+ ifeq ($(DEBUG), 1)
+-    CXXFLAGS +=-DDEBUG -g3
++    CXXFLAGS +=-DDEBUG
+ else
+-    CXXFLAGS +=-DNDEBUG -O3 -flto
++    CXXFLAGS +=-DNDEBUG
+ endif
+ 
+ SANITIZE ?= 0

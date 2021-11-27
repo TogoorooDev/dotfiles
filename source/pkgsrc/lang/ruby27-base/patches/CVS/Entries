@@ -1,0 +1,15 @@
+/patch-configure/1.2/Sun Apr 11 12:32:03 2021//Tpkgsrc-2021Q3
+/patch-ext_dbm_extconf.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_mkmf.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rdoc_encoding.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rdoc_ri_driver.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems.rb/1.2/Sun Apr 11 12:32:03 2021//Tpkgsrc-2021Q3
+/patch-lib_rubygems_commands_setup__command.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems_defaults.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems_dependency__installer.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems_install__update__options.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems_installer.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-lib_rubygems_platform.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-test_rubygems_test__gem.rb/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+/patch-thread__pthread.c/1.1/Sun Mar 15 15:26:22 2020//Tpkgsrc-2021Q3
+D

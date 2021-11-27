@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2019/10/06 15:54:38 nia Exp $
+bin/tea
+share/applications/tea.desktop
+share/icons/hicolor/128x128/apps/tea.png
+share/icons/hicolor/32x32/apps/tea.png
+share/icons/hicolor/48x48/apps/tea.png
+share/icons/hicolor/64x64/apps/tea.png
+share/icons/hicolor/scalable/apps/tea.svg

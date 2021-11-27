@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.4 2021/02/15 21:17:36 adam Exp $
+${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
+${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
+${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
+${PYSITELIB}/${EGG_INFODIR}/requires.txt
+${PYSITELIB}/${EGG_INFODIR}/top_level.txt
+${PYSITELIB}/immutables/__init__.py
+${PYSITELIB}/immutables/__init__.pyc
+${PYSITELIB}/immutables/__init__.pyo
+${PYSITELIB}/immutables/_map.c
+${PYSITELIB}/immutables/_map.h
+${PYSITELIB}/immutables/_map.pyi
+${PYSITELIB}/immutables/_map.so
+${PYSITELIB}/immutables/_testutils.py
+${PYSITELIB}/immutables/_testutils.pyc
+${PYSITELIB}/immutables/_testutils.pyo
+${PYSITELIB}/immutables/_version.py
+${PYSITELIB}/immutables/_version.pyc
+${PYSITELIB}/immutables/_version.pyo
+${PYSITELIB}/immutables/map.py
+${PYSITELIB}/immutables/map.pyc
+${PYSITELIB}/immutables/map.pyo
+${PYSITELIB}/immutables/py.typed
+${PYSITELIB}/immutables/pythoncapi_compat.h

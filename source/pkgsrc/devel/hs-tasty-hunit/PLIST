@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.2 2021/04/24 05:28:22 pho Exp $
+lib/tasty-hunit-${PKGVERSION}/${HS_VERSION}/package-description
+lib/tasty-hunit-${PKGVERSION}/${HS_VERSION}/package-id
+lib/${HS_PLATFORM}/libHS${HS_PKGID}-${HS_VER}.so
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Orig.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Orig.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Orig.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Steps.dyn_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Steps.hi
+lib/${HS_PLATFORM}/${HS_PKGID}/Test/Tasty/HUnit/Steps.p_hi
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}.a
+lib/${HS_PLATFORM}/${HS_PKGID}/libHS${HS_PKGID}_p.a
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/LICENSE
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/Test-Tasty-HUnit.html
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/doc-index.html
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/haddock-bundle.min.js
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/index.html
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/linuwial.css
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/meta.json
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/quick-jump.css
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/synopsis.png
+share/doc/${HS_PLATFORM}/tasty-hunit-${PKGVERSION}/html/tasty-hunit.haddock

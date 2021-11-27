@@ -1,0 +1,5 @@
+/patch-CMakeLists.txt/1.4/Sun Aug  9 14:37:22 2020//Tpkgsrc-2021Q3
+/patch-include_mgba-util_math.h/1.1/Sat Jun  8 22:46:03 2019//Tpkgsrc-2021Q3
+/patch-include_mgba-util_platform_posix_threading.h/1.2/Sat Jan 25 19:26:19 2020//Tpkgsrc-2021Q3
+/patch-src_platform_qt_InputController.cpp/1.1/Tue May  4 14:19:17 2021//Tpkgsrc-2021Q3
+D

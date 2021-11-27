@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2020/05/03 08:57:37 markd Exp $
+share/texmf-dist/metafont/base/mf.mf
+share/texmf-dist/metafont/base/plain.mf
+share/texmf-dist/metafont/config/cmmf.ini
+share/texmf-dist/metafont/config/mf.ini
+share/texmf-dist/metafont/misc/mode2dpi.mf
+share/texmf-dist/metafont/misc/mode2dpixy.mf
+share/texmf-dist/metafont/misc/modename.mf
+share/texmf-dist/metafont/misc/ps2mfbas.mf

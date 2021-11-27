@@ -1,0 +1,151 @@
+$NetBSD: patch-gcc_config.gcc,v 1.4 2018/11/09 11:22:13 mrg Exp $
+
+Workaround netbsd's compatibility non-C99 cabs (causes gfortran link failures)
+netbsd/arm eabi support
+
+use nbsd_tm_file to make sure every netbsd target gets netbsd-stdint.h
+(upstreamed)
+
+add arm64 support.
+
+--- gcc/config.gcc.orig	2018-01-08 13:39:11.000000000 +0000
++++ gcc/config.gcc	2018-11-09 09:20:10.688545085 +0000
+@@ -781,7 +781,12 @@
+   gas=yes
+   gnu_ld=yes
+   use_gcc_stdint=wrap
++# cabs/cabsf are renamed to __c99_cabs/cabsf
++  tm_p_file="${tm_p_file} netbsd-protos.h"
++  target_gtfiles="${target_gtfiles} \$(srcdir)/config/netbsd.c"
++  extra_objs="${extra_objs} netbsd.o"
+ 
++  nbsd_tm_file="netbsd.h netbsd-stdint.h netbsd-elf.h"
+   # NetBSD 2.0 and later get POSIX threads enabled by default.
+   # Allow them to be explicitly enabled on any other version.
+   case ${enable_threads} in
+@@ -962,6 +967,13 @@
+ 	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-freebsd.h"
+ 	tmake_file="${tmake_file} aarch64/t-aarch64 aarch64/t-aarch64-freebsd"
+ 	;;
++aarch64*-*-netbsd*)
++	tm_file="${tm_file} dbxelf.h elfos.h ${nbsd_tm_file}"
++	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-netbsd.h"
++	tmake_file="${tmake_file} aarch64/t-aarch64 aarch64/t-aarch64-netbsd"
++	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
++	# XXX big endian
++	;;
+ aarch64*-*-linux*)
+ 	tm_file="${tm_file} dbxelf.h elfos.h gnu-user.h linux.h glibc-stdint.h"
+ 	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-linux.h"
+@@ -1001,7 +1013,7 @@
+ 	extra_options="${extra_options} alpha/elf.opt"
+ 	;;
+ alpha*-*-netbsd*)
+-	tm_file="elfos.h ${tm_file} netbsd.h alpha/elf.h netbsd-elf.h alpha/netbsd.h"
++	tm_file="elfos.h ${tm_file} ${nbsd_tm_file} alpha/elf.h alpha/netbsd.h"
+ 	tmake_file="${tmake_file} alpha/t-alpha"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt \
+ 		       alpha/elf.opt"
+@@ -1092,10 +1104,37 @@
+ 	with_tls=${with_tls:-gnu}
+ 	;;
+ arm*-*-netbsdelf*)
+-	tm_file="dbxelf.h elfos.h netbsd.h netbsd-elf.h arm/elf.h arm/aout.h ${tm_file} arm/netbsd-elf.h"
+-	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
+ 	tmake_file="${tmake_file} arm/t-arm"
+-	target_cpu_cname="arm6"
++	tm_file="dbxelf.h elfos.h ${nbsd_tm_file} arm/elf.h"
++	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
++	case ${target} in
++	arm*eb-*) tm_defines="${tm_defines} TARGET_BIG_ENDIAN_DEFAULT=1" ;;
++	esac
++	case ${target} in
++	arm*-*-netbsdelf-*eabi*)
++	    tm_file="$tm_file arm/bpabi.h arm/netbsd-elf.h arm/netbsd-eabi.h"
++	    tmake_file="$tmake_file arm/t-bpabi arm/t-netbsdeabi"
++	    # The BPABI long long divmod functions return a 128-bit value in
++	    # registers r0-r3.  Correctly modeling that requires the use of
++	    # TImode.
++	    need_64bit_hwint=yes
++	    ;;
++	*)
++	    tm_file="$tm_file arm/netbsd-elf.h"
++	    tmake_file="$tmake_file arm/t-netbsd"
++	    ;;
++	esac
++	tm_file="${tm_file} arm/aout.h arm/arm.h"
++	case ${target} in
++	arm*-*-netbsdelf-*eabihf*)
++	    tm_defines="${tm_defines} TARGET_DEFAULT_FLOAT_ABI=ARM_FLOAT_ABI_HARD"
++	    ;;
++	esac
++	case ${target} in
++	armv4*) target_cpu_cname="strongarm";;
++	armv6*) target_cpu_cname="arm1176jzfs";;
++	armv7*) target_cpu_cname="cortexa8";;
++	esac
+ 	;;
+ arm*-*-linux-*)			# ARM GNU/Linux with ELF
+ 	tm_file="dbxelf.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h arm/elf.h arm/linux-gas.h arm/linux-elf.h"
+@@ -1485,12 +1524,14 @@
+ 	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h ${fbsd_tm_file} i386/x86-64.h i386/freebsd.h i386/freebsd64.h"
+ 	;;
+ i[34567]86-*-netbsdelf*)
+-	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h netbsd.h netbsd-stdint.h netbsd-elf.h i386/netbsd-elf.h"
++	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h ${nbsd_tm_file} i386/netbsd-elf.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
++	tmake_file="${tmake_file} i386/t-crtstuff"
+ 	;;
+ x86_64-*-netbsd*)
+-	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h netbsd.h netbsd-stdint.h netbsd-elf.h i386/x86-64.h i386/netbsd64.h"
++	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h ${nbsd_tm_file} i386/x86-64.h i386/netbsd64.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
++	tmake_file="${tmake_file} i386/t-crtstuff"
+ 	;;
+ i[34567]86-*-openbsd*)
+ 	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h"
+@@ -2381,7 +2422,7 @@
+ 	esac
+ 	;;
+ powerpc-*-netbsd*)
+-	tm_file="${tm_file} dbxelf.h elfos.h netbsd.h netbsd-elf.h freebsd-spec.h rs6000/sysv4.h rs6000/netbsd.h"
++	tm_file="${tm_file} dbxelf.h elfos.h ${nbsd_tm_file} freebsd-spec.h rs6000/sysv4.h rs6000/netbsd.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
+ 	tmake_file="${tmake_file} rs6000/t-netbsd"
+ 	extra_options="${extra_options} rs6000/sysv4.opt"
+@@ -2700,7 +2741,7 @@
+ 			fi
+ 			tm_file="${tm_file} gnu-user.h linux.h glibc-stdint.h sh/linux.h" ;;
+ 	sh*-*-netbsd*)
+-			tm_file="${tm_file} netbsd.h netbsd-elf.h sh/netbsd-elf.h"
++			tm_file="${tm_file} ${nbsd_tm_file} sh/netbsd-elf.h"
+ 			extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
+ 
+ 			;;
+@@ -2860,7 +2901,7 @@
+ 	fi
+ 	;;
+ sparc-*-netbsdelf*)
+-	tm_file="${tm_file} dbxelf.h elfos.h sparc/sysv4.h netbsd.h netbsd-elf.h sparc/netbsd-elf.h"
++	tm_file="${tm_file} dbxelf.h elfos.h sparc/sysv4.h ${nbsd_tm_file} sparc/netbsd-elf.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
+ 	extra_options="${extra_options} sparc/long-double-switch.opt"
+ 	tmake_file="${tmake_file} sparc/t-sparc"
+@@ -2908,7 +2949,7 @@
+ 	;;
+ sparc64-*-netbsd*)
+ 	tm_file="sparc/biarch64.h ${tm_file}"
+-	tm_file="${tm_file} dbxelf.h elfos.h sparc/sysv4.h netbsd.h netbsd-elf.h sparc/netbsd-elf.h"
++	tm_file="${tm_file} dbxelf.h elfos.h sparc/sysv4.h ${nbsd_tm_file} sparc/netbsd-elf.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt"
+ 	extra_options="${extra_options} sparc/long-double-switch.opt"
+ 	tmake_file="${tmake_file} sparc/t-sparc sparc/t-netbsd64"
+@@ -3012,7 +3053,7 @@
+ 	extra_options="${extra_options} vax/elf.opt"
+ 	;;
+ vax-*-netbsdelf*)
+-	tm_file="${tm_file} elfos.h netbsd.h netbsd-elf.h vax/elf.h vax/netbsd-elf.h"
++	tm_file="${tm_file} elfos.h ${nbsd_tm_file} vax/elf.h vax/netbsd-elf.h"
+ 	extra_options="${extra_options} netbsd.opt netbsd-elf.opt vax/elf.opt"
+ 	;;
+ vax-*-openbsd*)

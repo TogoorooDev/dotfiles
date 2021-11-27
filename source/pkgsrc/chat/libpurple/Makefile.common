@@ -1,0 +1,57 @@
+# $NetBSD: Makefile.common,v 1.54 2021/05/02 10:19:20 nia Exp $
+#
+# used by chat/finch/Makefile
+# used by chat/libpurple/Makefile
+# used by chat/pidgin/Makefile
+# used by chat/pidgin-sametime/Makefile
+# used by chat/pidgin-silc/Makefile
+
+PIDGIN_VERSION=	2.14.4
+DISTNAME=	pidgin-${PIDGIN_VERSION}
+CATEGORIES=	chat
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pidgin/}
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://www.pidgin.im/
+LICENSE=	gnu-gpl-v2
+
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		pkg-config gmake
+GNU_CONFIGURE=		yes
+
+PATCHDIR=		${.CURDIR}/../../chat/libpurple/patches
+DISTINFO_FILE?=		${.CURDIR}/../../chat/libpurple/distinfo
+
+CONFIGURE_ARGS+=	--disable-gtkui
+CONFIGURE_ARGS+=	--disable-consoleui
+CONFIGURE_ARGS+=	--disable-meanwhile
+CONFIGURE_ARGS+=	--disable-farstream
+CONFIGURE_ARGS+=	--disable-gstreamer
+CONFIGURE_ARGS+=	--disable-avahi
+CONFIGURE_ARGS+=	--disable-perl
+CONFIGURE_ARGS+=	--disable-tcl
+CONFIGURE_ARGS+=	--disable-tk
+CONFIGURE_ARGS+=	--disable-gnutls
+CONFIGURE_ARGS+=	--disable-nss
+CONFIGURE_ARGS+=	--disable-schemas-install
+CONFIGURE_ARGS+=	--disable-dbus
+CONFIGURE_ARGS+=	--disable-cyrus-sasl
+CONFIGURE_ARGS+=	--disable-debug
+CONFIGURE_ARGS+=	--disable-nm
+CONFIGURE_ARGS+=	--disable-vv
+
+CONFIGURE_ENV+=		ac_cv_path_GCONFTOOL="no"
+
+CPPFLAGS.SunOS+=	-D__EXTENSIONS__
+CFLAGS.SunOS+=		-Wno-error=implicit-function-declaration
+LDFLAGS.SunOS+=		-lnsl -lresolv
+
+PKGCONFIG_OVERRIDE+=	finch/finch.pc.in
+PKGCONFIG_OVERRIDE+=	finch/libgnt/gnt.pc.in
+PKGCONFIG_OVERRIDE+=	gaim.pc.in
+PKGCONFIG_OVERRIDE+=	libpurple/data/purple.pc.in
+PKGCONFIG_OVERRIDE+=	libpurple/data/purple-2.pc.in
+PKGCONFIG_OVERRIDE+=	pidgin/data/pidgin.pc.in
+PKGCONFIG_OVERRIDE+=	pidgin/data/pidgin-2.pc.in

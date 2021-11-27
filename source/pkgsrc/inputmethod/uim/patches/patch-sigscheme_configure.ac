@@ -1,0 +1,15 @@
+$NetBSD: patch-sigscheme_configure.ac,v 1.3 2021/04/03 05:13:07 ryoon Exp $
+
+Correct _XOPEN_SOURCE.
+
+--- sigscheme/configure.ac.orig	2020-08-24 21:28:26.000000000 +0000
++++ sigscheme/configure.ac
+@@ -227,7 +227,7 @@ AC_CHECK_FUNCS(memalign)
+ AC_CHECK_FUNCS(strdup,
+   [
+     # Overrides _POSIX_C_SOURCE
+-    AC_DEFINE(_XOPEN_SOURCE, 500)
++    AC_DEFINE(_XOPEN_SOURCE, 600)
+   ])
+ AH_VERBATIM(_XOPEN_SOURCE,
+ [/* Define to 500 to enable strdup(3). */

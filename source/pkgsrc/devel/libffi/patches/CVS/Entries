@@ -1,0 +1,14 @@
+/patch-configure/1.2/Fri Apr 24 10:19:32 2020//Tpkgsrc-2021Q3
+/patch-configure_host/1.2/Tue May  5 02:46:50 2020//Tpkgsrc-2021Q3
+/patch-src_aarch64_ffi.c/1.1/Fri Feb 28 22:37:24 2020//Tpkgsrc-2021Q3
+/patch-src_arm_sysv.S/1.9/Wed Apr  8 13:40:11 2020//Tpkgsrc-2021Q3
+/patch-src_closures.c/1.4/Fri Feb 28 18:14:28 2020//Tpkgsrc-2021Q3
+/patch-src_m68k_ffi.c/1.1/Wed Feb 26 19:15:44 2020//Tpkgsrc-2021Q3
+/patch-src_m88k_elfbsd.S/1.2/Mon Jan 25 17:56:39 2016//Tpkgsrc-2021Q3
+/patch-src_mips_ffi.c/1.1/Wed Feb 26 19:15:44 2020//Tpkgsrc-2021Q3
+/patch-src_mips_ffitarget.h/1.1/Wed Feb 26 19:15:44 2020//Tpkgsrc-2021Q3
+/patch-src_powerpc_ffi.c/1.1/Sat Mar 21 16:08:34 2020//Tpkgsrc-2021Q3
+/patch-src_powerpc_ffi__darwin.c/1.1/Thu Jul  9 09:42:58 2020//Tpkgsrc-2021Q3
+/patch-src_powerpc_ffi__powerpc.h/1.1/Sat Mar 21 16:08:34 2020//Tpkgsrc-2021Q3
+/patch-testsuite_libffi.call_float2.c/1.1/Wed Feb 26 19:15:44 2020//Tpkgsrc-2021Q3
+D

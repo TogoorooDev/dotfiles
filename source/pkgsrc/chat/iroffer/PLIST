@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.3 2018/01/01 22:29:20 rillig Exp $
+bin/iroffer
+share/doc/iroffer/COPYING
+share/doc/iroffer/README
+share/doc/iroffer/WHATSNEW
+share/examples/iroffer/iroffer.cron
+share/examples/iroffer/sample.config

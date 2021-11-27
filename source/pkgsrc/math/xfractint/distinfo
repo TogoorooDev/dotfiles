@@ -1,0 +1,23 @@
+$NetBSD: distinfo,v 1.14 2019/12/19 22:20:18 joerg Exp $
+
+SHA1 (xfractint-20.04p14.tar.gz) = fff0a713145ffd271c6ce4bf8ad657404959895a
+RMD160 (xfractint-20.04p14.tar.gz) = 8d69895ca3237caa76c9c1c93ee5abaeb77191c2
+SHA512 (xfractint-20.04p14.tar.gz) = 7d13c719f4f4b0680455b9b7f86644928d8145606973d208e5bf0d26b4f7b04ddbf8d2080ea35c872b21e079f1a116f3ef94e9acb36a45d43c16403c473e2acd
+Size (xfractint-20.04p14.tar.gz) = 1336285 bytes
+SHA1 (patch-Makefile) = 8cf2e46eb7dc720507827c6f61649a0c417ae71d
+SHA1 (patch-common_biginit.c) = 41a1bdf7f9fe36ffb1a1b68cff680d0f325bc097
+SHA1 (patch-common_fracsubr.c) = 8b2b1229cf0b596fb2991237f834d1f756d6b3ce
+SHA1 (patch-common_fractalb.c) = 37c07f9721f7854bb7e731e583255bfa69e4602c
+SHA1 (patch-common_fractals.c) = 147ad7576a703d851b258dcf2285c921f00912c3
+SHA1 (patch-common_fractint.c) = e3deac60b59bf2bf510a422c7516f6fc40242a28
+SHA1 (patch-common_frasetup.c) = 437fabb24fe719f8cef3a71e6752c9f2e0cc6c25
+SHA1 (patch-common_lsys.c) = 45829daabf07f43ace1e5d5c76ae6a22a31f8e1c
+SHA1 (patch-common_lsysf.c) = 0f2a7420647c8c62b7ff0c549eeba03dad84b734
+SHA1 (patch-common_memory.c) = c3e9cf9f1056041a91bd77001025a61f3b1aa477
+SHA1 (patch-common_miscres.c) = 835135f844491b1dbdb61070d27ad12c380a5bd8
+SHA1 (patch-common_prompts1.c) = 4ca3330a960a536d23e336609fce548d73fce92e
+SHA1 (patch-common_prompts2.c) = 2f5dde94b79aeb18e4c7c9a548e5a9c7febe02cc
+SHA1 (patch-common_soi.c) = d5c48bbc8d71c45e9ae98ac94dfd46ece6cee87d
+SHA1 (patch-common_soi1.c) = 72d5cb187512b34d87e660e316e3d95ab023e4f0
+SHA1 (patch-headers_externs.h) = fdd427cfe013f9d4e77486a537d60ade3488c493
+SHA1 (patch-headers_port.h) = 4f6be6b63369b5aa80400473ac82703de60dfd46

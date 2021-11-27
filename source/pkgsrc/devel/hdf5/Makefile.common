@@ -1,0 +1,36 @@
+# $NetBSD: Makefile.common,v 1.22 2021/06/07 11:52:48 adam Exp $
+# used by devel/hdf5/Makefile
+# used by devel/hdf5-c++/Makefile
+
+DISTNAME=	hdf5-1.10.7
+CATEGORIES=	devel
+MASTER_SITES=	https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${PKGVERSION_NOREV:R}/hdf5-${PKGVERSION_NOREV}/src/
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://www.hdfgroup.org/HDF5/
+LICENSE=	original-bsd
+
+USE_LIBTOOL=		yes
+USE_TOOLS+=		pax tr
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-examplesdir=${PREFIX}/share/examples/hdf5
+TEST_TARGET=		check
+
+CFLAGS.SunOS+=		-std=c99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
+
+DISTINFO_FILE=	${.CURDIR}/../../devel/hdf5/distinfo
+PATCHDIR=	${.CURDIR}/../../devel/hdf5/patches
+
+# These 2 files are not used in the build. They use [[ ... ]].
+CHECK_PORTABILITY_SKIP=	bin/snapshot hl/tools/h5watch/testh5watch.sh.in
+
+# it appears that this file is informative only and is not actually
+# used by any installed tools
+CHECK_WRKREF_SKIP=	${PREFIX}/lib/libhdf5.settings
+
+INSTALL_ENV+=		INSTALL_SCRIPT=${INSTALL_SCRIPT:Q}
+
+post-extract:
+	${CP} ${WRKSRC}/config/freebsd ${WRKSRC}/config/netbsd
+	${CP} ${WRKSRC}/config/freebsd ${WRKSRC}/config/netbsdelf

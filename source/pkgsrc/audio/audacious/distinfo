@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.18 2021/03/04 10:40:58 nia Exp $
+
+SHA1 (audacious-4.1.tar.bz2) = 4d0f25fcb820c258d4da2d473b8c6b7e9d95195f
+RMD160 (audacious-4.1.tar.bz2) = 3ae3c6d7319acf156dcacc6004b8090ea8499e3f
+SHA512 (audacious-4.1.tar.bz2) = 6e603108c245a146c3bb360e99d85e949b25a50a4d97eca6a0519cb457a93e8d73131504ae10f86c34c0e9d98fb5fdf6660accc0bb3bb480332cb674ac27ac9f
+Size (audacious-4.1.tar.bz2) = 586472 bytes
+SHA1 (patch-configure) = 9ad8216b272b124950036b1a8e8b65ac72564bbd
+SHA1 (patch-src_libaudcore_audio.h.in) = 621afba8a610ab0f30d064d5d9ed581e781de7d2

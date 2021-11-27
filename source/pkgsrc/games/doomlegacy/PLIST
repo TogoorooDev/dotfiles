@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.2 2020/05/19 11:20:16 micha Exp $
+bin/doomlegacy
+bin/doomlegacy.bin
+man/man6/doomlegacy.6
+share/doc/doomlegacy/INSTALL.pkgsrc
+share/doc/doomlegacy/legacy.css
+share/doc/doomlegacy/whatsnew.html
+share/doom/legacy.wad

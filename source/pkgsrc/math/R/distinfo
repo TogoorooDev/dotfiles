@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.89 2021/08/11 09:38:37 wen Exp $
+
+SHA1 (R-4.1.1.tar.gz) = a7c40a9bd7cb050a4fad6b7dba53e991e37e0fd1
+RMD160 (R-4.1.1.tar.gz) = d0eb885bb3f3da858e023b2983098e927af70aaa
+SHA512 (R-4.1.1.tar.gz) = 8eef82c0321f53a6a737bb641c4401626682fd01fa21e497ed2b8d6291d94ada47cee46b258bb3052f1097fc087c72982b2625c80420c8fb230ba8fcd962f254
+Size (R-4.1.1.tar.gz) = 33719965 bytes
+SHA1 (patch-configure.ac) = 2732e3e0a39ee64ae4cba5c476f4754ecbd14942
+SHA1 (patch-m4_R.m4) = 704d5514e10adf0b5217bb71b06f44a612eca6e0
+SHA1 (patch-src_library_stats_src_Makefile.in) = 4eb93292858392792c37a706399e2cef91821bbe
+SHA1 (patch-src_main_character.c) = 842ae5d291f36f2beead4d32c1d41b18cbff878d
+SHA1 (patch-src_main_printutils.c) = ce8bafa2525a91eca3adc3d9a60724d145116ce1

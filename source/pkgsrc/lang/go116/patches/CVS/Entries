@@ -1,0 +1,6 @@
+/patch-misc_ios_clangwrap.sh/1.1/Sat Dec 19 17:58:07 2020//Tpkgsrc-2021Q3
+/patch-src_cmd_dist_util.go/1.1/Sat Dec 19 17:58:07 2020//Tpkgsrc-2021Q3
+/patch-src_crypto_x509_root__bsd.go/1.1/Sat Dec 19 17:58:07 2020//Tpkgsrc-2021Q3
+/patch-src_crypto_x509_root__solaris.go/1.1/Tue Mar 30 15:08:57 2021//Tpkgsrc-2021Q3
+/patch-src_syscall_zsysnum__solaris__amd64.go/1.1/Sat Dec 19 17:58:07 2020//Tpkgsrc-2021Q3
+D

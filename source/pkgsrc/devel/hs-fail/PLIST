@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2021/04/23 06:18:23 pho Exp $
+lib/fail-${PKGVERSION}/${HS_VERSION}/package-description
+lib/fail-${PKGVERSION}/${HS_VERSION}/package-id
+share/doc/${HS_PLATFORM}/fail-${PKGVERSION}/LICENSE

@@ -1,0 +1,21 @@
+/patch-cmake_BTApplication.cmake/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_backend_bookshelfmodel_btbookshelftreemodel.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_backend_managers_clanguagemgr.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_bibletime.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_bibletime.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_bookshelfwizard_btbookshelfwizard.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_btaboutmoduledialog.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_btbookshelfdockwidget.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_btbookshelfwidget.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_btmodulechooserdialog.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_cmdiarea.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_display_modelview_btquickwidget.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_displaywindow_creadwindow.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_edittextwizard_btedittextwizard.h/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_keychooser_cbookkeychooser.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_keychooser_ckeychooserwidget.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_keychooser_cscrollerwidgetset.cpp/1.1/Fri Dec  4 12:17:58 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_keychooser_versekeychooser_btdropdownchooserbutton.cpp/1.1/Fri Dec  4 12:17:59 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_searchdialog_btsearchmodulechooserdialog.h/1.1/Fri Dec  4 12:17:59 2020//Tpkgsrc-2021Q3
+/patch-src_frontend_settingsdialogs_btconfigdialog.h/1.1/Fri Dec  4 12:17:59 2020//Tpkgsrc-2021Q3
+D

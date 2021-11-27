@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.9 2021/09/06 16:31:29 adam Exp $
+
+SHA1 (faudio-21.09.tar.gz) = 7eaf7da4d80524afb42330122938e1f7b13be53d
+RMD160 (faudio-21.09.tar.gz) = e71d4ae8c9e2288ba1a6a02842779ddbd2aa9f71
+SHA512 (faudio-21.09.tar.gz) = d6b95c8bb35c286ad3ed2cd12ea225e0a54da9a54e6ab86acda753823645482dda8f1826d7e5ad0a0687d685fc5628410e9b1972821df47b4657d9c8e75b27fa
+Size (faudio-21.09.tar.gz) = 1149052 bytes

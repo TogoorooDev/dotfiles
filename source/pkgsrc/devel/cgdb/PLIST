@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2020/10/14 05:32:16 kamil Exp $
+bin/cgdb
+info/cgdb.info
+share/cgdb/cgdb.txt

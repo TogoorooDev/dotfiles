@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2020/03/26 11:31:48 nia Exp $
+bin/nf-config
+include/netcdf.inc
+${PLIST.f90}include/netcdf.mod
+${PLIST.f90}include/typesizes.mod
+info/netcdf-f77.info
+info/netcdf-f77.info-1
+info/netcdf-f77.info-2
+info/netcdf-f90.info
+lib/libnetcdff.la
+lib/pkgconfig/netcdf-fortran.pc
+man/man3/netcdf_f77.3
+${PLIST.f90}man/man3/netcdf_f90.3

@@ -1,0 +1,12 @@
+/patch-configure/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_love.cpp/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_event_sdl_Event.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_filesystem_physfs_wrap__Filesystem.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_graphics_opengl_GLee.h/1.1/Sun Dec 22 22:26:04 2019//Tpkgsrc-2021Q3
+/patch-src_modules_joystick_sdl_Joystick.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_keyboard_sdl_Keyboard.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_mouse_sdl_Mouse.cpp/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_thread_sdl_threads.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_timer_sdl_Timer.h/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+/patch-src_modules_window_sdl_Window.cpp/1.1/Sun Sep 30 19:12:48 2018//Tpkgsrc-2021Q3
+D

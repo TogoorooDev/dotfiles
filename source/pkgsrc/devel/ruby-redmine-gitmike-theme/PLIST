@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.4 2021/02/28 16:13:44 taca Exp $
+${RM_THEMEDIR}/gitmike/gulpfile.js
+${RM_THEMEDIR}/gitmike/images/dark-overlay.png
+${RM_THEMEDIR}/gitmike/images/logo.png
+${RM_THEMEDIR}/gitmike/images/logo@2x.png
+${RM_THEMEDIR}/gitmike/package.json
+${RM_THEMEDIR}/gitmike/sass/_forms.scss
+${RM_THEMEDIR}/gitmike/sass/_invoice.scss
+${RM_THEMEDIR}/gitmike/sass/_ja.scss
+${RM_THEMEDIR}/gitmike/sass/_login.scss
+${RM_THEMEDIR}/gitmike/sass/_mainmenu.scss
+${RM_THEMEDIR}/gitmike/sass/_mixins.scss
+${RM_THEMEDIR}/gitmike/sass/_plugins.scss
+${RM_THEMEDIR}/gitmike/sass/_projects.scss
+${RM_THEMEDIR}/gitmike/sass/_responsive.scss
+${RM_THEMEDIR}/gitmike/sass/_settings.scss
+${RM_THEMEDIR}/gitmike/sass/_store.scss
+${RM_THEMEDIR}/gitmike/sass/_tables.scss
+${RM_THEMEDIR}/gitmike/sass/_tabs.scss
+${RM_THEMEDIR}/gitmike/sass/_themeheader.scss
+${RM_THEMEDIR}/gitmike/sass/_variables.scss
+${RM_THEMEDIR}/gitmike/sass/_wiki.scss
+${RM_THEMEDIR}/gitmike/sass/application.scss
+${RM_THEMEDIR}/gitmike/sass/config.rb
+${RM_THEMEDIR}/gitmike/stylesheets/application.css

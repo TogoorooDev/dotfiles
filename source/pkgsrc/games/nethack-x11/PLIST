@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.6 2019/10/24 11:52:08 pho Exp $
+bin/nethack-x11
+lib/X11/app-defaults/NetHack
+share/fonts/X11/misc/ibm.bdf
+share/fonts/X11/misc/nh10.bdf
+share/${NETHACK_DIR}/nethack.x11.rc
+share/${NETHACK_DIR}/pet_mark.xbm
+share/${NETHACK_DIR}/pilemark.xbm
+share/${NETHACK_DIR}/rip.xpm
+share/${NETHACK_DIR}/x11tiles

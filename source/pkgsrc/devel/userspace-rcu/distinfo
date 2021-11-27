@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.12 2020/07/01 00:40:48 manu Exp $
+
+SHA1 (userspace-rcu-0.12.1.tar.bz2) = 93ad363e3889e55fac7d35d406927e5925e40dd9
+RMD160 (userspace-rcu-0.12.1.tar.bz2) = c55faf01ed8cb2f222d8ec407b2bac91ef66ab7c
+SHA512 (userspace-rcu-0.12.1.tar.bz2) = c0c14eede77358904dfb10774390fd86b4fa9e0ab25d278c869728d40eb263bfa7e489b20ce7198169e71d74fe41bb5018fc1553a5e0654840c9765e088c83db
+Size (userspace-rcu-0.12.1.tar.bz2) = 527626 bytes
+SHA1 (patch-doc_examples_Makefile.am) = 0603f4a51ae591ba053fecde50d7dd515da1c16b
+SHA1 (patch-doc_examples_Makefile.in) = dbe769c167e8175590e3ea27dc5c24b3ec989bd5
+SHA1 (patch-include_urcu_syscall-compat.h) = 0656ba25229e07a007a7b382725e45919577995b

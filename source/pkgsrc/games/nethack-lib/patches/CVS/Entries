@@ -1,0 +1,12 @@
+/patch-ai/1.1/Wed Jun  1 11:20:29 2011//Tpkgsrc-2021Q3
+/patch-include_config.h/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-include_system.h/1.2/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-include_unixconf.h/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-src_mail.c/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-sys_unix_Makefile.doc/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-sys_unix_Makefile.src/1.3/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-sys_unix_Makefile.top/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-sys_unix_Makefile.utl/1.3/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-sys_unix_nethack.sh/1.1/Thu Oct 24 11:51:23 2019//Tpkgsrc-2021Q3
+/patch-util_recover.c/1.1/Wed Jan  8 16:55:13 2020//Tpkgsrc-2021Q3
+D

@@ -1,0 +1,19 @@
+$NetBSD: patch-configure,v 1.7 2020/05/01 00:08:22 joerg Exp $
+
+Patch for solaris nice name
+
+--- configure.orig	2013-12-13 12:58:12.000000000 +0000
++++ configure
+@@ -13062,8 +13062,11 @@ case "$host_os" in
+    mingw32ce*)
+       MODULE_ARCH="$host_os-$host_cpu"
+       ;;
++   solaris*)
++      MODULE_ARCH="solaris-$host_cpu-1.7.10"
++      ;;
+    *)
+-      MODULE_ARCH="$host_os-$host_cpu-1.7.10"
++      MODULE_ARCH="${host_os%-gnu}-$host_cpu-1.7.10"
+       ;;
+ esac
+ 
